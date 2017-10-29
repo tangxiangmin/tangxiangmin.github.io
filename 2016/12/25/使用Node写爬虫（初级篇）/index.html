@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">使用Node.js写爬虫（初级篇）</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/12/25 20:18:40</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>最近两周，写爬虫写出魔怔了。很早之前就打算用Python写爬虫，可一直没有时间重新学习Python。刚好现在正在学习Nodejs，用JS写爬虫，实际上也很酷炫。额当然我现在也只会爬一些很简单的静态爬虫，这篇文章主要是整理一下这两周的心得，由于我也是爬虫菜鸟，如果有错误的地方还请指正，感激不尽。</p>
+<a id="more"></a>
+<h2 id="什么是爬虫"><a href="#什么是爬虫" class="headerlink" title="什么是爬虫"></a>什么是爬虫</h2><p>下面是百度百科的关于爬虫的定义:</p>
+<blockquote>
+<p>网络爬虫（又被称为网页蜘蛛，网络机器人，web crawler），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。</p>
+</blockquote>
+<p>没必要去记住这些定义，我觉得，在浏览网页的时候，我们自己就是一个爬虫，在互联网上获取想要的信息，只是我们浏览网页的速度很慢，而预先写一个脚本，先将相关网页上的信息整理出来，这种获取数据的方式可以节省大量的时间————更重要的是，这真的很酷！<br>过去的几天，我爬了糗事百科，暴走日报以及某个表情包网站。想一想，短短几秒钟就可以获取数千条笑话和表情图片，这让我感觉到满满的成就感（哈哈我就这点追求了）。</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>那么，言归正传，一个爬虫可以工作可以拆分为两步：</p>
+<ul>
+<li>获取目标网页的内容</li>
+<li>分析并提取网页的内容</li>
+<li>保存收获的内容</li>
+</ul>
+<p>先来学习最基本的爬虫吧。</p>
+<h3 id="获取网页内容"><a href="#获取网页内容" class="headerlink" title="获取网页内容"></a>获取网页内容</h3><p>跟我们访问网页一样，爬虫也是通过向Web服务器发起HTTP请求，然后等待并接收响应报文的。我们要做的就是提供一个url，剩下的事情（包括怎么建立TCP连接，怎么发送和接收报文，怎么传输数据）都不用我们管了。我们使用浏览器输入网址访问网页，不也是一样的嘛~<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// http模块用于发起和接收http请求</span></div><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 提供一个url</span></div><div class="line"><span class="keyword">var</span> href = <span class="string">'http://www.qiushibaike.com/'</span>;</div><div class="line"></div><div class="line"><span class="comment">// 发起请求并接收响应</span></div><div class="line">http.get(href,<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</div><div class="line">	<span class="comment">// 存放网页数据</span></div><div class="line">    <span class="keyword">var</span> pageData = <span class="string">''</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 在data事件中持续接收数据</span></div><div class="line">    res.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</div><div class="line">        pageData += chunk;</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    res.on(<span class="string">"error"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'something wrong!'</span>);</div><div class="line">    &#125;)</div><div class="line">	<span class="comment">// end事件表明整个网页数据已经下载完成</span></div><div class="line">    res.on(<span class="string">"end"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">err,res</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</div><div class="line">        </div><div class="line">        <span class="comment">//整个网页的数据都保存在pageDate变量中等待下一步处理</span></div><div class="line">        <span class="built_in">console</span>.log(pageData);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>你看，整个爬去网页的过程完全不用我们干些什么。稍微思考一下，网站中的数据分页，其URL都是按照一定规律组成的（一般都是拼页码的GET参数），使用一个循环，就可以获取很多链接并使爬虫在极短的时间内完成对相应页面内容的下载。<br>再思考一下，一个网页并不是独立的存在于网站中：页面中包含大量的a标签，我们可以从获取到的数据中提取出相关的链接，然后重复爬取相应链接的页面，如此重复，爬取整个互联网的全部网页，指日可待了！（哈哈，当然事情远比这复杂的多，不过，最基本的爬虫原理大概就是这样）</p>
+<h3 id="提取网页内容"><a href="#提取网页内容" class="headerlink" title="提取网页内容"></a>提取网页内容</h3><p>从页面中提取所需要的信息至关重要，这时候就要用到酷炫的正则表达式了。一般情况下（绝大部分情况下），需要的信息都被某个特定的标签所包围或者是就保存在某个标签的属性中，这些标签具有特定的类名或者id名（这对于我们这些切页面的来说实在是太熟悉了）。可以使用开发者工具快速确定所需信息所处的标志标签，再使用一个分组，就可以完美地将信息提取出来。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 通过观察可以发现，我们需要的信息如下嵌在页面中</div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content-text"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/article/118257676"</span> <span class="attr">onclick</span>=<span class="string">"_hmt.push(['_trackEvent', 'list_content', 'chick']);"</span> &gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">span</span>&gt;</span></div><div class="line"></div><div class="line">            有一个爱打麻将的老妈是一种怎样的体验呢？<span class="tag">&lt;<span class="name">br</span>/&gt;</span>开店中，生意不大好。老妈打电话来说，店里生意怎样啊，不好吧，不好就抓紧回来吃饭，你大姨和大姨夫被留在这吃饭了，三缺一啊。。。。<span class="tag">&lt;<span class="name">br</span>/&gt;</span>心好累</div><div class="line"></div><div class="line">            <span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>于是可以封装一个函数从页面中提取全部有用的信息。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getInfo</span>(<span class="params">htmlStr</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> info = <span class="string">''</span>;</div><div class="line">    <span class="keyword">var</span> re = <span class="regexp">/class="content-text"[^]*?&lt;span&gt;([^]*?)&lt;\/span&gt;/g</span>;</div><div class="line">    <span class="keyword">var</span> res = <span class="literal">null</span>;</div><div class="line">    <span class="keyword">while</span> (res = re.exec(htmlStr))&#123;</div><div class="line">        info += res[<span class="number">1</span>] + <span class="string">'\r\n'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> info;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在循环中可以对单条数据进行一些其他操作比如换行，编号等你想做的任何操作。<br>提取网页信息最重要的操作就是学会正则表达式，在某些时候，如果一次性写出合适的正则比较困难，可以通过多个正则表达式从大范围缩小到具体的标签，然后再进行处理，拿上面段HTML代码举例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> re = <span class="regexp">/class="content-text"([^]+?)&lt;\/div&gt;/g</span>;</div><div class="line"><span class="keyword">var</span> re2 = <span class="regexp">/&lt;span&gt;([^]+?)&lt;\/span&gt;/</span>;</div><div class="line"><span class="keyword">var</span> res = <span class="literal">null</span>;</div><div class="line"><span class="keyword">var</span> info = <span class="string">''</span>;</div><div class="line"><span class="keyword">while</span>(res = re.exec(htmlStr))&#123;</div><div class="line">    info +=  <span class="string">'\r\n'</span> + re2.exec(res[<span class="number">1</span>])[<span class="number">1</span>].trim() + <span class="string">'\r\n'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>尽管在这个例子不太明显，在某些时候这种办法还是挺有效的，因为所需信息的标识各不相同，因此这些爬虫的正则一般都是一次性的，对于出学者而言，提取到正确信息才是最重要的。当然，处于性能和学习的目的，深入学习正则表达式是很有必要的（我现在只是一个菜鸡…）</p>
+<h3 id="保存网页内容"><a href="#保存网页内容" class="headerlink" title="保存网页内容"></a>保存网页内容</h3><p>实际上保存提取的信息已经不能算在是爬虫的范围内了，因为我们可以采用多种方式保存数据：从基本的文本文件到系统的数据库，都可以用来保存信息。根据各自的需求，选取合适的保存方式。<br>我现在爬取的都是简单的文本和图像，因此直接保存使用文本和文件夹来保存在本地的，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 引入nodejs的文件系统</span></div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line">res.on(<span class="string">"end"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    pageInfo = getContent(pageDate);</div><div class="line">    <span class="comment">// 保存所需信息</span></div><div class="line">    fs.appendFile(<span class="string">'demo2.html'</span>,pageInfo,<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"success"</span>);</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>关于文件保存这一块，现在并没有深入地了解，只是大致看了相关的API，因此有待学习。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>看吧，一个简单的爬虫就这么完成了，并不是什么高级复杂的东西。用到的知识也就是有：</p>
+<ul>
+<li>HTTP请求与响应</li>
+<li>正则表达式</li>
+<li>文件IO</li>
+</ul>
+<p>实际上，现在已经有很多成熟的爬虫框架（或工具），这些框架能够让我们更好地专注于所需要获取的信息，而不是爬虫代码方面的东西（当然，了解爬虫的原理还是很有学习意义的）。</p>
+<h2 id="NodeJS爬虫工具"><a href="#NodeJS爬虫工具" class="headerlink" title="NodeJS爬虫工具"></a>NodeJS爬虫工具</h2><p>社区里面提供了大量的爬虫工具，有专门用于网页请求的，有处理请求并发的，有解析页面内容的等等，数不胜数，我在最近的学习中，接触到了几个比较好用的工具</p>
+<h3 id="superagent"><a href="#superagent" class="headerlink" title="superagent"></a>superagent</h3><p><a href="http://visionmedia.github.io/superagent/" target="_blank" rel="external">SuperAgent</a>，一个用于发起网页请求和接受响应的库，提供链式的KPI接口，可以使用它替代基础的http模块<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> superanget = <span class="built_in">require</span>(<span class="string">'superagent'</span>);</div><div class="line"><span class="keyword">var</span> href = <span class="string">'http://www.qiushibaike.com/'</span>;</div><div class="line"></div><div class="line">superanget.get(href).end(<span class="function"><span class="keyword">function</span> (<span class="params">err,res</span>) </span>&#123;</div><div class="line">	<span class="comment">// 网页内容保存在res.text属性中</span></div><div class="line">    <span class="built_in">console</span>.log(res.text);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>superagent提供的方法远不止这些基础的请求，诸如爬去需要cookie验证登陆的网站（知乎，微博等），就需要对爬虫做进一步的处理，这是我接下来的学习任务之一。</p>
+<h3 id="cheerio"><a href="#cheerio" class="headerlink" title="cheerio"></a>cheerio</h3><p><a href="https://github.com/cheeriojs/cheerio" target="_blank" rel="external">cheerio</a>，当作服务端的jQuery使用，学DOM的用处终于体现出来，提取数据真的太方便了。<br>使用cheerio，我们甚至不需要写一行正则表达式，就可以通过向操作DOM树一样，快速的解析目标信息，最关键的是，cheerio提供了jQuery一模一样的接口！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 初始化$对象，当然也可以取个其他的名字</span></div><div class="line"><span class="keyword">var</span> $ = cheerio.load(res.text);</div><div class="line"><span class="comment">// 真的是一模一样的用法哦</span></div><div class="line">$(<span class="string">".content span"</span>).each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    pageInfo += $(<span class="keyword">this</span>).text() + <span class="string">'\r\n'</span>;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(pageInfo);</div></pre></td></tr></table></figure></p>
+<p>使用cheerio似乎可以完全不用再学习正则表达式了，然而，写爬虫的乐趣之一不就是处理文本的成就感嘛（对我来说）。不过对于使用NodeJs写爬虫的前端来说，cheerio跟我们的日常习惯真的是太搭了，哈哈。</p>
+<h3 id="eventproxy"><a href="#eventproxy" class="headerlink" title="eventproxy"></a>eventproxy</h3><p><a href="https://github.com/JacksonTian/eventproxy" target="_blank" rel="external">eventproxy</a>，用于解决回调地狱的一个方案，通过事件监控异步程序，以一种优雅的方式解决多重异步嵌套的问题。</p>
+<p>NodeJs里面使用了大量的回调来实现异步，但是，如果后面的操作需要异步的结果才能进行（比如先爬去获得了网页上所有图片的链接，然后去根据链接去爬取每个图片），之前的解决办法是多重嵌套实现。这样做的话，代码看起来会非常恐怖。</p>
+<p>eventproxy通过事件来解决这个问题的。NodeJS里面的事件系统十分重要，然而我也还没有开始学习，接下来又有事情做了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最近正在阅读《计算机网络》和学习NodeJs，而之前又学习了一段时间的正则表达式，恰好碰在一起，写爬虫真是太合适不过了。爬虫是一件很有意思的事情，期待之后的学习发现更多有意思的事情。我还打算学习一些Canvas，然后写小游戏玩玩…</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/正则" class="article_tag">#正则</a>
+        
+        <a href="/tags/NodeJS" class="article_tag">#NodeJS</a>
+        
+        <a href="/tags/爬虫" class="article_tag">#爬虫</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是爬虫"><span class="toc-number">1.</span> <span class="toc-text">什么是爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础"><span class="toc-number">2.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取网页内容"><span class="toc-number">2.1.</span> <span class="toc-text">获取网页内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取网页内容"><span class="toc-number">2.2.</span> <span class="toc-text">提取网页内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保存网页内容"><span class="toc-number">2.3.</span> <span class="toc-text">保存网页内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">2.4.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NodeJS爬虫工具"><span class="toc-number">3.</span> <span class="toc-text">NodeJS爬虫工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#superagent"><span class="toc-number">3.1.</span> <span class="toc-text">superagent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cheerio"><span class="toc-number">3.2.</span> <span class="toc-text">cheerio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eventproxy"><span class="toc-number">3.3.</span> <span class="toc-text">eventproxy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">安卓入门之视图与布局</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/6/1 23:37:28</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/Android" class="hover-highlight">Android</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>想去了解一下<code>React Native</code>和<code>Weex</code>，转念一想我特么去学<code>Native</code>干嘛？然后现在准备先学习安卓了，在折腾了相关的环境配置并成功跑完<code>Hello World</code>之后，开始试着用前端的思维来理解和学习安卓。下面是关于安卓中样式布局的整理。</p>
+<a id="more"></a>
+<p>就目前我接触到的东西来看，安卓布局跟网页布局有不少相似之处。现在web前端正在往组件化方向发展，像<code>Vue</code>等框架都实现了<code>Component</code>系统；而安卓内置了大量的<code>View</code>类，代表着不同的视图（“组件”）。<br>对于<code>View</code>视图这个称谓我到现在都耿耿于怀，明明组件（或者控件）更合适嘛~然而安卓<strong>四大组件</strong>已经提前把”组件”的称为给拿去了，既然如此，像复选框之类的还是入乡随俗叫做视图吧。</p>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>所有在屏幕中可以看见的都是视图。<code>View</code>是一个超类，所有视图都是从它派生出去的，这里转一个图，理清视图之间的关系。<br><img src="http://upload-images.jianshu.io/upload_images/1306890-a329e94168459de2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&amp;_=6539190" alt="view继承"></p>
+<h3 id="基础视图"><a href="#基础视图" class="headerlink" title="基础视图"></a>基础视图</h3><p>安卓内置了大量的视图控件，在<code>Android Studio</code>中的布局<code>Design</code>中可以通过拖拽的方式拜访控件（为什么我立马就联想到了<code>Dreamwaver</code>~）。好吧，还是老老实实背属性吧，根据经验，这种可视化的布局真的是个坑，不过用来快速写标签还是不错的。</p>
+<p>常用的视图控件有：</p>
+<ul>
+<li><code>TextView</code>，用于放置文本标签，类似于<code>span</code>（这个类似貌似没有任何意义）</li>
+<li><code>Button</code>，默认按钮，类似于<code>button</code></li>
+<li><code>EditText</code>，文本输入框，类似于<code>input[type=text]</code></li>
+<li><code>ImageView</code>，图片，类似于<code>img</code></li>
+<li><code>RadioButton</code>，单选框，类似于<code>radio</code></li>
+<li><code>Checkbox</code>，复选框，类似于<code>checkbox</code></li>
+<li><code>Menu</code>，菜单，这个貌似是个新东西</li>
+</ul>
+<p>大部分基础视图控件都可以类比为HTML中的各种标签，每个控件都有通用的属性 ，也可能会有自身独特的属性（跟Web中也很相似）。由于现在赶时间，因此都是对着文档写demo的，附<a href="http://www.android-doc.com/sdk/" target="_blank" rel="external">官方文档</a>。PS：安卓中好像没有网页上那么严重依赖元素嵌套进行布局，所以UI这块不必过于担心。</p>
+<p>除了基础视图控件，还有一些高级控件（使用起来要繁琐一些），在今后的学习中慢慢补充了。</p>
+<h3 id="列表视图（List-View）"><a href="#列表视图（List-View）" class="headerlink" title="列表视图（List View）"></a>列表视图（List View）</h3><p>列表视图是一种很常见的视图，用于展示相同布局的数据列表，可以类比为网页中的<code>ul</code>,<code>ol</code>等，但是实现列表视图要麻烦一些：</p>
+<ul>
+<li>列表视图只是一个容器，需要额外定义列表内部每个条目的布局，可以类比为<code>li</code></li>
+<li>列表视图需要用数据去填充，数据需要通过适配器<code>ArrayAdapter</code>转换才能传递给<code>ListView</code></li>
+</ul>
+<p>因此，实现列表视图的工作主要就是上面两步。</p>
+<p><strong>定义布局</strong><br>由于数据只是准备了最简单的字符串数组，因此一个<code>TextView</code>就够了<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">TextView</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"fill_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"fill_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">"10dp"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:textSize</span>=<span class="string">"16sp"</span> &gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">TextView</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>数据适配</strong><br>在实际的项目中，对应的列表数据一般会复杂一点，因此适配器一般是需要自定义的，不过这里的单条数据只是一个字符串，因此食用内置的<code>ArrayAdapter</code>就可以了<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> String[] COUNTRIES = <span class="keyword">new</span> String[] &#123; <span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"4"</span>, <span class="string">"5"</span>&#125;;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        </div><div class="line">        <span class="comment">// mylist布局上存在一个ListView容器，其id为list_view</span></div><div class="line">        setContentView(R.layout.mylist);</div><div class="line"></div><div class="line">        <span class="comment">// 数据适配，listitem就是列表条目的布局</span></div><div class="line">        ArrayAdapter&lt;String&gt; adpt = <span class="keyword">new</span> ArrayAdapter&lt;String&gt;(<span class="keyword">this</span>, R.layout.listitem, COUNTRIES);</div><div class="line">        <span class="comment">// 为ListView设置适配器</span></div><div class="line">        ListView lv = (ListView) findViewById(R.id.list_view);</div><div class="line">        lv.setAdapter(adpt);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>貌似内置了一个<code>ListActivity</code>类，可以将上面的操作进行简化，这里就不展开了。此外，在很多时候内置的适配器并不能满足我们的需求（一个条目可能会展示相当多的信息），因此需要自定义适配器，这里有不少坑我打算开另外一篇文章了，先挖个坑。</p>
+<h3 id="网格视图（Grid-View）"><a href="#网格视图（Grid-View）" class="headerlink" title="网格视图（Grid View）"></a>网格视图（Grid View）</h3><p>以二维的、滚动的网格显示它的子视图（view）元素</p>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>在web端有浮动布局，定位布局，表格布局，网格布局，flex布局等，在安卓上也有类似的概念，并且在实现上比网页要简单得多（或者说“死板”很多）。</p>
+<h3 id="线性布局（Linear-Layout）"><a href="#线性布局（Linear-Layout）" class="headerlink" title="线性布局（Linear Layout）"></a>线性布局（Linear Layout）</h3><p>线性布局是一个以线性方向显示它的子视图元素的布局，可以类比网页中的<code>flex</code>来理解（我现在十分怀疑<code>flex</code>布局是不是参考这个线性布局的。）</p>
+<p>需要掌握的几个布局属性是</p>
+<ul>
+<li><code>orientation: horizontal | vertical</code>，指定布局的方向，跟<code>flex-direction</code>类似</li>
+<li><code>layout_weight: number</code>，指定视图的尺寸权重值，跟<code>flex-grow</code>与<code>flex-shrink</code>属性类似，默认为0</li>
+<li><code>layout_gravity: top | center | bottom</code>，指定控件在布局中的对齐方式（该属性受布局方向的影响），跟<code>justify-content</code>类似</li>
+</ul>
+<p>安卓的布局中，屏幕适配是一个很大的问题，因此在布局中最好使用自适应而非固定的尺寸，线性布局是最常用的布局。</p>
+<h3 id="相对布局（Relative-Layout）"><a href="#相对布局（Relative-Layout）" class="headerlink" title="相对布局（Relative Layout）"></a>相对布局（Relative Layout）</h3><p>相对布局是一个以相对位置显示它的子视图元素的布局，所谓的相对位置既可以是相对于父元素的位置（上下左右），也可以是相对于兄弟视图的位置（各种对齐）。可以参考网页中的<code>position:relative</code>相对定位来理解，区别在于参照物不同</p>
+<ul>
+<li>在网页中，相对定位是相对于自身原本在文档流中的位置</li>
+<li>在安卓中，相对定位需要显示指定参照对象，然后设置对应偏移属性</li>
+</ul>
+<p>需要掌握的几个布局属性是</p>
+<ul>
+<li><code>layout_alignParentLeft/Top/Right/Bottom: true | false</code>，是否靠近父元素对应的边，如果在两个相反的方向上都设置为真，则会拉长对应控件的尺寸</li>
+<li><code>layout_centerInParent/Horizontal/Vertical: true | false</code>，在对应方向上居中，这个比网页要简单得多</li>
+<li><code>layout_above/below/toRightOf/toLeftOf: @id/siblingViewId</code>，相对定位于兄弟元素对应方位</li>
+<li><code>layout_alignLeft/Right/Top/Bottom: @id/siblingViewId</code>，让两个控件对应边对齐</li>
+</ul>
+<p>这样的话如果参照控件的位置发生改变，那是不是所有后续元素的布局都会改变呢？</p>
+<h3 id="表格布局（Table-Layout）"><a href="#表格布局（Table-Layout）" class="headerlink" title="表格布局（Table Layout）"></a>表格布局（Table Layout）</h3><p>使用行和列标识一个元素的位置，跟网页中的表格基本类似，跟web中早已被抛弃的表格布局类似，安卓中的表格布局也不是很常用。</p>
+<p>需要掌握的几个布局属性：</p>
+<ul>
+<li><code>shinkColumns: true | false</code>设置表格是否收缩</li>
+<li><code>&lt;TableRow&gt;&lt;/TableRow&gt;</code>定义行</li>
+<li><code>layout_column/span</code>，定义控件的列数索引，以及该空间可以占的列宽（几列）</li>
+</ul>
+<h3 id="其他布局"><a href="#其他布局" class="headerlink" title="其他布局"></a>其他布局</h3><p><strong>帧布局（Frame Layout）</strong><br>最简单的布局，没有任何定位方式，所有的控件都摆放在左上角</p>
+<p><strong>绝对布局（Absolute Layout）</strong><br>以坐标的方式来定位在屏幕上位置，直接设置View的坐标，感觉跟<code>position:fixed</code>应该挺像的，这个布局现在官方已经不推荐使用。</p>
+<p><strong>标签布局（Table Layout）</strong><br>是一个ViewGroup以标签的方式显示它的子视图（view）元素，就像在Firefox中的一个窗口中显示多个网页一样。</p>
+<h2 id="布局复用"><a href="#布局复用" class="headerlink" title="布局复用"></a>布局复用</h2><p>安卓本身就提供了组件化开发的思想，因此有不少可以减少布局文件上代码重复问题的方法。</p>
+<h3 id="引入布局"><a href="#引入布局" class="headerlink" title="引入布局"></a>引入布局</h3><p>可以在一个<code>layout</code>中引入另外一个<code>layout</code>，回想在<code>ThinkPHP</code>中引入公共模板的方式，预先定义一个模板片段，然后在对应的页面中使用<code>&lt;include /&gt;</code>标签引入，在安卓中同样可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;include layout=&quot;@layout/commonTitle&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="自定义控件"><a href="#自定义控件" class="headerlink" title="自定义控件"></a>自定义控件</h3><p>通过继承<code>View</code>类或者某个控件子类，我们可以自定义相关的控件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TitleLayout</span> <span class="keyword">extends</span> <span class="title">LinearLayout</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TitleLayout</span><span class="params">(Context context, AttributeSet attrs)</span></span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs);</div><div class="line">        <span class="comment">// R.layout.title 是对应的布局清单</span></div><div class="line">        LayoutInflater.from(context).inflate(R.layout.title, <span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后在对应的<code>layout</code>中引入就可以了，需要注意的是这里需要指明控件的完整类名和包名<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">com.example.admin.myapplication.TitleLayout</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">com.example.admin.myapplication.TitleLayout</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这跟上面直接引入布局的效果是相同的，但是为什么还要使用自定义控件呢？因为，<strong>自定义控件可以封装相同的事件处理函数及相关逻辑</strong>，在布局被大量复用的情况下比单单引入布局然后再每个活动中去注册相关的事件要省事多了。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>关于安卓布局这块暂时就整理到这里，由于只是这两天大致过了一遍，难免有很多遗漏和理解错误的地方，后面再回来补充吧。总之，先快速了解安卓整体结构再继续深入。另外，我还专门在github开了一个项目记录相关的<a href="https://github.com/tangxiangmin/AndroidDemo" target="_blank" rel="external">demo</a>。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/布局" class="article_tag">#布局</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视图"><span class="toc-number">1.</span> <span class="toc-text">视图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础视图"><span class="toc-number">1.1.</span> <span class="toc-text">基础视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表视图（List-View）"><span class="toc-number">1.2.</span> <span class="toc-text">列表视图（List View）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网格视图（Grid-View）"><span class="toc-number">1.3.</span> <span class="toc-text">网格视图（Grid View）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#布局"><span class="toc-number">2.</span> <span class="toc-text">布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#线性布局（Linear-Layout）"><span class="toc-number">2.1.</span> <span class="toc-text">线性布局（Linear Layout）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相对布局（Relative-Layout）"><span class="toc-number">2.2.</span> <span class="toc-text">相对布局（Relative Layout）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#表格布局（Table-Layout）"><span class="toc-number">2.3.</span> <span class="toc-text">表格布局（Table Layout）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他布局"><span class="toc-number">2.4.</span> <span class="toc-text">其他布局</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#布局复用"><span class="toc-number">3.</span> <span class="toc-text">布局复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入布局"><span class="toc-number">3.1.</span> <span class="toc-text">引入布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义控件"><span class="toc-number">3.2.</span> <span class="toc-text">自定义控件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

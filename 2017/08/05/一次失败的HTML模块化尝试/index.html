@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">一次失败的HTML模块化尝试</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/8/5 9:27:18</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/HTML" class="hover-highlight">HTML</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>前端最基本的工作就是写页面模板，在完成<a href="https://github.com/tangxiangmin/webpackTpl" target="_blank" rel="external">webpackTpl</a>的环境搭建之后逐渐尝试使用<code>HtmlWebpackPlugin</code>来生成模板。在多页面的项目中，往往存在相同的布局，因此开始了一次HTML模块化的尝试。PS：结局惨不忍睹。</p>
+<a id="more"></a>
+<p>在伟大的<code>DRY</code>原则指导下，为了实现HTML模板的复用，必须实现某种类似于<code>include</code>或<code>import</code>的机制，将页面结构拆分成多个独立的文件组件（比如header, footer等），然后按需引入即可。由于最初就是使用HtmlWebpackPlugin来开发模板的，因此就从它开始入手。</p>
+<p>（再次提醒，这次的内容真的是瞎折腾，大家看看就好了，不要被我带到坑里面去了~真是一把心酸泪。）</p>
+<h2 id="HtmlWebpackPlugin"><a href="#HtmlWebpackPlugin" class="headerlink" title="HtmlWebpackPlugin"></a>HtmlWebpackPlugin</h2><p>在前面的<a href="/article/webpack折腾记（二）">webpack折腾记（二）</a>中，总结出了使用HtmlWebpackPlugin的几个好处：</p>
+<ul>
+<li>配置通用的模板变量及资源路径</li>
+<li>支持循环和条件分支，方便模拟数据</li>
+<li>样式脚本内联</li>
+</ul>
+<p>在编写单页面的时候，由于只需要一个模板，因此上面的功能基本上就能满足开发需求了。</p>
+<p>不幸的是，<code>HtmlWebpackPlugin</code>虽然是<code>ejs</code>的语法，但是，它并不支持ejs的<code>&lt;% include common/header %&gt;</code>这样的语法，在多页面的情况下肯定是不行的。查了半天资料，网上推荐的<code>html-loader</code>和<code>ejs-loader</code>也不能解决（可能是我的打开方式不对）。</p>
+<p>转念一想，既然HtmlWebpackPlugin不支持，那我们可以单独编写ejs模板，然后再将模板输入给HtmlWebpackPlugin进行打包不就可以了吗？</p>
+<h2 id="ejs"><a href="#ejs" class="headerlink" title="ejs"></a>ejs</h2><p>既然是完全采用<a href="https://www.npmjs.com/package/ejs" target="_blank" rel="external">ejs</a>来进行开发，那么“将结构拆分成组件然后按需引入”的目的就能够轻松使用<code>include</code>完成。</p>
+<h3 id="模板传参"><a href="#模板传参" class="headerlink" title="模板传参"></a>模板传参</h3><p>有时候需要为模板传入参数，然后渲染出对应的测试数据，文档中给的示例是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">  &lt;% users.forEach(function(user)&#123; %&gt;</div><div class="line">    &lt;%- include(&apos;user/show&apos;, &#123;user: user&#125;) %&gt;</div><div class="line">  &lt;% &#125;); %&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure></p>
+<p>文档中还指出<code>&lt;% include user/show %&gt;</code>这样的方式已经停止更新了，但是我还是比较喜欢这种写法，因此还有一个折衷的解决办法：在ejs配置中传入一个全局对象，然后通过对象上的属性来进行参数传递<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// index.ejs</div><div class="line">&lt;? var opt.msg = &quot;heallo &quot;?&gt;</div><div class="line">&lt;? include common/header ?&gt;</div><div class="line"></div><div class="line">// header.ejs</div><div class="line">&lt;h1&gt;&lt;? opt.msg ?&gt;&lt;/h1&gt;</div></pre></td></tr></table></figure></p>
+<p>（PS：是不是很无语~）</p>
+<h3 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h3><p>要在开发时使用ejs并实现热加载，我采用的解决办法是<code>gulp + gulp-ejs</code>，即单独开启一个gulp任务用来监听开发模板的变化，并将编译后的模板输入到HtmlWebpackPlugin的模板目录，最后由webpack实现热更新。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">gulp.task(<span class="string">'ejs'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> &#123; SRC_DIR &#125; = config;</div><div class="line">    gulp.watch(<span class="string">`<span class="subst">$&#123;SRC_DIR&#125;</span>/ejs/*.ejs`</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">        <span class="keyword">let</span> file = e.path;</div><div class="line">        gulp.src(file)</div><div class="line">            .pipe(ejs(&#123;&#125;,&#123;</div><div class="line">                delimiter: <span class="string">"?"</span></div><div class="line">            &#125;).on(<span class="string">"error"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(e)</div><div class="line">            &#125;))</div><div class="line">            .pipe(gulp.dest(<span class="string">`<span class="subst">$&#123;SRC_DIR&#125;</span>/tpl`</span>));</div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这里就有点绕了，由于之前的<code>webpackTpl</code>搭建的环境有一个任务是输出生成环境后台需要的PHP模板，因此现在我们的模板生成路径就变成了：</p>
+<blockquote>
+<p>ejs &gt; htmlplugin template &gt; html/php</p>
+</blockquote>
+<p>这里强行把模板拆分然后再整合在一起，就感觉像是吃饱了撑的(/捂眼笑)。</p>
+<h3 id="界定符"><a href="#界定符" class="headerlink" title="界定符"></a>界定符</h3><p>由于ejs的默认界定符是<code>&lt;% %&gt;</code>，这跟HtmlWebpackPlugin的一模一样。如果不做任何操作，则HtmlWebpackPlugin得到的就是纯粹的HTML文本，为了使用HtmlWebpackPlugin的某些特性（向webpackTpl兼容），我的处理是直接修改了<code>gulp-ejs</code>的界定符参数配置，然而<a href="https://www.npmjs.com/package/gulp-ejs" target="_blank" rel="external">文档</a>上面并没有说明如何进行配置，查看源码可以发现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">data, options, settings</span>) </span>&#123;</div><div class="line">  	<span class="comment">// ...</span></div><div class="line">    file.contents = <span class="keyword">new</span> Buffer(</div><div class="line">        ejs.render(file.contents.toString(), data, options)</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>data</code>参数为传入模板的变量，<code>options</code>为ejs相关的配置，所以直接将界定符设置为<code>&lt;? ?&gt;</code>形式。（PS：这完全不是在倒腾HTML模块了…）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.pipe(ejs(&#123;&#125;,&#123;</div><div class="line">	delimiter: &quot;?&quot;</div><div class="line"> &#125;)</div></pre></td></tr></table></figure>
+<p>万万没想到漏了一点：php采用的也是<code>&lt;?php ?&gt;</code>界定符，也就是说如果想要在模板中直接输出原始的php代码，编译肯定会报错的（为什么要在ejs模板上写php代码呢？因为我们后台是php~~），然后我的解决办法是使用函数输出php代码字符串<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">pipe(ejs(&#123;</div><div class="line">    opt: &#123;&#125;,</div><div class="line">    <span class="comment">// 输出php字符串变量</span></div><div class="line">    php(str)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">'&lt;?php '</span> + str + <span class="string">' ?&gt;'</span>;</div><div class="line">    &#125;,</div><div class="line">&#125;,&#123;</div><div class="line">    delimiter: <span class="string">"?"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>然后在模板中调用<code>&lt;?- php(&quot;echo 1&quot;); ?&gt;</code>即可。现在博客写到这里，我真想知道当时的我到底是犯了什么浑~~弱智啊！！</p>
+<h3 id="动态引入"><a href="#动态引入" class="headerlink" title="动态引入"></a>动态引入</h3><p>本以为搞完上面的事情，整个活就可以告一段落了：</p>
+<ul>
+<li>采用原生的ejs开发模板，畅快地使用模板变了，循环分支，组件引入等功能</li>
+<li>采用<code>gulp-ejs</code>动态编译模板，配合webpack实现热加载</li>
+</ul>
+<p>后来突然想到，这特么输出的还是一个完整的html页面啊，最后切换环境输出给后台的时候，还是需要把模板的组件提取出来~这完全是重复的工作嘛（现在除了前端页面，后台的路由和模板数据也得我负责）。所以就想着干脆把ejs的<code>include</code>替换成动态的加载吧:</p>
+<ul>
+<li>在开发时使用正常的ejs引入</li>
+<li>在打包时直接输出php框架的组件引入</li>
+</ul>
+<p>为了实现这个目的，又写了一个全局的ejs方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">load: function(tplPath)&#123;</div><div class="line">    if (isDev)&#123;</div><div class="line">        if (!~file.indexOf(&quot;*&quot;)) &#123;</div><div class="line">            tplPath += &quot;.ejs&quot;;</div><div class="line">            let absPath = path.resolve(path.dirname(file), tplPath);</div><div class="line">            return ejs.render(`&lt;% include $&#123;tplPath&#125; %&gt;`, &#123;&#125;, &#123;filename: `$&#123;path.dirname(absPath)&#125;`&#125;);</div><div class="line">        &#125;else &#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;else &#123;</div><div class="line">        tplPath += &quot;.php&quot;;</div><div class="line">        return `&lt;?php $this-&gt;load-&gt;view(&quot;$&#123;tplPath&#125;&quot;); ?&gt;`</div><div class="line">    &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<p>上面代码的具体细节就不深究了（反正现在我已经放弃了），主要就是为了实现上面的在不同编译环境的模板输出。在模板源文件上调用<code>&lt;?- load(&quot;commomn/head&quot;)?&gt;</code>即可</p>
+<h2 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h2><p>上面的工作大概折腾了半天时间，整个流程总算是能跑起来了。当我把之前十来个模板页面上的公共组件提取出来之后，脑海中出现了一个声音：卧槽，有病吧？</p>
+<p>静下来想一想，最初的目的只是为了在模板中加载一个外部的组件，谁知道却围绕着ejs折腾了这么多无关的事情，简直就是本末倒置啊。先理一理：</p>
+<ul>
+<li>为了实现模块，复用公共组件，采用了ejs进行开发</li>
+<li>为了打包，使用了webpack</li>
+<li>为了区分开发环境和线上环境，为整个流程进行了一系列的适配处理</li>
+<li>最后输出了后台需要的PHP模板文件</li>
+</ul>
+<p>突然发现，做的这些事，无非是将ejs的组件编译成了PHP的组件（还得费时费力的去适配和调整模板），后台语言天生就支持文件导入，像<code>Laravel</code>这样的框架提供的<code>blade</code>模板更是强大，既然最后的生产目的都是为了对接数据，一开始直接用PHP写模板不就得了吗？为什么要钻进“通过webpack然后再转成PHP的模板的死胡同“呢？瞬间醒悟。</p>
+<p>另外，维护的方面来讲，以前只需要调试本身的模板即可，现在呢？需要深入好几层，才能发现最初的源代码，虽然开发看起来高大上了（开发效率有没有提高我就不确定了），但是无形之中却增加了维护的难度，后面如果有同事不明白你的工作流程，直接在编译的模板上面进行更改，肯定会骂死你的。</p>
+<p>现在的前端环境发展十分迅速，像我这种半路杀进来的人感觉也十分明显，各种工具，各种框架层出不穷，圈子也比较浮躁（感觉我自己也受到了感染，这次HTML模块化的尝试就是一个例子）。</p>
+<p>然而，术业有专攻，传统也并不是一无是处，找到适合业务的技术框架和开发环境才是最主要的，脱离生产环境高谈技术的都是耍流氓。另外，一定不要浮躁！切记。</p>
+<p>PS：貌似把<code>blade</code>的模板用JS实现一遍也不错哦，这样模板就可以完全通用了~打住打住….</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/ejs" class="article_tag">#ejs</a>
+        
+        <a href="/tags/模块化" class="article_tag">#模块化</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HtmlWebpackPlugin"><span class="toc-number">1.</span> <span class="toc-text">HtmlWebpackPlugin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ejs"><span class="toc-number">2.</span> <span class="toc-text">ejs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模板传参"><span class="toc-number">2.1.</span> <span class="toc-text">模板传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#热加载"><span class="toc-number">2.2.</span> <span class="toc-text">热加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#界定符"><span class="toc-number">2.3.</span> <span class="toc-text">界定符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态引入"><span class="toc-number">2.4.</span> <span class="toc-text">动态引入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反思"><span class="toc-number">3.</span> <span class="toc-text">反思</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

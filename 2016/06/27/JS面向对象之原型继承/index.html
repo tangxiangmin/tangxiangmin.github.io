@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">JS面向对象之原型继承</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/6/27 22:43:33</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>前面理清了JS面向对象中的构建对象，其中谈论到了原型的概念，以及使用组合构造函数和原型模式的方法来创建对象。接下来总结一下关于JS中继承的问题，继承可分为接口继承（只继承方法签名）和实现继承（继承具体方法）两种。<br><a id="more"></a><br>由于JS中的变量是松散类型，且JS中的函数不限制参数个数，参数类型和参数顺序，因此函数并没有函数签名，因此JS只支持实现继承，且主要依靠原型链来实现的。</p>
+<h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>首先来理一理原型链。（接下来的语言十分啰嗦，只是为了让自己理清整个思路，敬请谅解。）<br>从原型模式构建对象可知，每个构造函数都有一个原型对象，而原型对象有一个属性constructor指向该构造函数，且每个构造函数的实例对象都有一个指向原型对象的指针（<strong>proto</strong>），所有实例对象共享原型对象的方法和属性（默认情况下原型对象只有constructor属性，根据需求自行添加），那么问题来了：如果让构造函数A的原型对象等于另外一个构造函数B的实例时，会发生什么情况呢？<br>答案是显而易见的：构造函数A的原型对象（也就是构造函数B的实例对象）含有一个指向构造函数B的原型对象的指针（<strong>proto</strong>），且构造函数A的所有实例对象都可以访问构造函数B的原型对象所具有的属性和方法。如此层层递进，则构成了实例与原型的链条，这就是原型链的基本概念。下面我用一个图来简单的描述这个过程。<br><img src="uploads/object.png" alt="原形链"></p>
+<h3 id="实现原型链继承"><a href="#实现原型链继承" class="headerlink" title="实现原型链继承"></a>实现原型链继承</h3><p>实现原型链有一种十分简单的方式，直接显式地将父构造函数的实例对象赋值给子构造函数的原型对象（与其说赋值，不如说将子构造函数的原型对象重新指向新的父实例对象），用来替换其原本的原型对象（所有函数的原型对象都是Object的实例）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function f(name)&#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;</div><div class="line">f.prototype = &#123;</div><div class="line">    say:function()&#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">function s(age)&#123;</div><div class="line">    this.age = age;</div><div class="line">&#125;</div><div class="line">s.prototype = new f(&quot;tang&quot;);//替换子构造函数的原型对象</div><div class="line">s.prototype.show = function()&#123;</div><div class="line">    alert(this.age);</div><div class="line">&#125;</div><div class="line">var t = new s(18);</div><div class="line">t.say();//使用father原型对象的方法</div><div class="line">t.show();//使用son原型对象的方法</div></pre></td></tr></table></figure></p>
+<p>通过原型链可以实现子实例对象访问父原型对象的属性和方法，但是有时候需要覆盖某个方法，或者是为子对象（子实例对象或者子原型对象）添加某个方法，直接在子对象上添加或重写属性和方法即可，惟一需要注意的地方是这些代码一定要放在“使用父实例对象替换子原型对象”的操作之后，否则在添加方法之前原型链根本就没有形成，而形成原理链的赋值过程会重写子构造函数的原型对象，导致之前所添加或修改的方法无法生效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">s.prototype.show = function()&#123;</div><div class="line">    alert(this.age);</div><div class="line">&#125;</div><div class="line">s.prototype = new f(&quot;tang&quot;);</div><div class="line">var t = new s(18);</div><div class="line">t.say();</div><div class="line">t.show();//由于子原型对象被后替换，因此show方法无法被使用，这儿会报错</div></pre></td></tr></table></figure></p>
+<p>同样的原因，在通过原型链实现继承的时候，无法使用对象字面量来创建原型，这样也会重写整个原型链，导致之前的继承原型链被破坏。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>使用原型链是JS中实现继承的主要手段，但是仍然存在一些问题：</p>
+<ul>
+<li>由于是使用实例作为子原型对象，则该实例中的引用数据会被其子实例对象共享（即使该引用数据在父实例对象之间是各自独有的），无法达到封装的要求；</li>
+<li>也是由于是使用实例作为子原型对象，则该父实例对象在创建过程中已经向其构造函数中传递参数，生成的父实例对象的值已经固定，在使用子构造函数创建子实例对象的时候，再也无法通过向父构造函数传参的方式改变子原型对象（父实例对象）的属性。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">    this.firends = [&quot;Jack&quot;,&quot;Rose&quot;];</div><div class="line">&#125;</div><div class="line">function s()&#123;</div><div class="line">&#125;</div><div class="line">s.prototype = new f();</div><div class="line"></div><div class="line">var t1 = new s();</div><div class="line">alert(t1.firends);//Jack,Rose</div><div class="line">var t2 = new s();</div><div class="line">t2.firends.pop();</div><div class="line"></div><div class="line">alert(t1.firends);//Jack</div><div class="line">alert(t2.firends);//Jack</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="借用构造函数继承"><a href="#借用构造函数继承" class="headerlink" title="借用构造函数继承"></a>借用构造函数继承</h2><p>解决上述问题采用一种叫做“借用构造函数继承”的技术（也叫做经典继承），即在子构造函数的内部使用call或者apply调用父构造函数，相当于将创建父实例对象的时间延迟到创建子实例对象的时候，并在创建每个子实例对象的时候都会调用父构造函数，且可以向父构造函数传入参数。<br>但是采用这种经典继承的方法无法避免的问题就是在父构造函数中定义的方法在每个子实例对象都有一份副本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">    this.firends = [&quot;Jack&quot;,&quot;Rose&quot;]</div><div class="line">    this.say = function()&#123;</div><div class="line">        alert(this.firends);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">function s()&#123;</div><div class="line">    f.call(this,name);</div><div class="line">&#125;</div><div class="line">var t1 = new s();</div><div class="line"></div><div class="line">var t2 = new s();</div><div class="line">t2.firends.pop();</div><div class="line"></div><div class="line">alert(t1.say == t2.say);//false</div><div class="line">alert(t1.firends);//Jack,Rose</div><div class="line">alert(t2.firends);//Jack</div></pre></td></tr></table></figure></p>
+<h2 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h2><p>由于经典继承的一些问题，在实际中最常用的继承方法是将原型链和经典继承方法结合起来，使用原型链实现对原型属性和方法的继承，使用构造函数来实现对实例属性的继承，既保证了原型上方法的公用，又保证了每个实例都有它自己的属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function f(name)&#123;</div><div class="line">    this.name = name</div><div class="line">    this.firends = [&quot;Jack&quot;,&quot;Rose&quot;]</div><div class="line">&#125;</div><div class="line">f.prototype.say = function()&#123;</div><div class="line">    alert(this.name);</div><div class="line">&#125;</div><div class="line">function s(name,age)&#123;</div><div class="line">    f.call(this,name);</div><div class="line">    this.age = age;</div><div class="line">&#125;</div><div class="line">s.prototype = new f();</div><div class="line"></div><div class="line">var t1 = new s(&quot;tang&quot;,1);</div><div class="line"></div><div class="line">var t2 = new s(&quot;zhang&quot;,2);</div><div class="line">t2.firends.pop();</div><div class="line"></div><div class="line">alert(t1.say == t2.say);//true</div><div class="line">alert(t1.firends);//Jack,Rose</div><div class="line">alert(t2.firends);//Jack</div></pre></td></tr></table></figure></p>
+<p>组合继承避免了原型链继承和构造函数继承的缺点，融合了他们的优点，是最常用的继承手段。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>此外还有原型式继承和寄生式继承，目前只是稍微地了解了一下，因此不敢妄下结论。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/面向对象" class="article_tag">#面向对象</a>
+        
+        <a href="/tags/原型" class="article_tag">#原型</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原型链继承"><span class="toc-number">1.</span> <span class="toc-text">原型链继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原型链"><span class="toc-number">1.1.</span> <span class="toc-text">原型链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现原型链继承"><span class="toc-number">1.2.</span> <span class="toc-text">实现原型链继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题"><span class="toc-number">1.3.</span> <span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#借用构造函数继承"><span class="toc-number">2.</span> <span class="toc-text">借用构造函数继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组合继承"><span class="toc-number">3.</span> <span class="toc-text">组合继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">4.</span> <span class="toc-text">其他</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

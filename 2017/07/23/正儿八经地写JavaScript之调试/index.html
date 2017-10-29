@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">正儿八经地写JavaScript之调试</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/7/23 11:12:33</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>前端的业务需求比较繁复，开发场景也比较多，因此掌握一些调试技巧是很有必要的，下面总结了日常工作中用到的一些调试技巧。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li><a href="http://han.guokai.blog.163.com/blog/static/136718271201321402514114/" target="_blank" rel="external">Chrome 中的 JavaScript 断点设置和调试技巧</a></li>
+<li><a href="http://www.cnblogs.com/mqfblog/p/5397282.html" target="_blank" rel="external">js断点调试心得</a></li>
+<li><a href="https://developer.chrome.com/devtools/index" target="_blank" rel="external">Chrome DevTools Overview</a>，貌似要梯子</li>
+<li><a href="https://xuyuan923.github.io/2014/10/16/chrome-debug-tool/" target="_blank" rel="external">chrome调试工具常用功能整理</a></li>
+<li><a href="https://segmentfault.com/a/1190000002507480" target="_blank" rel="external">Chrome 控制台 如何调试 javascript</a></li>
+</ul>
+<h2 id="输出调试"><a href="#输出调试" class="headerlink" title="输出调试"></a>输出调试</h2><p>利用浏览器和控制台来调试应该是最基本的调试方法了。</p>
+<h3 id="alert"><a href="#alert" class="headerlink" title="alert"></a>alert</h3><p><code>alert</code>是浏览器提供的一个全局函数，会通过弹窗的形式显示传入参数调用<code>toString</code>方法之后的值，一般来讲，可以用来直观的调试变量的值，遗憾的是默认对象形式的值只返回毫无参考意义的<code>[object Object]</code>，虽然我们可以通过修改原型方法来编辑想要的输出结果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">a, b</span>)</span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">this</span>.a = a;</div><div class="line">	<span class="keyword">this</span>.b = b;</div><div class="line">&#125;</div><div class="line">Foo.prototype.toString = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> str = <span class="string">""</span>;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> <span class="keyword">this</span>)&#123;</div><div class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.hasOwnProperty(key))&#123;</div><div class="line">			str += <span class="string">`<span class="subst">$&#123;key&#125;</span>=&gt;<span class="subst">$&#123;<span class="keyword">this</span>[key]&#125;</span>;\n`</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> str;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo(<span class="number">100</span>, <span class="number">200</span>)</div><div class="line">alert(foo)</div></pre></td></tr></table></figure></p>
+<p>另外的一个问题是<code>alert</code>会阻塞程序执行，用户体验性非常糟糕（要是出现在线上估计会被骂死，所以上线前需要删除调试代码），因此很少会采用这个方法进行调试。</p>
+<p>不过最近我发现了一个使用<code>alert</code>进行调试的场景，即<code>window.onerror</code>与<code>alert</code>配合进行移动端真机调试。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">err, url, line</span>)</span>&#123;</div><div class="line">    alert(err + <span class="string">"，"</span> + url + <span class="string">","</span> + line)    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实际上，<code>onerror</code>回调函数接受五个参数，参数详情参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror" target="_blank" rel="external">MDN文档</a>。</p>
+<p>我们可以通过这几个参数复现控制台出现的错误提示信息，在某些场景下这是很有用的，比如使用模拟器调试完全没问题的页面，在真机上却报错（通常是某个奇怪的兼容性问题），由于无法在真机上查看控制台，因此通过alert复现错误信息可以快速帮助定位错误。</p>
+<p>提到<code>window.onerror</code>事件，我们还可以通过注册全局的处理函数来生成网页错误日志，以便监控和调试网页错误。这会在后面的日志调试同提到。</p>
+<h3 id="console"><a href="#console" class="headerlink" title="console"></a>console</h3><p>讲道理，在控制台输出变量，追踪程序流程并进行调试怕是最常用的调试方法了，而这其中用到的基本上都是<code>console.log</code>方法。实际上<code>console</code>对象提供了多种方法来方便我们进行调试。<br>我们来试一试：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="built_in">console</span>)</div></pre></td></tr></table></figure></p>
+<p>大概有二十多种方法~~是不是很感人，老规矩，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Console" target="_blank" rel="external">MDN文档</a>。</p>
+<p><code>console</code>对象常用的的方法有：</p>
+<ul>
+<li><code>log</code>，输出字符串，类似于C语言的<code>printf</code>函数。这也是最常用的方法，没有之一。类似的方法还有<code>info</code>,<code>warn</code>,<code>error</code>等，以更直观的形式输出字符串（比如红色字体，加个感叹号啥的）~</li>
+<li><code>time</code>传入一个标识符并开启定时器，<code>timeEnd</code>会结束对应标识符的定时器，计算并输出这段代码的执行时间，可以用来测试代码效率</li>
+<li><code>dir</code>,<code>table</code>等方法可以格式化输出对应的数据</li>
+<li><code>trace</code>，打印函数调用栈</li>
+</ul>
+<p>突然想起《孔乙己》里面的“你知道茴字有四种写法吗”的梗，但是这里绝对不含有讽刺的意味，反之，合理利用这些函数可以更直观地追踪代码及调试。</p>
+<h3 id="log4js"><a href="#log4js" class="headerlink" title="log4js"></a>log4js</h3><p>不论是使用<code>alert</code>还是<code>console</code>，必定会遇见的一个问题是：必须在上线前手动移除调试代码，这是因为调试只发生在开发过程中；然后遇见需要修复BUG的时候，我们又必须重新插入调试代码，这是一个很蛋疼的问题。庆幸的是，<a href="https://www.npmjs.com/package/log4js" target="_blank" rel="external">log4js</a>帮我们解决了这个问题。</p>
+<p>log4js解决“需要手动移除调试代码”的办法是<strong>为调试代码划分等级</strong>。通过设置<code>logger.level</code>等级，可以屏蔽低等级级的调试代码，在源码的<code>level.js</code>文件可以发现<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> defaultLevels = &#123;</div><div class="line">    ALL: <span class="keyword">new</span> Level(<span class="built_in">Number</span>.MIN_VALUE, <span class="string">'ALL'</span>, <span class="string">'grey'</span>),</div><div class="line">    TRACE: <span class="keyword">new</span> Level(<span class="number">5000</span>, <span class="string">'TRACE'</span>, <span class="string">'blue'</span>),</div><div class="line">    DEBUG: <span class="keyword">new</span> Level(<span class="number">10000</span>, <span class="string">'DEBUG'</span>, <span class="string">'cyan'</span>),</div><div class="line">    INFO: <span class="keyword">new</span> Level(<span class="number">20000</span>, <span class="string">'INFO'</span>, <span class="string">'green'</span>),</div><div class="line">    WARN: <span class="keyword">new</span> Level(<span class="number">30000</span>, <span class="string">'WARN'</span>, <span class="string">'yellow'</span>),</div><div class="line">    ERROR: <span class="keyword">new</span> Level(<span class="number">40000</span>, <span class="string">'ERROR'</span>, <span class="string">'red'</span>),</div><div class="line">    FATAL: <span class="keyword">new</span> Level(<span class="number">50000</span>, <span class="string">'FATAL'</span>, <span class="string">'magenta'</span>),</div><div class="line">    MARK: <span class="keyword">new</span> Level(<span class="number">9007199254740992</span>, <span class="string">'MARK'</span>, <span class="string">'grey'</span>), <span class="comment">// 2^53</span></div><div class="line">    OFF: <span class="keyword">new</span> Level(<span class="built_in">Number</span>.MAX_VALUE, <span class="string">'OFF'</span>, <span class="string">'grey'</span>)</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>比如<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> log4js = <span class="built_in">require</span>(<span class="string">"log4js"</span>),</div><div class="line">	logger = log4js.getLogger();</div><div class="line"></div><div class="line">logger.level = <span class="string">"info"</span>;</div><div class="line"></div><div class="line">logger.info(<span class="string">"info wtf"</span>);</div><div class="line">logger.debug(<span class="string">"debug wtf"</span>); <span class="comment">// 由于debug的等级低于info，因此该调试代码不会输出</span></div></pre></td></tr></table></figure></p>
+<p>也就是说，只需要在上线的时候设置<code>logger.level = &quot;off&quot;</code>，整个世界是安静了~</p>
+<p>遗憾的是<code>log4js</code>貌似并没有浏览器版本，这里推荐另外一个调试框架<a href="https://www.npmjs.com/package/js-logging" target="_blank" rel="external">js-logging</a>。<br>除了配置略有差异之外（<code>js-logging</code>通过构造参数进行配置）,其他的使用方法与<code>log4js</code>基本类似，包括等级划分<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> logger1 = Logging.colorConsole(&#123;</div><div class="line">	level: <span class="string">"warning"</span></div><div class="line">&#125;);</div><div class="line">logger1.debug(<span class="string">'Hello World!'</span>);</div><div class="line">	</div><div class="line">logger1.info(<span class="string">'Hello World!'</span>);</div></pre></td></tr></table></figure></p>
+<h2 id="日志调试"><a href="#日志调试" class="headerlink" title="日志调试"></a>日志调试</h2><p>开发后台应用时，更常用的做法是使用日志调试。在NodeJS中，可以通过将程序异常记录在磁盘的日志文件，从而记录服务器错误并调试代码。由于后台语言基本上都可以访问文件系统，所以调试日志可以方便保存和传递，这种调试方法更加灵活和方便。</p>
+<p>当然我们可以调用原始的<code>fs</code>库函数来实现将变量格式化并输出到文件中<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">"fs"</span>);</div><div class="line"><span class="keyword">var</span> a = <span class="number">100</span>;</div><div class="line"><span class="comment">// 这里可以对文档内容进行格式化</span></div><div class="line">fs.writeFile(<span class="string">"1.txm"</span>, a, <span class="string">"utf-8"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>当然，在业务代码中写满这些调试代码会显得十分丑陋，此外频繁的文件IO也会影响程序的性能，因此还是封装一下比较实在，<code>log4js</code>恰好也提供了这个功能，只需要修改输出方式即可<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 这里是官方的文档demo配置</span></div><div class="line">log4js.configure(&#123;</div><div class="line">    appenders: &#123; <span class="attr">cheese</span>: &#123; <span class="attr">type</span>: <span class="string">'file'</span>, <span class="attr">filename</span>: <span class="string">'cheese.log'</span> &#125; &#125;,</div><div class="line">    categories: &#123; <span class="attr">default</span>: &#123; <span class="attr">appenders</span>: [<span class="string">'cheese'</span>], <span class="attr">level</span>: <span class="string">'error'</span> &#125; &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>此时执行程序，将会在根目录下得到<code>cheese.log</code>的日志文件，里面的内容即对应的输出结果，同理，<code>log4js</code>的<code>level</code>同样生效，也就是说，我们可以通过设置等级控制日志文件的输出。</p>
+<p>也许你会说，我们在开发过程中，直接通过控制台输出结果进行调试不久可以了吗，为何还要输出文件文件然后去检查日志呢？在某些环境下，使用控制台会比较麻烦（如果后台采用PHP进行开发~），此外在即使是程序在线上运行的时候，也可以通过输出的日志来检测代码的异常。有必要的时候，甚至可以通过发送邮件的形式提示线上环境异常。貌似现在的云服务器报警形式比较先进，这些东西可能用不上了。</p>
+<h2 id="断点调试"><a href="#断点调试" class="headerlink" title="断点调试"></a>断点调试</h2><p>前面的输出调试或日志调试，无非是通过通过检查变量值来对代码进行调试，频繁地编写调试代码也会有些繁琐，因此我猜你会喜欢上<strong>断点调试</strong>。</p>
+<blockquote>
+<p>断点（Breakpoint），除错（Debug）设定断点可以让程式执行到该行程式时停住，借此观察程式到断点位置时，其变数、暂存器、I/O等相关的变数内容，有助于深入了解程式运作的机制，发现、排除程序错误的根源。</p>
+</blockquote>
+<p>学习断点调试主要可分为三部分：</p>
+<ul>
+<li>如何打断点</li>
+<li>如何分析断点</li>
+<li>按顺序逐步执行程序</li>
+</ul>
+<h3 id="打断点"><a href="#打断点" class="headerlink" title="打断点"></a>打断点</h3><p>添加断点也可分为三种情景</p>
+<ul>
+<li>通过手动在代码中加入<code>debugger</code>关键字</li>
+<li>通过浏览器的<code>Sources</code>面板，通过点击行号添加断点</li>
+<li>通过IDE（我这里只用过WebStrom），通过点击行号断点，这里需要对WebStrom进行配置，参考<a href="http://blog.csdn.net/sujun10/article/details/54139560" target="_blank" rel="external">WebStorm强大的调试JavaScript功能</a></li>
+</ul>
+<p>断点在本质上本手动去插入<code>console</code>代码输出变量值并没有区别：都是为了对应位置变量的内容，调试程序的流程而已。不同的是，结合工具（浏览器或IDE）强大的分析能力，通过断点获取的变量内容更直观有效率。</p>
+<h3 id="分析断点"><a href="#分析断点" class="headerlink" title="分析断点"></a>分析断点</h3><p>以下面这段代码举例<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">	(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">		<span class="keyword">var</span> a = <span class="number">100</span>;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">		<span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="undefined">			a = 200;</span></div><div class="line"><span class="javascript">			<span class="keyword">var</span> b = <span class="number">100</span>;</span></div><div class="line"><span class="undefined">		&#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="undefined">		foo();</span></div><div class="line"><span class="javascript">		<span class="keyword">debugger</span>;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">		<span class="comment">// 不需要下面的调试代码了~</span></span></div><div class="line"><span class="javascript">		<span class="built_in">console</span>.log(a);</span></div><div class="line"><span class="javascript">		<span class="built_in">console</span>.log(b);</span></div><div class="line"><span class="undefined">	&#125;)()</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h4 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h4><p>当代码在浏览器中执行时，会提示<code>Paused in debugger</code>，打开开发者工具，切换到<code>Sources</code>面板，在源码面板会发现高亮标出的断点，其右侧就是该断点对应的变量信息（记得调整开发者工具的尺寸，也可能在下方）。这里点击<code>Local</code>折叠栏，可以发现类似于下列的信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a:200</div><div class="line">foo: foo()</div><div class="line">this: Window</div></pre></td></tr></table></figure></p>
+<p>这样通过断点就可以知道程序运行到这时所有的局部变量了，这里表示此处的局部变量<code>a</code>的值是200，由于<code>b</code>是<code>foo</code>函数内部的局部变量，因此不会出现这里。<br>此外，如果不想在右侧的折叠面板去去找某个变量，也可以直接将鼠标放在源码的某个变量上，稍等就会出现变量相关的信息，这个技巧十分有用~</p>
+<p>细心的你可能会发现有一个叫做<code>Closure</code>的面板，没错，这正是用来追踪闭包变量的。不过Chrome这里的闭包与我们常规理解的闭包有一点差异，以上面这段代码为例，按照之前的理解，这里的<code>foo</code>函数没有以返回值的形式传出，因此只是一个局部函数，也就没有形成闭包。而在这里的<code>Closure</code>的面板，却发现了<code>a=200</code>的信息，即Chrome认为foo使用了自由变量，因此这里已经形成了闭包。这只是对于闭包产生时机的一些差异，需要注意这个小细节否则可能会有点疑惑。</p>
+<h3 id="webstrom"><a href="#webstrom" class="headerlink" title="webstrom"></a>webstrom</h3><p>在对WebStrom进行配置之后，只需要右键执行<code>Debug xx.html</code>即可进行调试，程序在执行到对应的断点时会弹出<code>Debugger</code>面板，在下面的<code>Variables</code>选项卡中也可以找到跟浏览器类似的折叠栏，从而分析对应的数据内容，具体操作大同小异，这里就不谈了。</p>
+<p>当然，如果只是跟Chrome调试流程一样，我们也没有必要来折腾IDE的调试方法。Nodejs环境的代码是不能直接运行在浏览器中的，而WebStrom提供了跟调试浏览器代码类似的操作，这才是最主要的。这比满屏幕的<code>console</code>要舒服的多</p>
+<h3 id="顺序执行"><a href="#顺序执行" class="headerlink" title="顺序执行"></a>顺序执行</h3><p>在断点代码分析的时候可以看见一排方向不同的箭头，鼠标移动上去会发现<code>F8</code>,<code>F10</code>,<code>F11</code>和<code>Shift + F11</code>的快捷键提示，他们分别对应的是</p>
+<ul>
+<li><code>F8</code>,从断点处恢复运行，直至遇见下一个断点或程序错误</li>
+<li><code>F10</code>，按行执行代码，遇到自定义函数也当成一个语句执行，而不会进入函数内部</li>
+<li><code>F11</code>，同按行执行代码，区别在于遇见函数会进入函数内部并继续按行执行</li>
+<li><code>Shift + F11</code>，跳出当前正在调试的函数</li>
+</ul>
+<p>逐步执行代码，相当于每行都在进行断点调试，也就是说我们可以查看整个程序的执行过程中所有变量的值，也可以函数调用栈。这在调试代码或者阅读源码的时候是非常有用的(比如实例化一个<code>Vue</code>实例到底发生了什么~)</p>
+<p>关于顺序执行，上面引入的参考资料中有比较详细的介绍，这里就不献丑了，总之，按顺序逐行调试代码是一个必须学会的技巧。</p>
+<h3 id="异常断点"><a href="#异常断点" class="headerlink" title="异常断点"></a>异常断点</h3><p>在《Android开发权威指南》中还提到了一种异常断点的调试方法，这是通过IDE设置需要捕捉的异常类型然后快速定位到异常抛出的代码行，在<br>JavaScript中貌似没找到类似的调试方法</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>这里简单整理了一下JavaScript的调试方法，单就浏览器而言，Chrome本身的调试功能就已经很健全了，比如<code>DOM断点</code>、<code>帧动画</code>等，科学调试可以节省很多时间，减少加班时长，这在今后需要更加注意。</p>
+<p>想到之前有同事说我调代码快，其实我找BUG全靠猜，只是猜的比较准，哈哈…</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/debug" class="article_tag">#debug</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#输出调试"><span class="toc-number">1.</span> <span class="toc-text">输出调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#alert"><span class="toc-number">1.1.</span> <span class="toc-text">alert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#console"><span class="toc-number">1.2.</span> <span class="toc-text">console</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#log4js"><span class="toc-number">1.3.</span> <span class="toc-text">log4js</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志调试"><span class="toc-number">2.</span> <span class="toc-text">日志调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#断点调试"><span class="toc-number">3.</span> <span class="toc-text">断点调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#打断点"><span class="toc-number">3.1.</span> <span class="toc-text">打断点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析断点"><span class="toc-number">3.2.</span> <span class="toc-text">分析断点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Chrome"><span class="toc-number">3.2.1.</span> <span class="toc-text">Chrome</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webstrom"><span class="toc-number">3.3.</span> <span class="toc-text">webstrom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#顺序执行"><span class="toc-number">3.4.</span> <span class="toc-text">顺序执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常断点"><span class="toc-number">3.5.</span> <span class="toc-text">异常断点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">最后</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">CSS代码格式</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/6/26 20:30:57</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/CSS" class="hover-highlight">CSS</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>刚学CSS的时候，以为只要写出的样式能够在浏览器中正确显示就够了。直到逐渐发现一个几千行的CSS文件，如果不在书写过程中规范自己的代码格式，后面维护简直就是噩梦。掉进坑才知道痛，下面总结了自己在敲CSS代码需要注意的地方，如同CSS代码的组成一样，也分别从选择器，属性名，属性值三个方面进行总结。<br><a id="more"></a></p>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>选择器是css的基础，其重要性不言而喻。在保证选择器正确的前提下，对其格式也需要加以规范。</p>
+<ul>
+<li>首先是选择器的命名。对于class名和id名，应当具有明确的语义性。关于选择器命名这里面，有很大学问（比如按照属性命名而非功能命名），我现在的水平是万万不敢发表什么拙见的，<a href="http://www.zhangxinxu.com/" target="_blank" rel="external">张鑫旭大神</a>的博客里面有不少关于这方面的知识；</li>
+<li>其次是选择器的嵌套。选择器嵌套最主要的作用是为了提高选择器的优先级。但是如果仅仅是为了避免冲突嵌套数个选择器，会大大降低代码重用性（而类本身就是为了方便在多个地方使用相同的样式）；对于id选择器而言，由于其具有惟一性，故其前面的嵌套完全没有必要。这也正是我对于less预编译存在的部分困惑（当然我只是初学者）。此外，由于CSS的渲染方式是从右到左，过多的嵌套会大大降低浏览器渲染效率。所以，应当在保证优先级的前提下尽可能缩短嵌套。</li>
+<li>选择器的嵌套层级应不大于 3 级，位置靠后的限定条件应尽可能精确。如无必要，不为 id、class 选择器添加类型选择器进行限定。</li>
+</ul>
+<h2 id="属性名"><a href="#属性名" class="headerlink" title="属性名"></a>属性名</h2><p>尽管不论按照什么顺序写属性名，都能使样式正确显示，但是还是参照前辈们的书写格式来进行吧（或者是养成自己的书写顺序习惯，而不是想到什么样式就写什么样式）。下面按照书写先后顺序进行排序</p>
+<ul>
+<li>位置属性(position, top, right, z-index, display, float等)</li>
+<li>尺寸大小(width, height, padding, margin)</li>
+<li>文字系列(font, line-height, letter-spacing, color- text-align等)</li>
+<li>背景(background, border等)</li>
+<li>其他(animation, transition等)<br>此外还需要注意属性名在不同浏览器下的兼容性问题，比如opacity等，这方面还有待加强。</li>
+</ul>
+<h2 id="属性值"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h2><p>关于属性值的书写格式，有各种各样不同的格式。因此，最主要的还是养成自己固定的书写习惯（或者是服从项目的格式要求）。下面是我自己养成的一些习惯。</p>
+<ul>
+<li>属性名与值后的”:”之间不包含空格,”:”与属性值之间包含空格。</li>
+<li>在可以使用属性值缩写的情况下，尽量使用属性缩写。</li>
+<li>长度为 0 时须省略单位。</li>
+<li>颜色值可以缩写时，使用缩写形式。</li>
+<li>当数值为 0 - 1 之间的小数时，省略整数部分的 0。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>关于格式规范的问题，其实并没有统一的规定，需要靠自己在学习工作中不断摸索，在被一大段杂乱的css代码给恶心到之后才会真正注意到这个问题，最好的办法就是在学习初期就开始重视，并不断修正自己的代码风格。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/代码格式" class="article_tag">#代码格式</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#选择器"><span class="toc-number">1.</span> <span class="toc-text">选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性名"><span class="toc-number">2.</span> <span class="toc-text">属性名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性值"><span class="toc-number">3.</span> <span class="toc-text">属性值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">从Phaser中了解游戏的几个概念</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/8/28 20:55:24</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>上个周末趁着双休，尝试着学习Phaser框架然后写了两个小游戏。一直想要写些小游戏，与之前学习Cocos框架相比，Phaser要简单得多，加之文档齐全，示例Demo也比较多，所以上手难度要低很多。这里整理了小游戏开发的东西，以及我对于游戏开发的一些理解。</p>
+<a id="more"></a>
+<p>参考相关教程：</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000009212221" target="_blank" rel="external">从零到一：用Phaser.js写意地开发小游戏（Chapter 1 - 认识Phaser.js）</a></li>
+<li><a href="http://www.cnblogs.com/2050/p/3790279.html" target="_blank" rel="external">用Phaser来制作一个html5游戏——flappy bird （一）</a></li>
+<li>《Cocos2d JS 游戏开发》</li>
+</ul>
+<h2 id="游戏的整体结构：场景"><a href="#游戏的整体结构：场景" class="headerlink" title="游戏的整体结构：场景"></a>游戏的整体结构：场景</h2><p><code>Phaser</code>和<code>Cocos</code>都提供了场景的概念。把写游戏和拍电影联想起来，电影的不同场景对应着不同的剧情，而游戏的不同场景对应则不同的逻辑，将逻辑以场景的方式包装起来，然后按照顺序将场景组合起来，就构成了我们的游戏世界。</p>
+<p>玩了辣么多游戏，基本的套路也了然于胸了：</p>
+<ul>
+<li>资源加载场景，各种花式进度条</li>
+<li>准备开始界面，一个点击开始的提示，再多两个按钮看个排行榜，设置个音效啥的</li>
+<li>游戏场景，包含具体的游戏玩法</li>
+<li>游戏结束，进行结算，进入下一关或者重新开始啥的</li>
+</ul>
+<h3 id="StateManager"><a href="#StateManager" class="headerlink" title="StateManager"></a>StateManager</h3><p>好比电影有导演，既然有了场景，那么肯定有管理场景的对象，在Phaser中通过<code>StateManager</code>来管理对象，查看<a href="https://photonstorm.github.io/phaser-ce/Phaser.StateManager.html" target="_blank" rel="external">stateManager文档</a>。</p>
+<p>场景管理器用来维护多个游戏场景，包括加载、设置和场景之间的切换等方法，会用到的方法包括：</p>
+<ul>
+<li><code>add(key, state)</code>添加一个场景，key是每个场景的标识符，如<code>welcome</code>,<code>over</code>等带有语义性的称谓</li>
+<li><code>start(key)</code>，启动一个场景，可用于场景之间的切换</li>
+</ul>
+<p>我们的游戏整体结构可能就是长成这个样子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Phaser.Game对象</span></div><div class="line"><span class="keyword">let</span> game = <span class="built_in">require</span>(<span class="string">'./game'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 每个具体场景</span></div><div class="line"><span class="keyword">let</span> boot = <span class="built_in">require</span>(<span class="string">'./boot'</span>);</div><div class="line"><span class="keyword">let</span> preload = <span class="built_in">require</span>(<span class="string">'./preload'</span>);</div><div class="line"><span class="keyword">let</span> welcome = <span class="built_in">require</span>(<span class="string">'./welcome'</span>);</div><div class="line"><span class="keyword">let</span> play = <span class="built_in">require</span>(<span class="string">'./play'</span>);</div><div class="line"><span class="keyword">let</span> gameover = <span class="built_in">require</span>(<span class="string">'./gameover'</span>);</div><div class="line"></div><div class="line"><span class="keyword">let</span> states = &#123;</div><div class="line">    preload,</div><div class="line">    boot,</div><div class="line">    welcome,</div><div class="line">    play,</div><div class="line">    gameover</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 通过StateManager来装载对应的场景</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> states)&#123;</div><div class="line">    <span class="keyword">if</span> (states.hasOwnProperty(key))&#123;</div><div class="line">        game.state.add(key, states[key]);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 启动某个场景，另外场景之间的切换也使用该方法进行</span></div><div class="line">game.state.start(<span class="string">"boot"</span>);</div></pre></td></tr></table></figure>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>先不要在意细节，可以发现，我们写游戏实际上就是在设计和实现游戏场景。在一个游戏场景中，存在着他自己的生命周期，场景从构造到显示在屏幕上，再从场景被销毁然后切换到其他场景的过程。一般来将，框架都会提供相应的钩子函数，以便我们对游戏场景进行操作</p>
+<p>在Phaser中，一个场景对应一个构造函数，查看<a href="https://photonstorm.github.io/phaser-ce/Phaser.State.html" target="_blank" rel="external">state文档</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> play = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  	<span class="keyword">this</span>.preload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</div><div class="line">  	<span class="keyword">this</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</div><div class="line">  	<span class="comment">// 其他生命周期函数</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = play</div></pre></td></tr></table></figure>
+<p>我们的大部分逻辑都是在场景中实现的，比如加载某张图片，播放一段音乐，移动角色，检测碰撞等。只需要丰富我们的游戏场景，整个游戏就可以跑起来了，整体结构是不是十分清晰呢（还是那句话，先不要管具体实现哈）。</p>
+<p>需要注意的是，state不能使用下列ES6对象简写形式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var states = &#123; </div><div class="line">    welcome()&#123; </div><div class="line">        // todo </div><div class="line">        console.log(</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我猜测因为场景函数在内部需要更换绑定的<code>this</code>造成的。</p>
+<p>此外，在Cocos中还有层的概念，用来管理大场景中的某些节点，相当于将场景进一步划分，在Phaser中貌似使用<code>state</code>就够了。</p>
+<h2 id="游戏的资源：加载器"><a href="#游戏的资源：加载器" class="headerlink" title="游戏的资源：加载器"></a>游戏的资源：加载器</h2><p>游戏开发中，需要大量的资源文件，如图片、音效等，我们看见的绚丽的技能特效，逼真的背景音乐，都是通过外部资源来实现的。由于资源类型比较多，游戏引擎一般会提供相应的资源加载接口，查看<a href="https://photonstorm.github.io/phaser-ce/Phaser.Loader.html" target="_blank" rel="external">Loader文档</a>。</p>
+<p>对于资源，一般的处理方式是在游戏启动之前单独使用一个场景来进行加载，并通过反馈加载进度的方式提醒玩家耐心等待</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> preload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.preload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 加载游戏资源</span></div><div class="line">    game.load.image(<span class="string">'bg'</span>, <span class="string">'assets/images/bg.png'</span>);</div><div class="line">    game.load.image(<span class="string">'hero'</span>, <span class="string">'assets/images/hero.png'</span>);</div><div class="line">    <span class="comment">// todo</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">this</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 资源加载完毕，进行跳转</span></div><div class="line">    game.state.start(<span class="string">'welcome'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要注意的是，在Phaser中，资源的加载都是异步进行的，为了使用某个资源，必须确保它已经加载完成，一种常用的做法是在前一个场景中就加载对应的资源，利用场景的生命周期来控制资源的加载</p>
+<p>资源加载过程会触发对应的事件，可以用来做进度提示</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ame.load.onFileComplete.add(<span class="function"><span class="keyword">function</span> (<span class="params">progress</span>) </span>&#123;&#125;);</div><div class="line">game.load.onLoadComplete.add(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;);</div></pre></td></tr></table></figure>
+<h2 id="游戏的元素：精灵"><a href="#游戏的元素：精灵" class="headerlink" title="游戏的元素：精灵"></a>游戏的元素：精灵</h2><p>精灵是游戏引擎中必不可少的一个元素，一个精灵一般对应着贴图，基本上任何可见的元素都是精灵，查看<a href="https://photonstorm.github.io/phaser-ce/Phaser.Sprite.html" target="_blank" rel="external">sprite文档</a></p>
+<blockquote>
+<p>Sprites are the lifeblood of your game, used for nearly everything visual.</p>
+</blockquote>
+<p>精灵有许多经常用到的属性，比如</p>
+<ul>
+<li><code>alpha</code>设置透明度，</li>
+<li><code>angle</code>设置角度，</li>
+<li><code>anchor</code>设置锚点</li>
+<li><code>events</code>注册事件处理函数</li>
+</ul>
+<p>上面只是简单列举了几个属性而已，只是为了让大家明白，在游戏逻辑的开发过程中，大部分都是对精灵的操作，比如设置生命属性，添加动画，检查位置及碰撞等，可以类比为在Web中操作DOM节点。</p>
+<p>下面的代码是创建一个主角，同样不用深究细节，我们只需要明白，我们创建了一个主角对象，我们可以通过程序来操作他。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">player = game.add.sprite(game.world.centerX, height, <span class="string">'dude'</span>);</div><div class="line">player.anchor.setTo(<span class="number">0.5</span>, <span class="number">1</span>);</div><div class="line"></div><div class="line"><span class="comment">// 为了使用碰撞检测，这里需要开启精灵的physics</span></div><div class="line">game.physics.enable(player);</div><div class="line">player.body.allowGravity = <span class="literal">false</span>;</div><div class="line"><span class="comment">// 监听事件，移动角色</span></div><div class="line">movePlayer();</div></pre></td></tr></table></figure>
+<p>另外，写前端的同学想必对于精灵图并不陌生，实际上，在游戏开发中也会大量使用精灵图。在去年刚接触编程的时候，手动去拼接精灵图的活我是再也不会做了~</p>
+<h2 id="游戏的交互：事件"><a href="#游戏的交互：事件" class="headerlink" title="游戏的交互：事件"></a>游戏的交互：事件</h2><p>游戏是通过事件与玩家进行交互的，我们要控制主角移动，要躲避子弹，要跳跃，要使用按键组合技能啥的，无非就是监听事件然后处理的一些逻辑罢了。与浏览器的事件相比，游戏中的事件要简单很多，常见的交互事件无非是鼠标和触摸事件而已。</p>
+<p>事件属于Phaser.Signal<code>类所有的事件处理函数通过事件的</code>add`方法添加，<a href="https://photonstorm.github.io/phaser-ce/Phaser.Signal.html" target="_blank" rel="external">查看事件文档</a>。</p>
+<p>下面的代码 实现了上面移动主角的逻辑</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">movePlayer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="comment">// 移动角色      </span></div><div class="line">    <span class="keyword">let</span> touching = <span class="literal">false</span>;</div><div class="line">    <span class="comment">// 为了防止角色瞬移</span></div><div class="line">    game.input.onDown.add(<span class="function"><span class="keyword">function</span> (<span class="params">pointer</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="built_in">Math</span>.abs(pointer.x - player.x) &lt; player.width/<span class="number">2</span>) &#123;</div><div class="line">            touching = <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    game.input.onUp.add(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        touching = <span class="literal">false</span>;</div><div class="line">    &#125;);</div><div class="line">    game.input.addMoveCallback(<span class="function"><span class="keyword">function</span> (<span class="params">pointer, x, y, isTap</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!isTap &amp;&amp; touching) &#123;</div><div class="line">            player.x = x</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码的逻辑十分简单，监听整个游戏场景的点击事件，让角色跟随触摸点移动。实际上还需要做边界检测等逻辑处理，即在移动时判断角色的位置是否超过了场景边界。</p>
+<p>需要注意的是，如果仅仅只希望为某个精灵添加点击事件，需要先设置<code>inputEnabled = true</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">bird.inputEnabled = <span class="literal">true</span>;</div><div class="line">bird.events.onInputDown.add(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"1"</span>);</div><div class="line">&#125;, <span class="keyword">this</span>);</div></pre></td></tr></table></figure>
+<p>使用标识符显式开启点击事件可能是为了提高游戏效率。</p>
+<h2 id="游戏的特效：动画"><a href="#游戏的特效：动画" class="headerlink" title="游戏的特效：动画"></a>游戏的特效：动画</h2><p>做前端免不了跟动画打交道，Phaser提供了<strong>补间动画</strong>和<strong>帧动画</strong>，另外还可以通过定时器来产生类似于动画的效果</p>
+<ul>
+<li>补间动画是在指定的时间内将精灵从某个状态改变到另一个状态</li>
+<li>帧动画是通过按照一定的频率切换显示帧图片来达到动画的效果，比如<code>Flappy bird</code>中的小鸟飞翔动画，就是通过三张图片反复播放来实现的。</li>
+<li>通过定时器持续改变精灵的某个属性来达到动画的效果</li>
+</ul>
+<p>动画是为了增强游戏的体验而使用的，我的理解是，即使没有动画，游戏的逻辑也能够继续；换句话讲，我们不应该把动画和逻辑的实现混杂在一起。一般来讲，定时器一般是伴随着游戏逻辑的处理（比如水果掉落，敌机移动等），因此，我认为不应该把定时器动画当作具体的动画来处理，尽管他们看起来很像。</p>
+<h3 id="Animation"><a href="#Animation" class="headerlink" title="Animation"></a>Animation</h3><p>Phaser中，一个animation实例包含了一个独立的动画，以及操作该动画的方法（播放暂停等），查看<a href="https://photonstorm.github.io/phaser-ce/Phaser.Animation.html" target="_blank" rel="external">animation文档</a>。</p>
+<p>下面是小鸟的飞行动画，对应的资源文件是<img src="http://note.youdao.com/yws/public/resource/f30e53292cf4e3c5297016b7aa7467c0/xmlnote/C6228DD3A41B4D80BA605B732A4FF52E/25508" alt="bird"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 加载资源</span></div><div class="line">game.load.spritesheet(<span class="string">'bird'</span>, <span class="string">'assets/bird.png'</span>, <span class="number">32</span>, <span class="number">24</span>, <span class="number">3</span>,<span class="number">0</span>,<span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="comment">// 生产精灵</span></div><div class="line">bird = game.add.sprite(width/<span class="number">2</span>, height*<span class="number">0.2</span>, <span class="string">'bird'</span>);</div><div class="line"><span class="comment">// 添加动画</span></div><div class="line">bird.animations.add(<span class="string">'fly'</span>);</div><div class="line"><span class="comment">// 播放动画</span></div><div class="line">bird.animations.play(<span class="string">'fly'</span>, <span class="number">12</span>, <span class="literal">true</span>);</div><div class="line">bird.anchor.setTo(<span class="number">0.5</span>);</div></pre></td></tr></table></figure>
+<p>可以看见，三张帧就可以组成一个小鸟飞行的动画了，猜测内部的实现原理应该就是通过定时切换对应图片的显示来达到动画的效果的。</p>
+<h3 id="Tween"><a href="#Tween" class="headerlink" title="Tween"></a>Tween</h3><p>补间动画是通过在为目标指定某段时间内需要到达的属性来产生动画的，我的理解就是CSS中的<code>transition</code>，查看<a href="https://photonstorm.github.io/phaser-ce/Phaser.Tween.html" target="_blank" rel="external">Tween文档</a>。</p>
+<p>补间动画在游戏中也十分常见，比如显示爆炸特效然后逐渐消失，将目标逐渐旋转到某个角度等。</p>
+<p>下面这段代码是设置标题在数值方向上产生位移的动画。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">game.add.tween(title).to(&#123; <span class="attr">y</span>:<span class="number">120</span> &#125;,<span class="number">1000</span>,<span class="literal">null</span>,<span class="literal">true</span>,<span class="number">0</span>,<span class="built_in">Number</span>.MAX_VALUE,<span class="literal">true</span>);</div></pre></td></tr></table></figure>
+<p>这里只是了解大概，具体使用查看手册即可。</p>
+<h2 id="游戏的世界：物理引擎"><a href="#游戏的世界：物理引擎" class="headerlink" title="游戏的世界：物理引擎"></a>游戏的世界：物理引擎</h2><p>在游戏开发中，我们可能需要去模拟展示场景的物理行为，比如碰撞，边界检测等，游戏引擎一般都提供了相关的物理引擎，物理引起可以给予物体赋予物理属性，使其产生运动、碰撞等，通过高度的抽象接口，避免了我们手动去进行底层编码（貌似实现物理引擎还是很有难度的），可以大大提高游戏效率。</p>
+<p>在Phaser中内置了3套物理引擎，查看<a href="https://photonstorm.github.io/phaser-ce/#toc-19" target="_blank" rel="external">Physics文档</a>。目前我只使用了<code>aracede</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> // 首先需要设置物理引擎</div><div class="line"> game.physics.startSystem(Phaser.Physics.Arcade);</div><div class="line"> game.physics.arcade.gravity.y = gameSpeed;</div><div class="line"> </div><div class="line"> // 然后为需要进入物理系统的精灵进行配置</div><div class="line">game.physics.enable(fruit);</div><div class="line">// 此时精灵进入了物理引擎，就具备了重力等特性，会自由下落啦~</div></pre></td></tr></table></figure>
+<p>物理引擎是一个比较大且重要的概念，这里还需要进一步的学习和了解</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h3><p>游戏场景本身就是一个巨大的定时器，每一帧都将绘制计算的结果并展示到屏幕上。游戏的性能及取决于每秒钟能绘制的帧数，之前做动画一般是要求每帧的时长是<code>1000/60</code>，而游戏的计算量比较大，一般达到每秒钟二三十帧即可。</p>
+<h3 id="粒子效果"><a href="#粒子效果" class="headerlink" title="粒子效果"></a>粒子效果</h3><p>粒子效果是比较酷炫的动画，之前在学习Canvas的时候有了解到一点相关的东西，我的理解是将图片分解为单个的像素点然后再进行操作。与粒子相关的概念是<strong>粒子发射器</strong>，这个后面再了解，这里放出我的一个书签：<strong>www.effecthub.com</strong>，这是之前在学习Cocos的时候找到的~</p>
+<h3 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h3><p>渲染游戏对象时，需要知道其具体的位置，而位置这个概念是相对于坐标系的：</p>
+<ul>
+<li>屏幕坐标系以屏幕左上角为原点，向右为X轴正方向，向下为Y轴正方向，Phaser采用的就是这种坐标系</li>
+<li>OpenGL坐标系以屏幕左下角为远点，向右为X轴正方向，向上为Y轴正方向，Cocos采用的是这种坐标系</li>
+</ul>
+<p>与坐标系相关的另一个概念就是<strong>锚点</strong>，因为对象在游戏场景中是有面积的，我们无法仅仅通过坐标系中的一个点确定对象的摆放位置，对象的锚点就是用来解决这个问题的。</p>
+<p>锚点是一对百分比系数（范围为0~1），对应该点在对象上的位置，然后将锚点与对象的坐标进行重合，就确定了对象在场景中的位置，锚点相当于一颗钉子（这也是他的名称由来），可以理解为CSS中的<code>transform-origin</code>属性。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这里简单整理了游戏开发中几个概念，也许还算不上是真正的游戏，但我确实很想写一款好玩的游戏，只是被各种各样的事儿耽搁了。现在趁着还没忘记，赶紧先记下来。总有一天会写一款非常好玩的游戏，等着我吧~</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/Phaser" class="article_tag">#Phaser</a>
+        
+        <a href="/tags/游戏" class="article_tag">#游戏</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#游戏的整体结构：场景"><span class="toc-number">1.</span> <span class="toc-text">游戏的整体结构：场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#StateManager"><span class="toc-number">1.1.</span> <span class="toc-text">StateManager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#state"><span class="toc-number">1.2.</span> <span class="toc-text">state</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#游戏的资源：加载器"><span class="toc-number">2.</span> <span class="toc-text">游戏的资源：加载器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#游戏的元素：精灵"><span class="toc-number">3.</span> <span class="toc-text">游戏的元素：精灵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#游戏的交互：事件"><span class="toc-number">4.</span> <span class="toc-text">游戏的交互：事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#游戏的特效：动画"><span class="toc-number">5.</span> <span class="toc-text">游戏的特效：动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Animation"><span class="toc-number">5.1.</span> <span class="toc-text">Animation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tween"><span class="toc-number">5.2.</span> <span class="toc-text">Tween</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#游戏的世界：物理引擎"><span class="toc-number">6.</span> <span class="toc-text">游戏的世界：物理引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">7.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定时器"><span class="toc-number">7.1.</span> <span class="toc-text">定时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#粒子效果"><span class="toc-number">7.2.</span> <span class="toc-text">粒子效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坐标系"><span class="toc-number">7.3.</span> <span class="toc-text">坐标系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">8.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

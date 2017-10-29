@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">从零开始实现一个简易的PHP框架</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/1/8 11:57:20</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/PHP" class="hover-highlight">PHP</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>在11月份的时候，参照慕客网的视频，照猫画虎折腾了一个非常简陋的PHP框架半成品，简陋到只勉强实现了自动加载类和路由功能，由于功力不足暂时将这个小项目放在了旁边，到后面补习了一些PHP的基础知识，又花了大概一周的时间去了解Laravel，对于PHP框架的运行流程稍微长进了一点。现在趁着周末重新整理了之前的笔记：一个简易的PHP MVC框架的实现。</p>
+<a id="more"></a>
+<h2 id="MVC框架"><a href="#MVC框架" class="headerlink" title="MVC框架"></a>MVC框架</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>流行的PHP框架都是采用MVC形式，就我现在对于MVC的理解是这种设计将整个项目分为了三层：</p>
+<ul>
+<li>M(模型层),主要负责与数据路交互并提供获取相应数据的接口</li>
+<li>V(视图层),主要负责数据的提交和显示,与用户进行交互</li>
+<li>C(控制层),主要处理业务逻辑，连接模型层与视图层。</li>
+</ul>
+<p>简单地说，控制层就是获取用户的请求，并将对应的请求转发到模型层，获取模型层返回的数据，然后再提供给视图层展示。而实际上，一个PHP程序也可以抽象地划分为3个组成部分，然后在MVC结构中：</p>
+<ul>
+<li>数据的采集(从视图层提交数据)</li>
+<li>数据的处理(控制层捕获到数据并转交给模型层进行逻辑处理，然后从模型层返回经过处理的数据到控制层)</li>
+<li>数据的输出(控制层将模型返回的数据传递给视图)</li>
+</ul>
+<h3 id="单入口文件"><a href="#单入口文件" class="headerlink" title="单入口文件"></a>单入口文件</h3><p>与MVC相关还有另外一个比较重要的概念：<strong>单入口文件</strong>。比如，ThinkPHP根目录下的<code>index.php</code>和Laravel根目录下的<code>public/index.php</code>，就是整个框架的入口文件。<br>单入口文件的原理是：通过单入口文件加载整个项目的核心文件，核心文件中通过解析路由获取需要调用的控制器，然后加载对应的控制器并调用相关方法，控制器方法处理对应的逻辑并加载需要的视图文件，最后输出视图。<br>那么，也就是说，访问所有的控制器方法，实际上都是访问这个<code>index.php</code>文件(假设我们的入口文件名就是<code>index.php</code>，下同)，在默认情况，每个URL开头都会带有<code>index.php</code>。</p>
+<p>一般情况下，都会通过<code>.htaccess</code>文件进行服务器路径重写，隐藏URL路径中的<code>index.php</code>，我们看到的URL一般就成了<code>www.xxx.com/Index/index</code>这样的形式。</p>
+<p>在这个简易框架的单入口文件中，我们需要做两件事情：</p>
+<ul>
+<li>定义路径常量，整个框架主要包含<strong>核心文件夹</strong>（用于存放框架的核心文件，诸如路由，数据库，日志类以及相关的配置文件）和<strong>项目文件夹</strong>（用于存放项目代码，包括控制器和模型）。</li>
+<li>注册自动调用方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 定义路径常量</div><div class="line">define(&apos;ROOT&apos;,dirname(__FILE__));</div><div class="line">define(&apos;CORE&apos;,ROOT.&apos;/Core&apos;);</div><div class="line">define(&apos;APP&apos;,ROOT.&apos;/App&apos;);</div><div class="line">define(&apos;MOUDLE&apos;,&apos;App&apos;);</div><div class="line"></div><div class="line">// 调试模式</div><div class="line">ini_set(&apos;display_errors&apos;,&apos;1&apos;);</div><div class="line"></div><div class="line">// 加载函数库</div><div class="line">include CORE.&apos;/Common/function.php&apos;;</div><div class="line">// 加载核心文件</div><div class="line">include CORE.&apos;/Core.php&apos;;</div><div class="line"></div><div class="line">// 自动加载类</div><div class="line">spl_autoload_register(&apos;Core\Core::load&apos;);</div><div class="line"></div><div class="line">// 启动程序</div><div class="line">\Core\Core::run();</div></pre></td></tr></table></figure>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>单单访问<code>index.php</code>是无法完成我们的业务逻辑的，我们必须通过解析URL的参数，调用对应的方法。这里使用的方法是PHP的超全局变量<code>$_SERVER</code>的属性<code>[&#39;REQUEST_URI&#39;]</code>来实现URL的解析的。</p>
+<h3 id="SERVER"><a href="#SERVER" class="headerlink" title="$_SERVER"></a>$_SERVER</h3><p><code>$_SERVER</code>是一个包含了诸如头信息(header)、路径(path)、以及脚本位置(script locations)等等信息的数组。这个关联数组中的属性由 Web 服务器创建（但是不能保证每个服务器都提供全部属性）。 我们使用的是其中的’REQUEST_URI’属性，也就是 ‘URI’ 用来指定要访问的页面。</p>
+<h3 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h3><p>那么问题来了，’URI’和’URL’长的这么像，他们的关系是什么呢？首先来看一看什么是URI。参考<a href="http://blog.csdn.net/pleasecallmewhy/article/details/8922826" target="_blank" rel="external">网络爬虫</a>;</p>
+<blockquote>
+<p>URI，是uniform resource identifier，统一资源标识符，用来唯一地标识一个资源，Web上每种可用的资源，如 HTML页面、图像等都由这个标识符进行定位。</p>
+</blockquote>
+<p>通常，一个URI由三部分组成，比如<code>http://www.shy.com/Index/index</code>：</p>
+<ul>
+<li>访问资源的命名机制<code>http</code></li>
+<li>存放资源的主机名<code>www.shy.com</code></li>
+<li>可以通过路径访问<code>Index/index</code></li>
+</ul>
+<p>我们需要解析的就是这个<code>Index/index</code>，这正是<code>$_SERVER[&#39;REQUEST_URI&#39;]</code>提供的值（所以前面隐藏<code>index.php</code>也是为了更轻松的获取到URI）。</p>
+<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p>接下来就是常说的URL了。</p>
+<blockquote>
+<p>URL，是uniform resource locator，统一资源定位符，主要用在各种WWW客户程序和服务器程序上，采用URL可以用一种统一的格式来描述各种信息资源，包括文件、服务器的地址和目录等。</p>
+</blockquote>
+<p>URL的格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">protocol :// hostname[:port] / path / name</div></pre></td></tr></table></figure></p>
+<ul>
+<li>协议名</li>
+<li>主机名，有时还包括端口号</li>
+<li>资源保存的路径和名称</li>
+</ul>
+<p>乍一看URL跟URI貌似并没有什么区别嘛!实际上可以把URI看做URL更低层次的抽象，只一种字符串文本标准。两者的区别在于：</p>
+<ul>
+<li>URI表示请求服务器的路径，定义这么一个资源（并没有指定它的用途）；</li>
+<li>而URL同时说明要如何访问这个资源（指明网址 ftp服务器 文件路径）。</li>
+</ul>
+<p>这里引申还之前看见的一个题目:”输入<code>www.shy.com</code>和<code>www.shy.com/</code>的区别。咳咳，偏离文章主题了，就此打住。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>通过获取<code>$_SERVER[&#39;REQUEST_URI&#39;]</code>，然后将他分解成所需要的控制器和方法名，再考虑实现GET参数的传递，一个简单的路由类就实现了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">namespace Core\Lib;</div><div class="line">class Route &#123;</div><div class="line">    public $ctrl = &apos;Index&apos;;</div><div class="line">    public $action = &apos;index&apos;;</div><div class="line"></div><div class="line">    public function __construct()&#123;</div><div class="line">        $urlArr = explode(&apos;/&apos;,trim($_SERVER[&apos;REQUEST_URI&apos;],&apos;/&apos;));</div><div class="line">        if (isset($urlArr[0]) &amp;&amp; $urlArr[0] != &apos;&apos;)&#123;</div><div class="line">            $this-&gt;ctrl = $urlArr[0];</div><div class="line">        &#125;</div><div class="line">        if (isset($urlArr[1]))&#123;</div><div class="line">            $this-&gt;action = $urlArr[1];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 如果传参则必须显式声明控制器和方法名</div><div class="line">        if (isset($urlArr[2]))&#123;</div><div class="line">            $getArr = explode(&apos;&amp;&apos;,$urlArr[2]);</div><div class="line">            foreach($getArr as $v )&#123;</div><div class="line">                $pair = explode(&apos;=&apos;,$v);</div><div class="line">                $_GET[$pair[0]] = $pair[1];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>假定输入的URL为：<code>http://www.shy.com/Index/index/id=100&amp;age=200</code>，则路由解析获得的结果是：</p>
+<ul>
+<li>Index控制器</li>
+<li>index方法</li>
+<li>$_GET[id]=100,$_GET[age]=200</li>
+</ul>
+<p>这个路由方式参照的是ThinkPHP的做法，然而我并没有去研究TP的源码，里面应该有更全面的处理方式。实际上我更倾向于Laravel的自定义路由，虽然只会一点点皮毛，哈哈。</p>
+<h2 id="自动加载类和命名空间"><a href="#自动加载类和命名空间" class="headerlink" title="自动加载类和命名空间"></a>自动加载类和命名空间</h2><p>从路由中获取到了请求的控制器和方法名，然后只要加载相应的控制器文件，顺利调用目标方法，整个程序就能跑起来了。加载控制器类，需要弄明白两个语言基础：自动加载类和命名空间。这里从《Modern PHP》这本书中收获颇多。</p>
+<h3 id="自动加载类"><a href="#自动加载类" class="headerlink" title="自动加载类"></a>自动加载类</h3><p>自动加载类指的是，PHP在运行时按需要查找类并加载到相关文件，从而不需要显式地提前声明<code>require</code>或<code>include</code>。在入口文件看见了<code>spl_autoload_register</code>这个函数</p>
+<blockquote>
+<p>bool spl_autoload_register ([ callable $autoload_function [, bool $throw = true [, bool $prepend = false ]]] )，将函数注册到<code>SPL__autoload</code>函数队列中。如果该队列中的函数尚未激活，则激活它们。</p>
+</blockquote>
+<p>通过自定义一个注册函数，这个函数接收一个类名作为参数，当程序运行到需要实例一个对象却找不到对应的类的时候，就会自动调用<code>__autoload</code>，通过在注册函数中定义的规则加载相应的类文件。</p>
+<p>我们可以随心所欲的定义注册函数中的加载规则。实际上，PSR-4标准指定的自动加载策略依赖PHP命名空间和文件系统目录结构查找并加载PHP类，即：将命名空间的前缀和文件系统中的目录对应起来（我们知道命名空间和实际的文件目录并没有直接关系）。通过将完全命名空间映射成文件目录，可以定义很直观的类加载规则。</p>
+<p>那么，PHP中的命名空间是怎么一回事呢？</p>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>尽管在C++中就知道了命名空间的概念，却没有明白它真正的意义。之后再Laravel的使用中体会到了命名空间的强大。有了命名空间，我们可以很直观地组织和封装相关的PHP类（假装这里体会到了模块化思想），避免与第三方的类库发生命名冲突。</p>
+<p>使用<code>namespace</code>关键字来定义命名空间，与目录和文件的关系相似（但是并没有直接的关联），PHP命名空间也允许指定层次化的命名空间的名称。因此，命名空间的名字可以使用分层次的方式定义（这正是实现自动加载类所需要的）。需要注意的是必须在文件的开头部分声明整个文件的命名空间（尽管一个文件可以同时声明数个命名空间，但是一般不推荐这么做）。<br>定义一个命名空间之后，其中声明的类和函数就有了名称限定，调用命名空间中的类或函数可以通过三种方式引用。</p>
+<h4 id="非限定性名称"><a href="#非限定性名称" class="headerlink" title="非限定性名称"></a>非限定性名称</h4><p>非限定性名称,或者不包含前缀的类名，会被默认解析在当前文件的命名空间下，如果当前文件没有命名空间，则会解析为全局函数名称（即不包含任何命名空间）或者常量名称。 以上面的代码为例，如果在file2中以非限定性名称调用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">namespace name2;</div><div class="line">include &apos;1.php&apos;;</div><div class="line">foo();</div></pre></td></tr></table></figure></p>
+<p>就会将foo()解析为name2\foo()，如果在name2的命名空间下不存在这个函数就会报错；如果不声明name2，就会在将foo()解析为一个不在任何命名空间下的全局函数，当然，如果无法找到依旧会报错。</p>
+<p>使用非限定性的名称就会出现一种情况：如果需要使用的类名或变量是全局的，而当前文件存在命名空间，如果不加以处理，会优先将其解析为当前命名空间下，出现错误。那么，如何解决这种问题呢？这时就可以使用完全限定名称。</p>
+<h4 id="完全限定的名称"><a href="#完全限定的名称" class="headerlink" title="完全限定的名称"></a>完全限定的名称</h4><p>在命名空间前加上全局前缀操作符<code>\</code>，就会从全局开始，依照命名空间的层级寻找对应的变量，实际上，只需要在文件使用namespce声明命名空间名称的前面在加上<code>\</code>就可以了（因为声明命名空间必须显式地指定命名空间的层级）。</p>
+<p>而前小节提出的问题现在也很容易解决：只需要在全局函数或类名全加上全局前缀操作符：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">namespace name2;</div><div class="line">include &apos;1.php&apos;; // 注意此时1.php中是不存在命名空间的</div><div class="line">\foo();</div></pre></td></tr></table></figure></p>
+<h4 id="局部限定名称"><a href="#局部限定名称" class="headerlink" title="局部限定名称"></a>局部限定名称</h4><p>局部限定名称和非限定性名称的区别就在于：在函数或类名前使用了一个不是完全限定的命名空间（没有全局前缀操作符）。<br>此时，如果会将当前文件的命名空间存在，则会将该命名空间名称添加到所使用的局部限定名称前<br>；如果不存在，则会直接去寻找对应名称的命名空间下的类或函数（跟非限定性名称一样）。</p>
+<h3 id="文件路径的小问题"><a href="#文件路径的小问题" class="headerlink" title="文件路径的小问题"></a>文件路径的小问题</h3><p>注意到命名空间的一个小细节：<code>\</code>反斜杠限定符。这个斜杠跟文件路径<code>/</code>十分相似！虽然已经写了很多次路径，也没有发现什么错误，但是决定稍微深究一下这个问题。</p>
+<p>正斜杠，又称左斜杠，符号是<code>/</code>；反斜杠，也称右斜杠，符号是<code>\</code>。</p>
+<ul>
+<li>在Unix/Linux中，路径的分隔采用正斜杠<code>/</code>，比如<code>/home/index</code>；</li>
+<li>在Windows中，路径分隔采用反斜杠<code>\</code>，比如<code>C:\Windows\System</code>。</li>
+</ul>
+<p>微软这么做的原因是：在Windows设计初期，正斜杆<code>/</code>作为DOS命令提示符的参数标志，而文件路径为了和Unix一些特征区别开，因此…(任性)。 而常见的浏览器地址使用的是正斜杠，此外，网络文件路径也必须使用正斜杠。而在windows下的文件路径，使用反斜杠来表示。<br>然而我发现即使是在windows(win10)下，也可以使用正斜杠来访问到指定路径的正确文件。一种解释是Windows的资源管理器正确的处理了用户有可能产生的输入错误，因此就算是我们正反斜杠混合使用都是可以实现对于文件的定位。</p>
+<p>由于反斜杠也是转义符标识，所以在书写路径的时候有可能出现解析错误的情况，因此有时候也会看到<code>C:\\Windows\\System</code>这样对反斜杠先进行转义的路径写法。</p>
+<p>更新：在PHP中，预定于了一个关于目录分隔符的常量<code>DIRECTORY_SEPARATOR</code>，该变量会返回一个跟操作系统相关的路径分割符，这样就不用纠结使用正斜杠还是反斜杠的问题了。</p>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>有了上面的基础，实现一个自动加载类就很简单了：需要加载的、带有命名空间的类名，传递给注册函数，在注册函数中将命名空间映射为文件路径，并加载定义该类的文件，大功告成。此外，如果考虑路径使用反斜杠，则最好对路径中的反斜杠进行转义，这里我的做法是将在使用正斜杠来表示路径（在win10下是可以正常运行的哦）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">static public function load($class)&#123;</div><div class="line">    $class = str_replace(&apos;\\&apos;,&apos;/&apos;,$class);</div><div class="line">    $path = ROOT.&apos;/&apos;.$class.&apos;.php&apos;;</div><div class="line">    if (is_file($path))&#123;</div><div class="line">        require_once $path;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样，只要我们将文件路径和命名空间保存一致，就可以实现自动加载了。为了方便，将这个注册函数定义为了Core核心类的静态方法。</p>
+<h2 id="控制器和方法"><a href="#控制器和方法" class="headerlink" title="控制器和方法"></a>控制器和方法</h2><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><p>前面我们通过路由类，获取到了目标控制器和方法名；通过注册函数，实现自动加载类的功能。接下来，只需要实例控制器对象，调用指定方法就行了，这项工作放在<code>Core.php</code>核心文件中实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">static public function run()&#123;</div><div class="line"></div><div class="line">    $route = new Lib\Route();</div><div class="line">    $ctrl = $route-&gt;ctrl;</div><div class="line">    $action = $route-&gt;action;</div><div class="line"></div><div class="line">    // 控制器完全限定名称</div><div class="line">    $ctrlName = &apos;\\&apos;.MOUDLE.&apos;\Controller\\&apos;.$ctrl.&apos;Controller&apos;;</div><div class="line"></div><div class="line">    // 加载控制器文件</div><div class="line">    try&#123;</div><div class="line">        $ctrl = new $ctrlName();</div><div class="line">        $ctrl-&gt;$action();</div><div class="line">    &#125;catch (\Exception $e)&#123;</div><div class="line">        echo &apos;找不到控制器:&apos;.$ctrl;</div><div class="line">        echo $e-&gt;getMessage();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在我们在<code>APP/Controller/</code>目录下建立<code>IndexController.php</code>，并定义好相关的命名空间和类，然后访问<code>www.shy.com/Index/index</code>就可以访问相应的控制器方法了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">namespace App\Controller;</div><div class="line">use Core\Lib\Controller;</div><div class="line"></div><div class="line">class IndexController&#123;</div><div class="line">    public function index()&#123;</div><div class="line">    	 dd(&apos;PHP是世界上...&apos;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里将<code>Controller</code>目录写死并不是最明智的做法，也还没有对项目进行分组，但是，一切都从最简单的开始吧，接下来，需要处理的是</p>
+<h3 id="控制器基类"><a href="#控制器基类" class="headerlink" title="控制器基类"></a>控制器基类</h3><p>前面在介绍MVC的时候提到，控制器的任务分为如下两方面：</p>
+<ul>
+<li>处理传入数据（在控制器中需要对视图层的提交数据进行过滤和检测，并根据检测结果判断用户是否合法），然后将数据参数传递给模型；</li>
+<li>从模型获取返回数据，根据视图需要进行处理，然后将结果集赋值到页面上(assign())，并展示相应的视图页面(view())</li>
+</ul>
+<p>这里先看输出视图的方面，实际上，输出视图可以简化为加载相应的视图文件，然后通过<code>&lt;?php echo $var ?&gt;</code>进行赋值就可以了。我们将<code>Controller</code>基类放在<code>\Core\Lib</code>目录下，当然，命名空间也是。而关于向视图赋值方面，使用的是<code>extract()</code>将数组打散获取单个变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">namespace Core\Lib;</div><div class="line">class Controller &#123;</div><div class="line">    public $assignArr = [];</div><div class="line"></div><div class="line">    public function assign($key,$val)&#123;</div><div class="line">        $this-&gt;assignArr[$key] = $val;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function view($file)&#123;</div><div class="line">        try&#123;</div><div class="line">            extract($this-&gt;assignArr);</div><div class="line"></div><div class="line">            $pathArr = explode(&apos;\\&apos;,get_class($this));</div><div class="line">            $pathArr[count($pathArr) - 2] =&apos;View&apos;;</div><div class="line">            $ctrName = $pathArr[count($pathArr) - 1];</div><div class="line">            $pathArr[count($pathArr) - 1] = str_replace(&apos;Controller&apos;,&apos;&apos;,$ctrName);</div><div class="line"></div><div class="line">            $path = ROOT.&apos;/&apos;.implode($pathArr,&apos;/&apos;).&apos;/&apos;.$file.&apos;.html&apos;;</div><div class="line"></div><div class="line">            include_once $path;</div><div class="line">        &#125;catch(\Exception $e) &#123;</div><div class="line">            echo $e-&gt;getMessage();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后让<code>IndexController</code>继承<code>Controller</code>，大功告成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class IndexController extends Controller&#123;</div><div class="line">    public function index()&#123;</div><div class="line">   		$this-&gt;assign([</div><div class="line">        	&apos;text&apos;=&gt;&apos;Hello　PHP&apos;</div><div class="line">        ])</div><div class="line">        $this-&gt;view(&apos;index&apos;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><p>就这样，简单地实现了视图文件的加载与变量赋值。上面的代码写的比较丑陋，因为我正在取舍TP关于视图文件的管理和Laravel的视图文件管理，我更倾向于后者（尽管视图文件和控制器文件在文件目录下隔了很远），这是进一步学习需要深思的问题，总之，大概的视图文件加载原理就是这样。此外，由于原生的PHP标签缺乏判断和循环等模板标签，加之我实在不想再HTML文件中书写PHP代码，，因此之前的处理方式是使用<code>Vue.js</code>，这么用<code>Vue</code>会不会被打死…</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>现在，一个很简陋的PHP框架就搭好了，好吧，这根本算不上是个框架，不过，还是能够学到一点关于框架工作的流程。关于模型是另外一个很重要的知识点，因此打算单独整理一篇关于PDO的文章。学习一点后端知识，只是为了更好的写前端，好好努力啦！</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/MVC" class="article_tag">#MVC</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC框架"><span class="toc-number">1.</span> <span class="toc-text">MVC框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单入口文件"><span class="toc-number">1.2.</span> <span class="toc-text">单入口文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路由"><span class="toc-number">2.</span> <span class="toc-text">路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SERVER"><span class="toc-number">2.1.</span> <span class="toc-text">$_SERVER</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URI"><span class="toc-number">2.2.</span> <span class="toc-text">URI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URL"><span class="toc-number">2.3.</span> <span class="toc-text">URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">2.4.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动加载类和命名空间"><span class="toc-number">3.</span> <span class="toc-text">自动加载类和命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自动加载类"><span class="toc-number">3.1.</span> <span class="toc-text">自动加载类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命名空间"><span class="toc-number">3.2.</span> <span class="toc-text">命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#非限定性名称"><span class="toc-number">3.2.1.</span> <span class="toc-text">非限定性名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#完全限定的名称"><span class="toc-number">3.2.2.</span> <span class="toc-text">完全限定的名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#局部限定名称"><span class="toc-number">3.2.3.</span> <span class="toc-text">局部限定名称</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件路径的小问题"><span class="toc-number">3.3.</span> <span class="toc-text">文件路径的小问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-1"><span class="toc-number">3.4.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制器和方法"><span class="toc-number">4.</span> <span class="toc-text">控制器和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#调用"><span class="toc-number">4.1.</span> <span class="toc-text">调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#控制器基类"><span class="toc-number">4.2.</span> <span class="toc-text">控制器基类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-2"><span class="toc-number">4.3.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">5.</span> <span class="toc-text">最后</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

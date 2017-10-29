@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">关于CSS选择器命名的思考</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/9/7 21:45:11</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/CSS" class="hover-highlight">CSS</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>初学CSS之时，对选择器命名不屑一顾，心想不就是拼个单词吗？实在不行谷歌翻译一下就完事儿了。现在想想，真是可笑至极。选择器命名可以说是样式重用的基础，而最近面对一个几千行CSS代码的项目，大量的时间被耗费在选择器命名上，实在是再也不能忍受了。看了不少博客，也问了数位前辈，一直没能得到满意的答案。<br>今天这篇博客，就草草总结一下工作两个多月以来被CSS选择器命名折磨所得到的感悟。<br><a id="more"></a></p>
+<h2 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h2><h3 id="样式重用"><a href="#样式重用" class="headerlink" title="样式重用"></a>样式重用</h3><h4 id="不要使用id选择器"><a href="#不要使用id选择器" class="headerlink" title="不要使用id选择器"></a>不要使用id选择器</h4><p>尽管处于同一个页面上的多个元素同时具有相同的id，其样式也会正确显示（在谷歌火狐等浏览器上进行测试），也就是说浏览器实际上并不会检测id的唯一性。然而，尽管如此，那么为什么不直接使用class选择器呢？</p>
+<ul>
+<li>在页面上使用多个同名的id选择器，会给Js挖一个很大的坑（JS只会获取到第一个id元素）;</li>
+<li>在页面上使用唯一的id选择器，由于规范限制，会导致该id选择器的样式无法被其他元素公用，毫无重用性可言。</li>
+</ul>
+<p>因此，在不能确保页面上是否会出现类似样式的元素时，不要对已有样式设置id选择器！</p>
+<h4 id="慎重使用语义化的选择器名称"><a href="#慎重使用语义化的选择器名称" class="headerlink" title="慎重使用语义化的选择器名称"></a>慎重使用语义化的选择器名称</h4><p>语义化选择器带来的好处就是可以直观地了解对应元素在页面中的扮演角色及对应的作用，比如.head,.banner等等，清晰明了。但是，随之而来的问题，却也是我最大的困惑：<br>总不能在页脚区域写上.header这样的类吧（即使他们的样式十分相似），原本的语义化确限制了样式的重用。没错，的确可以在页脚区域写.header样式，浏览器也会正确显示，JS也没有问题，但是，你真的不觉得别扭吗？<br>也许，你还会说，页首跟页尾的样式相同的概率没那么大吧？嗯，对的，那么想象一下，页面中有两个或者数个版式相似的区域，他们都有带下划线的标题，红色的边框，放上了数目不等的几张正方形图片，只是图片所代表的内容不同而已，这些区域放置了“旅行”“生活”“工作”balabala之类，难道要给每个区域都给上对应的”.travel”,”.life”,”.work”么？<br>也许分组选择器可以解决这个问题，我们还会沾沾自喜，使用一个逗号就完成了样式的复用。相信我，日子长了，你肯定会厌烦为每一个区域都绞尽脑汁地想对应的语义化名称的！</p>
+<h4 id="不要使用上下文相关联的标签选择器"><a href="#不要使用上下文相关联的标签选择器" class="headerlink" title="不要使用上下文相关联的标签选择器"></a>不要使用上下文相关联的标签选择器</h4><p>后代选择器允许我们根据元素的上下文关系来确定某个标签的样式，而无须指定class或id。首先必须承认，这是一个十分方便且强大的选择器，我们可以轻松加愉快地为目的元素加上样式，选择器命名什么的见鬼去吧。那么，选择器命名的问题就此终结了？怎么可能！<br>假定有这么一个选择器ul .item，这表示为ul标签下的所有item类指定对应样式，当其他的某个地方也需要同样的样式时，却被其父元素必须为ul给定死了；或者是.items li，只有同为li的元素才能公用.items下的li样式。这意味着，复用这些样式，必须指定同样的DOM结构。并且.items下的所有li，包括li下的同为li的子元素也会获取同样的样式，也许”&gt;”是一个办法，然而，这只是使用上下文相关联的选择器所带来的弊端之一。<br>虽然在部分情况下，样式重用的区域，他们的DOM层次确实相似。但是，当样式与结构互相纠缠在一起的时候，如果需求被更改，意味着不仅样式被更改，页面结构也会发生更改（深受折磨，唯有泪千行）。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>也许过分纠结样式重用是一件费力不讨好的事儿，大不了就是多写几个类罢了嘛…然而我对于此却一直耿耿于怀。随着项目经验的增加，模模糊糊感受到了模块化页面的必要性，然而却一直没有完整的概念。</p>
+<h3 id="便于维护"><a href="#便于维护" class="headerlink" title="便于维护"></a>便于维护</h3><p>“改不完的需求”是工作以来感受最深的一件事情，面对页面无休止的更改，到后面的css文件，被我瞎搞的面目全非，在项目开始还特别注重的样式规范，修改过程中被完全抛在脑后：为了解决样式冲突添加了各种页面样式甚至行内样式，还不得不提心吊胆万一更改到了某个重复的样式导致其他页面样式爆炸的情形；或者是为了不影响之前的代码，干脆又重新新建一个类吧，导致的结果就是样式表中多了许多重复的代码，或是DOM元素完全被移除其类名仍然存在于样式表的情况，周而复始，恶性循环。</p>
+<h4 id="简洁的类名"><a href="#简洁的类名" class="headerlink" title="简洁的类名"></a>简洁的类名</h4><p>都说“一个好的选择器命名，应当清晰明了，让刚接手项目的人也能明白其用途”，然而，这句话本身就很难理解，什么是清晰明了？<br>我所理解的清晰明了，并不是上面所谈论的具体语义化，而是该类名所代表的功能化。比如bootstrap中的.container和.container-fulid这两个名称，表达的是这个元素代表一个容器，至于是哪个具体区块下的容器，完全没有必要知道，如果使用.person-wrap这样的类，哎…</p>
+<h4 id="使用单一化功能的类"><a href="#使用单一化功能的类" class="headerlink" title="使用单一化功能的类"></a>使用单一化功能的类</h4><p>功能越是单一的类，越容易被复用，且越容易被修改，同样的bootstarap中，比如文本对齐.text-center这样的类，如果页面中大量存在文本居中的情况，不妨将这条属性单独为一个类，这样，如果是某个时刻需要将左对齐更改为右对齐，只需要更改对应元素的类名就可以了。<br>那么，什么才算是单一化功能呢，比如一个特殊的文本颜色.text-red，一个公用的竖直边距.mb20，都可以很独立为一个类并应用在对应的元素上。<br>但是，这样做的缺点也很明显，如果滥用，会导致一个元素上挂上N多个类，增加页面大小还是次要的问题，如果需要修改的时候，这种情形会变得十分尴尬：比如需要将所有mb20(margin-bottom:20px)的元素底外边距更改为30px,是再单独新建一个.mb30，然后替换页面上所有的.mb20；还是直接将mb20的属性值改为30px，这样挂羊头卖狗肉的装作什么事都没有发生。<br>初次在张鑫旭大神的博客中见到这种面向属性的命名方法，觉得十分神奇，然而遇到需要修改的时候，也变得十分蛋疼，原文的建议是：不要对任何任何网站通用的样式进行分离！<br>所以，转念想想，只要不滥用单一功能化的类，如下定义一个完全居中的类，大概也是可行的吧！毕竟竖直居中这样的功能类，改动的几率会小那么一丁点，即使要修改某个元素，直接去掉这个类就可以了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.vertical-center &#123;</div><div class="line">	position: absolute;</div><div class="line">    left: 0;</div><div class="line">    right: 0;</div><div class="line">    top: 0;</div><div class="line">    bottom: 0;</div><div class="line">    margin: auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="充分利用继承属性"><a href="#充分利用继承属性" class="headerlink" title="充分利用继承属性"></a>充分利用继承属性</h3><p>比如字体的大小，颜色，文本的行高这些属性，完全只对其父元素的类进行设置，并通过继承的方式传递给子元素，这样在修改的时候也可以减轻部分工作量，如果是大段相同的文本样式，设置可以在样式重置时设定，或者是单独剥离出一个文本类。</p>
+<h4 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h4><p>无休止的修改会带来无穷的噩梦，如果没有良好的规范和习惯，在反复地折腾下，样式表肯定会被我玩坏的。也许提前预知哪些地方将会被修改并做好准备，就可以躲过一劫，然而，提前预知不是超能力吗？</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>上面吐槽了半天，却一直没有提到解决的办法。搜索了大量的资料和样式库，加上最近一直在使用scss，参考网易的<a href="http://nec.netease.com/standard/css-name.html" target="_blank" rel="external">NEC的css命名规范</a>，整理了一下内容：</p>
+<ul>
+<li>在类名前加上前缀，作为其命名空间：<ul>
+<li>布局（grid）（.g-）；</li>
+<li>模块（module）（.m-）；</li>
+<li>元件（unit）（.u-）；</li>
+<li>功能（function）（.f-）；</li>
+<li>皮肤（skin）（.s-）；</li>
+<li>状态（.z-）。</li>
+</ul>
+</li>
+<li>关于上面的命名空间，也许并没有必要完全照搬，如果项目多人协作，我自己经常使用的.t-，在选择器前加上姓名缩作为前缀，这样可以有效防止选择器冲突，当然，前提是确定没有使用同一姓名前缀的同事。</li>
+<li>作用于页面布局的类，不能是后代选择器，因为后代选择器存在依赖父级元素的情况，将来被污染的可能性比较大</li>
+<li>命名应简约而不失语义，这里的语义应当是功能化语义（描述这个选择器的作用），而不是具体到该元素的实际名称，比如应当是(一个文章列表采用m-list而不是article-list)。</li>
+<li>使用数字为具有相同语义的不同类命名，比如.m-list-1，.m-list-2（PS：之前就一直使用这种命名，需要及时注释防止过一段时间后就忘记了，此外，最好不要对颗粒化的类采用该条规则，因为颗粒化的类所附带的样式规则本身就很少，采用具体的语义化更合适，比如bg-red而不是bg-color-1）</li>
+<li>如果几个类的类型相同且样式相似区别不大时，将他们的公有样式抽离成单独的基类（可作为SCSS选择器继承的父类），比如基类.btn，可拓展.btn-default…这样的形式</li>
+<li>如果你的模块或元件可能嵌套或被嵌套于其他模块或元件，那么要慎用标签选择器，必要时采用类选择器</li>
+<li>各种常见元素的<a href="http://nec.netease.com/standard/css-practice.html" target="_blank" rel="external">命名缩写</a>，参考的也是网易NEC的规范，比如使用hd(head),bd(body),sd(side),mn(main),ft(foot)来划分某个具体的区块，使用作为具体元素的后缀修饰等</li>
+</ul>
+<p>最后，也是最重要的一点：在动手写页面之前先规划页面整体结构，搭建好布局DOM，抽离公用的结构和样式，使用合适的标签和类名，而不是边写边想，杂乱无章，这是被自己的CSS代码恶心到之后最大的收获。“磨刀不误砍柴工”用在这里，大概是非常合适的。<br>立帖为证，关于上面的规范，在今后的工作中，一定会谨记的，如果违反了请打死我吧(-_-||)。<br>* </p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/代码格式" class="article_tag">#代码格式</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原则"><span class="toc-number">1.</span> <span class="toc-text">原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#样式重用"><span class="toc-number">1.1.</span> <span class="toc-text">样式重用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#不要使用id选择器"><span class="toc-number">1.1.1.</span> <span class="toc-text">不要使用id选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#慎重使用语义化的选择器名称"><span class="toc-number">1.1.2.</span> <span class="toc-text">慎重使用语义化的选择器名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不要使用上下文相关联的标签选择器"><span class="toc-number">1.1.3.</span> <span class="toc-text">不要使用上下文相关联的标签选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">1.1.4.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#便于维护"><span class="toc-number">1.2.</span> <span class="toc-text">便于维护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简洁的类名"><span class="toc-number">1.2.1.</span> <span class="toc-text">简洁的类名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用单一化功能的类"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用单一化功能的类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#充分利用继承属性"><span class="toc-number">1.3.</span> <span class="toc-text">充分利用继承属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#小结-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">2.</span> <span class="toc-text">方法</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

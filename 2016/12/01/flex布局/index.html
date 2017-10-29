@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">flex布局</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/12/1 21:46:14</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/CSS" class="hover-highlight">CSS</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>最近在掘金上看见了一个叫做<code>flex.css</code>的项目：使用flex进行移动端的快速布局。之前在学习CSS3的时候还挣扎在定位和浮动的困惑无法自拔，后面的项目也未曾想到使用flex。因此翻开CSS手册，准备整理一下关于flex的知识。<br><a id="more"></a></p>
+<h2 id="兼容"><a href="#兼容" class="headerlink" title="兼容"></a>兼容</h2><p>在<a href="http://caniuse.com/#search=flex" target="_blank" rel="external">Can I Use</a>上可以看到，现在主流的浏览器都是支持<code>flex</code>属性的，关于之前需要使用的<code>-webkit-</code>前缀，貌似现在也是不需要了，因此，大胆地尝试一些新的东西吧。至于flex本身，也有<code>box-flex</code>（旧版本）和<code>flex</code>（新版本），现在肯定是学习最新的啦。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>进行flex布局需要先定义一个flex容器，其子元素成为该容器的项目，设置为Flex布局以后，子元素的<code>float</code>、<code>clear</code>和<code>vertical-align</code>属性将失效。</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">display: -webkit-flex; // 现在已经不需要添加浏览器前缀了</div><div class="line">display: flex;</div></pre></td></tr></table></figure>
+<p>一个声明为flex的容器，便可以添加下面六种属性（就我个人的观点，就像是操作单个文字一样操作容器下的项目）。</p>
+<h4 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h4><p>容器具有主轴和侧轴，全部的项目都根据轴进行布局的，<code>flex-direction</code>设置flex的主轴方向，即项目的排列方向，默认水平方向。（类似于文本的direction属性）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex-direction: column | row | column-reverse | row-reverse;</div></pre></td></tr></table></figure></p>
+<h4 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h4><p>默认情况下，项目都排在一条线（又称”轴线”）上（每个项目会自动调节其宽度）。flex-wrap属性定义，如果一条轴线排不下，是否进行换行。（类似于文本的white-space属性）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex-wrap: nowrap | wrap | wrap-reverse;</div></pre></td></tr></table></figure></p>
+<h4 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h4><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex-flow: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;</div></pre></td></tr></table></figure></p>
+<h4 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h4><p>定义了项目在主轴上的对齐方式（类似于文字对齐的text-align）。<br>需要注意的是：起点和终点都是由flex-direction的值决定的，也就是说如果改变了flex-direction的值，justify-content的结果也会发生变化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">justify-content: flex-start | center | flex-end;</div></pre></td></tr></table></figure>
+<p>除了起点，居中，终点之外，如果需要设置各项目之间的位置分布，还可以使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">justify-content: space-between | space-round;</div></pre></td></tr></table></figure></p>
+<p>其中，<code>space-between</code>表示两端对齐，项目之间的间隔都相等；<code>space-round</code>表示每个项目两侧的间隔相等（类似于把该行剩下的留白均分给每个项目的外边距，）。这两个属性都会使容器中的元素平均地分布在行内，区别在于如果只存在一个项目，则前者相当于<code>flex-start</code>，而后者相当于<code>center</code>。</p>
+<h4 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h4><p>定义项目在侧轴上的对齐方式（类似于设置文本行高与vertical-align的结合），跟<code>justify-content</code>类似，也有下面三种属性值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">align-items: flex-start | flex-end | center ; // 垂直居中不要太简单</div></pre></td></tr></table></figure></p>
+<p>除了起点，居中，终点之外，此外还有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">align-items: baseline | stretch</div></pre></td></tr></table></figure></p>
+<p>其中，<code>baseline</code>表示项目按照项目的第一行文字的基线对齐；<code>stretch</code>如果项目未设置高度或设为auto，将占满整个容器的高度（这个单词的意思就是拉伸）。<br>PS：如果要测试这个属性，最好显式地设置一下容器的高度，或者将项目设置不同的高度</p>
+<h4 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h4><p>用于多行的弹性盒模型容器轴线的对齐方式，只有定义了flex-wrap为wrap时才有效果，如果项目只有一根轴线，该属性不起作用，跟justify-content具有相似的属性值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">align-content: flex-start | flex-end | center | space-between | space-around | stretch;</div></pre></td></tr></table></figure></p>
+<h3 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h3><p>处于flex容器下的项目可以应用下面几个属性（当然，项目也可以是flex容器）。</p>
+<h4 id="order"><a href="#order" class="headerlink" title="order"></a>order</h4><p>定义项目的排列顺序。数值越小，排列越靠前，默认为0。（类似于z-index一样使用数值达到排列在“前面”的效果）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">order: &lt;integer&gt;;</div></pre></td></tr></table></figure></p>
+<h4 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h4><p>定义项目的放大比例（所谓放大指如果项目宽度之和小于容器宽度，就会增加每个项目的宽度），默认为0，即如果存在剩余空间，也不放大。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex-grow: &lt;number&gt;;</div></pre></td></tr></table></figure></p>
+<p>假设存在剩余空间，如果所有项目的flex-grow属性都为1，则它们将均分剩余空间。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍，以此类推，浏览器会自动计算每个项目的宽度。</p>
+<h4 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h4><p>定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex-shrink: &lt;number&gt;;</div></pre></td></tr></table></figure></p>
+<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。</p>
+<ul>
+<li>如果一个项目的flex-shrink属性为0，空间不足时，则该项目的尺寸不缩小（这时就会发生项目溢出容器的情形）;</li>
+<li>如果一个项目的flex-shrink属性为2，其他的项目flex-shrink属性为1，则当空间不足时，该的缩小程度为其他项目的2倍，以此类推（类似于一个靠近浮动元素的BFC）。</li>
+</ul>
+<h4 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h4><p>定义了在分配多余空间之前，项目占据的主轴空间（跟主轴方向有关）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的沿主轴方向上的自身尺寸。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex-basis: &lt;length&gt; | auto;</div></pre></td></tr></table></figure></p>
+<p>它可以设为跟width或height属性一样的值，则项目将占据固定空间，且设置该属性之后，width的值会被自动覆盖（不论书写顺序的前后）</p>
+<h4 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h4><p>是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">flex: none | [ &lt;&apos;flex-grow&apos;&gt; &lt;&apos;flex-shrink&apos;&gt;? || &lt;&apos;flex-basis&apos;&gt; ]</div></pre></td></tr></table></figure></p>
+<p>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。</p>
+<h4 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h4><p>align-self属性允许单个项目有与其他项目不一样的对齐方式，可用于覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">align-self: auto | flex-start | flex-end | center | baseline | stretch;</div></pre></td></tr></table></figure></p>
+<h2 id="flex-css"><a href="#flex-css" class="headerlink" title="flex.css"></a>flex.css</h2><p>由于我也是刚接触这个框架，大致查看了一下，主要是应用属性选择器直接在元素上进行布局声明。这样的写法之前很少遇见，但是感觉很有意思：布局完全跟CSS样式分离了，官方称作“声明式布局”，看HTML代码就可以大致了解整个页面的布局，怪不得说是移动端快速布局的神器。附上两个链接，学习去了：</p>
+<ul>
+<li><a href="https://github.com/lzxb/flex.css" target="_blank" rel="external">flex.css官方地址</a></li>
+<li><a href="http://gold.xitu.io/post/582d991cc4c9710054407dc3?utm_medium=hao.caibaojian.com&amp;utm_source=hao.caibaojian.com" target="_blank" rel="external">flex.css快速入门–掘金</a></li>
+</ul>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/布局" class="article_tag">#布局</a>
+        
+        <a href="/tags/flex" class="article_tag">#flex</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#兼容"><span class="toc-number">1.</span> <span class="toc-text">兼容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语法"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#容器"><span class="toc-number">2.1.</span> <span class="toc-text">容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#flex-direction"><span class="toc-number">2.1.1.</span> <span class="toc-text">flex-direction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flex-wrap"><span class="toc-number">2.1.2.</span> <span class="toc-text">flex-wrap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flex-flow"><span class="toc-number">2.1.3.</span> <span class="toc-text">flex-flow</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#justify-content"><span class="toc-number">2.1.4.</span> <span class="toc-text">justify-content</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#align-items"><span class="toc-number">2.1.5.</span> <span class="toc-text">align-items</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#align-content"><span class="toc-number">2.1.6.</span> <span class="toc-text">align-content</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目"><span class="toc-number">2.2.</span> <span class="toc-text">项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#order"><span class="toc-number">2.2.1.</span> <span class="toc-text">order</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flex-grow"><span class="toc-number">2.2.2.</span> <span class="toc-text">flex-grow</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flex-shrink"><span class="toc-number">2.2.3.</span> <span class="toc-text">flex-shrink</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flex-basis"><span class="toc-number">2.2.4.</span> <span class="toc-text">flex-basis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flex"><span class="toc-number">2.2.5.</span> <span class="toc-text">flex</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#align-self"><span class="toc-number">2.2.6.</span> <span class="toc-text">align-self</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flex-css"><span class="toc-number">3.</span> <span class="toc-text">flex.css</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

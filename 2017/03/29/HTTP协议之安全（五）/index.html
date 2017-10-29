@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">HTTP协议之安全（五）</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/3/29 22:44:20</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/计算机基础" class="hover-highlight">计算机基础</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>HTTP使用明文发送报文，本身不具备加密的功能。这在危机四伏的互联网中是十分危险的，在阅读了《图解HTTP》第七章之后，整理了一点关于安全HTTP的内容，主要内容就是理解HTTPS的原理和工作机制。</p>
+<a id="more"></a>
+<h2 id="危险的互联网"><a href="#危险的互联网" class="headerlink" title="危险的互联网"></a>危险的互联网</h2><h3 id="数据被窃听"><a href="#数据被窃听" class="headerlink" title="数据被窃听"></a>数据被窃听</h3><p>因特网是一个世界范围内的计算机网络，数以亿记的设备通过分组交换机和链路构成的网状系统连接在一起。因此，在某个传输环节中HTTP报文就可能遭受到恶意窥视，只需要收集在互联网上流动的数据包就可以了（专业的术语叫“抓包”，常用的工具比如WireShark）。</p>
+<h3 id="通信伪装"><a href="#通信伪装" class="headerlink" title="通信伪装"></a>通信伪装</h3><p>HTTP协议中的请求和响应都不会对通信方进行确认，也就是说，任何客户端都可以发起请求，而服务端只要接受到请求就必然会返回一个响应（当然是发送端的IP和端口没有被服务器拉黑）。这样就会存在下面几个问题</p>
+<ul>
+<li>客户端可能请求到伪装的服务端，或者服务器响应了伪装的客户端</li>
+<li>无法判定请求的来源，也无法确定客户端的访问权限</li>
+<li>无法拒绝无意义的请求，无法阻止DOS攻击</li>
+</ul>
+<h3 id="报文被纂改"><a href="#报文被纂改" class="headerlink" title="报文被纂改"></a>报文被纂改</h3><p>HTTP协议无法证明通信报文的完整性，因此在传输过程中，即使请求或响应的内容遭受到纂改也无法获知。监管可以通过MD5，SHA-1等散列值校验的方法对报文的完整性进行确定，但并不便捷可靠。但是，如果解决了数据窃听和通信伪装的问题，报文被纂改的风险也会大大降低。</p>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>上面列举了HTTP通信中存在的安全性问题。但是，仅仅依靠HTTP来保证整个传输过程中报文的安全性是非常困难的，为了统一解决上面提到的问题，需要在HTTP上再加入加密处理和认证等机制，而这种添加了加密和认证机制的HTTP，即称为<strong>HTTPS</strong>。《图解HTTP》里面的结论是：</p>
+<blockquote>
+<p>HTTP + 加密 + 认证 + 完整性保护 = HTTPS</p>
+</blockquote>
+<h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><p>为了防止在网路上传输的内容被窃听，可以对将通信内容（即报文）进行加密。但是，通信是服务器和客户端双方的问题，因此在某一方对报文加密的同时，必须保证另一方能够顺利解密，否则，整个加密就毫无意义。<br>下面主要探讨的是如何在服务器和客户端实现合理的加密传输方式，而不是探讨具体的加密技术实现细节。</p>
+<h3 id="共享密钥加密"><a href="#共享密钥加密" class="headerlink" title="共享密钥加密"></a>共享密钥加密</h3><p>把加密方式想象成一把锁，把解密方式想象成这把锁对应钥匙，则一种加密传输的实现方式是：</p>
+<ul>
+<li>服务器在第一次传输中把锁和钥匙都发送给客户端</li>
+<li>客户端使用钥匙解锁服务器后续响应报文，使用锁加密后续请求报文</li>
+<li>服务器也有打开锁的钥匙，用来解锁客户端的请求报文</li>
+</ul>
+<p>这种加密和解密使用同一种锁（同一种加密方法），并使用同一种钥匙（同一种解密方法）的方式称为<strong>共享密钥加密</strong>。<br>整个流程看起来比较简单，但是由于第一次响应报文中会将钥匙以未加密的方式进行传输（因此此时客户端并没有钥匙，如果加密就没办法解密了），因此就存在钥匙被窃听的风险，一旦要是被窃听，整个加密传输就失去意义了。</p>
+<h3 id="公开密钥加密"><a href="#公开密钥加密" class="headerlink" title="公开密钥加密"></a>公开密钥加密</h3><p>而另外一种加密传输的实现方式是：</p>
+<ul>
+<li>服务器在第一次传输中把自己的锁发送给客户端，客户端将自己的锁发送给服务器</li>
+<li>此时客户端有自己的锁和钥匙，还有服务器的锁；而服务器有自己的锁和钥匙，还有客户端的锁</li>
+<li>服务器使用客户端的锁加密响应报文（客户端就可以使用自己的钥匙解密由自己的锁加密的文件了），客户端使用服务器的锁加密请求报文（服务器也可以使用自己的钥匙解密由自己的锁加密的文件）</li>
+</ul>
+<p>更书面的术语是将锁称为公有密钥（可以任意传输和发布），将钥匙成为私有密钥（不经过网络传输，不能让任何其他人知道）。上面的方式中，服务端和客户端都有自己的公有密钥和私有密钥，这种方式称为<strong>公开密钥加密</strong>。<br>在公开密钥加密中，发送密文的一方使用对方的公有密钥进行加密，而接收密文的一方则使用自己的私有密钥进行解密。公开密钥加密不需要发送用来解密的私有密钥，因此不用担心想共享密钥加密那样担心私有密钥被窃听。但是，由于客户端和服务端都使用了各自的加密和解密方式，因此处理速度要慢一些。</p>
+<h3 id="HTTPS中的加密"><a href="#HTTPS中的加密" class="headerlink" title="HTTPS中的加密"></a>HTTPS中的加密</h3><p>考虑到两种加密方式各自的优点和缺点，HTTPS采用的是两者并用的混合加密机制，即：</p>
+<ul>
+<li>使用公开密钥加密方式传递共享密钥加密方式的私有密钥</li>
+<li>在确保服务器的私有密钥是安全的前提下，使用共享密钥进行加密</li>
+</ul>
+<p>这么做可以达到安全性与处理速度的兼得。但是使用公开密钥加密的方式仍旧存在安全问题，即无法保证公开密钥本身是货真价实的公开密钥，在上面的例子中就是，无法确保传送的锁本身是否是伪造的。如果在传输过程中被攻击这伪造了公开密钥，整个加密也没有意义。解决这个问题的办法是使用数字证书。</p>
+<h2 id="证书认证"><a href="#证书认证" class="headerlink" title="证书认证"></a>证书认证</h2><p>使用证书验证通信双方的身份，也就解决了通信伪装的问题。认证的目的在于检验公有密匙是否是合法的，主要是通过第三方权威机构来进行认证的。由于在公有密钥加密的方式中，服务端和客户端各自交换了双方的密钥，因此这里就存在对客户端的认证和对服务端的认证，先来看看对服务端的认证。</p>
+<h3 id="服务器认证"><a href="#服务器认证" class="headerlink" title="服务器认证"></a>服务器认证</h3><p>服务器运营人员向第三方数字证书认证机构提出公开密钥的申请，该机构在确定申请服务器的身份之后，会使用机构自身的私有密钥对已申请的服务器公开密钥做数字签名（与加密不同，加密是使用公开密钥加密然后使用私有密钥解密，而签名是使用私有密钥前面然后使用公开密钥校验），然后将该公开密钥与公钥证书后绑定在一起，最后为申请服务器分配该公开密钥。<br>服务器成功申请公开密钥之后，获取到的是一份已被签名的公钥证书，在与客户端的通信中，会将这份公钥证书发送给客户端。<br>客户端在接受到公钥证书之后，会利用认证机构的公开密钥对证书上面的数字签名进行验证，如果通过验证则证明该服务器的公开密钥是合法的，然后就可以使用公开秘密方式传递共享加密方式的私有密钥，最后以共享密钥加密方式进行会话。</p>
+<p>等等！这里有个BUG啊：客户端为什么直接就保存有认证机构的公开密钥？如果是认证结构直接向客户端公开密钥，那不也同样存在认证机构的公开密钥为伪造的风险吗，这不就成了一个死循环？<br>没错，为了安全地将机构的公开密钥传递给客户端，大多数浏览器开发商在发布版本的时候，会事先在浏览器内部植入常用的认证机构的公开钥匙。正因如此，浏览器才能直接对服务器公钥证书上的数字签名进行认证。</p>
+<p>这样，在认证机构的签名认证机制下，就可以让客户端确认服务器的实际身份而不用担心自己正在与一个伪装的攻击者进行会话了。</p>
+<h3 id="客户端认证"><a href="#客户端认证" class="headerlink" title="客户端认证"></a>客户端认证</h3><p>从上面的认证流程可以看见，认证的关键在于为自身的公开密匙申请数字签名，通常，这是需要支付一定的费用的。HTTPS允许使用客户端证书，其机制与服务器认证大致相同。<br>但是，让每个用户都自费安装证书的做法无疑是一件非常有挑战的事情。因此，客户端认证的情况一般只出现在安全性要求非常高的特殊场景。</p>
+<h2 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h2><p>HTTPS并非是一种新的协议，而是在HTTP应用层与TCP传输层之间添加了SSL和TSL安全层而已。<br>SSL(Secure Sockets Layer 安全套接层)，及其继任者传输层安全（Transport Layer Security，TLS）是为网络通信提供安全及数据完整性的一种安全协议。</p>
+<h3 id="HTTPS的通信流程"><a href="#HTTPS的通信流程" class="headerlink" title="HTTPS的通信流程"></a>HTTPS的通信流程</h3><p>前面提到了使用加密的方式防止通信内容被窃听，使用认证的方式防止通信伪装，现在简单看一看整个HTTPS建立SSL连接的通信流程。</p>
+<ul>
+<li>客户端发起SSL通信请求，请求报文中包含客户端支持的SSL版本，加密组件列表（所使用的加密算法以及密钥长度）</li>
+<li>服务器接收到SSL通信，在响应报文中附带服务器支持的SSL版本，并从客户端的加密组件筛选出相关内容并返回给客户端</li>
+<li>之后服务器向服务器发送经过认证的公钥证书，最后向客户端发送SSL握手协商部分结束的信息</li>
+<li>客户端对公钥证书进行验证，如果合法，则生成一个叫做<code>Pre-master secret</code>的随机密码串（我的理解是这就是客户端的公开密钥），然后使用服务器的公开密钥进行加密，并发送给服务器</li>
+<li>客户端还需要发送一条报文提醒服务器之后的报文都采用<code>Pre-master secret</code>进行加密。</li>
+<li>客户端还需要发送一条经过加密的<code>Finished</code>报文表示握手协商阶段的结束，当然，真正的握手协商成功还得看服务器能够顺利解密这条报文。</li>
+<li>服务器同样发送提醒报文和<code>Finished</code>报文。</li>
+<li>当服务器和客户端的<code>Finished</code>报文交换结束，则表示整个SSL连接建立完成，之后的通信都处于加密认证保护的阶段。</li>
+</ul>
+<p>现在暂时没有必要去深究建立连接中的每个细节，但是仍可以窥见整个连接建立的复杂。</p>
+<h3 id="SSL带来的问题"><a href="#SSL带来的问题" class="headerlink" title="SSL带来的问题"></a>SSL带来的问题</h3><p>SSL带来安全通信的同时，也带来了一个问题：当使用SSL时，HTTP的处理速度会变慢。造成慢的原因有两个：</p>
+<ul>
+<li>通信连接的复杂度导致整理上处理通信量的增加</li>
+<li>在服务器和客户端都必须进行加密和解密，尽管在后续的通信中使用共享加密方式，但不可避免的是同样会消耗过多的服务器和客户端的CPU和硬件资源</li>
+</ul>
+<p>因此，尽管HTTPS安全可靠，但是在常规的非敏感信息的请求中，更多地还是使用HTTP通信，只有在包含个人信息等敏感信息时，才建议使用HTTPS进行加密通信。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>至此，整个HTTPS的学习到此结束，其中还有诸如具体的加密实现方式细节，数字签名的生成以及数字证书的等级等方面的知识，只是简单了解，并没有记录，也没有深入。等去年租的虚拟主机到期之后，打算弄一台云服务器，到时再好好折腾一番。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/读书笔记" class="article_tag">#读书笔记</a>
+        
+        <a href="/tags/HTTP" class="article_tag">#HTTP</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#危险的互联网"><span class="toc-number">1.</span> <span class="toc-text">危险的互联网</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据被窃听"><span class="toc-number">1.1.</span> <span class="toc-text">数据被窃听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通信伪装"><span class="toc-number">1.2.</span> <span class="toc-text">通信伪装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报文被纂改"><span class="toc-number">1.3.</span> <span class="toc-text">报文被纂改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS"><span class="toc-number">1.4.</span> <span class="toc-text">HTTPS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加密"><span class="toc-number">2.</span> <span class="toc-text">加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#共享密钥加密"><span class="toc-number">2.1.</span> <span class="toc-text">共享密钥加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公开密钥加密"><span class="toc-number">2.2.</span> <span class="toc-text">公开密钥加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS中的加密"><span class="toc-number">2.3.</span> <span class="toc-text">HTTPS中的加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书认证"><span class="toc-number">3.</span> <span class="toc-text">证书认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器认证"><span class="toc-number">3.1.</span> <span class="toc-text">服务器认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端认证"><span class="toc-number">3.2.</span> <span class="toc-text">客户端认证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL"><span class="toc-number">4.</span> <span class="toc-text">SSL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS的通信流程"><span class="toc-number">4.1.</span> <span class="toc-text">HTTPS的通信流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSL带来的问题"><span class="toc-number">4.2.</span> <span class="toc-text">SSL带来的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

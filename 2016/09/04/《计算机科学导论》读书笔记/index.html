@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">《计算机科学导论》读书笔记</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/9/4 20:22:38</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/计算机基础" class="hover-highlight">计算机基础</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>早在今年三月底从船厂辞职的时候，就买了计算机科学丛书这一系列，但是当时翻阅如同天书一般，草草翻阅了两页，阅后即忘，我想大概计算机专业的同学去拿着一本传热学，气体动力学之类的书也会有这样的感觉。于是当时就决定先放一放，待进入编程的大门之后再回过头来看这一套书（大概有五六本不吧）。现在，我觉得是时候了。<br><a id="more"></a></p>
+<h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2><h3 id="计算机模型"><a href="#计算机模型" class="headerlink" title="计算机模型"></a>计算机模型</h3><p>数据处理器<br>计算机可以被看作是一个接受输入数据，处理数据并产生输出数据的黑盒（即使用它的人并不需要知道其内部的工作原理）</p>
+<p>通用图灵机<br>图灵机模型在数据处理器模型的基础上引入了程序的概念，程序是用来告诉计算机对数据进行处理的指令集合：只要提供了合适的程序，计算机就能进行任何计算</p>
+<p>冯.诺依曼模型<br>该模型将计算机分成了4个子系统：存储器，算术逻辑单元，控制单元和输入/输出单元</p>
+<ul>
+<li>存储器用来存放数据和程序</li>
+<li>算术逻辑单元用来计算逻辑运算</li>
+<li>控制单元用来控制操作其他3个子系统</li>
+<li>输入系统从计算机外部接收输入数据和程序，输出系统将计算机对输入数据的处理结果输出到计算机外部</li>
+</ul>
+<h3 id="计算机组成"><a href="#计算机组成" class="headerlink" title="计算机组成"></a>计算机组成</h3><p>当代计算机由三大部分组成：计算机硬件，数据和计算机软件。</p>
+<p>计算机硬件<br>当代的计算机硬件基于冯.诺依曼模型，尽管形状千差万别，但是都包含基本的4个子系统</p>
+<p>数据</p>
+<ul>
+<li>存储数据：常规类型的数据和文件不能直接存储在计算机中，数据是以二进制的形式存储在计算机内部的</li>
+<li>组织数据： 尽管数据只能以一种形式（位模式）存储在计算机内部，但是在计算机外部却可以表现为不同的形式</li>
+</ul>
+<p>计算机软件<br>编程指的是在数据实际开始处理之前由操作员或工程师组织一系列计算机指令的过程：</p>
+<ul>
+<li>程序必须是有序的指令集，每一条指令操作一个或者多个数据项，因此一条指令可以改变他前面指令的作用；</li>
+<li>引入指令的概念主要是为了程序的重用性，如果每一条任务的程序都是相对独立且和其他程序之间没有任何的公用段，编程是十分困难的</li>
+<li><strong>程序员不仅应当了解每一条指令的作用，还应该知道怎样将这些指令结合起来完成特定的任务。对于不同的问题，应该以循序渐进的方式来解决问题，接着尽量找到合适的指令来解决问题。</strong>这种按步骤解决问题的方法就是<strong>算法</strong>。</li>
+<li>计算机科学家研究出利用符号来代表位模式，从使用机器语言编程过渡到使用更接近人类世界的语言来编写程序指令，这就是编程语言的概念。</li>
+<li>软件工程指结构化程序的设计和编写。</li>
+<li>操作系统指的是为程序访问计算机部件提供方便的一种管理程序，当然如今的操作系统远不止这些。</li>
+</ul>
+<h2 id="数字系统"><a href="#数字系统" class="headerlink" title="数字系统"></a>数字系统</h2><p>数字系统定义了如何使用独特的符号来表示一个数字，大体来说可以分为两类：位置化系统（比如十进制…）和非位置化系统（比如罗马数字）。<br>不同的数字系统中可能使用了不同的符号，这些符号被称为数码，而对应数字系统使用的全部数码被称为数码集。</p>
+<h3 id="位置化数字系统"><a href="#位置化数字系统" class="headerlink" title="位置化数字系统"></a>位置化数字系统</h3><p>在位置化系统中，数字中的符号所占据的位置决定了其表现的值，常见的位置化数字系统有十进制，二进制，十六进制和八进制</p>
+<p>其他进制转换成十进制：<br>只需要将数码乘以其在原系统中的位置量(底的n-1次幂)并求和，即可得到在十进制中的数</p>
+<p>十进制转换成其他进制：</p>
+<ul>
+<li>对于整数部分可采用连除法，将十进制整数部分称为<strong>源</strong>，转换后的整数部分称为<strong>目标</strong>，转换后的数字进制称为<strong>底</strong>，首先创建一个空目标，接着使用底反复除源并得到商和余数，余数插入到目标的<strong>左边</strong>，商变成新的源，直至最后余数为0。</li>
+<li>对于小数部分可采用连乘法，首先创建一个空目标，然后使用底反复乘以源并得到结果，结果的整数部分插入到目标的右边，而小数部分称为新的源。最后得到结果。</li>
+</ul>
+<p>在进行数字转换的时候，需要注意：<strong>数字转换的结果并不是完全精确的，因此在进行数字转换的时候需要指明允许保留几位小数</strong>。</p>
+<h3 id="非位置化数字系统"><a href="#非位置化数字系统" class="headerlink" title="非位置化数字系统"></a>非位置化数字系统</h3><p>在计算机系统中最常用的还是位置化数字系统，因此并没有详细介绍。现在想来，汉语中的数字也算是非位置化数字系统吧？比如“二十三”这样的… </p>
+<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><h3 id="数据存储-1"><a href="#数据存储-1" class="headerlink" title="数据存储"></a>数据存储</h3><p>人们希望计算机能够处理多种不同类型的数据：数字计算，文本处理，音频数据，图像及视频等。<br>然而所有计算机外部的数据类型都采用统一的数据表示法转换后以位模式（二进制）保存在计算机中，当计算机输出数据时再还原回来。<br>使用<strong>“位”</strong>来表示计算机的最小存储单位，一个位的内容存放一个二进制数码。<br>计算机使用位来存储所有的数据，而无需辨别他们是何种数据类型。</p>
+<h3 id="存储数字"><a href="#存储数字" class="headerlink" title="存储数字"></a>存储数字</h3><p>计算机把数字分为整数（不带小数点）和实数（带小数点）。</p>
+<h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><p>整数通常使用定点表示法存储在内存中，字面意义为把小数点固定在最右边（小数点是假设的，并不存储在计算机中）。<br>整数又分为无符号表示法，符号加绝对值表示法以及二进制补码表示法，用来表示非负数及负数的整数，</p>
+<p><strong>无符号表示法</strong><br>无符号表示法只能用来表示0到2^n-1之间的正整数，其中n表示计算机中被分配用来保存无符号整数的二进制位数。<br>存储无符号整数十分简单：</p>
+<ul>
+<li>首先将整数转变成二进制数；</li>
+<li>如果转变后的二进制位数不足n，使用0填充左侧剩余的位，使它的总位数为0；</li>
+<li>如果转变后的位数大于n，则会出现<strong>溢出</strong>，即计算机会丢掉最左边的位，只保留右边的n位，这样在重新读取数据的时候，就会发现输出的结果与输入的数据值完全不相同。</li>
+</ul>
+<p><strong>符号加绝对值表示法</strong><br>符号加绝对值表示法将使用同样位数的无符号表发法的数值范围均分为正负两个子范围（具体原因即将第一个位用来存储了符号导致所表示的数值绝对值为0到2^(n-1) -1）。</p>
+<ul>
+<li>使用第一个位存储整数的符号，0表示正，1表示负，因此该表示法中0有+0和-0两种表示法；</li>
+<li>后面跟该数值绝对值的无符号表示法，</li>
+<li>数字的溢出分为了正溢出与负溢出两种情况，可以将能表示的数字范围想象成一个圆环，最小负值的下一个数字是+0,最大整数的下一个数字是-0,这样在数据溢出的情况下，所存储的实际数据是在这个循环圆中对应位置所表示的值。</li>
+</ul>
+<p><strong>二进制补码表示法</strong><br>首先需要明白两种运算：</p>
+<ul>
+<li>反码：将一个二进制整数取反，即在对应位置上如果为1，则取反码为0；如果为0，则取反码为1；</li>
+<li>补码：从<strong>右边</strong>复制位，直到遇见第一个1被复制之后，对剩余的位取反码（可以把补码想象成有限制的反码？）；<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1110110</div><div class="line">0001001 //反码</div><div class="line">0001010//补码</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>连续进行两次补码或反码时就可以得到原始数据。<br>以二进制补码格式存储数字：</p>
+<ul>
+<li>将整数转变成二进制数字，剩余位使用0补齐；</li>
+<li>如果该整数是非负数，则将其原样存储；如果是负数，则对该二进制数字采用补码操作并存储；</li>
+<li>使用第一个位存储整数的符号，0表示正，1表示负（顺序放在最后只是为了表明存储符号的首位不在补码运算中）；</li>
+</ul>
+<p>则读取数字的时候：</p>
+<ul>
+<li>如果第一位是1，计算机取其补码；如果是最左位是0，计算机不进行操作；</li>
+<li>将所得值转换为十进制数字</li>
+</ul>
+<p>在补码表示法中，只有一个0（+0，因为只要为非负数，首位符号位则为0），因此可以多保存一个负数。<br>在二进制补码表示法中，仍然存在正负溢出两种情况，且与符号加绝对值表示法的情况类似。</p>
+<h4 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h4><p>由于带有很大的整数部分或者很小的小数部分的实数使用定点表示法无法确保精度，因此使用浮点表示法（所谓浮点，即小数点并不是固定在某一个具体的位置）。浮点表示法主要分为三部分组成：符号，位移量和定点数，科学计数法就是使用了浮点数的概念<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-1234000</div><div class="line">-1.234*10^6 //由负号，位移量6和定点数1.234组成</div></pre></td></tr></table></figure></p>
+<p><strong>规范化</strong><br>由于小数点是可移动的，也就是说同一个数字，通过修改位移量和定点数，可以有无穷多种表示方法，为了使表示法统一，引入了规范化的概念：小数点左边必须使用<strong>惟一的非零编码</strong>，在二进制中则小数点左边只能为1；小数点右侧的数称为尾数（即带符号的小数部分）。</p>
+<p><strong>余码系统</strong><br>使用余码系统来表示尾数：在余码系统中，负数和非负数都可以作为无符号数来存储，即将表示范围中的(-2^(n-1)~+2^(n-1))所有数都加上一个正整数，把他们统一移动到非负的一边，这个正整数被称为偏移量，大小为(2^(n-1)-1)。<br>最常见的浮点数标准被单精度和双精度：</p>
+<ul>
+<li>单精度使用32位来表示浮点数，符号占1位，指数占8位（偏移量为127），尾数使用23位</li>
+<li>单精度使用64位来表示浮点数，符号占1位，指数占11位（偏移量为1023），尾数使用52位</li>
+</ul>
+<p><strong>溢出</strong><br>浮点数存在上溢和下溢两种情况，试图存储绝对值很小的数会发生下溢，试图存储绝对值很大的数会发生上溢</p>
+<p><strong>截断错误</strong><br>在位数不够的情况下计算机会截断尾数的末尾数字，这会导致比较严重的误差，被称作截断错误。</p>
+<h3 id="存储文本"><a href="#存储文本" class="headerlink" title="存储文本"></a>存储文本</h3><p>语言集中的字符数量决定了计算机用来存储该语言所必需的位数，不同的位模式集合被设计用来表示文本符号，常见的字符编码有：</p>
+<ul>
+<li>ASCII编码，该代码使用7位来存储字符</li>
+<li>Unicode，该代码使用32为来存储字符，不同的部分被用来表示世界上不同语言的符号</li>
+</ul>
+<h3 id="音频图像和视频"><a href="#音频图像和视频" class="headerlink" title="音频图像和视频"></a>音频图像和视频</h3><p>音频是随时间变化的实体，计算机采用模拟数据来保存音频。<br>存储在计算机中的图像使用两种不同的技术：光栅图或者矢量图。<br>视频由一帧一帧的图像组成，使用与存储图像相同的技术保存视频。</p>
+<h2 id="数据运算"><a href="#数据运算" class="headerlink" title="数据运算"></a>数据运算</h2><p>运算分为逻辑运算，移位运算和算术运算。</p>
+<h3 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h3><p>位层次上的逻辑运算有非，与，或，异或四种情况。其中异或表示”如果输入位有1，则结果为另一位的取反值“。<br>运用逻辑运算可以将一个指定位的数值置0（也称为复位），即将指定位与0进行“逻辑与”运算，该位为0的数被称作<strong>掩码</strong>，目前接触到的掩码用途貌似就是<code>子网掩码</code>了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">	10111101</div><div class="line">AND 00001011</div><div class="line">=	00001001//最左边4位全部置0</div></pre></td></tr></table></figure></p>
+<h3 id="移位运算"><a href="#移位运算" class="headerlink" title="移位运算"></a>移位运算</h3><p>移位运算可以分为逻辑移位运算和算术移位运算：</p>
+<ul>
+<li>算术移位运算中，左移一位表示乘以2，右移一位表示除以2；</li>
+<li>逻辑移位中左移一位，最左位丢失，最右位以0填充，右移一位，最右位丢失，最左位以0填充；</li>
+</ul>
+<h3 id="算术运算"><a href="#算术运算" class="headerlink" title="算术运算"></a>算术运算</h3><p>算术运算包括加减乘除，适用于整数和浮点数,由于过于枯燥，暂且略过，回头再看。</p>
+<h2 id="计算机组成-1"><a href="#计算机组成-1" class="headerlink" title="计算机组成"></a>计算机组成</h2><p>现代计算机组成主要分为三部分：CPU，主存储器和输入/输出系统。</p>
+<h3 id="中央处理器"><a href="#中央处理器" class="headerlink" title="中央处理器"></a>中央处理器</h3><p>CPU用于处理数据的运算，又可以分为算术逻辑单元，控制单元，寄存器组和快速存储定位：</p>
+<ul>
+<li>算术逻辑单元主要对数据进行逻辑，移位和算术运算；</li>
+<li>寄存器是用来存放临时数据的高速独立的存储单元，CPU的运算离不开大量寄存器的使用</li>
+<li>控制单元用来控制各个子系统的操作（与冯.诺依曼模型中的类似，但是归于CPU了）</li>
+</ul>
+<h3 id="主存储器"><a href="#主存储器" class="headerlink" title="主存储器"></a>主存储器</h3><p>主存储器是存储单元的集合，每一个存储单元都有唯一的标识，称为地址。在存储器中存放每个字都需要有相应的标识符，而地址标识符本身也是使用位模式来存储的，也就是说，如果一个计算机有2^n个字的存储空间，则需要n个无符号整数来确定一个存储单元。<br>主存的类型分为RAM和ROM，其中RAM（随机存取存储器）是贮存的主要组成部分，断电其内容就会消失。<br>介于寄存器和主存之间还存在高速缓冲存储器，通常，计算机花费80%的时间来读取20%的数据，而告诉缓冲存储器用来存储经常使用的数据，从而加快计算机的存取数据的时间。</p>
+<h3 id="输入-输出系统"><a href="#输入-输出系统" class="headerlink" title="输入/输出系统"></a>输入/输出系统</h3><p>输入输出使得计算机可以与外界通信，可分为非存储设备（键盘，显示器等）和存储设备（如U盘，光盘等）</p>
+<h3 id="子系统的互连"><a href="#子系统的互连" class="headerlink" title="子系统的互连"></a>子系统的互连</h3><p>CPU和主存储器之间通常通过主线相连，包括：数据总线，地址总线和控制总线；<br>输入/输出设备不能直接和CPU相连，因为他们的物理结构不同，速度远远小于CPU的操作速度，因此需要输入/输出控制器来充当中介并把他们连接到总线上，常见的控制器（接口）包括：SCSI，火线，USB和HDMI等</p>
+<h3 id="程序执行"><a href="#程序执行" class="headerlink" title="程序执行"></a>程序执行</h3><p>CPU利用重复的机器周期来按指定顺序执行程序中的指令，一个简化的机器周期包括：取指令，译码和执行：</p>
+<ul>
+<li>在取指令阶段，控制单元命令系统将下一条要执行的指令复制到CPU的指令寄存器中，复制结束后，程序计数器加1并指向内存中的下一条指令；</li>
+<li>当指令置于寄存器中后，该指令将由控制单元负责译码；</li>
+<li>译码结束后产生一系列可执行的二进制代码，并将该任务命令发送到CPU的某个部件并执行。</li>
+</ul>
+<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p>网络是一系列可用于通信的设备相互连接构成的，又分为局域网（LAN）和广域网（WAN），然而现在的局域网和广域网基本都是互相连接的，这就是因特网。</p>
+<h3 id="协议分层"><a href="#协议分层" class="headerlink" title="协议分层"></a>协议分层</h3><p>在因特网中，最重要的概念就是“协议”，协议定义了发送器，接收器以及所有中间设备必须遵守以保证有效通信的规则。当通信变得比较复杂时，可能需要将不同的任务分配到不同的协议层，即<strong>协议分层</strong>的概念。<br>如今因特网中使用的协议集被称为<strong>TCP/IP</strong>协议，指定了每个协议层之间的逻辑通信。自上向下将协议层分为了应用层，传输层，网络层，数据链路层和物理层。    </p>
+<p>在协议层中有两个比较重要的概念，地址和数据包名称：</p>
+<ul>
+<li>层组之间的逻辑通信，在任何涉及两步校验的通信都需要两个地址，源地址和目标地址：<ul>
+<li>在应用层，一般使用名称来定义提供服务的站点；</li>
+<li>在传输层，地址被称为端口号，被用来定义源和目的之间的应用层程序，端口号的作用是通过各个程序的本地地址来辨别多个同时运行的本地程序；</li>
+<li>在网络层，地址在整个因特网范围内是全球化的，因此网络层地址独一无二地定义了该设备与因特网的连接；</li>
+<li>在数据链路层，地址有时被称为MAC地址，是一个本地定义的地址，每一个链路层地址在计算机网络中定义了一个特定的主机或者路由器；</li>
+<li>物理层不需要地址，因为物理层数据交换的单位是位，无法得到地址。</li>
+</ul>
+</li>
+<li>数据包…</li>
+</ul>
+<h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>应用层用来向用户提供服务，当使用网络时我们需要两个分开的应用程序彼此交互，这里又有<strong>客户机-服务器模式</strong>和<strong>端到端模式</strong>:</p>
+<ul>
+<li>在客户机-服务器模式中，众多的客户机与同一个服务器通信并获得该服务器提供的服务，服务器进程会一直持续开启，并承担通信集中负荷，对其性能要求十分高。一些传统的服务如：万维网和HTTP(超文本传输协议),FTP(文本传输协议)，SSH(安全外壳协议)和邮件服务等</li>
+<li>端到端模式也成为P2P（prot to port?），在这种模式下，一台与网络连接的计算机可以在一个时间段提供服务，又可以在另一个时间段接受服务，常见的服务是网络电话。端对端模式大大降低了网络服务的成本，随之而来的是安全问题。</li>
+</ul>
+<h4 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h4><p>万维网（WWW）是具有连接分布在世界各地的文档中信息的存储库，这个存储库中叫做<strong>网页</strong>的文档（真是亲切啊！）分布在全世界并且相关的文档都链接在一起。<br>客户机的应用程序来访问服务器的网页服务，而提供的服务分布在许多地方，被称为<strong>站点</strong>。</p>
+<ul>
+<li>客户端的应用程序被称为浏览器，通常由控制器，客户端协议和解释器组成。</li>
+<li>服务端用来提供和存储网页，每当浏览器的请求达到时，相应的文档页面会被发送到客户端。<br>每个页面中都包含同站点或不同站点其他页面的链接，且每个页面都具有独立的地址和名称，因此可以独立的检索到（即在浏览器输入对应的地址就可以直接访问到该文件）。<br>作为因特网中的文件，每个网页都需要唯一的标识来将他和其他网页区分开来，定义一个网页需要3个标识符：主机，端口和文件路径，此外还告诉浏览器相应的通信协议。统一资源定位器(URL)是为了把这四个结合起来而设计的，在服务器中默认的端口号为80。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">protocol://host:port/path</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="FTP"><a href="#FTP" class="headerlink" title="FTP"></a>FTP</h4><p>…</p>
+<h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><p>传输层从网络层接收服务并为应用层提供服务，他是TCP/IP协议族的核心协议。<br>传输层的第一个义务是提供<strong>进程</strong>间的通信，所谓进程是使用传输层服务的应用层实体（即应用层程序），使用<strong>端口号</strong>来区分不同的进程。在定义客户端程序的端口号称为’临时端口号‘（因为客户端程序的寿命相对较短）；定义服务端程序的端口号就不能随机选择了，因为服务端程序需要长时间保持运行，因此服务端程序端口号一般称为’知名端口号‘</p>
+<p>传输层协议最重要的就是UDP和TCP。</p>
+<h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><p>UDP即用户数据报协议，是不可靠的无连接传输协议，他是一个极简单而开销最少的协议。</p>
+<h4 id="TPC"><a href="#TPC" class="headerlink" title="TPC"></a>TPC</h4><p>TCP即传输控制协议，是一个面向连接的可靠协议，它明确地定义了连接设施，数据传输和连接拆卸段以提供面向连接的服务（即同一消息中的所有数据包之间有关联）</p>
+<h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><p>网络层负责源到目的地的消息发送，该层最主要的协议就是网际协议，也就是大名鼎鼎的<code>IP</code>，根据版本，现在使用的是IPv4和IPv6</p>
+<h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p>该层是网络中连接起来后可以构成因特网的区域，又分为广域网，局域网等。</p>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><p>物理层将数据链路层接收到的位转换成用于传输的电磁信号，然后这些信号将被传送至传输媒介</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><p>计算机系统由硬件和软件组成，其中，软件又分为操作系统和应用程序两种：</p>
+<ul>
+<li>应用程序是使用计算机硬件解决用户的问题</li>
+<li>操作系统使用户更有效地使用硬件，更容易地获取资源</li>
+</ul>
+<p>操作系统一般由四部分组成：用户界面，内存管理器，进程管理器和文件管理器</p>
+<h3 id="用户界面"><a href="#用户界面" class="headerlink" title="用户界面"></a>用户界面</h3><p>用户界面指用来接收用户（或程序）的输入并向操作系统解释这些请求的程序，分为图形化界面(windows)和命令行界面(unix,linux)。</p>
+<h3 id="内存管理器"><a href="#内存管理器" class="headerlink" title="内存管理器"></a>内存管理器</h3><p>由于程序运行的内存是有限的，在多道程序下（即在同一时刻装入多个程序并同时执行），则必须考虑内存分配的问题。<br>内存分配主要包括分区调度，分页调度，请求分页调度，请求分段调度和请求分页分段调度这几种。其中请求分页调度和请求分段调度意味着当程序运行时，一部分程序驻留在内存中，而一部分程序则放在硬盘上，这种技术叫做”虚拟内存”。</p>
+<h3 id="进程管理器"><a href="#进程管理器" class="headerlink" title="进程管理器"></a>进程管理器</h3><p>首先需要理清程序，作业和进程的概念：</p>
+<ul>
+<li>程序是一组稳定的指令，存放在磁盘上，可能会成为作业；</li>
+<li>一个程序被选中执行，到其运行结束并再次成为一个程序的过程中，该程序被称为”作业”；需要明白的是在整个过程中，作业可能被执行也可能不被执行</li>
+<li>进程是一个运行中的作业，该程序开始运行但未结束，换句话说：进程是一个驻留在内存中运行的作业。一个进程可以处于运行状态或者等待CPU调用状态</li>
+</ul>
+<p>进程管理器使用作业调度器和进程调度器来改变程序的状态：</p>
+<ul>
+<li>作业调度器将一个作业从保持状态转入就绪状态，或者从运行状态转换为终止状态</li>
+<li>进程调度器将一个进程在就绪-运行-等待状态中切换</li>
+</ul>
+<p>所有的进程管理思想都是使得拥有不同资源的不同进程同步，遇见的两个问题有死锁和饿死：</p>
+<ul>
+<li>死锁指操作系统没有对进程的资源进行限制，导致两个进程之间所依赖的资源互相被占据且无法被释放的情况发生</li>
+<li>饿死指操作系统对进程的资源有太多限制，导致进程无法获取对应资源</li>
+</ul>
+<h3 id="设备管理器"><a href="#设备管理器" class="headerlink" title="设备管理器"></a>设备管理器</h3><p>设备管理器负责管理输入/输出设备，让这些设备使用起来更有效</p>
+<h3 id="文件管理器"><a href="#文件管理器" class="headerlink" title="文件管理器"></a>文件管理器</h3><p>文件管理器用来控制对文件的访问</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>算法是一种逐步解决问题或完成任务的方法。更准确的定义是：一组明确步骤的有序集合，产生结果并在有限的时间内终止。<br>计算机专家为算法定义了三种结构：顺序，循环和选择。已经证明了其他结构都是不必要的（这都能证明！！）<br>有一系列算法在计算机科学中应用相当普遍，被称为“基本算法”，包括求和，乘积，求极值，排序和查找。</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>排序指根据数据的值对他们进行排列，基本的排序算法有：选择排序法，冒泡排序法和插入排序法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">var arr = [];</div><div class="line">var num = 10;</div><div class="line">for (var i = 0; i &lt; num; ++i)&#123;</div><div class="line">    arr.push(Math.round(Math.random()*100));</div><div class="line">&#125;</div><div class="line">console.log(arr);</div><div class="line"></div><div class="line">// 选择排序</div><div class="line">// 每次从未排序子列中挑选最小与该子列第一个元素交换位置</div><div class="line">for (var i = 0; i &lt; num; ++i)&#123;</div><div class="line">    var min = i;</div><div class="line">    for (var j = i + 1; j &lt; num; ++j)&#123;</div><div class="line">        if (arr[min] &gt; arr[j])&#123;</div><div class="line">            min = j;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    var temp = arr[i];</div><div class="line">    arr[i] = arr[min];</div><div class="line">    arr[min] = temp;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 冒泡排序</div><div class="line">// 把较大的数冒泡最后，</div><div class="line">for (var i = 0; i &lt; num; ++i)&#123;</div><div class="line">    for (var j = 0; j &lt; num-i; ++j)&#123;</div><div class="line">        if (arr[j+1] &lt; arr[j])&#123;</div><div class="line">            var temp = arr[j+1];</div><div class="line">            arr[j+1] = arr[j];</div><div class="line">            arr[j] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">// 插入排序</div><div class="line">// 把未排序子列的第一个数插入到已排序子列的正确位置</div><div class="line">for (let i = 1, len = arr.length; i &lt; len; ++i)&#123;</div><div class="line">    let  j = i,</div><div class="line">        key = arr[i];</div><div class="line">    while (--j &gt; -1) &#123;</div><div class="line">        if (arr[j] &gt; key) &#123;</div><div class="line">            arr[j + 1] = arr[j];</div><div class="line">        &#125; else &#123;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    arr[j + 1] = key;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(arr);</div></pre></td></tr></table></figure></p>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>查找是另外一种十分常见的基本算法，用于在列表中确定目标所在位置的算法，常见的有顺序查找(无序列表)和折半查找(有序列表)法。</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>一个数据结构表示有关系的数据的集合，基础的数据结构包括：数组，记录（关联数组）和链表。</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组是元素的顺序集合，通常这些元素具有相同的数据类型（但是在部分编程语言如JS中数组各元素可以是不同的类型），数组元素通过索引独立的给出了地址并在内存中连续存储，通过数组名称使用<code>[]</code>，带上索引值便可以访问数组中的任意元素。<br>在内存中如何存储每个数组元素取决于计算机：大部分计算机都采用”行主序存储”，但是计算机也可以使用”列主序存储”。<br>在数组中检索一个元素十分方便：只需要通过索引值一条指令就可以做到；但是在数组中插入或删除元素则变得比较困难，需要整体移动改动位置之后的数组元素。<br>因此，当需要进行的插入和删除数组较少，而需要大量的查找和检索操作时，数组是比较合适的数据结构。</p>
+<h3 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h3><p>记录是一组相互关联元素的集合，他们可能是不同的类型，但是整个记录有一个名称，记录中的每个元素称为域，域能够被赋值，也能被选择和操作。<br>记录中的每个元素都与一个对象关联，在大部分语言中，在该对象上可以通过<code>.</code>运算符来访问</p>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>链表是一个数据的集合，其中每个元素都包含了数据(可用信息)和链(下一个元素的地址)，习惯上将链表上的元素称为“节点”。<br>链表和数组的区别在于元素之间的连接方式不同：</p>
+<ul>
+<li>数组通过索引值计算对应元素的地址偏移量，便可以获取目标元素，这一切的基础建立在“数组在内存中是连续存储”的基础上</li>
+<li>链表通过一个额外的属性保存下一个节点的地址，从而获取目标元素，这样就可以在不连续的内存中存放一个链表，而要做的就是保存下一个节点的地址（以此类推）</li>
+</ul>
+<p>由于存储在不连续的内存中，检索链表中的元素必须从从节点开始，并逐个遍历节点以获取下一个节点的地址，直至找到对应的元素为止；而这样的好处在于向链表中插入或删除节点就变的十分方便，只需要找到待操作为位置，并改变其前后节点的链指向即可。<br>如果需要大量的插入和删除，那么链表十分合适。但是在链表中查找元素比在数组中查找要慢</p>
+<h2 id="抽象数据类型"><a href="#抽象数据类型" class="headerlink" title="抽象数据类型"></a>抽象数据类型</h2><p>为了处理数据，我们需要定义数据类型和数据上能够进行的操作，这就构成了抽象数据类型（ADT）的基础。定义并实现ADT之后，用户就可以直接使用相应的操作而不需要了解实现的细节。一个抽象数据类型包括：</p>
+<ul>
+<li>数据的定义</li>
+<li>操作的定义</li>
+<li>封装数据和操作</li>
+</ul>
+<p>常见的抽象数据类型有：栈，队，广义线性表，树和图等。</p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是一种后进先出的结构，一般可以使用数组实现栈，栈包含的基本操作有：初始化，入栈，出栈和清空。<br>栈的应用可以分为：倒转数据，配对数据，数据延迟使用和回溯步骤</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>队列是一种先进先出的结构，队列包含的基本操作有：初始化，入列，出列和清空。<br>队列在操作系统和网络中大量应用，在其他领域的应用也是数不胜数。</p>
+<h3 id="广义线性表"><a href="#广义线性表" class="headerlink" title="广义线性表"></a>广义线性表</h3><p>栈和队列都是限制性线性表，因为其插入和删除都被限制在指定位置进行；广义线性表是一个插入和删除等操作可以在任意位置进行的抽象数据结构。广义线性表包含的操作有：初始化，插入，删除，检索，遍历和清空，使用链表来实现广义线性表是一个不错的主意。</p>
+<h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>树包括一组有限的元素，称为节点；同时包含一组有限的有向线段，用来连接节点，称为弧；没有进入弧的那个节点，称为树的根。各个节点之间的关系可以用双亲，兄弟和子孙这三种关系来表示。<br>树结构中有一种特殊的树：二叉树。二叉树是其任意节点所含有的子树个数都不超过两个的树。二叉树包含的基本操作有：初始化，插入，删除，检索，清空和遍历。现在只讨论遍历。<br>二叉树遍历需要按照预定的顺序处理每一个界定啊且仅处理一次，两种常见的遍历次序是：深度优先和广度优先：</p>
+<ul>
+<li>深度优先根据根节点访问顺序的不同又分为了前序遍历，中序遍历和后续遍历<ul>
+<li>前序遍历中：根首先被访问，然后是左子树，最后是右子树</li>
+<li>中序遍历中：先处理左子树，然后是根，最后是右子树</li>
+<li>后序遍历中，先处理左子树，然后是右子树，最后访问根节点<br>在广度优先的遍历中，先处理节点的子节点，然后进行下一层。</li>
+</ul>
+</li>
+</ul>
+<h2 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h2><p>计算机唯一识别的是机器语言，为了简化编程，出现了使用符号或助记符的指令和地址代替二进制编码的汇编语言。到后面，为了提高编程效率以及从关注计算机转到关注要解决的问题，出现了高级编程语言。<br>高级编程语言旨在帮助程序员摆脱汇编语言的繁琐细节。然而与汇编语言相同，他们都必须转化成机器语言，这个从高级语言编写的源程序转化为机器语言组成的目标程序的过程被称为解释或编译。</p>
+<h3 id="编译和解释"><a href="#编译和解释" class="headerlink" title="编译和解释"></a>编译和解释</h3><h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><p>编译程序通常把每个源程序翻译成目标程序。这样，程序在运行的时候就会非常迅速。</p>
+<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>解释是指把源程序中的每一行翻译成目标程序中相应的行，并执行他们的过程。由于程序在执行的时候才进行解释，因此运行效率要低于编译型语言</p>
+<h3 id="模式与通性"><a href="#模式与通性" class="headerlink" title="模式与通性"></a>模式与通性</h3><p>如今的计算机语言按照他们解决问题的方式分为了不同的类型，其中，模式是计算机语言看待要解决问题的一种方式，因此，计算机语言可分为四种模式：过程式，面向对象，函数和声明式。</p>
+<p>尽管计算机语言的模式不同，各语言之间仍有很多相似的地方，包括：标识符，数据类型，变量，字面值，常量，输入和输出，表达式，语句，函数等概念和实现。</p>
+<h2 id="软件工程"><a href="#软件工程" class="headerlink" title="软件工程"></a>软件工程</h2><p>软件工程指利用合理的工程方法和原则来获得在真实机器上工作的可靠软件。<br>软件生命周期是软件工程中的一个基础概念：软件在开发完成之后，在使用和修改的过程中反复进行并持续到软件过时的周期。<br>软件的开发过程主要可分为：瀑布模型和增量模型：</p>
+<ul>
+<li>在瀑布模型中，开发过程只能向一个方向流动，这意味着前一个阶段不结束，则后一个阶段不能开始</li>
+<li>在增量模型中，首先完成整个系统的简单版本，然后再该版本上添加功能。</li>
+</ul>
+<p>软件的开发过程分为了：分析，设计，实现和测试四个步骤，每个步骤都很重要！</p>
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><p>文件是数据记录的集合，文件一般存储在辅助存储设备或二级存储设备中。在设计文件中，关键问题在于如何从文件中检索信息：存储方法决定了如何检索记录。</p>
+<ul>
+<li>如果需要按顺序地存取记录，则使用顺序文件结构</li>
+<li>如果想要存取某一特定的记录而不检索之前的所有记录，则可以使用随机存取的文件结构：索引文件和散列文件</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>数据的存储传统上是使用单独的没有关联的文件（平面文件），而数据库是一个组织内被应用程序使用的逻辑相一致的关联数据的集合。与平面文件系统相比，数据看的冗余较少，数据的一致性很高，存取效率和数据的完整性，以及系统的安全性也更高</p>
+<h3 id="数据库管理系统"><a href="#数据库管理系统" class="headerlink" title="数据库管理系统"></a>数据库管理系统</h3><p>常说的数据库，实际上是指数据库管理系统，是用来定义，创建和维护数据库的一种工具。</p>
+<h4 id="数据库体系"><a href="#数据库体系" class="headerlink" title="数据库体系"></a>数据库体系</h4><p>数据库管理系统规定了三层体系结构：内层，概念层和外层：</p>
+<ul>
+<li>内层决定了数据在存储设备中的实际位置</li>
+<li>概念层定义数据的逻辑视图，数据库管理系统的主要功能（如查询）都在该层进行，概念层是中介层，使用户不必与内层打交道</li>
+<li>外层直接与用户交互，将来自概念层的数据转化为用户所熟悉的格式和视图。</li>
+</ul>
+<h4 id="数据库模型"><a href="#数据库模型" class="headerlink" title="数据库模型"></a>数据库模型</h4><p>曾使用了三种数据库模型：层次模型，网状模型和关系模型。其中前两种模型已经过时。在关系型数据库中，数据是通过关系的集合来表示的，关系就是二维表（需要注意的是数据的物理存储与数据的逻辑组织方式毫无关系），每一种关系都有唯一的名称(表名)，关系中的每一列都称为属性(字段)，而关系中的每一行都称为元组。</p>
+<p>数据库最常用的操作就是增删查改（CURD）</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>花了大概近两个月的时间，断断续续的读完了这本《计算机科学导论》（实际上后面还有数据压缩和安全等章节并没有全部看完），感触颇深，对整个计算机知识体系有了一个大概的了解（虽然还很模糊），所以打算再另起一文，思考一下现在自己的状态和未来的学习路线。总之，“长路漫漫，一往无前，终得拨开云雾见青天”！<br>PS：最后我并没有写那篇文章，太矫情了，所以…</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/读书笔记" class="article_tag">#读书笔记</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#绪论"><span class="toc-number">1.</span> <span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机模型"><span class="toc-number">1.1.</span> <span class="toc-text">计算机模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机组成"><span class="toc-number">1.2.</span> <span class="toc-text">计算机组成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字系统"><span class="toc-number">2.</span> <span class="toc-text">数字系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#位置化数字系统"><span class="toc-number">2.1.</span> <span class="toc-text">位置化数字系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非位置化数字系统"><span class="toc-number">2.2.</span> <span class="toc-text">非位置化数字系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据存储"><span class="toc-number">3.</span> <span class="toc-text">数据存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据存储-1"><span class="toc-number">3.1.</span> <span class="toc-text">数据存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储数字"><span class="toc-number">3.2.</span> <span class="toc-text">存储数字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#整数"><span class="toc-number">3.2.1.</span> <span class="toc-text">整数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浮点数"><span class="toc-number">3.2.2.</span> <span class="toc-text">浮点数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储文本"><span class="toc-number">3.3.</span> <span class="toc-text">存储文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#音频图像和视频"><span class="toc-number">3.4.</span> <span class="toc-text">音频图像和视频</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据运算"><span class="toc-number">4.</span> <span class="toc-text">数据运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑运算"><span class="toc-number">4.1.</span> <span class="toc-text">逻辑运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#移位运算"><span class="toc-number">4.2.</span> <span class="toc-text">移位运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算术运算"><span class="toc-number">4.3.</span> <span class="toc-text">算术运算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机组成-1"><span class="toc-number">5.</span> <span class="toc-text">计算机组成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#中央处理器"><span class="toc-number">5.1.</span> <span class="toc-text">中央处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主存储器"><span class="toc-number">5.2.</span> <span class="toc-text">主存储器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入-输出系统"><span class="toc-number">5.3.</span> <span class="toc-text">输入/输出系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子系统的互连"><span class="toc-number">5.4.</span> <span class="toc-text">子系统的互连</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序执行"><span class="toc-number">5.5.</span> <span class="toc-text">程序执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机网络"><span class="toc-number">6.</span> <span class="toc-text">计算机网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#协议分层"><span class="toc-number">6.1.</span> <span class="toc-text">协议分层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用层"><span class="toc-number">6.2.</span> <span class="toc-text">应用层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP"><span class="toc-number">6.2.1.</span> <span class="toc-text">HTTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FTP"><span class="toc-number">6.2.2.</span> <span class="toc-text">FTP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#传输层"><span class="toc-number">6.3.</span> <span class="toc-text">传输层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP"><span class="toc-number">6.3.1.</span> <span class="toc-text">UDP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TPC"><span class="toc-number">6.3.2.</span> <span class="toc-text">TPC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络层"><span class="toc-number">6.4.</span> <span class="toc-text">网络层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据链路层"><span class="toc-number">6.5.</span> <span class="toc-text">数据链路层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#物理层"><span class="toc-number">6.6.</span> <span class="toc-text">物理层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统"><span class="toc-number">7.</span> <span class="toc-text">操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户界面"><span class="toc-number">7.1.</span> <span class="toc-text">用户界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存管理器"><span class="toc-number">7.2.</span> <span class="toc-text">内存管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程管理器"><span class="toc-number">7.3.</span> <span class="toc-text">进程管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设备管理器"><span class="toc-number">7.4.</span> <span class="toc-text">设备管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件管理器"><span class="toc-number">7.5.</span> <span class="toc-text">文件管理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-number">8.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#排序"><span class="toc-number">8.1.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找"><span class="toc-number">8.2.</span> <span class="toc-text">查找</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据结构"><span class="toc-number">9.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-number">9.1.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#记录"><span class="toc-number">9.2.</span> <span class="toc-text">记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#链表"><span class="toc-number">9.3.</span> <span class="toc-text">链表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象数据类型"><span class="toc-number">10.</span> <span class="toc-text">抽象数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#栈"><span class="toc-number">10.1.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列"><span class="toc-number">10.2.</span> <span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#广义线性表"><span class="toc-number">10.3.</span> <span class="toc-text">广义线性表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#树"><span class="toc-number">10.4.</span> <span class="toc-text">树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编程语言"><span class="toc-number">11.</span> <span class="toc-text">编程语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译和解释"><span class="toc-number">11.1.</span> <span class="toc-text">编译和解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编译"><span class="toc-number">11.1.1.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#翻译"><span class="toc-number">11.1.2.</span> <span class="toc-text">翻译</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模式与通性"><span class="toc-number">11.2.</span> <span class="toc-text">模式与通性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件工程"><span class="toc-number">12.</span> <span class="toc-text">软件工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件结构"><span class="toc-number">13.</span> <span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库"><span class="toc-number">14.</span> <span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库管理系统"><span class="toc-number">14.1.</span> <span class="toc-text">数据库管理系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库体系"><span class="toc-number">14.1.1.</span> <span class="toc-text">数据库体系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库模型"><span class="toc-number">14.1.2.</span> <span class="toc-text">数据库模型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">15.</span> <span class="toc-text">结语</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

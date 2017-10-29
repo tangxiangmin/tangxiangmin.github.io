@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">CSS文本样式</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/8/10 20:52:50</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/CSS" class="hover-highlight">CSS</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>最近偶然发现，定宽容器中的的文字，如果中文会自动换行，英文不会自动换行。原本只是为了解决这个问题，后逐渐深入css文字处理，发现这里面另有乾坤。</p>
+<a id="more"></a>
+<p>为了便于理解，我将文字处理，分为了字体与文本这两块：</p>
+<ul>
+<li>字体包括字体，颜色，大小，字样，加粗等</li>
+<li>文本内容杂而多，大致分为如下部分:<ul>
+<li>文本区域尺寸，包括行高</li>
+<li>文本排版，包括大小写，对齐，间距，缩进</li>
+<li>文本换行，包括溢出，换行</li>
+<li>文本装饰，包括下划线，阴影</li>
+</ul>
+</li>
+</ul>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>关于字体样式，整理了下面几点：</p>
+<ul>
+<li><code>font-family</code>可以设置多个字体，使用逗号分隔，浏览器按顺序查找对应字体，如果系统存在对应字体则使用，如果不存在则查询下一个字体，依次类推；</li>
+<li>关于字体颜色，常见的一个BUG是突然发现页面上字体不显示，这种情况下可以检测字体颜色是否与背景色一致；</li>
+<li><code>font-style</code>设置字体倾斜，如果对应字体的font-family没有设计斜体，指定italic也会应用oblique；</li>
+<li><code>font-weight</code>可以设置数值，范围为100-900的整百位数（实际上100到300可能映射到同样的字体粗细上面）；</li>
+<li>字体大小除了应用在常规的文章排版上，现在正逐渐流行基于<code>rem</code>的移动端自适应布局。</li>
+<li>提到字体，就不能不提到字体图标，常见的如<a href="http://fontawesome.io/" target="_blank" rel="external">fontawesome</a>,<a href="http://www.iconfont.cn/" target="_blank" rel="external">iconfont</a>等，可以通过设置字体样式达到之前必须使用精灵图才能实现的效果，十分方便。</li>
+</ul>
+<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><h3 id="行高"><a href="#行高" class="headerlink" title="行高"></a>行高</h3><p>行高是刚接触CSS就学习的一个属性，然而对它的了解却仅限于设置文字居中，这实在是惭愧得很，这里有一篇关于行高的<a href="http://www.cnblogs.com/dolphinX/p/3236686.html" target="_blank" rel="external">详解博客</a>。</p>
+<p>首先需要明白的是文字的<strong>顶线</strong>，<strong>中线</strong>，<strong>基线</strong>和<strong>底线</strong>：指文本行从上到下的四条基准线，跟<code>vertical-align</code>的属性值相对应，（大概可以想象成写英文单词时的四线本）。</p>
+<p>然后需要明白的是文字的<strong>行高</strong>，<strong>字体大小</strong>和<strong>行距</strong>这三个概念：</p>
+<ul>
+<li>行高指上下文本行之间基线的竖直距离；</li>
+<li>字体大小指该行文本行顶线到底线的竖直距离；</li>
+<li>行距指上一行文本行的底线到下一行文本行的顶线之间的距离，即（行高-字体大小）；</li>
+</ul>
+<p>最后是<strong>内容区</strong>，<strong>行内框</strong>和<strong>行框</strong>这三个概念：</p>
+<ul>
+<li>内容区指文本行顶线和底线所撑开的范围，即由字体大小决定；</li>
+<li>行内框是一个浏览器渲染模型（类似于BFC，这里应该叫IFC）。在没有设定行高的时候，行内框与内容与大小相同；设定行高时，行内框大小也不会发生变化，而是在其上下增加半行距；</li>
+<li>行框也是一个浏览器渲染模型，每行文本行都有自己的行框，其高度等于该行所有内联元素行内框的最大值；</li>
+</ul>
+<p>搞定上面的几个概念，终于能够明白行高了。前面提到行高指的是两行文本行之间基线的竖直距离，两行文本行之间的行距是行高与文本字体大小之差。</p>
+<p>可以使用比例指定行高大小为字体的倍数，关于行高的继承性，有一个小小的坑，在子元素并未继承父元素字体大小的情况下：</p>
+<ul>
+<li>如果行高使用的是百分数，则会先将父容器的行高计算出来在继承给子元素（即百分数*父容器字体大小）；</li>
+<li>如果行高使用的小数，则会直接将该乘积因子继承给子元素，再计算子元素的行高（即小数*子容器字体大小）；</li>
+</ul>
+<h3 id="排版"><a href="#排版" class="headerlink" title="排版"></a>排版</h3><p>关于排版这几个属性，日常用的也不是很多，简单了解一下：</p>
+<ul>
+<li>使用text-transform进行文本大小写转换；</li>
+<li>使用text-align设置文本内中对齐方式，需要注意的是这条属性对于图片等内联-块状元素也是同样生效的；</li>
+<li>关于文本间距，又分为字间距(letter-spacing)和词间距(word-spacing)，区分这两种间距十分容易，字间距在一组连续的字中生效，词间距在两个以空格分隔的词组间生效：</li>
+<li>使用text-indent设置文本缩进大小，一般使用em表示相对缩进几个字符，手册上说text-indent是一个复合属性，一个很少用的到属性值each-line表示对每行强制换行的文本都执行对应大小的缩进，但是很多浏览器都不支持（所以并没有什么用处）；</li>
+</ul>
+<h3 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h3><p>文本换行是之前很少注意到的一个地方，最近的项目中却频繁出现了类似的要求:处理定宽标题中多余的文字，处理某个网站英文版本导航栏由于单词过长导致的排版问题。突然又会想起之前遇到的“包含块内的p内的字是中文会自动换行，是英文不会自动换行”的问题。基于上述原因，因此开始学习相关内容，这篇文章的初衷也源于此。<br>接下来讨论的换行主要是针对西文字符的，因为亚洲文字文本拥有默认的white-space:normal,当遇到文本框边界时自动换行，而默认的非亚洲文本并不会自动换行，直接溢出整个文本框。<br>换行有两个属性(word-wrap和word-break)，这两者都指定了文本换行的规则，但是又有不同：</p>
+<h4 id="word-break"><a href="#word-break" class="headerlink" title="word-break"></a>word-break</h4><p>word-break的换行属性值有<code>normal</code>,<code>break-all</code>和<code>keep-all</code>三个：</p>
+<ul>
+<li>break-all表示允许非亚洲语言文本行可以在任意字符间换行，即当该文本行放不下最后一个单词时会打断该单词</li>
+<li>keep-all会检测该行文本是否有足够的空间容纳最后的那个单词，如果不能，则该单词会换行显示，如果第二行整行都不能放下这个单词，那也不会再换行，而是直接溢出</li>
+<li>normal表示依照空格换行，与keep-all类似，具体的区别我还真没弄明白</li>
+</ul>
+<h4 id="word-warp"><a href="#word-warp" class="headerlink" title="word-warp"></a>word-warp</h4><p>word-warp的换行属性值有normal和break-word两个：</p>
+<ul>
+<li>normal与上面的keep-all类似，如果第二行整行不能放下这个单词就会溢出，</li>
+<li>break-word表示文本会在边界换行，与keep-all类似，但是如果第二行整行都不能放下这个单词，则会打断该单词并实现换行效果。</li>
+</ul>
+<h4 id="处理文本溢出"><a href="#处理文本溢出" class="headerlink" title="处理文本溢出"></a>处理文本溢出</h4><p>设置word-break:break-all之后单词会非常生硬地换行，而平常书本上的换行单词都有短横线连接符，可以使用hyphens属性实现，但是目前的谷歌浏览器不支持。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">   .elp &#123;</div><div class="line">       -moz-hyphens: auto;</div><div class="line">       -ms-hyphens: auto;</div><div class="line">       -webkit-hyphens: auto;</div><div class="line">       hyphens: auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后就是解决文本溢出的问题，常用的方法是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.elp &#123;</div><div class="line">    white-space: nowrap; </div><div class="line">    overflow: hidden; </div><div class="line">    text-overflow: ellipsis;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中white-space属性是用来设置文本内的空格处理方式，下面是几个常用的属性值（详情参加手册）：</p>
+<ul>
+<li>pre 不合并文字间的空白距离，当文字超出边界时不换行，也就是说会解析HTML代码中的所有空白（包括为了清晰代码格式而使用的缩进）；</li>
+<li>nowrap 强制在同一行内显示所有文本，合并文本间的多余空白（即存在空格则会保留一个空格），直到文本结束或者遭遇br对象；</li>
+<li>pre-wrap 用等宽字体显示预先格式化的文本，不合并文字间的空白距离，当文字碰到边界时发生换行，但是长单词在换行之后仍然可能溢出文本框</li>
+<li>pre-line 保持文本的换行，不保留文字间的空白距离，当文字碰到边界时发生换行。<br>而上面处理文本溢出的方法采用的就是忽略全部空格，因此这样只能实现处理一行文本溢出的情况，关于多行文本溢出,可以使用下面这段CSS样式，需要注意的是该方法只能在webkit内核的浏览器下才能生效，希望以后标准能够加入到所有浏览器中。如果考虑兼容性的化可以使用JS实现该效果。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.elp &#123;</div><div class="line">    width: 100px;</div><div class="line">    overflow: hidden;</div><div class="line">    text-overflow: ellipsis;</div><div class="line">    display: -webkit-box;</div><div class="line">    -webkit-line-clamp:3;</div><div class="line">    -webkit-box-orient: vertical;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="文本装饰和阴影"><a href="#文本装饰和阴影" class="headerlink" title="文本装饰和阴影"></a>文本装饰和阴影</h3><p>这个就很熟悉了吧，最常见的文本装饰就是a标签的默认下划线，而关于字体阴影是CSS3新增的属性，这个在另外的文章里面再谈吧。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>关于文本样式最后需要注意一点：貌似所有的文本样式都是可以继承的，因此为父容器指定公共的字体样式是很明智的做法。但是，并不能完全依赖于继承样式，否则就会困惑于为什么“a标签的字体样式为什么与父容器的字体样式不一致，我明明设置了呀”这样的问题，而关于这个问题，只需要明白继承样式的优先级非常低就很清晰了。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/样式" class="article_tag">#样式</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字体"><span class="toc-number">1.</span> <span class="toc-text">字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文本"><span class="toc-number">2.</span> <span class="toc-text">文本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#行高"><span class="toc-number">2.1.</span> <span class="toc-text">行高</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排版"><span class="toc-number">2.2.</span> <span class="toc-text">排版</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#换行"><span class="toc-number">2.3.</span> <span class="toc-text">换行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#word-break"><span class="toc-number">2.3.1.</span> <span class="toc-text">word-break</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#word-warp"><span class="toc-number">2.3.2.</span> <span class="toc-text">word-warp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理文本溢出"><span class="toc-number">2.3.3.</span> <span class="toc-text">处理文本溢出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文本装饰和阴影"><span class="toc-number">2.4.</span> <span class="toc-text">文本装饰和阴影</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

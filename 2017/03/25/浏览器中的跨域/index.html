@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">浏览器中的跨域</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/3/25 20:14:50</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>在工作中遇见的跨域问题也有好几次了，但却一直对浏览器的跨域没有很完整的认知。最近正重新学习JS基础知识，这些之前学习过程中遗留下来的问题现在一个一个解决掉吧。</p>
+<a id="more"></a>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>所谓跨域问题，其根本原因是由于浏览器的同源策略所引起的。</p>
+<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>浏览器中包含了JavaScript解释器，也就是说，一旦载入了页面，JavaScript程序就会在用户的电脑上执行。出于安全性考虑，浏览器必须限制JavaScript，浏览器的限制可以分为下面两个方面：</p>
+<ul>
+<li>禁止客户端JS实现某些功能，比如，不允许JS操作用户计算机的文件系统</li>
+<li>限制浏览器自身的某些功能，比如在使用JS打开新的窗口时先询问用户，以及限制JavaScript能够操作的Web内容等。</li>
+</ul>
+<p>上面第二条限制了JavaSCript脚本不能读取从不同服务器载入的文档，除非这个就是包含该脚本的文档。关于这一点，更书面的说法称作：浏览器的<strong>同源策略</strong>。</p>
+<p>同源策略是对JavaScript代码能够操作哪些Web内容的一条完整的安全限制，具体来说，JavaScript脚本只能读取和所属文档来源相同的窗口和文档的属性。在HTTP协议的学习中了解到，文档资源由URL进行标识，其来源包括协议方案，主机和端口号，这里的“所属文档来源相同”指的是：</p>
+<ul>
+<li>协议相同</li>
+<li>域名相同</li>
+<li>端口号相同</li>
+</ul>
+<h3 id="限制的意义"><a href="#限制的意义" class="headerlink" title="限制的意义"></a>限制的意义</h3><p>同源策略是浏览器对JavaScript功能的限制，目的是为了保护用户的信息安全。举个例子，当服务器为客户端设置cookie之后，浏览器再次向该服务器发送请求时，会将该cookie附在请求头发送回去，然后服务器就会识别该用户并执行相关的操作。<br>用户访问了某个站点A，并成功保存了cookie，cookie包含了一些用户的隐私信息，来自站点A的文档的脚本可以通过<code>document.cookie</code>访问服务器设置的cookie。如果另外某个网站B，可以读取直接读取A网站的Cookie，无疑是十分危险的。所以浏览器必须对客户端JavaScript的某些功能进行限制。</p>
+<h3 id="限制的场景"><a href="#限制的场景" class="headerlink" title="限制的场景"></a>限制的场景</h3><p>在很多方面都可以看见同源策略的限制，不过最基本的应该是iframe中多个窗口之间的限制了。<br>每个窗口都是他自身的JavaScript的执行上下文，且Window作为全局对象，但是如果一个窗口被包含在另一个窗口内部，在父窗口操作子窗口看上去应该是一件理所应当的事情，一个常见的应用场景是：在某些后台管理系统中，通过侧边栏导航控制主内容区域iframes的路径来实现更好的体验效果。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">     	<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"2.html"</span> <span class="attr">target</span>=<span class="string">"main"</span>&gt;</span>同源页面文档<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.baidu.com"</span> <span class="attr">target</span>=<span class="string">"main"</span>&gt;</span>非同源页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">aside</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"2.html"</span> <span class="attr">name</span>=<span class="string">"main"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">main</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>考虑这种需求，子窗口内的某个按钮点击，需要触发全屏的阴影遮罩并弹出警告，弹出层通常是通过向文档中插入样式节点来实现的（常用的比如layer.js插件）。为了达到全屏效果，必须向顶层窗口插入节点，但是事件监听又是在具体的子文档页面上注册的，这代表着相关的操作是在子窗口进行的。所幸，浏览器为我们在窗口之间提供了<code>parent</code>，<code>top</code>等属性，用于在子窗口中操作父窗口。</p>
+<p>那么问题来了，如果允许子窗口任意操作父窗口的元素，则可能发生一些很危险的事情，比如控制父窗口表单的提交。如果是其他来源的子窗口，放任这样的做法肯定是不合适的。此时，浏览器的同源策略就很有用了，根据同源策略的限制，子窗口的JavaScript脚本根本无法操作当前文档父窗口的元素，因为当前文档与符文的来源不同。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在2.html中操作父窗口的表单提交</span></div><div class="line"><span class="comment">// 表单提交是不受同源策略控制的！</span></div><div class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    parent.tform.submit();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>实际上，上面的事件监听也可以在父窗口进行注册<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">main.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">// 通过iframe的name值可以直接获取到对应window对象</span></div><div class="line">    <span class="keyword">var</span> btn = main.document.getElementById(<span class="string">"btn"</span>);</div><div class="line">    btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是，如果没有同源限制，这个问题就更大了。这样完全可以通过全屏的iframe引入一个其他源的网站（比如银行登陆页面啥的），通过样式伪造成真正的登陆页面，然后在当前页面监听子窗口（实际的登陆页面），窃取用户信息啥的。幸好，浏览器的同源策略保证了这些问题不会发生。</p>
+<p>此外，比如canvas中的<code>toDataURL</code>，Ajax中的请求路径等，都能看见同源策略的身影。</p>
+<p>关于同源策略，我还发现了网上有另外一种说法：</p>
+<blockquote>
+<p>同源策略的本质是一种约定，可以说web的行为就是构建在这种约定之上的。与其说浏览器”指定”了同源策略，不如说是浏览器”实现”了同源策略。就好比我们人类的行为必须受到法律的约束一样，同源策略的目的就是限制不同源的document或者脚本之间的相互访问，以免造成干扰和混乱。</p>
+</blockquote>
+<h3 id="限制的对象"><a href="#限制的对象" class="headerlink" title="限制的对象"></a>限制的对象</h3><p>最后，需要理解的是，脚本自身的来源（脚本可以是通过src指定的任意URL来源）与同源策略并没有关系，同源策略指的是，文档中的Javascript脚本，能够操作的文档包括</p>
+<ul>
+<li>当前文档（这是显而易见的），</li>
+<li>与当前文档页面同源的其他文档，指某个iframe标签引入的同源文档页面，对于非同源的文档页面，无法使用<code>frames</code>或者<code>parent</code>等属性获取文档对象并操作</li>
+</ul>
+<p>总之，一定要理解同源策略里面的“同源”，是JS脚本所属文档的同源，而不是脚本自身的同源！</p>
+<h2 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h2><p>浏览器处于安全性的考虑，对JavsScript做了同源限制，但是在某些时候，这些限制却过于严格了。下面整理一些常用的跨域技术，有的是在项目中已经使用过的了，有的是查资料的时候顺手补齐的，并没有经过实践。</p>
+<h3 id="多个子域名之间的跨域"><a href="#多个子域名之间的跨域" class="headerlink" title="多个子域名之间的跨域"></a>多个子域名之间的跨域</h3><p>同源策略给那些使用多个子域名的大站点带来了一些问题，在某些时候一个子域名的文档可能需要访问另一个子域名的文档属性，但是同源策略要求URL域名完全相同。<br>针对这个问题，可以使用<code>document.domain</code>属性解决这个问题：域名不同，通过JavaScript设置成相同不就可以了嘛。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 默认情况下，domain属性存放的是载入文档的服务器的域名</span></div><div class="line"><span class="keyword">var</span> d = <span class="built_in">document</span>.domain; <span class="comment">// foo.shymean.com</span></div><div class="line"></div><div class="line"><span class="comment">// 将服务器域名设置为将要操作的文档来源的域名</span></div><div class="line"><span class="built_in">document</span>.domain = <span class="string">"shymean.com"</span>;</div><div class="line"></div><div class="line"><span class="comment">// 如果两个窗口包含的脚本把domain设置成了相同的值，而且所用的协议，端口一致，就那么这两个窗口就不受同源策略的限制</span></div><div class="line"><span class="comment">// ...</span></div></pre></td></tr></table></figure></p>
+<p>当然，这种修改也是有限制的，修改的域名必须具有有效的域前缀或它本身（即与修改前包含相同的基础域名，这里是shymean.com），此外，domain的值中必须有一个点号，不能把它设置为<code>com</code>或其他顶级域名。<br>通过修改domain属性来实现跨域，最常用的场景应该是操作iframe中的DOM元素。</p>
+<h3 id="跨域资源共享"><a href="#跨域资源共享" class="headerlink" title="跨域资源共享"></a>跨域资源共享</h3><p>W3C新增了一个叫做”跨域资源共享”（Cross-origin resource sharing，简称CORS）的标准，专门用于解决跨域请求的问题。<br>CORS使用<code>Origin</code>请求头和<code>Access-Control-Allow-Origin</code>响应头来扩展HTTP首部行，因此需要浏览器和服务器同时支持：</p>
+<ul>
+<li>请求资源的服务器预先使用头信息显式地列出源，或者使用通配符来匹配所有的源并允许任何地址请求文件</li>
+<li>当浏览器发现某个请求是跨域时（最常见的情形应该是Ajax请求），会自动在请求报文首部添加<code>Origin</code>等附加信息。</li>
+<li>如果Origin指定的源不再许可范围内，则响应报文不会包含<code>Access-Control-Allow-Origin</code>，此时浏览器会抛出请求失败的错误</li>
+<li>如果请求成功，<code>Access-Control-Allow-Origin</code>会返回请求时Origin字段的值，或者是一个<code>*</code>，</li>
+</ul>
+<p>可见，实现CORS的关键在于服务器的配置。使用这种技术，确实不用再受同源策略的影响了，并且也不需要我们在前端做任何处理，除非需要在XMLHttpRequest中发送cookie，则需要在配置xhr对象的<code>withCredentials</code>属性为true（这种情况比较少见）。</p>
+<p>关于跨域资源共享的更多了解，请移步<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="external">跨域资源共享 CORS 详解</a>。服务器配置这块，我也不了解，还得进一步学习才行。</p>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><p>在前面的同源策略中提到，<code>&lt;script&gt;</code>标签的src属性是不受同源限制的，因此，可以使用加载脚本的方式从其他服务器请求数据，这种使用<code>&lt;script&gt;</code>作为Ajax传输的技术称为JSONP。</p>
+<p>我们知道，通过<code>&lt;script&gt;</code>脚本引入的，实际上是一段可执行的JavaScript代码。试想，如果这段代码新建了一个全局变量，然后将请求数据赋值给改变量，当这段代码执行完毕，后面的代码就可以通过这个变量使用请求的数据了，这么做完全避开了同源策略。不过由于是通过脚本的src属性来加载资源的，这种方式决定了JSONP只能用于GET请求。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// www.some_other.com/data.js</div><div class="line">var aGlobalData = &#123;&#125;; // 将请求数据赋值给这个全局变量</div><div class="line"></div><div class="line">// 本地文档</div><div class="line">// 如果是事件触发的，则需要先生成这个dom节点并插入达到文档中</div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"www.some_other.com/data.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">	<span class="comment">// 使用aGlobalData做一些事，当然，我们需要知道请求脚本返回的这个变量名</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>实际上，更通用的做法不是将请求的数据赋值给一个全局变量，而是在请求的脚本中执行一个函数（函数名称由请求参数指定），并将请求数据通过参数传递到函数中。具体的步骤是</p>
+<ul>
+<li>先定义一个回调函数，该函数的参数就是请求返回的数据，然后将函数名称附在请求上传递给服务器，</li>
+<li>服务请根据请求的资源和回调函数名称，</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">dojsonp</span>(<span class="params">res</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="built_in">console</span>.log(res);</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">// 向接口指定请求的资源名和回调函数名</div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://www.test.com/api?resource=data&amp;cb=dojsonp"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>预定义服务器的资源格式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// data.js</span></div><div class="line"><span class="comment">// 将数据作为参数</span></div><div class="line">(&#123;</div><div class="line">	name: <span class="string">'jsonp test'</span>,</div><div class="line">	price: <span class="string">'100.00'</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>实现服务器的相应接口<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取请求数据</span></div><div class="line">$resource = $_REQUEST[<span class="string">'resource'</span>];</div><div class="line">$cb = $_REQUEST[<span class="string">'cb'</span>];</div><div class="line"></div><div class="line"><span class="comment">// 加载文件内容并添加函数名称，拼接一段完整的JavaScript代码</span></div><div class="line">$data = $cb.ltrim(file_get_contents($resource.<span class="string">'.js'</span>));</div><div class="line"></div><div class="line"><span class="comment">// 返回数据，当浏览器接受到这段代码就相当于调用dojsonp函数</span></div><div class="line"><span class="keyword">exit</span>($data);</div></pre></td></tr></table></figure></p>
+<p>OK，这大概就是JSONP的基本实现原理。如果是异步请求（通常也基本都异步的场景使用JSONP），则需要向浏览器中插入<code>&lt;script&gt;</code>标签，剩下的实际上都是一样的，最后需要清理生成的脚本（这个函数已经执行完毕，且只会执行一次，即使不清除应该也没有问题吧）。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"t"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">dojsonp</span>(<span class="params">res</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="built_in">console</span>.log(res);</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">createJSONP</span>(<span class="params">url</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span></div><div class="line"><span class="undefined">        script.src = url;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">        <span class="keyword">return</span> script;</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    t.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> url = <span class="string">"http://www.test.com?resource=data&amp;cb=dojsonp"</span>;</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> script = createJSONP(url);</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">        <span class="built_in">document</span>.body.appendChild(script);</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这里可以把同时把请求和生成脚本节点进一步封装，由于这里只是了解JSONP的原理，这里就不折腾了。jQuery提供了一个<code>$.getJSON()</code>的方法，可以用来实现JSONP形式请求。</p>
+<p>从实现可以看出，JSONP依赖于与服务器的共同约定，包括请求资源形式，回调函数名称处理等。因此适合与信任的站点进行通信，使用JSONP最常见的貌似就是各种接口的服务商了（之前有个项目是查汽车违章，后来发现就几个省的数据可以用，真是蛋疼啊）。</p>
+<p>最后，关于JSONP的知识，如果这里解释的不够清楚，可以移步<a href="http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html" target="_blank" rel="external">这里</a>。</p>
+<h3 id="服务器中转"><a href="#服务器中转" class="headerlink" title="服务器中转"></a>服务器中转</h3><p>开头就提到，跨域问题主要是由于浏览器的同源策略限制所引起的。如果将浏览器的请求url传递给同源的服务器接口，再由服务器去拉取请求数据，最后返回给浏览器数据，这样同样可以避开浏览器的同源限制（因为客户端请求的只是一个普通的同源接口）。<br>这种通过服务器中转处理请求的方法，需要多发送一条请求报文和一条响应报文，且源服务器也客串了客户端的角色，在效率上会有一些影响。如果没有更好的解决办法，可以试一试这种办法。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>拖到今天，终于把浏览器的跨域问题给理顺了，起码拖了三个月。前两周学习HTTP逐渐感受到“你知道的越多，才发现你不知道的越多”这种感觉，真是好可怕。最近正在看《Web前端黑客技术揭秘》，待我学成屠龙之术再回来把这里的坑完善了。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/浏览器" class="article_tag">#浏览器</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#同源策略"><span class="toc-number">1.</span> <span class="toc-text">同源策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础概念"><span class="toc-number">1.1.</span> <span class="toc-text">基础概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制的意义"><span class="toc-number">1.2.</span> <span class="toc-text">限制的意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制的场景"><span class="toc-number">1.3.</span> <span class="toc-text">限制的场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限制的对象"><span class="toc-number">1.4.</span> <span class="toc-text">限制的对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域请求"><span class="toc-number">2.</span> <span class="toc-text">跨域请求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多个子域名之间的跨域"><span class="toc-number">2.1.</span> <span class="toc-text">多个子域名之间的跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨域资源共享"><span class="toc-number">2.2.</span> <span class="toc-text">跨域资源共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSONP"><span class="toc-number">2.3.</span> <span class="toc-text">JSONP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器中转"><span class="toc-number">2.4.</span> <span class="toc-text">服务器中转</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">BOM基础知识</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/2/16 20:12:23</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>刚学JS的时候就买了一本《JavaScr权威指南》放在那里，当时就被这一千多页的厚度给唬住了。咬着牙看完了第一部分，也就是JavaScript语言核心；而JS的DOM部分，是在《DOM编程艺术》中学习的。关于BOM这一部分，却仅仅只是在工作中遇见了才去查资料，导致忽略了很多基础知识。<br>前几天入手了Kindle，看的第一本书就是《JavaScr权威指南》，阅读电子书的一个好处就是能够在不知不觉中把这么厚的书给消灭掉，缺点是不容易折回去反复阅读。因此，总归是要做点笔记的。<br><a id="more"></a></p>
+<p>BOM常规的叫法是”浏览器对象模型”，在解释他跟DOM（文档对象模型）的区别之前，我们需要了解他们的老大，也就是<code>Window</code>对象。</p>
+<h2 id="Window对象"><a href="#Window对象" class="headerlink" title="Window对象"></a>Window对象</h2><p>Window对象表示一个浏览器窗口，它是整个浏览器Javascript的全局对象。换句话说，我们在浏览器中使用JS，就必须依赖当前浏览器所定义的Window对象的特性和提供的接口（这就是不同浏览器存在JS兼容性的原因）。</p>
+<p>我们常使用的定时器(<code>setInterval</code>，<code>setTimeout</code>)和对话框(<code>alert</code>，<code>confirm</code>，<code>prompt</code>)都是Window对象的方法。由于在当前窗口Window对象是全局对象，因此这些方法均可以作为全局函数进行调用。<br>Window对象有一个最重要的属性<code>document</code>，这个属性表示窗口中的文档对象，也就是我们所熟悉的<code>DOM</code>，通过DOM，我们可以访问文档对象中的节点并进行相关操作，DOM对象实在是太重要了，以至于JS编程的焦点基本放在了这上面。<br>此外，Window对象还定义了一些其他的属性，用于提供访问浏览器组件的接口，这些属性组成了本文的主角<code>BOM</code>，主要包括：</p>
+<ul>
+<li>location位置对象</li>
+<li>history历史纪录对象</li>
+<li>navigator浏览器对象</li>
+<li>screen显示器对象</li>
+</ul>
+<p>下面主要整理关于这些对象的基础知识，随便打开一个控制台输入<code>console.dir(属性名)</code>即可查看相关对象的信息。</p>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><p><code>window.location</code>引用Location位置对象，这里的位置不是地理位置而是浏览器地址栏的信息，即当前窗口所显示文档的URL地址。</p>
+<p>通过Location对象的相关属性，我们可以获取网页的路径<code>pathname</code>，协议<code>protocol</code>，端口号<code>port</code>和GET参数<code>search</code>等信息。而URL位置对象最主要的用途就是跳转到新页面了，可以使用<code>assign()</code>方法或者<code>replace()</code>方法来进行页面跳转，他们的区别在于：</p>
+<ul>
+<li>replace方法会在载入新文档之前从浏览历史中把当前页面删除</li>
+<li>assign方法会直接载入一个新的文档，如果在新文档点击了后退按钮把浏览器带回原始文档，某些时候原始文档的相同脚本文件会再次载入新文档（我们就再也回不去了~~）。</li>
+</ul>
+<p>此外，还可以使用<code>reload()</code>方法来刷新当前页面。</p>
+<h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>而最常用的属性应该是<code>href</code>了，这个属性包含了当前页面URL的完整文本，而通过对该属性进行重新赋值，我们也可以直接使浏览器跳转到新的页面（并且这种做法更为传统）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 同理，由于是window对象的属性，因此可以直接作为全局变量使用</div><div class="line"></div><div class="line">// 绝对路径</div><div class="line">location.href = &apos;https://www.google.com.hk&apos;;</div><div class="line"></div><div class="line">// 相对路径，会根据当前URL进行解析</div><div class="line">location.href = &apos;1.html&apos;</div></pre></td></tr></table></figure></p>
+<p>比较有意思的是,location对象的<code>toString</code>方法也会返回href的值，也就是说，在上面为href赋值的时候，可以使用location来代替location.href<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">console.log(location == location.href); // true</div><div class="line"></div><div class="line">location = &apos;1.html&apos;; // 隐式调用toStirng()并执行跳转</div></pre></td></tr></table></figure></p>
+<p>另外，纯粹的片段标识符(<code>#</code>)是也是相对URL的一种类型，如果改变的是片段标识符，不会让浏览器载入新文档（本来就不代表新文档），而是让页面滚动到文档的对应位置，哈没错，这就是<code>&lt;a&gt;</code>的锚点：使用<code>id</code>属性作锚点标记<br>，通过向URL插入片段标识符使页面滚动到锚点处。如果没有任何标记（只有一个孤零零的#号），那么会返回到文档开始处。</p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p>history用来管理浏览器的浏览历史，哈这是一个关于保护个人隐私的问题，我们可以通过<code>history.length</code>来访问历史纪录中的元素数量，却不能访问已保存的URL。<br>我们主要使用history来模拟浏览器工具栏中的前进，后退和刷新按钮。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">history.back(); <span class="comment">// 后退</span></div><div class="line">history.forward(); <span class="comment">// 前进</span></div></pre></td></tr></table></figure></p>
+<p>而更通用的方法是<code>go()</code>，通过传入的参数（一个整数数字），我们可以在历史列表中向前（正参数）或向后（负参数）跳过任意条历史纪录，甚至可以传入0使页面刷新。</p>
+<p>需要注意的是，如果当前页面包含多个子窗口<code>iframe</code>，则子窗口的浏览记录会按时间顺序穿插在主窗口的历史纪录中，这导致如果在主窗口调用<code>hsitory.back()</code>，子窗口往回跳转而主窗口的页面保持不变</p>
+<p>HTML5还引进了两个新的方法<code>pushState()</code>和<code>replaceState()</code>，这两个方法允许我们逐条地添加和修改历史记录条目，这两个方法可以干很多事情，先把他们放一放…</p>
+<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><h3 id="Navigator"><a href="#Navigator" class="headerlink" title="Navigator"></a>Navigator</h3><p>浏览器对象包含了当前页面所运行的浏览器厂商和版本信息，很早之前的“浏览器嗅探”，就是根据浏览器的版本做不同的兼容处理（之前那个学校的网站项目我还用过，万恶的IE~）。navigator对象并不是经常用到，主要属性有浏览器全称<code>appName</code>，厂商和版本<code>appVersuib</code>，操作系统<code>platform</code>。我打算在博客中使用这些信息作为评论的用户信息。</p>
+<h3 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h3><p>屏幕对象主要包括了浏览器运行的屏幕窗口的显示大小和可用的颜色数量等信息。屏幕的尺寸宽<code>screen.width</code>和高<code>screen.height</code>可以用来检测当前设备的分辨率信息，从而作为某些样式和动画的依据（比如滚动加载，rem布局等）。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这里简单将工作中遇见的一些BOM相关知识进行整合，比较浅陋。另外HTML5提供了一系列新的接口，比如<code>localStorage</code>，<code>getLocation</code>等，也需要进一步学习，后面再回来填坑吧。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/读书笔记" class="article_tag">#读书笔记</a>
+        
+        <a href="/tags/BOM" class="article_tag">#BOM</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Window对象"><span class="toc-number">1.</span> <span class="toc-text">Window对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#location"><span class="toc-number">2.</span> <span class="toc-text">location</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">2.1.</span> <span class="toc-text">href</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#history"><span class="toc-number">3.</span> <span class="toc-text">history</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器"><span class="toc-number">4.</span> <span class="toc-text">浏览器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Navigator"><span class="toc-number">4.1.</span> <span class="toc-text">Navigator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#screen"><span class="toc-number">4.2.</span> <span class="toc-text">screen</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

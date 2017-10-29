@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">自定义Hexo主题</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/10/23 22:17:1</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/工具" class="hover-highlight">工具</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>从学前端开始貌似一直在折腾各种各样的博客，之前免费的云服务器快要到期了，加之最近用不了梯子，决定重新回到静态博客，于是重拾<code>Hexo</code>，打算将之前使用SSR搭建的博客主题移植过来，于是有了这篇博客，主要整理自定义<code>Hexo</code>主题以及使用<code>Travis CI</code>自动化部署的实践心得。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo文档</a></li>
+<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">Hexo-Next主题</a></li>
+<li><a href="http://coderunthings.com/2017/08/20/howhexoworks/" target="_blank" rel="external">Hexo是如何工作的</a></li>
+<li><a href="http://blog.csdn.net/woblog/article/details/51319364" target="_blank" rel="external">手把手教你使用Travis CI自动部署你的Hexo博客到Github上</a></li>
+</ul>
+<p>其中主要参考了Next的样式，但Next的模板采用的是<code>swig</code>，这个我不是很熟悉，因此参考Hexo的默认主题<code>landscape</code>，使用<code>ejs</code>进行开发。最后的主题<a href="https://github.com/tangxiangmin/hexo-theme-shy" target="_blank" rel="external">hexo-theme-shy</a>放在github上面了。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>回想一下Hexo的使用方法，非常简练</p>
+<ul>
+<li><code>hexo new</code> ，新增一篇博客，然后巴拉巴拉写一通</li>
+<li><code>hexo g</code> ，生成静态页面</li>
+</ul>
+<p>可以发现博客原数据（文章）和主题样式是分离的，实际上Hexo会编译两次模板：</p>
+<ul>
+<li>第一次将<code>markdown</code>文档及其开头的<code>Front-matter</code>解析成一个对象，包含博客内容，此外还会统计分类、标签等信息</li>
+<li>第二次将所选主题（就是<code>_config.yml</code>里面<code>theme</code>配置项）的布局模板进行解析，并将第一次解析获得的数据填充到模板上，最后生成html页面</li>
+</ul>
+<p>这方便我们将博客内容进行迁移（比如之前写的将Hexo博客数据迁移到Mysql数据库中），与此同时，开发主题也会轻松很多，因为我们不需要考虑去处理具体的数据，只需要知道Hexo提供的变量编写模板即可，因此开发主题的本质实际上是开发主题模板及对应的样式，</p>
+<h2 id="ejs语法"><a href="#ejs语法" class="headerlink" title="ejs语法"></a>ejs语法</h2><p>之前接触过一些模板引擎，<code>ejs</code>用起来跟<a href="http://www.layui.com/doc/modules/laytpl.html" target="_blank" rel="external">laytpl</a>比较相似，不过功能要强大一些（比如引入布局等）。学习<code>ejs</code>，最主要的就是掌握其中的表达式输出</p>
+<ul>
+<li><code>&lt;% %&gt;</code>，直接写变量或表达式，没有任何输出，一般用来定义变量或计算表达式</li>
+<li><code>&lt;%= %&gt;</code> ，通过<code>=</code>输出变量或表达式的值，输出的内容会进行HTML转义</li>
+<li><code>&lt;%- %&gt;</code>，与<code>=</code>比较相似，输出变量或表达式的值，输出内容不会进行转义</li>
+</ul>
+<p>由于在hexo中我们只需要掌握对应的模板语法即可，<code>ejs</code>相关的api可以后面再去了解。</p>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h3 id="新增自定义页面"><a href="#新增自定义页面" class="headerlink" title="新增自定义页面"></a>新增自定义页面</h3><p>首先使用<code>hexo-cli</code>新增页面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new page test</div></pre></td></tr></table></figure>
+<p>然后发现在<code>source</code>目录下生成了对应的<code>test/index.md</code>，修改其<code>Front-matter</code>的<code>layout</code>属性，指定对应模板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: test</div><div class="line">date: 2017-10-14 22:38:14</div><div class="line">layout: &quot;test&quot;</div><div class="line">comments: false</div><div class="line">---</div></pre></td></tr></table></figure>
+<p>然后在对应的主题<code>layout</code>目录新增模板即可，这里指定的模板名称是<code>test.ejs</code>。</p>
+<p>这里的一个问题是主题和页面产生了耦合，这是因为主题只能控制页面的展示，而无法控制页面的产生。</p>
+<p>不过这也可以让用户自定义需要展示的页面，同理当使用其他的主题且想要增加自定义的页面时，也可以通过这种方式实现。</p>
+<h3 id="变量的属性"><a href="#变量的属性" class="headerlink" title="变量的属性"></a>变量的属性</h3><p>文档里面只给出了全局变量和页面变量，但是对于单个变量比如<code>tag</code>并没有很详细的说明（也许是我没看见），所以采用最原始的<code>console</code>获取对应变量的属性</p>
+<ul>
+<li>tag<ul>
+<li>name，标签名</li>
+<li>length，标签的数量，可以用来制作标签云</li>
+<li>path，跳转到对应的标签归档</li>
+</ul>
+</li>
+<li>category，跟标签基本类似<ul>
+<li>name，分类名</li>
+<li>length，分类的数量</li>
+<li>path，跳转到对应的分类归档</li>
+</ul>
+</li>
+</ul>
+<p>关于变量这点，确实还是自己搭后台要舒服一些，起码页面上知道能展示什么东西这些都是由自己掌控的。</p>
+<h3 id="在theme目录中使用gulp"><a href="#在theme目录中使用gulp" class="headerlink" title="在theme目录中使用gulp"></a>在theme目录中使用gulp</h3><p>为了方便调试，直接<code>hexo init</code>了一个测试博客，然后直接在<code>theme</code>目录下进行开发，发现安装了<code>node_modules</code>目录后，<code>hexo s</code>等命令会非常卡，这个问题暂时没有找到解决办法，可能是与<code>hexo-render</code>插件有冲突</p>
+<h3 id="修改代码高亮"><a href="#修改代码高亮" class="headerlink" title="修改代码高亮"></a>修改代码高亮</h3><p>自带的代码高亮比较蛋疼，还是使用<code>hightlightjs</code>比较熟悉，这里参考<a href="http://blog.csdn.net/melordljm/article/details/51991389" target="_blank" rel="external">Hexo高级教程之代码高亮</a>，记得先在根目录的<code>_config.yml</code>中关闭<code>highlight.enable</code></p>
+<p>这么做的缺点是在前端实现，体验不是很好，更好的做法应该是在解析<code>markdown</code>的同时配置<code>hightlight</code>，这需要修改hexo源码，</p>
+<h3 id="修改配置文件无效"><a href="#修改配置文件无效" class="headerlink" title="修改配置文件无效"></a>修改配置文件无效</h3><p>有时候遇见修改配置文件却无效的情况，比如上面关闭默认的<code>highlight</code>，需要使用<code>hexo clean</code>清除缓存</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>hexo内置了<code>hexo d</code>的插件，配合<code>github Pages</code>托管页面，可以快速部署博客，具体可参考<a href="https://pages.github.com/" target="_blank" rel="external">文档</a>。</p>
+<p>然而<code>xxx.github.io</code>项目下保存的之后<code>hexo g</code>编译后的文件，并没有托管博客的源码（就是source下面的markdown文件），之前在知乎上逛到了这么一个问题：<a href="https://www.zhihu.com/question/21193762" target="_blank" rel="external">使用hexo，如果换了电脑怎么更新博客？</a></p>
+<p>排除掉用U盘备份等操作之后，一个可行的操作建立一个新分支或者重新建一个新仓库用于保存博客源码。那么问题来了，不论是新分支还是新仓库，每次更新博客的时候我们都需要提交两次，一次是源码，一次是编译后的页面，这样的重复工作感觉很麻烦。</p>
+<p>此时可以采用自动化部署方案，比如说<a href="https://www.travis-ci.org/" target="_blank" rel="external">Travis CI</a>。</p>
+<p>网上已经有了大量的教程来介绍“结合Travis CI和github Pages来托管博客”，我就不献丑了，简单总结进行的步骤：</p>
+<ul>
+<li>注册Travis账号，关联仓库（保存博客源码的那个仓库，不是<code>xxx.github.io</code>那个），然后配置<code>github token</code></li>
+<li>当该远程仓库发生<code>push</code>等操作时（这是在关联仓库时选择配置的），如果存在<code>.travis.yml</code>的文件，则Travis服务器会执行该文件中预先编写的脚本</li>
+<li>我们可以在<code>.travis.yml</code>中编写需要执行的指令，比如<code>npm i</code>等，为了完成部署，我们需要自动执行<code>hexo g</code>，然后将编译后的文件推送到<code>xxx.github.io</code>仓库</li>
+</ul>
+<p>关于<code>.travis.yml</code>的具体配置和语法，可以参考<a href="https://docs.travis-ci.com/user/customizing-the-build/" target="_blank" rel="external">文档</a>和对应的<a href="https://docs.travis-ci.com/user/languages/" target="_blank" rel="external">项目语言</a>。</p>
+<p>实际上git本身还提供了<a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks" target="_blank" rel="external">git hooks</a>，利用git的钩子脚本，我们甚至可以在每次本地提交之后自动推送到远程仓库然后利用travis完成部署。或者直接在本地自动使用<code>hexo g</code>生成文件然后推送到github pages上。</p>
+<p>关于自动化部署，实际上可以牵扯出不少东西，包括之前折腾过的一点<code>shell</code>，这里感觉还需要深入了解一下，暂且按下不表。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>想来想去也不知道这篇博客到底要表达什么，因为实际上我对hexo并不是很熟悉。想到去年五月份的时候，我的博客还是直接写HTML标签然后一个页面一个页面加链接的呢~</p>
+<p>总是要折腾点什么，万一哪天用上了呢~</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/hexo" class="article_tag">#hexo</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ejs语法"><span class="toc-number">2.</span> <span class="toc-text">ejs语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发"><span class="toc-number">3.</span> <span class="toc-text">开发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新增自定义页面"><span class="toc-number">3.1.</span> <span class="toc-text">新增自定义页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量的属性"><span class="toc-number">3.2.</span> <span class="toc-text">变量的属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在theme目录中使用gulp"><span class="toc-number">3.3.</span> <span class="toc-text">在theme目录中使用gulp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改代码高亮"><span class="toc-number">3.4.</span> <span class="toc-text">修改代码高亮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改配置文件无效"><span class="toc-number">3.5.</span> <span class="toc-text">修改配置文件无效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署"><span class="toc-number">4.</span> <span class="toc-text">部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">5.</span> <span class="toc-text">最后</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

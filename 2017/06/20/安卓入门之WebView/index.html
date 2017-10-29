@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">安卓入门之WebView</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/6/20 22:43:13</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/Android" class="hover-highlight">Android</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>过去的一年大大小小写了不少移动端项目（基本都是微信公众号），再加上之前跟Android的同学咨询过<code>Hybird</code>开发，因此对于<code>WebView</code>或多或少有一些了解。恰好最近的项目，需要跟移动端的同事协作处理一个分享页面，所以一并整理出来。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li><a href="http://blog.csdn.net/allenwells/article/details/52061526" target="_blank" rel="external">WebView基本用法</a></li>
+<li><a href="http://blog.csdn.net/carson_ho/article/details/64904691" target="_blank" rel="external">Android：你要的WebView与 JS 交互方式 都在这里了</a></li>
+<li><a href="http://www.cnblogs.com/xesam/p/5402985.html" target="_blank" rel="external">【Android】如何写一个JsBridge</a></li>
+</ul>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>webview主要就是用来在应用中加载和显示网页。一看webview的名字里面居然挂了个<code>view</code>后缀，没错，这也是一个组件，在布局里面直接调用即可</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">WebView</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></div><div class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/webview_1"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">WebView</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>跟网页中插入一个iframe的感觉挺像的，为了体验一般会将整个组件完全填充在屏幕上（顶部栏不算），除此之外，并不需要在额外设置其他样式（因为整个页面的样式都交给CSS控制了）。</p>
+<p>骨架是有了，但我们貌似还没有指定加载网页的URL呢？没错，接下来的工作就是在加载网页了，但是在此之前，我们还可以对webview进行一系列设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取webview对象</span></div><div class="line">webview = (WebView) findViewById(R.id.webview_1);</div><div class="line"></div><div class="line">WebSettings webSettings = webview.getSettings();</div><div class="line"><span class="comment">// 禁止缓存</span></div><div class="line">webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);</div><div class="line"><span class="comment">// 允许javascript</span></div><div class="line">webSettings.setJavaScriptEnabled(<span class="keyword">true</span>);</div><div class="line"></div><div class="line"><span class="comment">// 处理webview的各种事件和通知</span></div><div class="line">webview.setWebViewClient(<span class="keyword">new</span> WebViewClient()&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span></span>&#123;</div><div class="line">        view.loadUrl(url);</div><div class="line">        <span class="comment">// 这里主要告知提供使用webview而不是浏览器打开网页</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 允许弹窗等操作</span></div><div class="line">webview.setWebChromeClient(<span class="keyword">new</span> WebChromeClient());</div><div class="line"></div><div class="line"><span class="comment">// 加载网页</span></div><div class="line">webview.loadUrl(<span class="string">"http://www.shymean.com/webview.html"</span>);</div></pre></td></tr></table></figure>
+<p>观察上面这段代码，除了webview对象之外，还有三个类，他们分别是：</p>
+<ul>
+<li><code>WebSettings</code>，主要用来设置webview对象，包括缓存，JavaScript，缩放和布局等设置接口，这里遇见的第一个坑就是网页刷新页面不发生改变，被缓存坑了无数次的我马上想到了禁止缓存（是不是很机智[/斜眼]）</li>
+<li><code>WebViewClient</code>，处理网络请求时的各种事件，这里需要注意的是为了防止应用使用系统浏览器打开网页，需要覆盖<code>shouldOverrideUrlLoading</code>方法</li>
+<li><code>setWebChromeClient</code>，在调试的时候遇见的一个坑，浏览器的弹出框在webview中不生效！！后来发现原来是没有设置<code>WebChromeClient</code>的缘故~</li>
+</ul>
+<p>实际上这三个类提供了非常多的接口供我们使用（现在我感觉微信公众号就是一个非常庞大的webview），这里先不展开了，有需要再去查文档。</p>
+<p>最后，打开模拟器看看效果，卡擦，什么鬼？原来还需要在manifest中配置网络权限，这茬千万比忘记了</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.INTERNET"</span>&gt;</span><span class="tag">&lt;/<span class="name">uses-permission</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="Hybird"><a href="#Hybird" class="headerlink" title="Hybird"></a>Hybird</h2><p>关于Hybird这里有一篇不错的文章：<a href="http://www.cnblogs.com/yexiaochai/p/4921635.html" target="_blank" rel="external">浅谈Hybrid技术的设计与实现</a>。我觉得webview一个非常吸引人的地方就是整个界面甚至业务逻辑都可以交给web前端处理，但是又为JS提供调用原生的系统方法的途径。</p>
+<p>讲道理，最近两三周一直在搞安卓，个人认为搭页面用CSS比写Android快N倍（还不算上用SCSS，livereload这些了），但是论体验肯定是APP要好得多。哈这里抛开布局不谈，还是来了解JS与原生之间是如何实现交互的。</p>
+<h3 id="JS调用原生方法"><a href="#JS调用原生方法" class="headerlink" title="JS调用原生方法"></a>JS调用原生方法</h3><p>最近的工作需求是完成一个分享页面，需要通过原生应用将微信QQ等应用分享的权限下放到webview中，那么问题来了，原生的方法如何才能够被webview页面上的JS调用呢？</p>
+<p>首先定义方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public class WebAppInterface &#123;</div><div class="line">    Context mContext;</div><div class="line">    WebAppInterface(Context c)&#123;</div><div class="line">        mContext = c;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @JavascriptInterface</div><div class="line">    // 这里为了省事就只是调用个原生的提示框了</div><div class="line">    public void showToast(String toast)&#123;</div><div class="line">        Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后向webview中注入定义的方法，实际上就是向webview的宿主对象添加了一个全局变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// ...省略相关配置</div><div class="line">webview.addJavascriptInterface(new WebAppInterface(this), &quot;Android&quot;); // 这个名字是自定义的，当然得跟前端商量好</div><div class="line">webview.loadUrl(&quot;http://www.shymean.com/webview.html&quot;);</div></pre></td></tr></table></figure>
+<p>接着，我们就可以在这个<code>webview.html</code>页面中通过全局变量<code>Android</code>来访问对应的方法<code>showToast</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="built_in">console</span>.log(Android);</span></div><div class="line"><span class="javascript">    Android.showToast(<span class="string">"hello Android"</span>);</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>宾果~现在在模拟器中打开，就可以看见网页上触发了原生的提示框效果，这对于整个应用的设计统一是很有帮助的。</p>
+<p>上面有个需要注意的地方：在Android API 17后的JS接口需要使用<code>@JavascriptInterface</code>注解，而webview中的JS代码只能调用声明时使用该注解的Java方法。</p>
+<h3 id="原生调用JS方法"><a href="#原生调用JS方法" class="headerlink" title="原生调用JS方法"></a>原生调用JS方法</h3><p><strong>loadUrl</strong></p>
+<p>前面通过<code>loadUrl</code>为webview加载页面，实际上也可以通过它来调用JS函数。稍微修改一下布局，添加一个原生的按钮，然后注册点击事件处理方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callJS</span><span class="params">(View view)</span></span>&#123;</div><div class="line">    webview.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            webview.loadUrl(<span class="string">"javascript:alert('Hello from Android');"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;);		</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里使用的是<code>webview.post</code>传入了一个任务，然后通过<code>loadUrl</code>执行了一个伪协议，在《DOM编程艺术》中了解到，通过伪链接<code>javascript:;</code>的方法也可以执行JS代码，这就相当于为原生Android代码提供了调用JS代码的途径。</p>
+<p>这里只是简单调用了alert方法，实际上可以调用任何已被注册的JS函数，相当于达到了我们通过原生调用JS代码的目的。</p>
+<p>这里有一个小疑问：看见有的博客上介绍到这里必须通过post来执行loadUrl，然而实际上经过测试我发现直接在callJS函数中使用loadUrl也是可以执行的。查看post方法的源码发现：</p>
+<blockquote>
+<p>The runnable will be run on the user interface thread.</p>
+</blockquote>
+<p>实际上任务也是跑在UI线程的，可能是前面那些博客的Android版本问题，毕竟现在都2017年了，这个问题就不深究了。</p>
+<p>另外还有介绍到使用<code>loadUrl</code>调用伪协议会刷新页面，实际上我也没有发现这个问题，可能是测试的不够全面，先挖个坑吧。</p>
+<p>最后的一个问题是如何获取js函数的返回值呢？查这个问题的时候了解到了<code>evaluateJavascript</code>这个接口。</p>
+<p><strong>evaluateJavascript</strong><br>在Android 4.4之后，我们还可以使用<code>evaluateJavascript</code>来调用js方法，最主要的，该方法可以很方便的获取函数返回值<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callJS</span><span class="params">(View view)</span></span>&#123;</div><div class="line">	webview.evaluateJavascript(<span class="string">"javascript:responseFromJS();"</span>, <span class="keyword">new</span> ValueCallback&lt;String&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReceiveValue</span><span class="params">(String value)</span> </span>&#123;</div><div class="line">            Log.i(TAG, value);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对应的Javascript代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">responseFromJS</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(<span class="string">"recive"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="string">"value from js"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个返回值<code>ValueCallback</code>也大有讲究，毕竟js跟java是两门完全不一样的语言，在js函数中返回的闭包函数这里会被处理成null哦~不过一般原生和js之间的通信应该都是传基础数据而已吧，如果需要传递函数，一个折衷的办法是两端规定方法的索引值（或者其他的能表明某个方法的字段），在JavaScript返回这个索引值，然后在安卓这边通过判断这个值调用对应的原生方法。</p>
+<h3 id="JsBridge"><a href="#JsBridge" class="headerlink" title="JsBridge"></a>JsBridge</h3><p>原生和JS的代码交互产生了一个<code>JsBridge</code>的概念，归根结底就是原生和JS的代码交互问题：</p>
+<ul>
+<li>原生调用JavaScript代码</li>
+<li>JavaScript调用原生代码，实际上，通常更多地应该是JS借助原生接口实现HTML页面的更多功能</li>
+<li>参数和返回值处理</li>
+</ul>
+<p>这个暂时就没有深入了，首先应该掌握前面俩小结介绍的东西。不同的业务下<code>JsBridge</code>应该也不尽相同，而在Hybird开发中，应该要写大量的JsBridge吧。</p>
+<p>这么回想起来，微信公众号中的<code>JSSDK</code>也算作是一个JsBridge了吗。PS：为啥要叫做”JS”Birdge呢？</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>开发WebView页面一个非常蛋疼的问题就是：这特么该怎么调试啊？之前做微信公众号项目的时候，好歹还有微信开发者工具（虽然被我吐槽了无数次），现在怎么办？</p>
+<p>起初只能有最原始的办法：<code>alert</code>大法。不过这个调试起来真的太坑爹了，别的不说，alert的遗留问题：查看对象啥的都十分麻烦。</p>
+<p>目前的的调试方法是模拟器结合Chrome进行调试，这个还是比较人道的：</p>
+<ul>
+<li>打开模拟器，进入一个webview页面（或者打开浏览器随便进个页面）</li>
+<li>打开chrome浏览器（我现在使用的版本是58.0.3029.110），地址栏输入<code>chrome://inspect/#devices</code></li>
+<li>正常情况下可以在<code>Remote Target</code>这里发现我们打开的页面，然后点击下面的<code>inspect</code>按钮，会弹出一个<code>Developer Tools</code>窗口，这个过程可能需要加载一段时间</li>
+<li>现在就可以像调试PC端页面一样的来调试webview页面了，查看数据啥的也简单多了。但是需要注意的是有的操作（比如调用原生Toast）这些操作在开发者工具上面是看不见效果的</li>
+<li>哈哈，上面说的都是模拟器下的调试，使用真机的话，需要使用USB连接电脑和手机，然后再手机勾选开发者选项啥的，后面就跟这些操作差不多了（PS：真机调试兼容是多么苦逼的事情啊~~）</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>了解了webview和基本的Android之后，用前端的东西就感觉可以直接开发出一个“伪”APP了。不过这里只介绍了最基本的使用方法，具体的坑还得在实践中一步一步去填。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/webview" class="article_tag">#webview</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础"><span class="toc-number">1.</span> <span class="toc-text">基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hybird"><span class="toc-number">2.</span> <span class="toc-text">Hybird</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JS调用原生方法"><span class="toc-number">2.1.</span> <span class="toc-text">JS调用原生方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原生调用JS方法"><span class="toc-number">2.2.</span> <span class="toc-text">原生调用JS方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JsBridge"><span class="toc-number">2.3.</span> <span class="toc-text">JsBridge</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">3.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

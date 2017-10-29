@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">DOM编程之事件（二）</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/6/7 22:27:4</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>记忆中某天在某个个人网站上看见一个非常酷炫的效果：整个页面都是萤火虫似的小光点组成的LOGO，鼠标滑过的时LOGO被打散，屏幕上泛起阵阵涟漪，鼠标停止又变换图形。当时非常震撼，甚至于忘了保存链接。这就成了我现在正在奋斗的一个目标。正巧刚看完客户端JS关于事件处理的部分，下面简单整理了一下JS中关于事件及相关的一些知识点。<br><a id="more"></a><br>更新与2017-3-13，最近一直在补习JavaScript基础知识，前两天整理和完善了DOM节点（当然肯定还漏掉了很多地方），今天开始理清事件，之前的整理现在回头来看确实是太片面了。</p>
+<h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>当文档、浏览器、元素或与之相关的对象发生某些有趣的事情时，浏览器就会产生事件（也可以说成是浏览器通知应用程序发生了什么事情），书面语称作<strong>异步事件驱动编程模型</strong>。来看一个最基本的例子：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"t"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    t.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="built_in">console</span>.log(e);</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="javascript">    <span class="built_in">document</span>.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"click"</span>);</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>代码的含义是：当点击按钮时，控制台会输出一个值，然后会输出”click”。通过这段简单的代码，我们可以得到下面线索：</p>
+<ul>
+<li>触发的是一个叫做”点击”的事件</li>
+<li>我们点击了一个button元素节点</li>
+<li>button被点击的时候会执行一个函数</li>
+<li>匿名函数的参数e是有值的，而不是undefined</li>
+<li>通过为节点的的’onclick’属性赋值来绑定事件和回调函数</li>
+<li>点击button的时候，也触发了document的点击事件</li>
+<li>如果把button元素换成a标签，则点击的时候会跳转，仿佛一切都没有发生。</li>
+</ul>
+<p>上面这七条（硬是凑出来的），分别对应了DOM事件接口中七个关键的概念，他们分别是:事件类型，事件目标，事件处理函数，事件对象，事件绑定，事件传递，默认事件操作。<br>这几个概念将贯穿整个DOM事件的学习，下面就让我们来详细地了解DOM事件到底是怎么一回事。</p>
+<h2 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h2><p>事件类型是一个表明发生事件的类型的字符串，早期的Web只支持诸如<code>load</code>，<code>click</code>之类的简单事件，随着Web的发展，所支持的事件数量正在逐步增加，可以将事件进行分类：</p>
+<ul>
+<li>设备输入（移入）事件：鼠标（<code>mouseout</code>,<code>mouseover</code>,<code>touchmove</code>等）和键盘（<code>keydown</code>,<code>keyup</code>）</li>
+<li>用户界面事件：表单（<code>focus</code>,<code>blur</code>,<code>submit</code>等）</li>
+<li>状态变化事件：网络（<code>loadstart</code>,<code>progress</code>等）、浏览器(<code>load</code>)</li>
+<li>特定API事件，如HTML5新增的<code>dragstart</code>等拖拽相关事件，video元素的<code>playing</code>等事件</li>
+</ul>
+<p>由于现在事件类型数量太多了，这里就不一一列举出来了，想要了解更多可以移步<a href="http://www.runoob.com/jsref/dom-obj-event.html" target="_blank" rel="external">HTML DOM 事件</a>，这里将事件的分类划分的很详细。</p>
+<p>实际上工作中最常用的事件有:</p>
+<ul>
+<li>处理鼠标键盘或触摸（主要用于用户交互和动画）</li>
+<li>HTML表单事件（进行表单验证，JavaScript最原始的任务）</li>
+<li>Window对象的事件（监听和操作浏览器）</li>
+</ul>
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><p>事件对象是与特定事件类型相关且包含有关该事件详细信息的一个对象，每个事件类型都为其所对应的事件对象定义了一组属性：比如鼠标事件的相关对象包含了鼠标指针的坐标，而键盘事件包含按键的编码信息，滚轮事件包含了滚轮的转动信息等。</p>
+<p>事件对象与事件类型是紧密相连的，这里也只能简单介绍事件对象的概念，而针对具体事件的事件对象相关属性，还是查文档比较实际（另外，控制台也是一个方便查看事件对象属性的好地方哦）。</p>
+<p>关于事件对象还有一个问题：事件对象的获取存在着严重的兼容问题</p>
+<ul>
+<li>在ie8前以前，event是一个内置全局对象（但是必须在一个事件处理函数里才有内容）</li>
+<li>而在Chrome，Firefox等标准浏览器中，事件对象将作为参数传递给事件处理程序</li>
+</ul>
+<p>解决这个问题的办法是在事件处理函数中进行判断（请放弃IE吧~）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">clickBtn</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">	e = e || <span class="built_in">window</span>.event</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="事件目标"><a href="#事件目标" class="headerlink" title="事件目标"></a>事件目标</h2><p>事件目标是指与发生的事件相关联的节点对象，通俗点讲就是事件发生的“地点”，描述一个事件，需要表明它是在哪个事件目标（小至一个按钮、大到整个文档）上发生的。最常见的事件目标就是Window,Document和Element元素。<br>我们可以通过事件对象的<code>target</code>属性来获取相应的事件目标。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">clickBtn</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(e.target);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="事件处理程序"><a href="#事件处理程序" class="headerlink" title="事件处理程序"></a>事件处理程序</h2><p>事件处理程序指的我们提前编写的某个事件发生时所运行的程序，当事件触发时，就会执行这段代码。而另外在某些时候我们需要移除事件目标上的事件处理程序。注册事件处理程序有两种办法：</p>
+<ul>
+<li>在事件目标的相关属性注册处理程序</li>
+<li>将事件处理程序作为参数传递个事件目标的方法</li>
+</ul>
+<p>相应地，注销事件处理程序也有与注册相对应的两种形式。</p>
+<h3 id="通过属性注册和注销"><a href="#通过属性注册和注销" class="headerlink" title="通过属性注册和注销"></a>通过属性注册和注销</h3><p><strong>注册</strong></p>
+<p>通过指定属性注册事件处理程序也分为两种方法，一种是通过设置标签的属性实现，一种是通过设置元素节点的属性实现，属性名是<code>&quot;on&quot; + 事件名称</code>：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 设置标签的属性</div><div class="line">// 注意这里应该是整个函数的主体而不是函数声明</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"t"</span> <span class="attr">onclick</span>=<span class="string">"clickBtn()"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">clickBtn</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"click"</span>);</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="comment">// 设置元素节点的属性</span></span></div><div class="line"><span class="undefined">    t.onclick = clickBtn;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>通过指定属性注册事件处理程序的缺点在于：每个事件目标对于每种事件类型最多只有一个事件处理程序</p>
+<ul>
+<li>重复的节点属性赋值会覆盖先设置的属性，只有最后一个赋值生效</li>
+<li>重复的标签属性赋值会被浏览器忽略，只有第一个属性生效</li>
+<li>同时采用这两种方式注册事件处理程序，则只有节点属性赋值的方式生效。</li>
+</ul>
+<p>另外，在HTML标签上绑定事件处理程序时还必须注意事件对象的问题：如果需要使用事件对象，则必须显式地传入<code>window.event</code>，因为标签属性值应该是处理函数的主体而不是函数的声明。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">onclick=&quot;clickBtn(window.event)&quot;</div></pre></td></tr></table></figure></p>
+<p>考虑到结构和行为分离的原则，实际开发中最好不要采用这种通过设置标签属性绑定事件处理程序的方法。</p>
+<p><strong>注销</strong><br>如果需要注销通过属性注册的事件处理程序，我们只要将对应的属性值重置为空即可。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 注销HTML标签属性的事件处理程序</span></div><div class="line">t.setAttribute(<span class="string">"onclick"</span>, <span class="string">""</span>);</div><div class="line"></div><div class="line"><span class="comment">// 注销节点属性的事件处理程序</span></div><div class="line">t.onclick = <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="通过方法注册和注销"><a href="#通过方法注册和注销" class="headerlink" title="通过方法注册和注销"></a>通过方法注册和注销</h3><p><strong>注册</strong><br>任何能成为事件目标的对象都定义了一个<code>addEventListener</code>的方法，使用该方法可以为调用对象注册事件处理函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">t.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"click"</span>);</div><div class="line">&#125;,<span class="literal">false</span>);</div></pre></td></tr></table></figure></p>
+<p>第一个参数是事件类型，第二个参数是事件处理程序，第三个参数是一个布尔值（默认为false），与事件传播相关（马上就会提到）。通过该方法可以更直观地为事件目标注册事件处理函数，且该方法所注册的事件处理函数均会执行，且不会影响通过属性绑定的事件处理程序。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">clickBtn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">t.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>); <span class="comment">//2</span></div><div class="line">&#125;,<span class="literal">false</span>)</div><div class="line">t.addEventListener(<span class="string">"click"</span>,clickBtn,<span class="literal">false</span>); <span class="comment">// 1</span></div><div class="line"></div><div class="line"><span class="comment">// 但是需要注意的是如果处理函数相同，则只会执行一次</span></div><div class="line"><span class="comment">// t.addEventListener("click",clickBtn,false); // 这里不会再执行</span></div></pre></td></tr></table></figure></p>
+<p>一个严重的问题是：在IE9之前是不支持<code>addEventListener</code>的，取而代之的是一个名为<code>attachEvent</code>的方法。两个方法最主要的区别在于:</p>
+<ul>
+<li>前者的第一个参数是事件类型，而后者的第一个参数是<code>&quot;on&quot; + 事件类型</code>的字符串</li>
+<li>IE事件模型不支持事件捕获（别急，马上就到了），因此后者没有第三个参数</li>
+<li>前者绑定相同的处理函数只执行一次，而后者的调用次数与注册次数相同。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">t.attachEvent(<span class="string">"onclick"</span>,clickBtn); <span class="comment">// 执行</span></div><div class="line">t.attachEvent(<span class="string">"onclick"</span>,clickBtn); <span class="comment">// 也会执行</span></div></pre></td></tr></table></figure>
+<p><strong>注销</strong><br>如果需要移除通过方法注册的事件函数，与<code>addEventListener</code>相对应的是<code>removeEventListener</code>，与<code>attachEvent</code>相对应的是<code>detachEvent</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">t.removeEventListener(<span class="string">"click"</span>,clickBtn,<span class="literal">false</span>);</div><div class="line"></div><div class="line"><span class="comment">// IE8及以下</span></div><div class="line">t.detachEvent(<span class="string">"onclick"</span>,clickBtn);</div></pre></td></tr></table></figure></p>
+<p>需要注意的是如果是使用attachEvent，则注册了多少次就必须注销多少次。另外，这种方法并不能移除通过<br>属性绑定的事件处理程序。</p>
+<h3 id="事件函数的执行环境"><a href="#事件函数的执行环境" class="headerlink" title="事件函数的执行环境"></a>事件函数的执行环境</h3><h4 id="事件对象作为参数"><a href="#事件对象作为参数" class="headerlink" title="事件对象作为参数"></a>事件对象作为参数</h4><p>前面已经提到，通常在调用事件处理程序的时候，会把事件对象作为他们的一个参数（通过标签属性设置时需要显式指定<code>window.event</code>）。</p>
+<h4 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h4><p>另外一个比较重要的问题是事件处理函数中的this指向：</p>
+<ul>
+<li>在HTML标签上设置属性绑定的事件处理程序，其值可以是一个全局函数，也可以是某个全局变量（或其某个属性）的方法。如果是全局函数调用，其this值指向Window对象；如果是某个对象的方法调用，其this指向该对象</li>
+<li>在事件目标上设置元素属性注册的事件处理程序，可以看作是想事件目标添加了一个方法，其this就指向该事件目标本身</li>
+<li>作为闭包传递给<code>addEventListener</code>方法的事件处理程序，其this也是指向该事件目标的（这里应该是<code>addEventListener</code>内部进行了apply等处理），尤其需要注意这一点，与熟悉的的作用域有点区别</li>
+<li>作为闭包传递给<code>attachEvent</code>方法的事件处理程序，其this值是Window对象</li>
+</ul>
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>事件处理函数从词法上讲也是作用域，即，函数的作用域是在定义时而不是调用时决定的，同时也能操作作用域链中的变量。</p>
+<p>但是，通过犀牛书了解到，通过HTML标签上设置属性绑定的事件处理程序是一个例外，他们被转换成能存取全局变量的顶级函数而不是任何本地变量。换句话说，这些事件处理函数运行在一个修改后的作用域链中，他们能像使用本地变量一样使用事件目标，容器（form，如果存在）对象个Document对象。</p>
+<p>如果事件处理函数作为某个命名空间的方法调用，则其this会指向该命名空间对象；如果作为全局函数调用，this指向window。下面的例子简单表示了通过标签属性绑定的事件处理函数的作用域链，总之，最好还是不要这样做吧。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"t"</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onclick</span>=<span class="string">"test.clickBtn(window.event)"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">    a = 1;</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> test = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> a = <span class="number">100</span>;</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> obj = &#123;</span></div><div class="line"><span class="undefined">            clickBtn(e)&#123;</span></div><div class="line"><span class="javascript">                <span class="built_in">console</span>.log(e.target);</span></div><div class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span></div><div class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">document</span>.forms);</span></div><div class="line"><span class="undefined">            &#125;,</span></div><div class="line"><span class="undefined">            a: 10</span></div><div class="line"><span class="undefined">        &#125;;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">        <span class="keyword">return</span> obj;</span></div><div class="line"><span class="undefined">    &#125;)();</span></div><div class="line"><span class="javascript">    <span class="comment">// 将事件处理程序作为全局函数调用的，更改上面的属性值为clickBtn</span></span></div><div class="line"><span class="javascript">	<span class="comment">// let clickBtn = test.clickBtn;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="事件传播"><a href="#事件传播" class="headerlink" title="事件传播"></a>事件传播</h2><p>当点击一个按钮的时候，从按钮的角度来看，我们点击的是它，但是，按钮本身位于文档中，点击按钮，必定会触发整个文档的点击事件。也就是说，文档中发生的事件并不是独立的，而是会传播的。</p>
+<p>当一个元素接收到事件的时候，会把他接受到的所有事件传播给他的父级，一直到顶层window，这就是事件冒泡机制，如果给父类加上了事件处理函数，那么冒泡机制传递的子级事件也会被执行。</p>
+<p>事件传播有事件捕获和事件冒泡两种形式，他们决定了事件处理函数的调用顺序，可以想象成作用力与反作用力类似，下面来看一看具体的事件传播。</p>
+<h3 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h3><p>当触发了一个事件之后，事件从最外层的window对象开始向document对象传播并到达至最内层的事件目标为止，并调用在传播路径上的每个对象的事件捕获处理函数（如果存在的话），这就是事件捕获过程。只能通过addEventListener()且将第三个参数设置为true的方式才能注册事件捕获处理函数；而通过事件目标属性注册的事件函数均为事件冒泡处理函数。事件捕获在IE8之前的浏览器不被支持。<br>事件捕获模型提供了在事件没有被送达目标之前查看他们的机会，能用于调试。</p>
+<h3 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h3><p>当最内层事件目标调用其事件处理函数之后，事件将从事件目标沿着DOM树传播至根部，并调用在传播路径上的每个对象的事件冒泡处理函数。focus，blur，scroll，load,change等事件不会冒泡（至于其他不会冒泡的事件待收集）。冒泡机制被所有浏览器支持。</p>
+<p>事件冒泡模型在为大量单独元素上注册处理程序提供了解决方案（在其公有祖先元素上注册事件,即事件委托）。事件委托就是事件目标不直接处理事件，而是委托其父元素或者祖先元素甚至根元素（document）的事件处理函数进行处理。可以通过事件对象的target属性获得真正触发事件的引用。事件委托是建立在冒泡模型之上的。</p>
+<p>有时候，我们只想触发事件目标的事件，禁止事件的传播，这个需求可以通过在事件处理函数中，调用事件对象的<code>stopPropagation</code>方法来实现。调用该方法之后，该事件目标的任何父元素对象上的相应事件处理函数都不会被执行。该方法可以在事件传播期间的任何时间调用，它能工作在捕获期阶段，事件目标本身和冒泡阶段。</p>
+<p>需要注意的是该方法只能在支持<code>addEnentListener</code>方法的浏览器上实现，且<code>addEnentListener</code>的第三个参数的作用，就是将事件处理程序绑定到事件捕获阶段或者事件冒泡阶段执行。</p>
+<p>至于IE9之前的IE浏览器，取而代之的是通过设置事件对象的一个<code>cancleBubble</code>属性为<code>true</code>来阻止冒泡传播的。</p>
+<h2 id="默认事件取消"><a href="#默认事件取消" class="headerlink" title="默认事件取消"></a>默认事件取消</h2><p>所谓的默认事件，就是事件发生时浏览器自己默认会做的事情，即不同的事件目标在触发某些特定的事件时，会执行相关的默认操作：比如，submit按钮点击时表单提交，a链接点击时URL变化。在某些时候，我们需要取消掉浏览器的默认事件。根据注册事件处理函数的方式：</p>
+<ul>
+<li>在HTML标签上通过<code>return false</code>来取消默认事件</li>
+<li>在<code>addEventListener</code>方法注册的事件处理函数中，调用事件对象的<code>preventDefault</code>方法取消事件目标的默认事件</li>
+<li>在<code>attachEvent</code>方法注册的事件处理函数中，设置时间对象的<code>returnValue</code>属性取消事件目标的默认事件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"t"</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">onclick</span>=<span class="string">"clickBtn(); return false;"</span>&gt;</span>click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">	t.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></div><div class="line"><span class="undefined">        e.preventDefault();</span></div><div class="line"><span class="javascript">    &#125;,<span class="literal">false</span>)</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="comment">// IE9之前</span></span></div><div class="line"><span class="javascript">    t.attachEvent(<span class="string">"onclick"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">            <span class="built_in">window</span>.event.returnValue = <span class="literal">false</span>;</span></div><div class="line"><span class="undefined">        &#125;);</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在某些时候，更通用的做法是同时取消默认事件并且阻止事件传播，jQuery中在事件处理程序中使用<code>return false</code>就可以做到，但是这里需要注意，原生的DOM中，这种方式只能取消事件目标的默认事件操作。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>事件是前端中一个非常重要的知识点，这里只是简单整理了事件的相关概念。实际上，不同的事件目标上也可以触发不同的事件类型，不同的事件类型所侧重的事件对象不同，因此，相关的知识还需要进一步深入学习整理才行。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/DOM" class="article_tag">#DOM</a>
+        
+        <a href="/tags/事件" class="article_tag">#事件</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础概念"><span class="toc-number">1.</span> <span class="toc-text">基础概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件类型"><span class="toc-number">2.</span> <span class="toc-text">事件类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件对象"><span class="toc-number">3.</span> <span class="toc-text">事件对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件目标"><span class="toc-number">4.</span> <span class="toc-text">事件目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件处理程序"><span class="toc-number">5.</span> <span class="toc-text">事件处理程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#通过属性注册和注销"><span class="toc-number">5.1.</span> <span class="toc-text">通过属性注册和注销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过方法注册和注销"><span class="toc-number">5.2.</span> <span class="toc-text">通过方法注册和注销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件函数的执行环境"><span class="toc-number">5.3.</span> <span class="toc-text">事件函数的执行环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#事件对象作为参数"><span class="toc-number">5.3.1.</span> <span class="toc-text">事件对象作为参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#this指向"><span class="toc-number">5.3.2.</span> <span class="toc-text">this指向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#作用域"><span class="toc-number">5.3.3.</span> <span class="toc-text">作用域</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件传播"><span class="toc-number">6.</span> <span class="toc-text">事件传播</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#事件捕获"><span class="toc-number">6.1.</span> <span class="toc-text">事件捕获</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件冒泡"><span class="toc-number">6.2.</span> <span class="toc-text">事件冒泡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认事件取消"><span class="toc-number">7.</span> <span class="toc-text">默认事件取消</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

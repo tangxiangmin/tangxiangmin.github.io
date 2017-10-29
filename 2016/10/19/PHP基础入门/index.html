@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">PHP基础入门</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/10/19 21:54:25</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/PHP" class="hover-highlight">PHP</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>大概是参加工作后的一个月吧开始学习PHP，最初只是草草地翻阅了一下手册，然后跟着后端的同学熟悉PHP框架开发，在ThinkPHP语法糖的诱惑下，一直没有深入PHP的基础知识（与其说是深入，不如说是了解）。PHP的函数十分繁杂，命名也比较混乱，然而项目中常规使用的函数：比如打印，判断，字符串，数组等函数和方法，应当是优先需要掌握的，因此重新整理有道云上面的笔记，进一步学习PHP。之后的目标是用PHP为我的小网站重新搭一遍（PS：自从用了Hexo，之前买的虚拟主机就一直撂在那里了…）</p>
+<a id="more"></a>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>变量类型是根据使用该变量的上下文所决定的，因此数据类型自动转换有时候会发生一些看似莫名其妙的事情。</p>
+<h3 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h3><p>当运算符，函数或者流程控制结构需要一个 boolean 参数时，将发生自动类型转换，下面数值都会转换为false：</p>
+<ul>
+<li>布尔值false</li>
+<li>整形数字0或浮点型数字0.0</li>
+<li>空字符串””或零字符串”0”</li>
+<li>空数组</li>
+<li>特殊类型NULL</li>
+<li>从空标记生成的 SimpleXML 对象 （表示从来没见过）</li>
+</ul>
+<p>需要注意的是，不包含任何成员的对象现在也会被认为是true。</p>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><p>数字分为了整形和浮点型，使用除法运算符得到的是浮点数，将浮点数转换成整数有多种方法<br>不要将未知的分数强制转换为integer，因为会存在精度的丢失，比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo 0.1+0.7; //0.8</div><div class="line">echo (int)((0.1+0.7)*10); // 7</div></pre></td></tr></table></figure></p>
+<p>也就是说，永远不要相信浮点数结果精确到了最后一位，这是在大多数语言中都存在的问题。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>与JS不同的是，PHP中的单引号与双引号所组成的字符串<strong>有明显区别</strong></p>
+<ul>
+<li>在单引号字符串中的变量和特殊字符的转义序列将不会被替换</li>
+<li>而用双引号定义的字符串最重要的特征是变量会被解析</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$a = 123;</div><div class="line">echo &quot;$a&quot;; //123</div><div class="line">echo &apos;$a&apos;; //$a</div></pre></td></tr></table></figure>
+<p>此外需要注意的是，PHP会将非数值的字符串的开始部分决定了它的值。如果该字符串以合法的数值开始，则使用该数值。否则其值为 0（零）。也就是说任意字符串都是可以转换成数字的（跟JS的isNaN判断有很大区别！）</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>PHP数组的键名是不限制必须为整形数字的，也就是说键名可以混用数字和字符串。<br>数组中多个元素都使用了同一个键名，则只使用了最后一个，之前的都会被覆盖。<br>数组中的键名会自动转换成整形数字（如果可行的话），在这种情况下，即使键名不完全相同，后面的值也会将前面的值覆盖。例外是如果键名是内容为浮点数的字符串，是不会发生这种类型转换的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$a = array(</div><div class="line">	1 =&gt; &apos;a&apos;,</div><div class="line">	true =&gt; &apos;b&apos;,</div><div class="line">	1.2 =&gt; &apos;c&apos;,</div><div class="line">	&apos;1&apos; =&gt; &apos;d&apos;,</div><div class="line">    &apos;1.2&apos; =&gt; &apos;e&apos;,</div><div class="line">);</div><div class="line">var_dump($a);</div><div class="line">//结果</div><div class="line">//  1 =&gt; string &apos;d&apos; (length=1)</div><div class="line">//  &apos;1.2&apos; =&gt; string &apos;e&apos; (length=1)</div></pre></td></tr></table></figure>
+<p>访问数组元素时，如果给出方括号但没有指定键名，则取当前最大整数索引值，新的键名将是该值加上 1，相当于为数组新增了元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$a = array(1,2)</div><div class="line">$a[] = &apos;3&apos;;</div><div class="line">var_dump($a); // 1,2,3</div></pre></td></tr></table></figure></p>
+<p>可以使用foreach方法快速遍历数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">foreach ($array as $key =&gt; $value) &#123;</div><div class="line">	echo $value.&quot;&lt;br/&gt;&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于 foreach 依赖内部数组指针，在循环中修改其值将可能导致意外的行为。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>PHP中使用($)符号加变量名来定义一个变量，变量名区分大小写。</p>
+<h3 id="变量解析与赋值"><a href="#变量解析与赋值" class="headerlink" title="变量解析与赋值"></a>变量解析与赋值</h3><p>PHP可以在双引号字符串中插入变量并正确解析，变量解析大概是为了方便在进行某些情况下（比如sql语句中）减少字符串的拼接，主要有有两种规则：</p>
+<ul>
+<li>简单规则，即在一个双引号字符串中嵌入一个变量，一个 array 的值，或一个 object 的属性。<ul>
+<li>当PHP解析器遇到一个($)符号时，就会去组合尽量多的标识以形成一个合法的变量名；</li>
+<li>同理，HP解析器遇见数组索引方括号([])和对象属性索引(-&gt;)也会去组合标识并找到对应的变量。</li>
+</ul>
+</li>
+<li>复杂规则，只需简单地像在 string 以外的地方那样写出表达式，然后用花括号 { 和 } 把它括起来，并嵌入到双引号字符串中即可，需要注意的是($)符号必须与({)符号紧挨着，否则无法被解析。</li>
+</ul>
+<p>变量默认总是传值赋值（包括数组，这里也是与JS完全不同的地方）。那也就是说，当将一个表达式的值赋予一个变量时，整个原始表达式的值被赋值到目标变量。<br>如果需要使用引用赋值，则需要将&amp;符号加到将要赋值的变量前<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$a = 1;</div><div class="line">$b = $a;</div><div class="line">$c = &amp;$a;</div><div class="line"></div><div class="line">$b = 100;</div><div class="line">echo $a; //1</div><div class="line"></div><div class="line">$c = 100;</div><div class="line">echo $a; // 100</div></pre></td></tr></table></figure></p>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p>变量的作用域主要分为了全局变量和局部变量：</p>
+<ul>
+<li>不在任何函数内的变量拥有全局作用域。</li>
+<li>在用户自定义函数中，一个局部函数范围将被引入。任何用于函数内部的变量按缺省情况将被限制在局部函数范围内。</li>
+</ul>
+<p>尽管被称为全局变量，PHP 中全局变量在函数中使用时必须声明为 global才能够使用，否则就会报”变量未定义“的错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$a = 1;</div><div class="line">function foo()&#123;</div><div class="line">	global $a;</div><div class="line">	echo $a;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此外PHP还存在静态变量，静态变量只在局部函数作用域中存在，但是当该函数调用结束之后，该变量的值并不会丢失（作用于C语言中的static类似），使用static定义静态变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">	static $a = 0;</div><div class="line">    $a++;</div><div class="line">    echo $a;</div><div class="line">&#125;</div><div class="line">foo(); //1</div><div class="line">foo(); //2</div></pre></td></tr></table></figure></p>
+<h3 id="超全局变量"><a href="#超全局变量" class="headerlink" title="超全局变量"></a>超全局变量</h3><p>PHP定义的一些变量，用来处理接收到的表单数据等…</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>可以使用define()函数或者const关键字来定义一个其值不可改变的常量</p>
+<ul>
+<li>常量不需要$符号</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(&apos;TEST&apos;,1);</div><div class="line">const TEST2 = 10;</div><div class="line">echo TEST; //1</div><div class="line">echo TEST2; //10</div></pre></td></tr></table></figure>
+<p>需要注意的是使用const定义常量只能在全局作用域下进行，在函数内部无法使用这种方式定义常量，而使用define则没有这种限制。<br>此外，使用define在函数内部定义的常量也可以在全局作用域下访问到。</p>
+<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>在PHP中的流程控制语句中，还可以使用冒号代替花括号，使用elseif和endif这些缩写。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$a = 1;</div><div class="line">$b = 2;</div><div class="line">//1</div><div class="line">if ($a &gt; $b):</div><div class="line">	echo 1;</div><div class="line">elseif($a == $b):</div><div class="line">	echo 2;</div><div class="line">else:</div><div class="line">	echo 3;</div><div class="line">endif;</div><div class="line">//2</div><div class="line">if ($a &gt; $b)&#123;</div><div class="line">	echo 1;</div><div class="line">&#125;else if($a == $b)&#123;</div><div class="line">	echo 2;</div><div class="line">&#125;else &#123;</div><div class="line">	echo 3;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>甚至第二种写法中的else if也可以写作elseif的形式，然而我更习惯分开带大括号的习惯，所以，这里就大概就是看个人喜好了吧。</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h3><p>任何有效的PHP代码都可以出现在函数的内部，甚至包括其他函数和类的定义。<br>此外PHP中的所有函数和类都具有全局作用域，也就是可以在全局作用域中调用一个在函数作用域中定义的函数，前提是其父函数已经被调用（该函数已经执行定义流程才可以）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">	echo &apos;In foo&apos;;</div><div class="line"></div><div class="line">	function foo2()&#123;</div><div class="line">		echo &apos;In foo2&apos;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">foo(); //必须调用父函数进行定义之后</div><div class="line">foo2(); //可直接调用</div></pre></td></tr></table></figure></p>
+<h3 id="函数参数与返回值"><a href="#函数参数与返回值" class="headerlink" title="函数参数与返回值"></a>函数参数与返回值</h3><p>参数默认是通过按值传递，可以在函数定义的时候指定为按引用传递，只需要在参数前加上&amp;符号即可，此外，如果只是需要某次函数调用的时候按引用传递，也可以在实参前加上&amp;。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function changeMax(&amp;$a,&amp;$b)&#123;</div><div class="line">	if ($a &gt; $b)&#123;</div><div class="line">		$t = $a;</div><div class="line">		$a = $b;</div><div class="line">		$b = $t;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$a = 10;</div><div class="line">$b = 1;</div><div class="line">changeMax($a,$b);</div><div class="line">echo $a.&apos;,&apos;.$b; //1，10</div></pre></td></tr></table></figure></p>
+<p>跟C++一样，可以为函数设置默认参数，同时任何默认参数必须放在任何非默认参数的右侧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">function foo($a,$b=1)&#123;&#125;</div></pre></td></tr></table></figure></p>
+<p>如果没有指定return，则默认返回值为NULL。</p>
+<h2 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h2><p>对象的属性可以临时增加，但是仅限于该对象访问，类实例化的其他对象并没有该临时属性。<br>对象之间的赋值时按引用传递，改变一个对象变量会影响到另一个变量所指向的同一个对象。但是当将对象显示的置为null时，按值传递的对象变量不会被删除，而按显式按引用传递的对象变量会同时被删除。</p>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><p>PHP中的函数非常多，也非常强大，只是各种花式命名让人目不暇接，心中感慨还是面向对象好哇（关键我还是个驼峰命名爱好者，样式表不算）!最后整理了一些常用的PHP函数。</p>
+<h3 id="数字-1"><a href="#数字-1" class="headerlink" title="数字"></a>数字</h3><p>intval()： 将参数转换为整形数字，如果为浮点数，只保留浮点数的整数部分<br>is_numeric()：检测参数是否为数字，返回布尔值<br>is_nan()：检测参数是否为NaN</p>
+<blockquote>
+<p>PHP会将非数值的 string 当成 0，也就是说使用上述两个函数来检测字符串是否能够转换成数字是行不通的（这里跟JS的差别很大）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$a = &apos;xxx&apos;;</div><div class="line">echo intval($a); //0</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>ceil()：向上取整<br>floor()：向下取整</p>
+<p>max()：参数为一个数组或多个数字，返回其中最大值<br>min()：同上，返回参数中的最小值</p>
+<p>mt_rand(start,end)：返回某个范围内的随机数</p>
+<h3 id="数组-1"><a href="#数组-1" class="headerlink" title="数组"></a>数组</h3><p>in_array($v,$arr)：检查一个元素是否在数组中<br>array_slice($arr,start,end)：截取指定索引值范围的子数组</p>
+<p>array_push($arr,$v1,$v2…)：将一个或多个元素放在数组最后<br>array_pop($arr)：删除数组中最后一个元素</p>
+<p>array_unshift($arr,$v1,$v2…)：向数组头部插入元素<br>array_shift($arr)：删除数组中第一个元素</p>
+<p>sort($arr)：从小到大进行数组排序<br>rsort($arr)：从大到小排序<br>shuffle($arr)：将数组打乱</p>
+<p>array_merge($arr1,$arr2)：合并两个数组<br>array_unique($arr)：移除数组中重复的元素</p>
+<p>implode($arr,$char)：把数组按指定分隔符拼接成字符串 //join()</p>
+<h3 id="字符串-1"><a href="#字符串-1" class="headerlink" title="字符串"></a>字符串</h3><p>strlen()：返回字符串的长度<br>trim($str)：去除字符串左右空格<br>strtolower($str)：将字符串全部小写<br>strtoupper($str)：将字符串全部大写</p>
+<p>strpos($str,$c,[int])：查询指定子字符串在字符串中出现的位置，第三个参数指定起始查找位置<br>substr($str,$start,$length)；截取指定长度的字符串<br>str_replace($search,$replace,$str)：替换字符串中的某些字符</p>
+<p>str_split($str,$len)：把字符串按len长度进行分割并返回数组<br>explode($search,$str)：把字符串按指定字符进行分割并返回数组</p>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><p>json_encode()：对数组进行JSON编码，<br>json_decode()：对JSON格式的字符串进行编码</p>
+<p>urlencode()：本函数将字符串进行 URL 编码<br>urldecode()：本函数将 URL 编码后字符串还原成未编码的样子</p>
+<blockquote>
+<p>可以使用这两个函数来解决json_encode后默认编码为unicode的问题，为了解决深层嵌套的问题单独写了一个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function json_encode_fixed($arr)&#123;</div><div class="line">	function json_encode_fixed_foo(&amp;$arr)&#123;</div><div class="line">		foreach ( $arr as $key =&gt; $value ) &#123;</div><div class="line">			if (is_array($value))&#123;</div><div class="line">				$arr[$key] = json_encode_fixed_foo($value);</div><div class="line">			&#125;else &#123;</div><div class="line">				$arr[$key] = urlencode ( $value );</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		return $arr;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	json_encode_fixed_foo($arr);</div><div class="line">	return urldecode(json_encode($arr));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><p>time()：返回时间戳<br>date(‘Y-m-d h:i:s’,time())：根据第一个字符串参数的格式打印出对应的日期，第二个参数为当前时间戳<br>strtotime()：将时间字符串转换成时间戳</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/php基础" class="article_tag">#php基础</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">1.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#布尔值"><span class="toc-number">1.1.</span> <span class="toc-text">布尔值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数字"><span class="toc-number">1.2.</span> <span class="toc-text">数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串"><span class="toc-number">1.3.</span> <span class="toc-text">字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组"><span class="toc-number">2.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-number">3.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量解析与赋值"><span class="toc-number">3.1.</span> <span class="toc-text">变量解析与赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量作用域"><span class="toc-number">3.2.</span> <span class="toc-text">变量作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#超全局变量"><span class="toc-number">3.3.</span> <span class="toc-text">超全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常量"><span class="toc-number">3.4.</span> <span class="toc-text">常量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程控制"><span class="toc-number">4.</span> <span class="toc-text">流程控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数"><span class="toc-number">5.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数作用域"><span class="toc-number">5.1.</span> <span class="toc-text">函数作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数参数与返回值"><span class="toc-number">5.2.</span> <span class="toc-text">函数参数与返回值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类与对象"><span class="toc-number">6.</span> <span class="toc-text">类与对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用函数"><span class="toc-number">7.</span> <span class="toc-text">常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数字-1"><span class="toc-number">7.1.</span> <span class="toc-text">数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组-1"><span class="toc-number">7.2.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串-1"><span class="toc-number">7.3.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码"><span class="toc-number">7.4.</span> <span class="toc-text">编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期"><span class="toc-number">7.5.</span> <span class="toc-text">日期</span></a></li></ol></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

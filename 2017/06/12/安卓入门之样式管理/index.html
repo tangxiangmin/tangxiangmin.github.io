@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">安卓入门之样式管理</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/6/12 22:26:35</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/Android" class="hover-highlight">Android</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>前两天还在抱怨为啥安卓中写样式这么麻烦，今天才发现原来安卓中也是有样式表的，并且还十分规范！！像这样蒙着头一通乱学真是刺激啊。废话少说，赶紧理清安卓中样式表的使用方法，接下来整个布局就感觉没啥问题了。</p>
+<a id="more"></a>
+<p>在<code>Android Studio</code>中，所有的资源文件都被整合的<code>res</code>文件夹下面，所以，你懂的。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>在一个应用在，样式风格应该统一。在web页面中使用类来达到样式复用的目的，而在Android应用中，是通过将对应的属性先定义在xml资源文件中（比如某个颜色，某个边距尺寸等等），然后引用这些资源文件，减少代码中的硬编码，便于样式维护和风格统一。</p>
+<p>是不是很眼熟？没错，这就跟SCSS中的定义变量一样嘛，只是安卓本身就支持这种做法，所以我会在前面提到“ <strong>十分规范</strong> ”这个说法。更规范的是，甚至将变量都进行了分类</p>
+<h3 id="colors"><a href="#colors" class="headerlink" title="colors"></a>colors</h3><p>颜色是UI的第一印象，重要性就不说了。在<code>CSSMagic</code>这个项目中，我专门写了一个<code>_colors</code>的scss文件，用来声明常用的颜色变量，然后定义了对应的背景颗粒类<code>.bg-*</code>和字体颜色颗粒类<code>.text-*</code>。当时还被我的机智折服了，要是早点学安卓这些方法肯定早就知道了吧~擦又跑题了。</p>
+<p>打开<code>res/values/colors.xml</code>，就可以看见对应的颜色资源，大概是下面这个样子</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>#3F51B5<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>#303F9F<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>#FF4081<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"white"</span>&gt;</span>#fff<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"red"</span>&gt;</span>#ff0000<span class="tag">&lt;/<span class="name">color</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>其中前3个是AS自动生成的，我们也可以使用<code>color</code>标签自定义对应的颜色变量，颜色名可以是任何有效的变量名，对应的色值是十六进制表示法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;color name=&quot;mycolor&quot;&gt;#00ff00&lt;/color&gt;</div></pre></td></tr></table></figure>
+<p>定义好颜色变量之后，就可以直接在布局文件或者样式表（后面马上提到）使用了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;TextView</div><div class="line">		...</div><div class="line">        android:textColor=&quot;@color/mycolor&quot;/&gt;</div></pre></td></tr></table></figure>
+<p>如果设计突然说整个应用的色彩要调换，修改colors配置文件比从layout文件中去挨个修改方面得多。这在web开发中深有体会，安卓既然本身就提供了这些功能，一定要好好把握啊。</p>
+<h3 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h3><p>更神奇的是，就连组件中需要展示的文字，都可以使用<code>strings.xml</code>文件进行配置，相当于建议在layout文件中不出现任何硬编码，而将对应的值单独进行配置。</p>
+<p>打开<code>res/values/strings.xml</code>中，可以看见</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>UI<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>额不要吐槽我凑字数了。同理，我们可以使用<code>string</code>标签自定义字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;string name=&quot;mytext&quot;&gt;Txm&lt;/string&gt;</div></pre></td></tr></table></figure>
+<p>引用方式也跟color类似，<code>@string/mytext</code>即可，AS强大的语法提示功能让我们的代码写起来轻松又愉快</p>
+<h2 id="样式类"><a href="#样式类" class="headerlink" title="样式类"></a>样式类</h2><p>在web开发中，如果一组样式在多个地方出现，我们肯定会使用类进行封装，然后在需要的标签上添加这些类即可（关于CSS样式重用的问题我折腾了非常长一段时间）。同理，就UI布局来说，我认为Android和CSS的思路应该是相同的：减少重复代码，提高开发和维护效率。<br>尽管安卓中并没有<strong>样式类</strong>的概念，也必定会存在某种机制，将一组样式封装在一起，然后可以在多个组件上进行调用。千呼万唤使出来，终于轮到了今天的主角：<strong>style</strong>标签。</p>
+<h3 id="style标签"><a href="#style标签" class="headerlink" title="style标签"></a>style标签</h3><p>打开<code>res/values/styles.xml</code>文件，可以看见</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.DarkActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">        <span class="comment">&lt;!-- Customize your theme here. --&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>@color/colorPrimary<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>@color/colorPrimaryDark<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>@color/colorAccent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span></span></div></pre></td></tr></table></figure>
+<p> 这个结构看起来十分清晰（本来XML文件的语义化就比JSON强多了，啊呸又跑题了），一个<code>style</code>标签对应一组样式，一个<code>item</code>标签对应某个组中的单条样式，这里还遇见了前面提到的<code>color</code>变量。没错，把style标签的<code>name</code>属性值看做是类名就可以了，一个style标签就是 一个CSS样式类。</p>
+<p>那么，怎么在组件上引用这个样式类呢？在HTML中我们使用的是<code>class</code>属性，在Android中，对应的属性是<code>style</code>，即</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 定义样式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"mytext"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:layout_width"</span>&gt;</span>match_parent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:layout_height"</span>&gt;</span>wrap_content<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:textColor"</span>&gt;</span>@color/red<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">    </div><div class="line"><span class="comment">&lt;!-- 引用样式 --&gt;</span>   </div><div class="line"><span class="tag">&lt;<span class="name">TextView</span> <span class="attr">style</span>=<span class="string">"@style/mytext"</span> <span class="attr">android:text</span>=<span class="string">"Hello"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">TextView</span> <span class="attr">style</span>=<span class="string">"@style/mytext"</span> <span class="attr">android:text</span>=<span class="string">"World"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>可以在多个组件上使用相同的样式，这样整个布局代码看起来清爽多了，之前满屏幕的<code>android:xxx</code>看起来真是眼花缭乱（想想一个HTML文件每个标签上面都用style来指定样式是多么可怕的事情）。伟大的HTML规范告诉我们，样式结构和行为要分离[/掩面]。</p>
+<h3 id="文件分离"><a href="#文件分离" class="headerlink" title="文件分离"></a>文件分离</h3><p>了解了style标签，可以在很大程度上减少重复的代码。但是随着页面的增加，这个<code>styles.xml</code>文件想必也会很庞大，将样式文件进行拆分是非常有必要的（样式在项目层次上的复用，样式白哦的维护等）。在SCSS中，可以使用<code>@import</code>解决这个问题，在Android中又是怎么解决这个问题的呢？</p>
+<p>答案是：完！全！不！用！管！只要喜欢，你可以把样式表拆分成多个文件，只要按照正确的<code>style</code>标签格式书写，反正都会被R文件进行统计并赋予惟一的检索值，因此最后也只需要使用<code>@style/mystyle</code>进行引用就可以了。</p>
+<p>我的理解是：样式类并不是在底层并不是按照文件进行管理的（在网页中需要使用link标签引入样式表）拆分文件主要是为了开发人员便于维护。安卓在我心中一下子变得高大上起来。</p>
+<h3 id="样式继承"><a href="#样式继承" class="headerlink" title="样式继承"></a>样式继承</h3><p>在网页中，一个标签是可以同时具备多个类的，但是在安卓中，一个组件的<code>style</code>属性貌似只能有一个值，这样，就不能使用<strong>组合类</strong>来更大程度地实现样式重用（哈这个词我是跟它杠上了）。安卓提供了另外一种方式来解决这个问题：样式继承。</p>
+<p>注意这里的样式继承就跟CSS中的继承不太一样了：</p>
+<ul>
+<li>CSS中的继承是子元素在不用指定对应样式的情况下，继承父元素的某些样式属性，比如字体颜色，大小等</li>
+<li>Android中的继承是针对两个style标签而言的，通过继承可以让另外一个标签具有与父元素相同的样式，然后可以在style标签内部指定额外的样式</li>
+</ul>
+<p>是不是很熟悉？没错，这不就是跟SCSS中的混合器和继承差不多的东西嘛~在style标签上使用<code>parent</code>属性指定继承的样式类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style name=&quot;header&quot;&gt;</div><div class="line">    &lt;item name=&quot;android:layout_width&quot;&gt;match_parent&lt;/item&gt;</div><div class="line">    &lt;item name=&quot;android:layout_height&quot;&gt;wrap_content&lt;/item&gt;</div><div class="line">    &lt;item name=&quot;android:textColor&quot;&gt;#ff0000&lt;/item&gt;</div><div class="line">&lt;/style&gt;</div><div class="line"></div><div class="line">&lt;style name=&quot;footer&quot; parent=&quot;header&quot;&gt;</div><div class="line">	&lt;item name=&quot;android:textSize&quot;&gt;30sp&lt;/item&gt;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<p>此外，也可以通过另外一种形式使用继承</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;style name=&quot;header.another&quot;&gt;</div><div class="line">	&lt;item name=&quot;android:textSize&quot;&gt;30sp&lt;/item&gt;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<p>具体采用哪种形式由具体情况决定了</p>
+<p>利用继承，我们可以进一步减少我们的代码量，比如整理一些基础布局的基类，然后再派生出不同的样式类…打住，我感觉我又要开始折腾了！</p>
+<h3 id="动态样式"><a href="#动态样式" class="headerlink" title="动态样式"></a>动态样式</h3><p>安卓中提供了许多操作样式的接口，比如<code>setText</code>，<code>setTextColor</code>啥的，但是这些接口都是针对单条样式的。在逻辑代码操作单条样式并不是一个明智的做法，用JavaScript修改样式的时候，一般的做法是先定义好对应的类，然后通过切换样式类的做法来达到动态设置样式的效果，这样可以保证行为和样式分离。还是那个问题：安卓中怎么实现动态设置样式类呢？</p>
+<p>// todo: 这个问题貌似还没有查到，貌似有<code>setTextAppearance</code>之类的接口</p>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>在App应用中，图片是UI的重要组成部分。这跟Web中或多或少有些区别：在Web中处于网络性能的影响，图片更多的是作为内容进行展示，而大部分UI布局都是通过样式属性实现的；而在App中，更多的是考虑实现更完美的UI布局，因此很多地方需要使用图片资源来实现特定的效果。</p>
+<h3 id="适配图片"><a href="#适配图片" class="headerlink" title="适配图片"></a>适配图片</h3><p>安卓分辨率在数量上远超IOS，因此屏幕适配是一个很大的问题。根据分辨率的大小，可以将其划分为<code>hdpi</code>，<code>mdpi</code>，<code>xhdpi</code>，<code>xxhdpi</code>，<code>xxxhdpi</code>等（是不是又很熟悉，栅格系统啊~）</p>
+<p>在布局上可以采用伸缩式的布局，而针对图片，安卓提供了<code>drawable-*</code>的方式进行处理，其中的*对应的就是上面的分辨率区域，在不同的分辨率区域下使用一张图片的不同形式（这特么就是多张图片好不~）。另外，图片的命名跟变量名命名规则相同，不能使用数字开头哦。</p>
+<p>在AS中，文件树被简化了，我们打开项目的实际位置，可以发现实际上都有对应的文件夹，用于存放不同分辨率下的图片。系统是如何自动加载对应的图片呢？这里参考<a href="http://blog.csdn.net/myoungmeng/article/details/54090891" target="_blank" rel="external">玩转Android drawable图片适配</a>:</p>
+<ul>
+<li>先查找和屏幕密度最匹配的文件夹</li>
+<li>如果在最匹配的目录没有找到对应图片，就会向更高密度的目录查找，直到没有更高密度的目录</li>
+<li>如果一直往高密度目录均没有查找，Android就会查找drawable-nodpi目录，该目录表示包含的资源所有密度的设备，可能需要自己新建</li>
+<li>最后，如果在drawable-nodpi目录也没有查找到，系统就会向比最匹配目录密度低的目录依次查找，直到没有更低密度的目录</li>
+</ul>
+<p>上面是不是意味着需要针对分辨率出多套设计图~感觉不靠谱啊，设计肯定只给一套图~这倒是个问题。</p>
+<p>另外，你可能还发现了<code>res/mipmap</code>文件夹，这里面存放的是APP的图标，也需要针对屏幕分辨率进行处理。总之，安卓的分辨率貌似是个坑啊。</p>
+<h3 id="Nine-Patch"><a href="#Nine-Patch" class="headerlink" title="Nine-Patch"></a>Nine-Patch</h3><p>安卓里面有个叫做<code>Nine-Patch</code>图片格式，即<strong>指定图片特定位置拉伸和填充内容的一种特殊的png图片格式</strong>，这是一个多么神奇的东西啊，之前网页上各种屏幕适配的背景图问题这里可以完美解决，相关的知识暂时没有深入，附个<a href="http://www.cnblogs.com/lwbqqyumidi/p/3373070.html" target="_blank" rel="external">传送门</a>。（想想之前在网页上实现一个由内容撑开的聊天对话框，要达到设计师的花式需求，可不是一份轻松的活）</p>
+<p>在<code>Android Studio</code>中实现<code>Nine-Patch</code>图片十分简单，将<code>*.png</code>格式的图片重命名为<code>*.9.png</code>，然后将图片资源放在<code>drawable</code>文件下就可以了，不过要注意的是仍旧需要手动去设置拉伸参照的”黑实线”。</p>
+<h3 id="xml图形绘制"><a href="#xml图形绘制" class="headerlink" title="xml图形绘制"></a>xml图形绘制</h3><p>drawable直译为“可拉的，可画的。在<code>res/drawable</code>文件夹中，除了保存不同分辨的图片之外，我们还可以自己绘制相关的图形，并将其视作常规的图片使用，这是多么强大的功能啊。</p>
+<p>xml图形绘制看起来跟svg的语法十分相似，这里参考<a href="http://www.jianshu.com/p/4cd87e3c43d6" target="_blank" rel="external">Android 图像绘制之 Drawable</a>。由于也是刚接触，先练练手再回来总结xml图形绘制的问题。讲道理，搞明白了这个，大部分样式布局几乎都可以实现了。</p>
+<h2 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h2><p>HTML5规范了标签上的自定义属性，即使用<code>data-*</code>声明自定义属性，然后在DOM中就可以使用<code>datset</code>获取该节点上的自定义属性集合。在安卓中同样可以使用自定义属性，不过用法有很大的不同。</p>
+<p>自定义属性大多用在自定义view里面（我之前以为自定义view是基础知识，后来发现原来是进阶门槛[/掩面]）。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>一个人从打环境开始摸索安卓开发，到现在为止走了很多弯路（跟学前端的时候一模一样啊）。走弯路也没啥大不了的，只要能在摸索中把握好前进的方向就好了。安卓跟web前端，实际上真的挺像的：搭界面，接数据，处理交互，添加动画啥的。</p>
+<p>现在差不多弄了两周，再来一个月应该就能达到自己的初期目标了，加油。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/样式" class="article_tag">#样式</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-number">1.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#colors"><span class="toc-number">1.1.</span> <span class="toc-text">colors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strings"><span class="toc-number">1.2.</span> <span class="toc-text">strings</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样式类"><span class="toc-number">2.</span> <span class="toc-text">样式类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#style标签"><span class="toc-number">2.1.</span> <span class="toc-text">style标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件分离"><span class="toc-number">2.2.</span> <span class="toc-text">文件分离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#样式继承"><span class="toc-number">2.3.</span> <span class="toc-text">样式继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态样式"><span class="toc-number">2.4.</span> <span class="toc-text">动态样式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图片"><span class="toc-number">3.</span> <span class="toc-text">图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#适配图片"><span class="toc-number">3.1.</span> <span class="toc-text">适配图片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nine-Patch"><span class="toc-number">3.2.</span> <span class="toc-text">Nine-Patch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xml图形绘制"><span class="toc-number">3.3.</span> <span class="toc-text">xml图形绘制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义属性"><span class="toc-number">4.</span> <span class="toc-text">自定义属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

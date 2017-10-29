@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/03/04/HTTP协议之报文（二）/" class="article_tt">
+                HTTP协议之报文（二）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-03-04 20:05:56 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>有一个经典的问题：在浏览器地址栏输入地址，然后回车，最后看见页面这个过程到底发生了什么？这个过程，用书面语来讲就是一个完整的<strong>浏览器事务</strong>。一个事务由一条请求命令（浏览器发往服务器）和一条响应结果（服务器发往浏览器）组成，而这种通信是通过<strong>HTTP报文</strong>进行的。学习HTTP，最基本的目标就是需要看懂HTTP报文。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/03/04/HTTP协议之报文（二）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/02/27/HTTP协议之资源（一）/" class="article_tt">
+                HTTP协议之资源（一）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-02-27 14:05:47 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>Web资源是Web服务的基础，我们上网，归根到底就是为了获取资源；而整个互联网，就是为了将资源从一个地方传递到另一个地方。这里整理了资源类型，资源路径和动态资源网关这三个部分知识。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/02/27/HTTP协议之资源（一）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/02/19/浏览器解析HTML的流程/" class="article_tt">
+                浏览器解析HTML的流程
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-02-19 12:10:22 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/HTML/" class="hover-highlight">HTML</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>很早之前就对浏览器加载整个页面文档以及相关的执行顺序十分好奇，但是却一直没有深入。尤其是JavaScript这块，只知道JavaScript是单线程模型，却对于这个概念却一直没有很理性的认识。想到之前看见一篇关于浏览器中定时器的文章，介绍了浏览器中setTimeout的机制，才发现自己对关于页面上JavaScript的执行顺序给弄混了。<br>最近正重新阅读犀牛书，在第13章“Web浏览器中的JavaScript”中，终于得到了一些答案。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/02/19/浏览器解析HTML的流程/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/02/16/BOM基础知识/" class="article_tt">
+                BOM基础知识
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-02-16 20:12:23 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>刚学JS的时候就买了一本《JavaScr权威指南》放在那里，当时就被这一千多页的厚度给唬住了。咬着牙看完了第一部分，也就是JavaScript语言核心；而JS的DOM部分，是在《DOM编程艺术》中学习的。关于BOM这一部分，却仅仅只是在工作中遇见了才去查资料，导致忽略了很多基础知识。<br>前几天入手了Kindle，看的第一本书就是《JavaScr权威指南》，阅读电子书的一个好处就是能够在不知不觉中把这么厚的书给消灭掉，缺点是不容易折回去反复阅读。因此，总归是要做点笔记的。<br>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/02/16/BOM基础知识/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/02/09/使用BEM声明CSS样式名/" class="article_tt">
+                使用BEM声明CSS样式名
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-02-09 22:04:30 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/CSS/" class="hover-highlight">CSS</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>折腾<code>CSS</code>类名已经很长一段时间了，也得到了一些教训和经验。维护<code>CSS</code>有几个比较困难的问题：</p>
+<ul>
+<li>默认全局命名空间，样式冲突十分常见</li>
+<li>混乱的样式重用或选择器的滥用，导致改动牵一发而动全身</li>
+<li>修改样式表的同时可能会改动页面结构，而且往往不只一个页面</li>
+</ul>
+<p>之前的关注点是通过选择器嵌套和样式复用来决定样式名，由于过分考虑样式的复用，又没有进行正确的限制，样式耦合十分严重。最后回过头一想，如果是使用类名来决定选择器的嵌套和样式重用，情形应该会怎么样呢？恰好之前也了解了一点<code>BEM</code>的东西，这篇文章是我关于<code>BEM</code>的思考和尝试。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/02/09/使用BEM声明CSS样式名/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/01/16/RequireJS使用心得/" class="article_tt">
+                RequireJS使用心得
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-01-16 23:04:35 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>一直对于JS模块化开发心存敬畏，尽管很早之前就接触到了RequireJS（在微擎里面），实际项目中却仍旧采用的是最原始的在HTML文档中script标签里面写代码。一方面是因为后台的同学有时候需要自己写JS处理逻辑；另一方面是后台模板将共用的头部样式表和底部脚本都分离为单独文件，管理起来也不是很麻烦。因此一直没有去了解<code>require.js</code>。<br>最近一个多月一直在折腾新的博客，想着要不要试试<code>require.js</code>，然后一发不可收拾。<br>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/01/16/RequireJS使用心得/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/01/15/在JS中遇见的一些BUG/" class="article_tt">
+                在JS中遇见的一些BUG
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-01-15 21:55:29 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>前面写了一篇记录遇见的CSS的BUG，这篇文章就用来整理和记录写JS遇见的坑。实际上项目基本上都使用了jQuery，因此绝大部分兼容性问题已经很少遇到了，然而，总还是有一些蛋疼的问题出现。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/01/15/在JS中遇见的一些BUG/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/01/15/在CSS中遇见的一些BUG/" class="article_tt">
+                在CSS中遇见的一些BUG
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-01-15 21:15:47 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/CSS/" class="hover-highlight">CSS</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>今天打开有道云笔记，发现不知不觉中记录了不少关于CSS的BUG，有的问题在遇见的时候就成功解决了，有的却是采用某些折衷的办法进行处理。里面还有几个挺有趣的问题，一并整理一番，另外还有一篇是关于JS的浏览器的BUG。<br>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/01/15/在CSS中遇见的一些BUG/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/01/08/从零开始实现一个简易的PHP框架/" class="article_tt">
+                从零开始实现一个简易的PHP框架
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-01-08 11:57:20 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/PHP/" class="hover-highlight">PHP</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>在11月份的时候，参照慕客网的视频，照猫画虎折腾了一个非常简陋的PHP框架半成品，简陋到只勉强实现了自动加载类和路由功能，由于功力不足暂时将这个小项目放在了旁边，到后面补习了一些PHP的基础知识，又花了大概一周的时间去了解Laravel，对于PHP框架的运行流程稍微长进了一点。现在趁着周末重新整理了之前的笔记：一个简易的PHP MVC框架的实现。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/01/08/从零开始实现一个简易的PHP框架/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2016/12/31/JS模板引擎（初级篇）/" class="article_tt">
+                JS模板引擎（初级篇）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2016-12-31 18:22:22 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>之前的项目中，通过ajax请求获得的数据，重新在页面上渲染出来，基本上都是采用字符串拼接或者定义一个<code>type/html</code>的script标签，然后通过jQuery查找结点然后插入数据的，在数据量不大的情况下，这么做貌似也没有什么问题。但是昨天遇见的情况是返回好评、中评、差评的多条数据，，且每天评论需要展示的内容十分多，因此考虑使用第三方的模板引擎库。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2016/12/31/JS模板引擎（初级篇）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+
+<div class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next</a>
+</div>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <div class="tab_panel active" id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

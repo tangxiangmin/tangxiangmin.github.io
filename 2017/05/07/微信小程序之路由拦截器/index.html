@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">微信小程序之路由拦截器</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/5/7 11:27:12</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>初次接触到路由拦截器是在<code>Vue-ReSource</code>中，后来使用<code>axios</code>和<code>restify</code>实现<code>jwt</code>单页面应用用户验证的时候也用到了路由拦截器的功能。在微信小程序中，官方只提供了最基本的<code>wx.request</code>，现在打算对这个接口进行封装，在小程序中实现简单的路由拦截器。</p>
+<a id="more"></a>
+<p>我对于路由拦截器的理解是：在<strong>发送请求之前</strong>和<strong>接收到响应后（处理数据之前）</strong>执行的某些操作。整个过程可以看作：</p>
+<blockquote>
+<p>发送请求前——发送请求——接收到响应后——处理响应数据</p>
+</blockquote>
+<p>“发送请求”和“处理响应数据”在每个请求中可能都是不相同的，但是“ 发送请求前”和“接收到响应后”的逻辑处理可能都相似的，举个很常见的需求：发送请求时显示Loading提示，接受到响应后关闭提示。鉴于每次请求都得实现这样的需求，因此必须采取某种措施统一处理，这里的措施指的就是<strong>拦截器</strong>。</p>
+<h2 id="修饰函数"><a href="#修饰函数" class="headerlink" title="修饰函数"></a>修饰函数</h2><p>看见上面的执行顺序，直接想到的是使用回调函数修饰<code>wx.request</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.before = <span class="function"><span class="keyword">function</span>(<span class="params">beforeFn</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> _self = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        beforeFn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">        _self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">Function</span>.prototype.after = <span class="function"><span class="keyword">function</span>(<span class="params">afterFn</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> _self = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        _self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">        afterFn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ajax = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"send request"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> modifiyFn = ajax.before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"config params..."</span>);</div><div class="line">&#125;).after(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"recive some data..."</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">modifiyFn();</div></pre></td></tr></table></figure></p>
+<p>上面的代码看起来能达到我们的需求，实现起来也很方便，但是我们忽略了一个很关键的问题：请求是异步的！<code>wx.request</code>的返回数据是通过制定配置参数的<code>success</code>方法处理的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">wx.request(&#123;</div><div class="line">  	url,</div><div class="line">  	data,</div><div class="line">  	success(res)&#123;</div><div class="line">      	// res.data</div><div class="line">  	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h2 id="Promise实现"><a href="#Promise实现" class="headerlink" title="Promise实现"></a>Promise实现</h2><p>很明显，通过为请求方法添加修饰函数并不能达到我们的需求，因为同步代码总是优于异步代码执行的。转念一想，链式的异步调用<code>Promise</code>来处理刚刚好啊。</p>
+<h3 id="接口promosie化"><a href="#接口promosie化" class="headerlink" title="接口promosie化"></a>接口promosie化</h3><p>前面提到，小程序的请求采用的是指定回调函数的方式而没有进行<code>Promise</code>，不过微信的接口大都比较统一：</p>
+<ul>
+<li><code>success</code>指定成功处理函数</li>
+<li><code>fail</code>指定失败处理函数</li>
+</ul>
+<p>这样我们可以自己将接口封装一下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> wxPromise = <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">opt = &#123;&#125;</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">            opt.success = <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(resolve);</div><div class="line">                resolve(res);</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            opt.fail = <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</div><div class="line">                reject(res)</div><div class="line">            &#125;;</div><div class="line"></div><div class="line">            fn(opt);</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>然后将<code>wx.request</code>进行封装，需要注意这里可能会改变原生<code>wx.request</code>中的<code>this</code>指向，如果内部实现没有使用<code>wx</code>的话，这个问题应该也没啥吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 获取Promise风格的wx.request接口</div><div class="line">let wxRequest = wxPromise(wx.request);</div><div class="line">// 测试</div><div class="line">wxRequest(&#123; url, data &#125;).then((res)=&gt;&#123;</div><div class="line">  	console.log(res.data);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="Promise的链式调用"><a href="#Promise的链式调用" class="headerlink" title="Promise的链式调用"></a>Promise的链式调用</h3><p>OK，现在我们已经可以使用<code>promise</code>的风格来调用<code>wx.request()</code>了，整个拦截器的基本思路就是依次调用请求拦截器，具体请求和响应拦截器。</p>
+<p>不论是拦截器还是具体请求，我们都将他们看作是某个抽象的操作，然后使用一个队列进行维护并依次调用，只要每个操作都返回了正确的值，<code>Promise</code>的链式操作就可以执行下去，之前实现了一个简单的<a href="http://shymean.com/#/title/实现一个简单的Promise">Promise</a>，关于<code>Promise</code>的<code>then</code>方法链式调用，这里就不折腾了。</p>
+<p>这个队列应该保存着拦截操作和具体请求，具体请求在前面已经提到了，就是封装了得<code>wx.request</code>，那么拦截操作应该是什么样子呢？无非是回调函数罢了，只不过为了维持<code>Promise</code>的链式调用，每个操作都应该返回值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 执行队列</span></div><div class="line"><span class="keyword">let</span> chain = [<span class="function">(<span class="params">config</span>)=&gt;</span>&#123;</div><div class="line">	<span class="keyword">return</span> wxRequest(config).then(<span class="function">(<span class="params">result</span>)=&gt;</span>&#123;</div><div class="line">		<span class="keyword">return</span> result;</div><div class="line">	&#125;);</div><div class="line">&#125;, <span class="literal">undefined</span>];</div><div class="line"></div><div class="line"><span class="comment">// 拦截器大概就是这个样子的</span></div><div class="line"><span class="keyword">let</span> interceptors = &#123;</div><div class="line">  	request: [&#123;</div><div class="line">      	fulfilled()&#123;&#125;,</div><div class="line">      	rejected()&#123;&#125;,</div><div class="line">  	&#125;],</div><div class="line">  	response: [&#123;</div><div class="line">      	fulfilled()&#123;&#125;,</div><div class="line">      	rejected()&#123;&#125;,</div><div class="line">  	&#125;]</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 添加请求拦截器到执行队列前方</span></div><div class="line">interceptors.request.forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</div><div class="line">	chain.unshift(item.fulfilled, item.rejected);</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 添加响应拦截器到执行队列后方</span></div><div class="line">interceptors.response.forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</div><div class="line">	chain.push(item.fulfilled, item.rejected);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// chain现在拥有了基本完整的执行链，除了处理响应数据的处理，这个是需要在最后的then方法中自己注册的</span></div></pre></td></tr></table></figure></p>
+<p>那么，如何将队列中保存这的拦截操作和具体请求（一般都是回调函数）转变成<code>Promise</code>对象呢呢？这个在之前写的一个”NodeJS创建层级目录“的插件（代码写的太烂现在废弃掉了）中尝试过，使用一个<code>while</code>循环就可以了，在<code>axios</code>中发现了更准确的写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> chain = []; </div><div class="line"></div><div class="line"><span class="keyword">let</span> promise = <span class="built_in">Promise</span>.resolve(config);</div><div class="line"><span class="keyword">while</span>(chain.length)&#123;</div><div class="line">	<span class="comment">// 相邻元素一个为resolve，一个为reject</span></div><div class="line">	promise = promise.then(chain.shift(), chain.shift());</div><div class="line">&#125;</div><div class="line"><span class="comment">// 最后拿promise搞点什么事情</span></div><div class="line"><span class="keyword">return</span> promise;</div></pre></td></tr></table></figure>
+<h3 id="完整实现"><a href="#完整实现" class="headerlink" title="完整实现"></a>完整实现</h3><p>上面并没有提到如何注册拦截器，实际上无非就是向request和response中添加回调函数罢了，下面上完(cou)整(zi)代(shu)码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> CONFIG <span class="keyword">from</span> <span class="string">"./_config"</span>;</div><div class="line"><span class="keyword">import</span> &#123; wxRequest &#125; <span class="keyword">from</span> <span class="string">"../utils/wxPromise"</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Resource</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.interceptors = &#123;</div><div class="line">            request: [],</div><div class="line">            response: []</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        <span class="keyword">this</span>.config();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    config(params = CONFIG)&#123;</div><div class="line">        <span class="keyword">this</span>.host = params.host ;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    before(opt)&#123;</div><div class="line">        <span class="keyword">this</span>.interceptors.request.unshift(opt);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    after(opt)&#123;</div><div class="line">        <span class="keyword">this</span>.interceptors.response.push(opt);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    request(url, method ,params = &#123;&#125;)&#123;</div><div class="line"></div><div class="line">        <span class="comment">// 还原wx.request的参数格式</span></div><div class="line">        <span class="keyword">let</span> config = &#123;</div><div class="line">            url: <span class="keyword">this</span>.host + url,</div><div class="line">            data: params,</div><div class="line">            method: method</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> chain = [<span class="function">(<span class="params">config</span>)=&gt;</span>&#123;</div><div class="line">            <span class="keyword">return</span> wxRequest(config).then(<span class="function">(<span class="params">result</span>)=&gt;</span>&#123;</div><div class="line">                <span class="comment">// 将响应状态和数据绑定到resource实例上</span></div><div class="line">                <span class="keyword">this</span>.status = result.statusCode;</div><div class="line">                <span class="keyword">this</span>.data = result.data;</div><div class="line"></div><div class="line">                <span class="keyword">return</span> result;</div><div class="line">            &#125;);</div><div class="line">        &#125;, <span class="literal">undefined</span>];</div><div class="line"></div><div class="line">        <span class="comment">// 添加中间件到执行链上</span></div><div class="line">        <span class="keyword">this</span>.interceptors.request.forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</div><div class="line">            chain.unshift(item.fulfilled, item.rejected);</div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">this</span>.interceptors.response.forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</div><div class="line">            chain.push(item.fulfilled, item.rejected);</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        <span class="keyword">let</span> promise = <span class="built_in">Promise</span>.resolve(config);</div><div class="line"></div><div class="line">        <span class="keyword">while</span>(chain.length)&#123;</div><div class="line">            promise = promise.then(chain.shift(), chain.shift());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> promise;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 基本方法</span></div><div class="line">[<span class="string">'GET'</span>, <span class="string">'POST'</span>, <span class="string">'HEAD'</span>, <span class="string">'DELETE'</span>, <span class="string">'PUT'</span>].forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</div><div class="line">    <span class="keyword">let</span> method = item.toLowerCase();</div><div class="line">    Resource.prototype[method] = <span class="function"><span class="keyword">function</span> (<span class="params">url, params = &#123;&#125;</span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.request(url, item ,params);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="keyword">let</span> resource = <span class="keyword">new</span> Resource();</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> resource;</div></pre></td></tr></table></figure></p>
+<p>中间还做了一点其他处理，按照HTTP请求方式注册了快捷请求方法（主要是为了与后台实现<code>RESTful</code>接口）。实际上我认为拦截器的实现，最主要的就是理解<code>Promise</code>的链式调用，以及操作队列的正确顺序。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>下面来简单测试一下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">resource.before(&#123;</div><div class="line">    fulfilled(config)&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"begin ..."</span>);</div><div class="line">        wx.showLoading(&#123;</div><div class="line">            title: <span class="string">'加载中'</span>,</div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">return</span> config;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">resource.after(&#123;</div><div class="line">    fulfilled(data)&#123;</div><div class="line">        wx.hideLoading();</div><div class="line">        <span class="keyword">return</span> data;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Page(&#123;</div><div class="line">   onLoad()&#123;</div><div class="line">       resource.post(<span class="string">"test"</span>, &#123;<span class="attr">name</span>:<span class="string">"txm"</span>&#125;).then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</div><div class="line">           <span class="built_in">console</span>.log(data);</div><div class="line">       &#125;)</div><div class="line">   &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>由于都是基于<code>Promise</code>的，因此也可以在拦截器中执行异步操作，并在操作完成之后再进行具体操作。想到之前那个在每个页面都发送重复的用户身份验证真是醉了，尽管不是我写的（/掩面）。<br>总之，这个拦截器只是在学习并实现<code>Promise</code>之后用来练手的一个小项目，本身跟小程序也没有特别大的关系，一切都是碰巧了，哈哈…</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/微信小程序" class="article_tag">#微信小程序</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#修饰函数"><span class="toc-number">1.</span> <span class="toc-text">修饰函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise实现"><span class="toc-number">2.</span> <span class="toc-text">Promise实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#接口promosie化"><span class="toc-number">2.1.</span> <span class="toc-text">接口promosie化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Promise的链式调用"><span class="toc-number">2.2.</span> <span class="toc-text">Promise的链式调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完整实现"><span class="toc-number">2.3.</span> <span class="toc-text">完整实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">3.</span> <span class="toc-text">测试</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

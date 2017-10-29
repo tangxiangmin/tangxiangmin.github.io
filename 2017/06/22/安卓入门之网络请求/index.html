@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">安卓基础之网络请求</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/6/22 9:19:1</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/Android" class="hover-highlight">Android</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>前面提到的webview只能算作是安卓应用网络技术的一部分。作为客户端，安卓也可以向服务器发送HTTP请求，然后处理服务器返回的数据。年初花了一个多月的时间学习HTTP协议，现在主要整理安卓中网络请求的相关知识，主要还是与Web中的Ajax进行对比学习。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/java/net/HttpURLConnection.html" target="_blank" rel="external">HttpURLConnection</a></li>
+</ul>
+<ul>
+<li><p><a href="http://blog.csdn.net/guolin_blog/article/details/12452307" target="_blank" rel="external">Android访问网络，使用HttpURLConnection还是HttpClient？</a></p>
+</li>
+<li><p><a href="http://www.jcodecraeer.com/plus/view.php?aid=3828" target="_blank" rel="external">Android网络请求心路历程</a></p>
+</li>
+<li><p><a href="http://blog.csdn.net/yudajun/article/details/9951469" target="_blank" rel="external">android (java) 网络发送get/post请求参数设置</a></p>
+</li>
+<li><p><a href="http://gqdy365.iteye.com/blog/2112471" target="_blank" rel="external">知识梳理：Android子线程中更新UI的3种方法</a></p>
+</li>
+</ul>
+<h2 id="HttpURLConnection"><a href="#HttpURLConnection" class="headerlink" title="HttpURLConnection"></a>HttpURLConnection</h2><p>安卓内置了两套处理http请求的接口，<code>HttpClient</code>和<code>HttpURLConnection</code>。查了相关的资料，貌似在Android 6.0之后<code>HttpClient</code>已经被废弃了，因此现在学习<code>HttpURLConnection</code>就可以了（这就是后学者的优势，也是几年后我们这批人的劣势~~）。</p>
+<p>跟使用Ajax一样，在安卓中一个完整的网络请求包括</p>
+<ul>
+<li>实例化一个请求对象</li>
+<li>指定请求方法，设置相关参数</li>
+<li>发送请求</li>
+<li>处理返回结果</li>
+</ul>
+<p>下面来看看在安卓中具体的代码实现</p>
+<h3 id="请求实例"><a href="#请求实例" class="headerlink" title="请求实例"></a>请求实例</h3><p>获取<code>HttpURLConnection</code>对象的方式十分简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">URL url = new URL(&quot;http://10.0.2.2:9999/android&quot;);</div><div class="line">connection = (HttpURLConnection)url.openConnection();</div></pre></td></tr></table></figure>
+<p>这跟Ajax貌似有点不一样，安卓中是先实例化一个URL对象，然后调用该对象的<code>openConnection</code>获得对应的请求实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xhr.open(&quot;http://10.0.2.2:9999/android&quot;)</div></pre></td></tr></table></figure>
+<h3 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h3><p>常规的请求方法还是<code>GET</code>和<code>POST</code>两种，通过<code>setRequestMethod</code>方法指定，至于GET和POST两个方法的区别这里就不扯了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">connection.setRequestMethod(&quot;POST&quot;);</div></pre></td></tr></table></figure>
+<p>由于不存在像网页一样由服务端渲染页面，因此处理双端的数据传输就十分重要（感觉用RESTful非常合适啊）。起初我也以为参数设置跟Ajax一样简单，然！而！并！不！是！这！样！的！</p>
+<p>由于POST请求将数据放在请求报文主体中，而GET请求是将数据拼在链接后面，因此处理方式有些不一样。先来看看POST的</p>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 允许向请求报文填入数据 </span></div><div class="line">connection.setDoOutput(<span class="keyword">true</span>);</div><div class="line"><span class="comment">// 设置请求头</span></div><div class="line">connection.setRequestProperty(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>);</div><div class="line"><span class="comment">// 获取输出对象</span></div><div class="line">OutputStream out = connection.getOutputStream();</div><div class="line"></div><div class="line"><span class="comment">// 接下来就是完成设置参数的工作了</span></div><div class="line">Map&lt;String,String&gt; params = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</div><div class="line">params.put(<span class="string">"name"</span>, <span class="string">"txm"</span>);</div><div class="line"><span class="comment">// 这里封装了一个getRequestData方法</span></div><div class="line"><span class="keyword">byte</span>[] data = getRequestData(params, <span class="string">"utf-8"</span>).toString().getBytes();</div><div class="line"><span class="comment">// 最后向输出对象中写入参数</span></div><div class="line">out.write(data);</div></pre></td></tr></table></figure>
+<p>上面这些代码看起来还很正常，按部就班来嘛，然后就是实现这个<code>getRequestData</code>方法（来源： <a href="http://blog.csdn.net/yudajun/article/details/9951469" target="_blank" rel="external">android (java) 网络发送get/post请求参数设置</a>）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> StringBuffer <span class="title">getRequestData</span><span class="params">(Map&lt;String, String&gt; params, String encode)</span> </span>&#123;</div><div class="line">	<span class="comment">// 存储封装好的请求体信息</span></div><div class="line">    StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer();        </div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">for</span>(Map.Entry&lt;String, String&gt; entry : params.entrySet()) &#123;</div><div class="line">            stringBuffer.append(entry.getKey())</div><div class="line">                    .append(<span class="string">"="</span>)</div><div class="line">                    .append(URLEncoder.encode(entry.getValue(), encode))</div><div class="line">                    .append(<span class="string">"&amp;"</span>);</div><div class="line">        &#125;</div><div class="line">      </div><div class="line">      	<span class="comment">//删除最后的一个"&amp;"</span></div><div class="line">        stringBuffer.deleteCharAt(stringBuffer.length() - <span class="number">1</span>);    </div><div class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> stringBuffer;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实现这个方法的理由是<code>OutputStream</code>对象的<code>write</code>方法需要的是<code>byte[]</code>类型的参数。感觉自己呵呵哒~里面的好几个概念都不会：<code>StringBuffer</code>,<code>URLEncoder</code>，这个先去补一补吧：</p>
+<ul>
+<li><code>StringBuffer</code>类中的方法主要偏重于对于字符串的变化，比如上面出现的<code>append</code>和<code>deleteCharAt</code>方法</li>
+<li><code>URLEncoder</code>类包含将字符串转换为application/x-www-form-urlencoded MIME 格式的静态方法，这个应该跟JS中的<code>encodeURI</code>类似</li>
+</ul>
+<h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>我们知道GET方法是通过在URL后拼接参数来进行传递的，因此比POST方法要简单一些，下面自己写了一个格式化GET请求url的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public String formateGetUrl(String url, Map&lt;String, String&gt; params)&#123;</div><div class="line"></div><div class="line">    // 拼接链接参数</div><div class="line">    StringBuilder sb = new StringBuilder();</div><div class="line">    sb.append(url).append(&quot;?&quot;);</div><div class="line">    try &#123;</div><div class="line">        for(Map.Entry&lt;String, String&gt; entry : params.entrySet())&#123;</div><div class="line">            sb.append(entry.getKey()).append(&quot;=&quot;).append(URLEncoder.encode(entry.getValue(), &quot;utf-8&quot;));</div><div class="line">            sb.append(&quot;&amp;&quot;);</div><div class="line">        &#125;</div><div class="line">        sb.deleteCharAt(sb.length() - 1);</div><div class="line">    &#125;catch (Exception e)&#123;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return sb.toString();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>主要实现是通过<code>StringBuilder</code>类提供的方法对参数进行拼接（在JS中直接模板字符串就搞定了~~），然后需要做的是根据返回的带参数的url实例化对应的URL对象啥的~</p>
+<p>可以看见，使用GET方法对参数的处理是在获取connection实例之前进行的，而使用POST方法对参数的处理是在获取connection实例之后进行的（相对麻烦一点）。这点跟Ajax比较像：通过<code>open</code>方法的链接上带参数（GET方法），或者在<code>send</code>方法中传参数（POST方法）</p>
+<h3 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h3><p>对参数的处理完成之后，就应该是发送请求了。在此之前，还可以对整个请求进行相关设置，比如指定请求方法，超时时间等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">connection = (HttpURLConnection)url.openConnection();</div><div class="line">connection.setRequestMethod(<span class="string">"GET"</span>);</div></pre></td></tr></table></figure>
+<p>然后建立连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">connection.connect();</div></pre></td></tr></table></figure>
+<p>这里有个比较蛋疼的问题：建立连接并不会向服务器发送数据，真正发送数据需要调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取响应状态码</span></div><div class="line"><span class="keyword">int</span> statusCode = connection.getResponseCode();</div></pre></td></tr></table></figure>
+<p>查到还有相关的博客上说实际上调用<code>getInputStream</code>方法才会发送数据，<code>getResponseCode</code>内部同样调用了<code>getInputStream</code>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Exception exc = null;</div><div class="line">try &#123;</div><div class="line">    getInputStream();</div><div class="line">&#125; catch (Exception e) &#123;</div><div class="line">    exc = e;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>总之看起来，同步代码展示网络请求确实不如异步代码那么直观。</p>
+<h3 id="处理数据"><a href="#处理数据" class="headerlink" title="处理数据"></a>处理数据</h3><p>前面提到的<code>getInputStream</code>就是用来获取返回数据流的，这里可以通过<code>BufferedReader</code>来逐行提取数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">InputStream in = connection.getInputStream();</div><div class="line">BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(in));</div><div class="line">StringBuilder response = <span class="keyword">new</span> StringBuilder();</div><div class="line">String line;</div><div class="line"></div><div class="line"><span class="keyword">while</span>((line=reader.readLine()) != <span class="keyword">null</span>)&#123;</div><div class="line">    response.append(line);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Log.i(TAG, response.toString());</div></pre></td></tr></table></figure>
+<p>通过这种方式可以获得服务器返回的字符串结果，看起来比Ajax中<code>responseText</code>啥的要麻烦一些~那么，如果返回了json（这应该是很常见的），在Java中该怎么处理呢？好吧，找了半天，基本都是使用第三方的jar包，这里推荐<a href="http://download.csdn.net/download/tuomasi8588/4067235" target="_blank" rel="external">google-gson</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">String res = response.toString();</div><div class="line"><span class="comment">// 这里的返回数据&#123;"name": "txm", "age": 24&#125;</span></div><div class="line">Log.i(TAG, res); </div><div class="line">JsonParser parse =<span class="keyword">new</span> JsonParser();</div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    JsonObject json = (JsonObject) parse.parse(res);  <span class="comment">//创建jsonObject对象</span></div><div class="line"></div><div class="line">    Log.i(TAG, <span class="string">"age:"</span>+json.get(<span class="string">"age"</span>).getAsInt());</div><div class="line">    Log.i(TAG, <span class="string">"name:"</span>+json.get(<span class="string">"name"</span>).getAsString());</div><div class="line"></div><div class="line">&#125; <span class="keyword">catch</span> (JsonIOException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相关的接口还是去翻<a href="https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.1" target="_blank" rel="external">文档</a>吧。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>至此，从新建请求到处理数据，一个完整的的HTTP请求业务就完成了，其中还有很多需要注意的细节，在之后的使用过程中慢慢熟练。当务之急是封(chao)装(xi)一个Android中的网络请求库，每次都这么写要把人折腾疯的~</p>
+<h2 id="线程通信"><a href="#线程通信" class="headerlink" title="线程通信"></a>线程通信</h2><p>上面写到处理完数据就戛然而止了，实际上还存在两个很重要的问题</p>
+<ul>
+<li>网络请求是十分耗时的，上面从建立连接到获得返回结果需要几百毫秒到几秒甚至更长的时间，如何处理网络请求阻塞程序运行的问题呢</li>
+</ul>
+<ul>
+<li>在实际的项目中，我们往往需要通过数据来修改UI或者跳转页面（否则发送的请求毫无意义），这个问题又怎么解决呢</li>
+</ul>
+<p>在Ajax中，我们可以通过将<code>open</code>方法的第二个参数设置为<code>true</code>来实现异步请求（貌似现在有的浏览器都强制只能发送异步请求），防止网络请求阻塞用户的其他操作。</p>
+<p>在Android中使用<strong>线程</strong>来解决这个问题，需要注意的是UI的更新必须在UI线程（即主线程）中完成，因此必须在网络请求线程获得请求结果之后，将更新UI的消息发送到了主线程的消息对象，让主线程做处理。</p>
+<p>因此上面的问题可以缩小为：如何把子线程中的消息传递给主线程？有三种方法来解决这个问题</p>
+<h3 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h3><p>首先在主线程实例一个handler类，并定义好对应的分支处理逻辑，然后等待从子线程发送的消息，触发对应分支的逻辑，然后执行相关的操作。由于最后的逻辑操作是在主线程中执行，因此可以改变UI。感觉像是典型的“观察者-发布者模式”。</p>
+<p>下面先实例一个Handler类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestCallback</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">// 预先定义对应的状态</span></div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> GET_SUCCESS = <span class="number">0</span>,</div><div class="line">        POST_SUCCESS = <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 绑定网络请求handler</span></div><div class="line">    mHandler = <span class="keyword">new</span> Handler()&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span></span>&#123;</div><div class="line">            <span class="keyword">super</span>.handleMessage(msg);</div><div class="line">            <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">                <span class="keyword">case</span> GET_SUCCESS:</div><div class="line">                    <span class="comment">// 拿到数据</span></div><div class="line">                    JsonObject data = (JsonObject)msg.obj;</div><div class="line"></div><div class="line">                    String name = data.get(<span class="string">"name"</span>).getAsString();</div><div class="line">					</div><div class="line">					<span class="comment">// 完成主界面更新</span></div><div class="line">                    Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="string">"welcome, "</span> + name, Toast.LENGTH_SHORT).show();</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> POST_SUCCESS:</div><div class="line">                    Log.i(TAG, <span class="string">"post success"</span>);</div><div class="line">                <span class="keyword">default</span>:</div><div class="line">                    Log.i(TAG, msg.obj.toString());</div><div class="line">                    Log.i(TAG, msg.what + <span class="string">""</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在网络请求子线程请求成功时使用先前定义的mHandler对象的<code>sendMessage</code>方法，进入主线程中对应的处理分支。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendGetRequest</span><span class="params">(<span class="keyword">final</span> String urlPath)</span></span>&#123;</div><div class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">          	<span class="comment">// 网络请求相关代码省略...</span></div><div class="line">          	<span class="keyword">if</span> (statusCode == <span class="number">200</span>)&#123;</div><div class="line">                String res = parseResponseData(in);</div><div class="line"></div><div class="line">                JsonObject json= parseJSON(res);</div><div class="line"></div><div class="line">                <span class="comment">// 需要数据传递，用下面方法；</span></div><div class="line">                Message msg = <span class="keyword">new</span> Message();</div><div class="line">                <span class="comment">// 可以是基本类型，可以是对象，可以是List、map等；</span></div><div class="line">                msg.obj = json;</div><div class="line">                <span class="comment">// 指定预先定义的分支</span></div><div class="line">                msg.what = <span class="number">0</span>;</div><div class="line">                <span class="comment">// 发送消息</span></div><div class="line">                mHandler.sendMessage(msg);</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看见<code>sendMessage</code>方法接受一个Message对象，我们可以在这个msg对象上挂载我们需要传回主线程的数据和分支，这里需要注意的是：</p>
+<ul>
+<li>如果不指定<code>msg.what</code>，则默认为0，如果对应的分支恰好有<code>case 0</code>，则需要注意bug的产生</li>
+<li><code>msg.obj</code>可以指定为基本类型和对象，由于是预先定义的分支处理逻辑，因此可以将数据强制转换成其本身的类型。</li>
+</ul>
+<p>可以看见使用<code>Handler + Thread</code>的方式来更新UI还是比较繁琐的，但是这是经常使用的一种方法。</p>
+<h3 id="runOnUIThread"><a href="#runOnUIThread" class="headerlink" title="runOnUIThread"></a>runOnUIThread</h3><p>另外一个方法就是在子线程中调用<code>runOnUIThread</code>方法，从而达到在修改UI的目的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendPostRequest</span><span class="params">(<span class="keyword">final</span> String urlPath, <span class="keyword">final</span> Map&lt;String,String&gt; params)</span></span>&#123;</div><div class="line">    <span class="keyword">new</span> Thread()&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">            HttpURLConnection connection = <span class="keyword">null</span>;</div><div class="line">            JsonObject json = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">            <span class="comment">// 这里同样省略网络请求的代码...</span></div><div class="line">            <span class="keyword">if</span> (statusCode == <span class="number">200</span>)&#123;</div><div class="line">                InputStream in = connection.getInputStream();</div><div class="line">                String res = parseResponseData(in);</div><div class="line"></div><div class="line">                json= parseJSON(res);</div><div class="line">            &#125;</div><div class="line">			</div><div class="line">          	<span class="comment">// 在子线程后调用runOnUIThread方法来修改当前Activity的UI</span></div><div class="line">            <span class="keyword">final</span> JsonObject data = json;</div><div class="line">            runOnUIThread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                    Log.i(TAG, <span class="string">"ui thread"</span>);</div><div class="line">                    String name = data.get(<span class="string">"name"</span>).getAsString();</div><div class="line">                    Toast.makeText(MainActivity.<span class="keyword">this</span>,  <span class="string">"welcome, "</span> + name, Toast.LENGTH_SHORT).show();</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">            Log.i(TAG, <span class="string">"post thread"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行代码可以发现，先打印的是<code>post thread</code>，然后才是<code>ui thread</code>，跟JS中的异步代码十分相似。实际上<code>runOnUiThread</code>方法接受的<code>Runnable</code>任务对象，</p>
+<ul>
+<li>如果当前线程是UI线程，那么任务是立即执行；</li>
+<li>如果当前线程不是UI线程，执行的操作是发布到事件队列的UI线程</li>
+</ul>
+<h3 id="view-post"><a href="#view-post" class="headerlink" title="view.post"></a>view.post</h3><p>这个暂时还没有接触，先挖个坑了~</p>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>至于为什么只能在主线程更新UI这个问题，初次遇见还有些困惑，后来看见有解释道：操作是可能并发的，但是界面只有一个，如果在同一时刻在不同的操作中都对UI界面进行更新，那不全乱套了吗？所以，这个限制还是很有必要的。随之而来的就是如何在子界面中更新主界面，上面提到的这些方法应该是最常用和最基础的技术了。</p>
+<h2 id="本地开发环境"><a href="#本地开发环境" class="headerlink" title="本地开发环境"></a>本地开发环境</h2><p>使用<code>WAMP</code>或者<code>NodeJS</code>搭建一个本地HTTP服务器是一件非常容易的事情，谁知道在Android的模拟器中访问本地服务器路径却一直报错，折腾了一段时间，查资料得知：<strong>安卓模拟器把他自己当作了localhost</strong>，如果想要在模拟器上访问当前的电脑，需要使用Android内置IP<code>10.0.2.2</code>访问~~好大一个乌龙。</p>
+<p>既然地址找到了，剩下的事情就容易多了，balabala敲代码吧。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/网络" class="article_tag">#网络</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HttpURLConnection"><span class="toc-number">1.</span> <span class="toc-text">HttpURLConnection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#请求实例"><span class="toc-number">1.1.</span> <span class="toc-text">请求实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#请求参数"><span class="toc-number">1.2.</span> <span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#POST"><span class="toc-number">1.2.1.</span> <span class="toc-text">POST</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GET"><span class="toc-number">1.2.2.</span> <span class="toc-text">GET</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发送请求"><span class="toc-number">1.3.</span> <span class="toc-text">发送请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#处理数据"><span class="toc-number">1.4.</span> <span class="toc-text">处理数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">1.5.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程通信"><span class="toc-number">2.</span> <span class="toc-text">线程通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Handler"><span class="toc-number">2.1.</span> <span class="toc-text">Handler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#runOnUIThread"><span class="toc-number">2.2.</span> <span class="toc-text">runOnUIThread</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#view-post"><span class="toc-number">2.3.</span> <span class="toc-text">view.post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-1"><span class="toc-number">2.4.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地开发环境"><span class="toc-number">3.</span> <span class="toc-text">本地开发环境</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

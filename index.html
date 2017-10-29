@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/10/29/npm与一次版本更新事故/" class="article_tt">
+                npm与一次版本更新事故
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-10-29 23:43:36 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>最近<code>Element-ui</code>发布了2.0的版本，打算将之前为项目搭的后台管理系统进行升级，由于之前这方面的经验比较少，导致出现了一些比较蛋疼的问题，甚至导致本地的开发环境接近崩溃，于是记录下来，并整理的与npm相关的一些问题。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/10/29/npm与一次版本更新事故/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/10/23/自定义hexo主题/" class="article_tt">
+                自定义Hexo主题
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-10-23 22:17:01 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/工具/" class="hover-highlight">工具</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>从学前端开始貌似一直在折腾各种各样的博客，之前免费的云服务器快要到期了，加之最近用不了梯子，决定重新回到静态博客，于是重拾<code>Hexo</code>，打算将之前使用SSR搭建的博客主题移植过来，于是有了这篇博客，主要整理自定义<code>Hexo</code>主题以及使用<code>Travis CI</code>自动化部署的实践心得。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/10/23/自定义hexo主题/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/10/22/webpack折腾记（三）/" class="article_tt">
+                webpack折腾记（三）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-10-22 23:39:08 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>webpack在提供便利的同时会带来一些新的问题，将所有的工具代码打包到不同的页面文件中，会导致页面脚本体积太大，且不利于缓存。一种解决思路是将很常用的模块（以及整个项目的依赖库文件）放在CDN，通过导入<code>externals</code>来使用外部模块，对于那些只在几个页面内公用的模块，可以将他们进行打包。<br>然而，webpack只是打包工具，对于<code>externals</code>的外部模块，不提供对应的模块加载器功能，而手动在页面上导入大量的外部脚本不是一件很合理的事儿。<br>这篇文章是关于如何处理webpack与cdn资源之间尝试（写完感觉又钻进了某个死胡同）。<br>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/10/22/webpack折腾记（三）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/10/18/JavaScript30练习笔记/" class="article_tt">
+                JavaScript30练习笔记
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-10-18 22:36:55 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>很早之前就star了<a href="https://github.com/wesbos/JavaScript30" target="_blank" rel="external">JavaScript30</a>这个项目，却一直没有认真看看（就跟保存在收藏夹的大部分技术文章一样）。最近正在思考如何组织JavaScript代码的问题，决定先从阅读源码开始。下面整理从这个项目中收获到的包括语言特性和代码组织的一些东西。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/10/18/JavaScript30练习笔记/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/10/06/mockjs使用心得/" class="article_tt">
+                mockjs使用心得
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-10-06 22:02:36 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>在前后端分离的开发过程中，难免会遇到前端等待后台接口数据的场景。之前的做法是临时写一堆测试数据，然后等待后台开发完毕再对接接口，同时删除之前的测试数据。前段时间跟赛文谈到这里，提到了他们使用的<code>mockjs</code>，这是一个专门用于自动生成测试数据的框架，之前略有耳闻，索性也尝试在<code>vue-cli</code>的项目中集成了<code>mockjs</code>，开发体验确实不错。下面是整理的一点心得。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/10/06/mockjs使用心得/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/09/10/Android小项目之笑话大全/" class="article_tt">
+                Android小项目之笑话大全
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-09-10 23:39:11 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/Android/" class="hover-highlight">Android</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>陆陆续续学习Android开发也有一段时间了，总觉得应该写点东西练练手。这是尝试的第一个Demo，用到的技术点包括<code>Fragment</code>、<code>RecyclerView</code>、网络请求、UI更新等。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/09/10/Android小项目之笑话大全/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/09/09/使用Guzzle并发请求接口/" class="article_tt">
+                使用Guzzle并发请求接口
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-09-09 22:54:22 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/PHP/" class="hover-highlight">PHP</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>最近在重构官网，为了支持SEO，整个项目的结构从采用<code>AngularJs</code>的单页面应用结构回归到PHP服务端渲染。问题来了：之前统一调用接口可以保证三端（APP，PC和移动web端）数据同步，现在如果是单独为PC端写一套业务逻辑，需要花费大量的时间精力，且后期维护可能比较困难（需要维护两处）。因此为了最大程度上保证数据同步，决定在通过服务器中转请求原始数据接口，然后渲染页面。经过筛选最终选定了<a href="http://docs.guzzlephp.org/en/stable/quickstart.html#making-a-request" target="_blank" rel="external">Guzzle</a>框架，随之而来的便是网络请求效率的问题~</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/09/09/使用Guzzle并发请求接口/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/09/03/《现代操作系统》读书笔记/" class="article_tt">
+                《现代操作系统》读书笔记
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-09-03 14:11:29 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>第一次打开《现代操作系统》这本书都是去年的事儿了，中间断断续续地翻几页，最近终于把前9章的内容读完了（后面几章是操作系统实例解析），因此决定记录阅读过程中学到的一些关于操作系统的概念。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/09/03/《现代操作系统》读书笔记/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/08/28/从Phaser中了解游戏的几个概念/" class="article_tt">
+                从Phaser中了解游戏的几个概念
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-08-28 20:55:24 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>上个周末趁着双休，尝试着学习Phaser框架然后写了两个小游戏。一直想要写些小游戏，与之前学习Cocos框架相比，Phaser要简单得多，加之文档齐全，示例Demo也比较多，所以上手难度要低很多。这里整理了小游戏开发的东西，以及我对于游戏开发的一些理解。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/08/28/从Phaser中了解游戏的几个概念/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/08/27/初识数据库约束/" class="article_tt">
+                初识数据库约束
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-08-27 17:00:32 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/数据库/" class="hover-highlight">数据库</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>最近实现了一个需求：后台解析上传的Excel数据并将其保存到数据库。由于数据比较敏感，且部分数据是由人工处理的，因此必须确保数据的准确性和唯一性，即在某几个字段相同的情况下其的数据必须唯一 。之前只是简单了解了数据库的约束，这里有必要深入一下。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/08/27/初识数据库约束/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+
+<div class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+</div>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <div class="tab_panel active" id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

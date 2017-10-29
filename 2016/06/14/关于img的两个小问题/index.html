@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">关于img的两个小问题</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2016/6/14 20:18:28</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/CSS" class="hover-highlight">CSS</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>在实际练习中使用图片时经常碰见两个问题：图片的实际高度与换行。今天把在坑里面得到的收获整理一下。<br><a id="more"></a></p>
+<h2 id="图片容器的高度"><a href="#图片容器的高度" class="headerlink" title="图片容器的高度"></a>图片容器的高度</h2><p>关于图片高度的问题已经碰到过很多次了，以前还以为是兼容问题，简单的加上一个img {display block}就能够解决了，后来才明白问题的根源弄错了。先简单的描述一下问题：在默认情况下，当一个容器的高度是由内部的图片内容撑开的时候，其高度会比图片的实际高度会多出几个像素（3px？）。嗯，就是这么个小问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;wrap&quot;&gt;</div><div class="line">    &lt;img src=&quot;1.png&quot; /&gt;hello</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>右键查看盒子模型可以很清楚的看见这个问题。最初百思不得其解，还以为是什么神奇的BUG，其实这是文本渲染正常显示的结果。为了搞定这个问题，需要了解两个知识点：img标签的vertical align属性和字体的基准线baseline。</p>
+<h3 id="baseline"><a href="#baseline" class="headerlink" title="baseline"></a>baseline</h3><p>baseline是西文字体中的概念，百科的定义是大部分字母所“坐”在的，字体的下降部之上的直线（好吧这个解释感觉很扯淡，转念想一想以前抄写单词的时候用的四线行练习本，有基线这个概念的够了。）中文采用的是宫格排版，因此没有基线概念（是不是由于以前的排版都是竖着的缘故…）。</p>
+<h3 id="vertical-align"><a href="#vertical-align" class="headerlink" title="vertical-align"></a>vertical-align</h3><p>img标签是一个内联-块状元素，当然这个跟该问题的牵连并不是很大。我们的目光应当放在其具有的vertical align属性上。这个属性直译为“竖直方向上对齐”，对齐指的是相邻的内联元素排版时定位参照的方式，对应的值有bottom,top,middle等，而默认的值就是上面提到的baseline。baseline距离文字的底部bottom有一定的高度（bottom和top之间的距离是行高，baseline和bottom之间的距离就是问题中所多出来的那几个像素，即使图片旁边并没有文字，也会按照默认的格式进行排版从而产生间距）。<br>关于vectical-align这个问题，<a href="https://css-tricks.com/what-is-vertical-align/" target="_blank" rel="external">这篇文章</a>写得更加全面。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>图片排版多出来的这几个像素，表面上也没有什么影响，但在某些情况下会造成难以排查的BUG，比如浮动的块会卡住后面的浮动元素（饱受摧残，引以为戒，泪奔中）。<br>知道了问题的根源，解决这个问题就很容易了：</p>
+<ul>
+<li>简单粗暴法：既然是文字排版的问题，对img使用display:block真是一劳永逸啊。缺点是会让其旁边的文字换行，适合单纯的只是为了消除多出来的那几个像素的情况下；</li>
+<li>追根溯源法：改变vectical align默认值为bottom,middle等需要的属性值，或者是vectical-align:-3px，完美解决；</li>
+<li>旁门左道法：设置其父容器的font-size大小为0，缺点是字没了；或者是line-height为0，字样旁边文字的基线以下部分会溢出容器。</li>
+</ul>
+<h2 id="莫名奇妙的间隙"><a href="#莫名奇妙的间隙" class="headerlink" title="莫名奇妙的间隙"></a>莫名奇妙的间隙</h2><p>在写代码的时候通常使用换行加缩进等方式增加阅读性，导致两个相邻的图片之间存在了一条莫名奇妙的间距，并且在盒子模型中还看不见任何margin的存在（不要说了，都是泪…）。这就是img标签内嵌-块状元素中的“内联”属性在作怪，并没有什么知识点可言。</p>
+<h3 id="解析换行"><a href="#解析换行" class="headerlink" title="解析换行"></a>解析换行</h3><p>其实不单是图片，所有内联元素及内联-块状元素都会解析在HTML文档中的空格与换行，只是由于有了“代码的格式只会影响代码阅读性，不会影响代码的运行结果”这种先入为主的念头，因此一直没有重视罢了。</p>
+<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p>那么，怎么解决换行所产生的间距呢？有下面几个方法：</p>
+<ul>
+<li>为内联-块状元素的父容器指定其font-size:0，并显示指定子元素的字体大小（在需要的情况下比如文本框等），这样可完美解决这个问题。</li>
+<li>不换行或者不使用空格，这样间距自然也就消失了，但是，代码的阅读性大大下降，并不可取（除非项目上线前进行代码压缩的时候）；</li>
+<li>借助换行的空注释连接两行，会在HTML文档中产生大量的注释，而注释本身又是为了加强代码的阅读性的，因此并不可取；</li>
+<li>使用负的margin值可以达到目的；</li>
+<li>此外还有一些其他的方法，比如负的letter-spacing和word-spacing等。如果要从完全解决解析换行的问题，可以使用浮动。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面两个问题可以看作是图片元素所具有的内联文本的一些默认规则，需要小心提防。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/样式" class="article_tag">#样式</a>
+        
+        <a href="/tags/Bugs" class="article_tag">#Bugs</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#图片容器的高度"><span class="toc-number">1.</span> <span class="toc-text">图片容器的高度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#baseline"><span class="toc-number">1.1.</span> <span class="toc-text">baseline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vertical-align"><span class="toc-number">1.2.</span> <span class="toc-text">vertical-align</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">1.3.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#莫名奇妙的间隙"><span class="toc-number">2.</span> <span class="toc-text">莫名奇妙的间隙</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解析换行"><span class="toc-number">2.1.</span> <span class="toc-text">解析换行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案-1"><span class="toc-number">2.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

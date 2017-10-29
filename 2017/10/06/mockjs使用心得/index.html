@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">mockjs使用心得</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/10/6 22:02:36</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>在前后端分离的开发过程中，难免会遇到前端等待后台接口数据的场景。之前的做法是临时写一堆测试数据，然后等待后台开发完毕再对接接口，同时删除之前的测试数据。前段时间跟赛文谈到这里，提到了他们使用的<code>mockjs</code>，这是一个专门用于自动生成测试数据的框架，之前略有耳闻，索性也尝试在<code>vue-cli</code>的项目中集成了<code>mockjs</code>，开发体验确实不错。下面是整理的一点心得。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li><a href="http://mockjs.com/" target="_blank" rel="external">官方文档</a></li>
+<li><a href="https://segmentfault.com/a/1190000010592626" target="_blank" rel="external">在vue-cli搭建的项目中使用mockjs</a></li>
+</ul>
+<h2 id="文档整理"><a href="#文档整理" class="headerlink" title="文档整理"></a>文档整理</h2><p>mockjs在前后端分离中，大概的使用流程就是：</p>
+<ul>
+<li>跟后台约定字段及数据类型，</li>
+<li>然后通过mockjs相关接口生成模拟数据</li>
+<li>接口开发完毕，完成对接，移除模拟数据</li>
+</ul>
+<p>学习<code>mockjs</code>，可以分成两部分:</p>
+<ul>
+<li>数据模板语法规则</li>
+<li>相关<code>API</code></li>
+</ul>
+<p>由于<a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">文档</a>里面已经讲的很详细了，这里就不搬过来了，只是简单记录一下需要注意的地方。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p><code>mockjs</code>提供了一套特定的语法用于编写<strong>数据模板</strong>，指定模拟数据的类型和格式，<a href="https://github.com/nuysoft/Mock/wiki/Syntax-Specification" target="_blank" rel="external">参考文档</a>。</p>
+<blockquote>
+<p>数据模板中的每个属性由 3 部分构成：属性名、生成规则、属性值： ‘name|rule’: value</p>
+</blockquote>
+<p>其中，</p>
+<ul>
+<li><code>name</code>值就是我们与后台约定的字段名，</li>
+<li><code>value</code>的数据类型和初始值决定了生成规则的具体含义</li>
+<li><code>rule</code>生成规则是用来确定字段的生成，这是可选的，共有7种规则<ul>
+<li><code>min-max</code></li>
+<li><code>count</code></li>
+<li><code>min-max.dmin-dmax</code></li>
+<li><code>min-max.dcount</code></li>
+<li><code>count.dmin-dmax</code></li>
+<li><code>count.dcount</code>,</li>
+<li><code>+step</code>,</li>
+</ul>
+</li>
+</ul>
+<p>这里的介绍有点模糊，<code>value</code>的类型必定在JavaScript的7种类型<code>String</code>,<code>Number</code>,<code>Boolean</code>,<code>Object</code>,<code>Array</code>,<code>Function</code>,<code>RegExp</code>中的某一种，<code>value</code>的类型不同，对应的生成规则也不同，举个例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &apos;id|1-3&apos;:10,</div><div class="line">    &apos;name|1-3&apos;:&apos;abc&apos;,</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里的规则<code>1-3</code>对应<code>min-max</code><br>第一个<code>id|1-3</code>表示生成<code>id</code>字段，其而对应的<code>value</code>值<code>10</code>是<code>Number</code>,只是用来帮助规则确定实际的含义，这里是：<code>id</code>值位于<code>1~3</code>的范围内。<br>第二个<code>name|1-3</code>表示生成<code>name</code>字段，其<code>value</code>值类型为<code>String</code>,表示生成的数据由该字符串重复<code>1~3</code>次而成的。</p>
+<p>理解“规则的含义由对应的值确定”这一点之后，<code>mockjs</code>的语法规则基本上就掌握了。至于各个数据类型对应的各个规则的含义，多多练习即可。</p>
+<p>语法部分需要注意的就是当<code>value</code>值为<code>RegExp</code>类型时，甚至可以根据该正则表达式，反向生成可以匹配它的字符串。这是一个非常强大的功能，这样我们可以用来生成自定义格式的字符串</p>
+<h3 id="mock"><a href="#mock" class="headerlink" title="mock"></a>mock</h3><p>通过<code>Mock.mock</code>方法可以快速模拟数据，<a href="https://github.com/nuysoft/Mock/wiki/Mock.mock(" target="_blank" rel="external">参考文档</a>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var Mock = require(&quot;mockjs&quot;);</div><div class="line">var data = Mock.mock(&#123;</div><div class="line">    &apos;list|1-10&apos;: [&#123;</div><div class="line">        &apos;id|+1&apos;:1</div><div class="line">    &#125;],</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><code>mock</code>方法有多个重载，我用的最多的就是拦截指定url的ajax请求，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Mock.mock( rurl?, rtype?, template|function( options ) )</div></pre></td></tr></table></figure>
+<p>参数含义为：</p>
+<ul>
+<li><code>rurl</code>，表示需要拦截的 URL，可以是 URL 字符串或 URL 正则</li>
+<li><code>rtype</code>，表示需要拦截的 Ajax 请求类型。例如 GET、POST、PUT、DELETE 等</li>
+<li><code>template</code>，表示数据模板，可以是对象或字符串，由前面的语法规则组成</li>
+<li><code>function(options)</code>，表示用于生成响应数据的函数。<ul>
+<li><code>options</code>，本次请求的 Ajax 选项集</li>
+</ul>
+</li>
+</ul>
+<p>其实现原理是：</p>
+<blockquote>
+<p>从 1.0 开始，Mock.js 通过覆盖和模拟原生 XMLHttpRequest 的行为来拦截 Ajax 请求</p>
+</blockquote>
+<h3 id="Random"><a href="#Random" class="headerlink" title="Random"></a>Random</h3><blockquote>
+<p>Mock.Random 是一个工具类，用于生成各种随机数据。</p>
+</blockquote>
+<p>这个函数包含了一系列指令函数，用于生成常见的字段，比如<code>image</code>,<code>color</code>,<code>text</code>等，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var Random = Mock.Random</div><div class="line">console.log(Random.email());</div></pre></td></tr></table></figure></p>
+<p>在数据模板中，可以通过<strong>占位符</strong>的形式，生成对应的模拟数据，非常方便。此外针对文本，还有专门的中文指令（是不是很人性化）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	&apos;user_email&apos;: &apos;@email&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以把<code>Random</code>工具类理解为内置的数据模板语法糖，我们可以快速生成模拟数据，而不必编写具体的数据模板。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>上面的<code>mock</code>和<code>Random</code>是比较常用方法，此外还有其他几个API</p>
+<ul>
+<li><code>Mock.setup( settings )</code>，用于配置拦截 Ajax 请求时的行为。目前支持的配置项只有：timeout</li>
+<li><code>Mock.valid( template, data )</code>，校验真实数据 data 是否与数据模板 template 匹配，可以用于单元测试</li>
+<li><code>Mock.toJSONSchema( template )</code>,把 Mock.js 风格的数据模板 template 转换成 JSON Schema，这个我暂时还没有研究过</li>
+</ul>
+<h2 id="集成到vue-cli"><a href="#集成到vue-cli" class="headerlink" title="集成到vue-cli"></a>集成到vue-cli</h2><h3 id="基本方案"><a href="#基本方案" class="headerlink" title="基本方案"></a>基本方案</h3><p>我的<code>vue-cli</code>项目的<code>src</code>目录层次大概如下所示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">|- api             请求接口</div><div class="line">    |- _axios.js   请求配置及相关拦截器</div><div class="line">    |- _mock.js    模拟对应请求url的返回数据</div><div class="line">    |- test.js     业务接口文件 </div><div class="line">    |- ...</div><div class="line">|- assets          静态资源</div><div class="line">|- components      公共组件</div><div class="line">|- filters         全局过滤器，</div><div class="line">|- pages           页面模块</div><div class="line">    |- p_1       </div><div class="line">    |- p_2     </div><div class="line">    |- ...</div><div class="line">|- router          页面路由配置</div><div class="line">|- store           vuex状态管理</div><div class="line">|- test            测试文件</div><div class="line">|- App.vue         </div><div class="line">|- main.js         入口文件</div></pre></td></tr></table></figure></p>
+<p><code>mockjs</code>可以拦截对应的ajax请求，然后返回对应的数据，比如<code>test.js</code>文件中包含如下接口<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// test.js</span></div><div class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">"axios"</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> test = <span class="function">(<span class="params">params</span>)=&gt;</span>&#123;</div><div class="line">    <span class="keyword">return</span> axios.post(<span class="string">`/api/test`</span>, params).then(<span class="function"><span class="params">res</span>=&gt;</span>res.data);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>我们只需要在<code>_mock.js</code>中拦截这个请求的路径<code>api/test</code>，根据跟后台预先预定的字段，生成模拟数据<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mock.js</span></div><div class="line"><span class="keyword">import</span> Mock <span class="keyword">from</span> <span class="string">"mockjs"</span></div><div class="line"></div><div class="line"><span class="comment">// 拦截对应的url</span></div><div class="line">Mock.mock(<span class="regexp">/\/api\/test/</span>, <span class="string">'get'</span>, &#123;</div><div class="line">    <span class="string">'list|10'</span>: [&#123;</div><div class="line">        <span class="string">'id|+1'</span>: <span class="number">1</span>,</div><div class="line">        <span class="string">'comment_id'</span>: <span class="number">0</span>,</div><div class="line">        <span class="string">'uid'</span>: <span class="string">'@id'</span>,</div><div class="line">        <span class="string">'created_time'</span>: <span class="string">'@datetime'</span>,</div><div class="line">        <span class="string">'content'</span>: <span class="string">'@csentence'</span>,</div><div class="line">    &#125;],</div><div class="line">    <span class="string">'total'</span>: <span class="number">56</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>同时记得在入口文件<code>main.js</code>引入<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="keyword">import</span> <span class="string">"@/api/_mock"</span></div><div class="line"><span class="keyword">import</span> <span class="string">"@/api/_axios"</span></div></pre></td></tr></table></figure></p>
+<p>可以看见，我们可以在<code>_mock.js</code>中拦截任何我们需要的接口，然后生成一大堆测试数据，在对接接口时，只需要删除对应的请求拦截即可。</p>
+<p>如果模拟接口数量较多，我们可以考虑将其拆分成多个文件然后按需引入。不过当后台接口开发完毕时，之前的拦截请求也没有必要了。</p>
+<p>上面只是简单地通过将<code>_mock.js</code>是否引入<code>main.js</code>来区分开发环境和接口对接正式环境，这对于开发者来说并不是很友好，需要手动修改引入文件，还需要手动删除多余的<code>mock</code>拦截。</p>
+<p>一种更好的选择应当是使用类似于<code>vue-cli</code>的<code>npm run dev</code>和<code>npm run build</code>这样的指令来切换开发环境。</p>
+<h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><p>在<code>vue-cli</code>的目录<code>/build/dev-server.js</code>中我们可以发现，开发环境的服务器是使用<code>express</code>搭建的。</p>
+<p>因此我们可以直接设置对应的路由请求并返回模拟数据，这样我们就不需要手动地在<code>main.js</code>中引入和移除<code>_mock.js</code>文件。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// express模拟请求</span></div><div class="line">app.get(<span class="string">'/api/data'</span>, (req, res)=&gt;&#123;</div><div class="line">  res.send(Mock.mock(&#123;</div><div class="line">    <span class="string">"list|5"</span>: [&#123;</div><div class="line">      <span class="string">"id|+1"</span>:<span class="number">1</span>,</div><div class="line">      <span class="string">"name"</span>: <span class="string">"@word"</span></div><div class="line">    &#125;]</div><div class="line">  &#125;));</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>这里带来的问题是如果模拟接口过多，在<code>dev-serveer</code>中会包含过多的模拟数据代码，这肯定不是一个明智之举。此外，由于直接调用了<code>Mock.mock(template)</code>的形式，并没有用到其拦截url请求的特性。（如果后台是nodejs的话，可以让后台先使用mockjs直接返回模拟数据，这样就不需要前端处理了~）</p>
+<p>我们可以通过<a href="http://www.expressjs.com.cn/guide/routing.html" target="_blank" rel="external">express的路由组件</a>，将对应的模拟请求置于单独的文件中（跟前面纯前端处理类似），整个世界就清静了。</p>
+<p>新建一个<code>mock</code>文件夹，放置所有的模拟请求<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mock/index.js</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</div><div class="line"><span class="keyword">var</span> router = express.Router();</div><div class="line"><span class="keyword">var</span> Mock = <span class="built_in">require</span>(<span class="string">"mockjs"</span>);</div><div class="line"></div><div class="line">router.use(<span class="string">"/data"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">    res.send(Mock.mock(&#123;</div><div class="line">        <span class="string">"list|5"</span>: [&#123;</div><div class="line">            <span class="string">"id|+1"</span>: <span class="number">1</span>,</div><div class="line">            <span class="string">"name"</span>: <span class="string">"@word"</span>,</div><div class="line">            <span class="string">"title"</span>: <span class="string">"@ctitle"</span></div><div class="line">        &#125;]</div><div class="line">    &#125;));</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = router;</div></pre></td></tr></table></figure></p>
+<p>在<code>dev-server</code>中，使用该路由组件即可<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(config.dev.isMock)&#123;</div><div class="line">    app.use(<span class="string">'/api'</span>, <span class="built_in">require</span>(<span class="string">'../mock/'</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的<code>config.dev.isMock</code>是在配置文件<code>/config/index.js</code>中额外增加的配置变量，来决定是否使用模拟路由组件，从而在正式接口和模拟接口之间来回切换</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>上面简单整理了mockjs的使用，以及集成到vue-cli的方法。当然，mockjs不仅限于vue-cli的使用中，在其他很多需要模拟数据的地方 ，都可以使用mockjs。（我对于里面的反向正则匹配很感兴趣，哈哈）</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/mockjs" class="article_tag">#mockjs</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文档整理"><span class="toc-number">1.</span> <span class="toc-text">文档整理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法"><span class="toc-number">1.1.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mock"><span class="toc-number">1.2.</span> <span class="toc-text">mock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Random"><span class="toc-number">1.3.</span> <span class="toc-text">Random</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">1.4.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成到vue-cli"><span class="toc-number">2.</span> <span class="toc-text">集成到vue-cli</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本方案"><span class="toc-number">2.1.</span> <span class="toc-text">基本方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块化"><span class="toc-number">2.2.</span> <span class="toc-text">模块化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">3.</span> <span class="toc-text">最后</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

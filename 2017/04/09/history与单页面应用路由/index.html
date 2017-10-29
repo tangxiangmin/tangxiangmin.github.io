@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">history与单页面应用路由</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/4/9 8:50:48</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>在之前的<a href="#/title/BOM基础知识">BOM基础知识</a>中提到了History对象，提供浏览器历史纪录相关的接口，可以通过<code>window.history</code>对象来模拟工具栏的前进，后退和刷新。HTML5为history对象增加了几个新的方法，可以更灵活的操作历史记录。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/DOM/Manipulating_the_browser_history" target="_blank" rel="external">操纵浏览器的历史记录</a></li>
+<li><a href="https://segmentfault.com/a/1190000007166839" target="_blank" rel="external">实现一个小型路由</a></li>
+<li><a href="http://www.cnblogs.com/flash3d/archive/2013/10/23/3384823.html" target="_blank" rel="external">利用pushState开发无刷页面切换</a></li>
+</ul>
+<h2 id="模拟历史纪录"><a href="#模拟历史纪录" class="headerlink" title="模拟历史纪录"></a>模拟历史纪录</h2><p>在学习数据结构栈的时候，提到栈的一个常见应用场景就是历史纪录的实现。我写了一个简单的demo来模拟浏览器的历史纪录管理，只是简单实现了前进后退功能，以及模拟在某条记录点击新链接会重置新的前进按钮的情景，而诸如边界检测这些细节就没有进行处理了。</p>
+<p>通过挪动游标的位置显示对应的记录，呈现出的就是“当前页面”，“当前页面”始终处于栈顶（这只是我自己的理解，能够解释插入历史记录的问题，但是如果当前页面处于栈顶，前进功能是怎么实现的呢？）。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">myStack</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.data = [];</div><div class="line">    &#125;</div><div class="line">    push(item)&#123;</div><div class="line">        <span class="keyword">this</span>.data.push(item);</div><div class="line">    &#125;</div><div class="line">    pop()&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.data.pop();</div><div class="line">    &#125;</div><div class="line">    clear()&#123;</div><div class="line">        <span class="keyword">this</span>.data = [];</div><div class="line">    &#125;</div><div class="line">    getTop()&#123;</div><div class="line">        <span class="keyword">var</span> len = <span class="keyword">this</span>.data.length;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.data[len - <span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">    toString()&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.data.reduce(<span class="function">(<span class="params">acc, val</span>)=&gt;</span>&#123;</div><div class="line">            <span class="keyword">return</span> acc + val + <span class="string">" | "</span>;</div><div class="line">        &#125;, <span class="string">' | '</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">myHistory</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="comment">// 使用两个栈来保存历史历史</span></div><div class="line">        <span class="keyword">this</span>.prevStack = <span class="keyword">new</span> myStack();</div><div class="line">        <span class="keyword">this</span>.nextStack = <span class="keyword">new</span> myStack();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    getCurpage()&#123;</div><div class="line">        <span class="comment">// 保证当前页面在prevStack的栈顶</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.prevStack.getTop();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    show()&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"当前位于"</span> + <span class="keyword">this</span>.getCurpage());</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"prevStack: "</span> + <span class="keyword">this</span>.prevStack);</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"nextStack: "</span> + <span class="keyword">this</span>.nextStack);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 访问记录是在prevStack栈增加</span></div><div class="line">    visit(item)&#123;</div><div class="line">        <span class="keyword">this</span>.prevStack.push(item);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 模拟在某个页面点击新的链接，会丢失之前保留的历史纪录</span></div><div class="line">    change(item)&#123;</div><div class="line">        <span class="keyword">this</span>.visit(item);</div><div class="line">        <span class="keyword">this</span>.nextStack.clear();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 前进和后退</span></div><div class="line">    prev()&#123;</div><div class="line">        <span class="keyword">var</span> tmp = <span class="keyword">this</span>.prevStack.pop();</div><div class="line">        <span class="keyword">this</span>.nextStack.push(tmp);</div><div class="line">    &#125;</div><div class="line">    next()&#123;</div><div class="line">        <span class="keyword">var</span> tmp = <span class="keyword">this</span>.nextStack.pop();</div><div class="line">        <span class="keyword">this</span>.prevStack.push(tmp);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 测试</span></div><div class="line"><span class="keyword">var</span> his = <span class="keyword">new</span> myHistory();</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i)&#123;</div><div class="line">    his.visit(i + <span class="string">".html"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">his.show();</div><div class="line"></div><div class="line">prev.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    his.prev();</div><div class="line">    his.show()</div><div class="line">&#125;</div><div class="line">next.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    his.next();</div><div class="line">    his.show()</div><div class="line">&#125;</div><div class="line"></div><div class="line">jump.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> page = getRandomPage();</div><div class="line">    his.change(page);</div><div class="line">    his.show()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomPage</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*<span class="number">100</span> + <span class="number">100</span>);</div><div class="line">    <span class="keyword">return</span> name + <span class="string">'.html'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="操作历史纪录"><a href="#操作历史纪录" class="headerlink" title="操作历史纪录"></a>操作历史纪录</h2><p>上面的demo写的十分简陋，不过也可以用来理解浏览器中历史记录栈的一些特性。<br>HTML5引进了<code>history.pushState()</code>方法和<code>history.replaceState()</code>方法，它们允许你逐条地添加和修改历史记录条目。</p>
+<ul>
+<li><strong>逐条</strong>的参考位置是基于当前页面的（也就是demo中的<code>getCurpage</code>返回的页面）。</li>
+<li><strong>添加和修改</strong>表示之前只能由浏览器负责维护的历史纪录栈（demo中只能通过<code>prev</code>,<code>next</code>,<code>jump</code>这三个按钮来操作his对象），现在可以由开发者控制了</li>
+</ul>
+<h3 id="pushState"><a href="#pushState" class="headerlink" title="pushState"></a>pushState</h3><h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p><code>pushState</code>接受3个参数，在<a href="https://developer.mozilla.org/zh-CN/docs/DOM/Manipulating_the_browser_history" target="_blank" rel="external">MDN</a>上有详细的解释：</p>
+<ul>
+<li><code>stateObj</code>状态对象，可以用来记录当前这条历史纪录的一些自定义信息</li>
+<li>第二个参数原本是历史纪录的标题，但是某些浏览器并不会生效（我测试了很多浏览器都不会生效），建议传入空字符串或null，也可以直接忽略这个参数。</li>
+<li>第三个参数是需要增加的历史纪录的地址，可以是绝对路径也可以是相对路径，需要注意的是相对路径受<a href="#/title/浏览器中的跨域">同源策略</a>的限制</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1.html</span></div><div class="line">&lt;style&gt;</div><div class="line">    [id^=<span class="string">'page'</span>] &#123;</div><div class="line">        height: <span class="number">500</span>px;</div><div class="line">        border: 1px solid #dedede;</div><div class="line">        margin-bottom: <span class="number">100</span>px</div><div class="line">    &#125;</div><div class="line">&lt;<span class="regexp">/style&gt;</span></div><div class="line"><span class="regexp">&lt;button id="btn2"&gt;history&lt;/</span>button&gt;</div><div class="line">&lt;div id=<span class="string">"page1"</span>&gt;page1&lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">&lt;div id="page2"&gt;page2&lt;/</span>div&gt;</div><div class="line">&lt;div id=<span class="string">"page3"</span>&gt;page3&lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">&lt;div id="page4"&gt;page4&lt;/</span>div&gt;</div><div class="line"></div><div class="line"><span class="comment">// script</span></div><div class="line">!(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> count = <span class="number">1</span>;</div><div class="line">    btn2.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    	<span class="keyword">var</span> name = <span class="string">"3.html"</span>;</div><div class="line">        <span class="keyword">var</span> stateObj = &#123;</div><div class="line">        	name: name,</div><div class="line">        &#125;</div><div class="line">        history.pushState(stateObj, <span class="literal">null</span>, name);</div><div class="line">        count++;</div><div class="line">    &#125;</div><div class="line">&#125;)()</div></pre></td></tr></table></figure>
+<h4 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h4><p>在上面的例子中点击按钮可以发现，浏览器地址栏会根据<code>pushState</code>接收的url参数而变化，但是不会主动加载对应的url（如果访问则理论上应该跳转到<code>3.html</code>），甚至都不会去检测该url对应的资源是否存在。</p>
+<p>关于这点，我的理解是：<code>pushState</code>只是向当前页面处于历史记录栈的位置上<strong>平行地</strong>添加一条记录。</p>
+<ul>
+<li>比如用户现在位于<code>1.html</code>，跳转到<code>2.html</code>, 如现在用户导航<code>2.html</code>，原本的历史记录应该是<code>[&#39;1.html&#39;, &#39;2.html&#39;]</code></li>
+<li>用户现在位于<code>1.html</code>，使用<code>pushStaet</code>添加了<code>3.html</code>进入历史纪录栈，然后跳转到<code>2.html</code>，现在的历史纪录变成了：<code>[[&#39;1.html&#39;,&#39;3.html&#39;], &#39;2.html&#39;]</code>（这里的平行效果是我自己瞎猜的）</li>
+</ul>
+<p>由于平行效果，即使添加了一条历史记录，但是游标仍处于当前位置<code>1.html</code>，只有当游标移动到下一个页面<code>2.html</code>，才会真正开始读取添加的那一条历史记录，也就是<code>3.html</code>。</p>
+<p>接着上面的场景，假设用户现在位于<code>2.html</code>，然后进行下面的操作：</p>
+<ul>
+<li>用户点击了后退按钮，根据历史记录返回到<code>3.html</code>，此时的文档内容<code>3.html</code>（而不是进入<code>3.html</code>的<code>1.html</code>，是不是很神奇）。此时页面上的window对象会触发<code>popstate</code>事件（马上就会提到）。</li>
+<li>再次点击后退按钮，此时浏览器返回到<code>1.html</code>，同时也触发一个<code>popstate</code>事件，不过此时的对象状态是null，且文档内容不会改变（仍旧保留<code>3.html</code>文档的内容，换句话说，我们回不到真正应该保留的<code>1.html</code>文档上去了）</li>
+</ul>
+<p>关于<code>pushState</code>还有两个需要注意的地方：</p>
+<ul>
+<li>每调用一次，都会添加一条历史记录，即使是相同的url参数也会根据调用次数生成多条记录，这可能导致连续点多次返回按钮页面毫无变化的情形</li>
+<li>相对路径不仅仅可以是其他文档，也可以只是修改当前文档url的片段标识符（<code>#</code>后面的内容）。实际上，接下来要实现的单页面应用的路由，就是通过修改片段标识符实现的</li>
+</ul>
+<h3 id="replaceState"><a href="#replaceState" class="headerlink" title="replaceState"></a>replaceState</h3><p><code>replaceState</code>与<code>pushState</code>类似，但是浏览器并未在当浏览历史栈中增加浏览器的历史记录，而是使用新的历史记录替换当前页面在历史记录栈中的记录。<br>将上面的代码修改为<code>replaceState</code>（PS：可能需要使用<code>ctrl+r</code>强制刷新）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">history.replaceState(stateObj, <span class="literal">null</span>, <span class="string">"3.html"</span>);</div></pre></td></tr></table></figure></p>
+<p>然后进入<code>2.html</code>点击回退按钮，可以看见浏览器直接会退到<code>3.html</code>，而<code>1.html</code>的历史纪录彻底消失了。</p>
+<blockquote>
+<p>当你为了响应用户的某些操作，而要更新当前历史记录条目的状态对象或URL时，使用replaceState()方法会特别合适。</p>
+</blockquote>
+<h3 id="popstate"><a href="#popstate" class="headerlink" title="popstate"></a>popstate</h3><h4 id="触发事件"><a href="#触发事件" class="headerlink" title="触发事件"></a>触发事件</h4><p>前面在回退时提到了<code>popstate</code>事件关于<code>popstate</code>事件有下面两点需要注意:</p>
+<ul>
+<li>只会在浏览器某些行为下触发，比如点击前进后退按钮，使用<code>histroy.back()</code>,<code>history.go()</code>等方法，但是调用<code>pushState</code>和<code>replaceState</code>方法并不会触发该事件</li>
+<li>只有当前页面的历史记录（文档上的描述是出于激活状态的历史纪录条目）发生变化时才会触发。</li>
+</ul>
+<p>第一条是触发<code>popstate</code>的场景，而第二条是触发<code>popstate</code>的限制。<br>可以使用前面提到的<strong>平行</strong>来理解“当前页面的历史记录变化”的问题：只有当前文档在历史记录栈的位置保存了一个平行的历史纪录数组且其长度大于1时（最少保存了两条才能够“变化”）才会触发。<br>也就是说，在上面的例子中，第一次点击回退按钮，从<code>2.html</code>回退到<code>3.html</code>中，是不会触发<code>popstate</code>事件的，只有再次点击回退按钮，历史纪录栈中，平行地从<code>3.html</code>回退到<code>1.html</code>，即当前页面的历史纪录发生了改变，则触发<code>popstate</code>事件，尽管此时的文档内容并不会发生改变。</p>
+<h4 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h4><p><code>popstate</code>事件中的状态对象<code>e.state</code>，就是<code>pushState</code>的第一个参数stateObj的一个拷贝。需要注意的是，即使在改变历史记录时没有声明记录状态对象，在上述情况下仍旧会触发<code>popstate</code>事件。</p>
+<p>也可以直接使用<code>history.state</code>来访问当前历史纪录条目的状态对象。跟触发<code>popstate</code>事件不同，第一次点击回退按钮，从<code>2.html</code>回退到<code>3.html</code>就可以访问到对应的历史纪录状态对象，而不必触发<code>popstate</code>事件。</p>
+<h4 id="事件处理函数"><a href="#事件处理函数" class="headerlink" title="事件处理函数"></a>事件处理函数</h4><p>前面反复提到的情形是：尽管再次点击了回退按钮，文档的内容并不会改变，即文档并不会刷新！这是一个很重要的特性。<br>通常情况下，可以使用Ajax请求数据，然后在不刷新页面的情况下改变文档内容。但是在之前，这个过程是不可以逆的，</p>
+<ul>
+<li>点击回退按钮，浏览器并不会返回文档请求数据之前的状态，而是返回上一条历史记录（一个新文档）</li>
+<li>然后点击前进按钮，浏览器却回到了文档请求数据之前的状态，根据响应数据动态渲染的页面不存在了。</li>
+</ul>
+<p>现在，既然我们可以操作历史记录，当然就可以实现这个功能：无刷新页面切换（前进和后退）。具体思路就是在<code>popstate</code>事件处理函数中，根据<code>history.state</code>来决定页面的渲染内容，达到在一个页面内无刷新模拟页面前进和后退的功能（这大概就是单页面了吧）。</p>
+<h2 id="单页面应用路由"><a href="#单页面应用路由" class="headerlink" title="单页面应用路由"></a>单页面应用路由</h2><p>在单页应用中，利用pushState, replaceState可以改变url，同时浏览器不刷新，并且通过popstate监听浏览器历史记录的方式，完成一系列的异步动作并渲染页面内容。为了便于管理整个应用的历史记录，下面实现一个简单的路由。</p>
+<h3 id="实现路由"><a href="#实现路由" class="headerlink" title="实现路由"></a>实现路由</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Router</span> </span>&#123;</div><div class="line">	<span class="keyword">constructor</span>()&#123;</div><div class="line">		<span class="keyword">this</span>.route = [];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">    <span class="comment">// 注册路由</span></div><div class="line">	addRoute(path, handle)&#123;</div><div class="line">	    <span class="keyword">let</span> obj = &#123;</div><div class="line">	        path,</div><div class="line">	        handle</div><div class="line">	    &#125;</div><div class="line"></div><div class="line">	    <span class="keyword">this</span>.route.push(obj);</div><div class="line">	&#125;</div><div class="line">    <span class="comment">// 调用路由映射的函数</span></div><div class="line">	routeHandle(path)&#123;</div><div class="line">	    <span class="keyword">this</span>.route.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</div><div class="line">	        <span class="keyword">if</span> (item.path === path) &#123;</div><div class="line">	            item.handle.apply(<span class="literal">null</span>, [path]);</div><div class="line">	            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">	        &#125;</div><div class="line">	    &#125;)</div><div class="line">	    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	addState(stateObj)&#123;</div><div class="line">		<span class="keyword">let</span> url = stateObj.name</div><div class="line">		history.pushState(stateObj, <span class="literal">null</span>, url);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	start()&#123;</div><div class="line">		<span class="built_in">window</span>.addEventListener(<span class="string">"popstate"</span>, (e)=&gt;&#123;</div><div class="line">			<span class="keyword">var</span> route = e.state.name;</div><div class="line"></div><div class="line">			<span class="comment">// 根据保存的state重新渲染对应路由的页面</span></div><div class="line">			<span class="comment">// 达到无刷新回退的效果</span></div><div class="line">			<span class="keyword">this</span>.routeHandle(route);</div><div class="line">		&#125;)</div><div class="line"></div><div class="line">		<span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>, (e)=&gt;&#123;</div><div class="line">		    <span class="keyword">let</span> dataset = e.target.dataset;</div><div class="line"></div><div class="line">		    <span class="keyword">if</span> (dataset &amp;&amp; dataset.href) &#123;</div><div class="line"></div><div class="line">		    	<span class="comment">// 防止连续添加多个state</span></div><div class="line">		    	<span class="keyword">if</span>(!history.state || !history.state.name || (history.state.name !== dataset.href))&#123;</div><div class="line">		    		<span class="keyword">this</span>.addState(&#123;</div><div class="line">				    	name: dataset.href</div><div class="line">				    &#125;);</div><div class="line">		    	&#125;</div><div class="line"></div><div class="line">  				<span class="comment">//阻止浏览器默认行为</span></div><div class="line">		        <span class="keyword">if</span> (<span class="keyword">this</span>.routeHandle(dataset.href)) &#123;</div><div class="line">		            e.preventDefault();</div><div class="line">		        &#125;</div><div class="line">		    &#125;</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>接下来进行简单测试<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// html</span></div><div class="line">&lt;style&gt;</div><div class="line">    #app a &#123;</div><div class="line">        display: inline-block;</div><div class="line">        width: <span class="number">100</span>px;</div><div class="line">        margin: <span class="number">0</span> <span class="number">20</span>px;</div><div class="line">        line-height: <span class="number">40</span>px;</div><div class="line">        text-align: center;</div><div class="line">        box-shadow: 1px 1px 1px 1px #ccc;</div><div class="line">    &#125;</div><div class="line">    #page &#123;</div><div class="line">        height: <span class="number">400</span>px;</div><div class="line">        border: 1px solid #dedede;</div><div class="line">        margin-bottom: <span class="number">20</span>px;</div><div class="line">    &#125;</div><div class="line">&lt;<span class="regexp">/style&gt;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">&lt;div id="app"&gt;</span></div><div class="line"><span class="regexp">    &lt;div id="page"&gt;&lt;/</span>div&gt;</div><div class="line">    &lt;nav&gt;</div><div class="line">        &lt;a data-href=<span class="string">"/login"</span>&gt;登陆&lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">        &lt;a data-href="/</span>signup<span class="string">"&gt;注册&lt;/a&gt;</span></div><div class="line"><span class="string">    &lt;/nav&gt;</span></div><div class="line"><span class="string">&lt;/div&gt;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">// script</span></div><div class="line"><span class="string">var router = new Router();</span></div><div class="line"><span class="string">router.start();</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">// 根据路由渲染页面，该功能在路由注册函数中实现，</span></div><div class="line"><span class="string">// vue中每个路由对应的就是一个组件</span></div><div class="line"><span class="string">var $page = document.getElementById("</span>page<span class="string">");</span></div><div class="line"><span class="string">router.addRoute('/signup', ()=&gt;&#123;</span></div><div class="line"><span class="string">	$page.innerHTML = "</span>&lt;h1&gt;欢迎注册&lt;<span class="regexp">/h1&gt;";</span></div><div class="line"><span class="regexp">&#125;);</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">router.addRoute('/</span>login<span class="string">', ()=&gt;&#123;</span></div><div class="line"><span class="string">	$page.innerHTML = "&lt;h1&gt;欢迎登陆&lt;/h1&gt;";</span></div><div class="line"><span class="string">&#125;)</span></div></pre></td></tr></table></figure></p>
+<p>当点击按钮时通过预先注册的函数在<code>page</code>元素中插入对应的视图，可以通过切换路由来切换对应的视图，且可以通过浏览器的前进和后退来实现无刷新切换历史纪录。这样，保存Ajax渲染前后的视图就可以实现了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>今天总结了如何使用history实现一个简单的单页面路由，通过在每个路由的注册函数中执行对应的渲染任务完成无刷新切换，整理的比较草率，夹杂了大量自己的理解（很可能是错误的），肯定挖了不少坑，等后面再回来填吧。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/vue" class="article_tag">#vue</a>
+        
+        <a href="/tags/BOM" class="article_tag">#BOM</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#模拟历史纪录"><span class="toc-number">1.</span> <span class="toc-text">模拟历史纪录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作历史纪录"><span class="toc-number">2.</span> <span class="toc-text">操作历史纪录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pushState"><span class="toc-number">2.1.</span> <span class="toc-text">pushState</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参数"><span class="toc-number">2.1.1.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#操作流程"><span class="toc-number">2.1.2.</span> <span class="toc-text">操作流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#replaceState"><span class="toc-number">2.2.</span> <span class="toc-text">replaceState</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#popstate"><span class="toc-number">2.3.</span> <span class="toc-text">popstate</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#触发事件"><span class="toc-number">2.3.1.</span> <span class="toc-text">触发事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事件对象"><span class="toc-number">2.3.2.</span> <span class="toc-text">事件对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事件处理函数"><span class="toc-number">2.3.3.</span> <span class="toc-text">事件处理函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单页面应用路由"><span class="toc-number">3.</span> <span class="toc-text">单页面应用路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实现路由"><span class="toc-number">3.1.</span> <span class="toc-text">实现路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-number">3.2.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

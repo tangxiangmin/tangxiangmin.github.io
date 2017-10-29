@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">对象描述符与响应式数据</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/4/12 21:05:44</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>自从接触<code>Vue</code>以来，就对它的响应式数据原理十分好奇。文档中提到是使用<code>Object.defineProperty</code>实现的，因此决定深入了解JavaScript中对象的一些特性。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li>《你不知道的JavaScript》</li>
+<li>《JavaScript权威指南》</li>
+</ul>
+<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><p>从ES5开始，所有的对象都具备了属性描述符。我们可以使用<code>getOwnPropertyDescriptor</code>来获取某个对象的某个属性的全部描述符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">	msg: <span class="string">"hello"</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> res = <span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"msg"</span>)</div><div class="line"><span class="built_in">console</span>.log(res);</div><div class="line"><span class="comment">// res</span></div><div class="line">&#123;</div><div class="line">    configurable: <span class="literal">true</span>,</div><div class="line">    enumerable: <span class="literal">true</span>,</div><div class="line">    value: <span class="string">"hello"</span>,</div><div class="line">    writable: <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看见，描述符看起来很像是某个对象的属性。除了我们熟悉的<code>value</code>之外，还有<code>configurable</code>，<code>enumerable</code>和<code>writeable</code>这三个描述符。<br>我们还可以使用<code>defineProperty</code>来修改某个属性的描述符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Object.defineProperty(obj, &quot;msg&quot;, &#123;</div><div class="line">	configurable: true,</div><div class="line">	enumerable: true,</div><div class="line">	value: &quot;world&quot;,</div><div class="line">	writable: true</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在上面，我们将<code>obj.msg</code>的值修改为了”world”。看起来把整个问题复杂了，直接使用<code>obj.msg = &quot;world&quot;;</code>不是更直接明了吗？不要着急，我们慢慢弄明白属性描述符的含义。</p>
+<h3 id="value"><a href="#value" class="headerlink" title="value"></a>value</h3><p>之前了解对象的属性，基本只停留在“对象的属性是一个值，可以使用<code>.</code>或者<code>[]</code>访问”这一层面：</p>
+<ul>
+<li><code>.</code>后面直接跟属性名称，一般称作属性访问</li>
+<li><code>[]</code>内可包含一个表达式来计算属性名，一般称作键访问</li>
+</ul>
+<p>一般会把<code>value</code>称为<strong>数据描述符</strong>，因为它用来指代这个属性所包含的数据值的。通常地，属性访问返回的就是<code>value</code>所包含的值（但是，返回其他值得情形也是存在的，下面的访问描述符再提）。</p>
+<h3 id="writable"><a href="#writable" class="headerlink" title="writable"></a>writable</h3><p>我们知道，常规对象的属性是可以进行读和写操作的，读指读取该属性值，而写则表示为该属性赋值。<code>writable</code>修饰符决定是否可以修改属性的值，即是否允许对该属性进行赋值。<br>在上面的例子中，如果将<code>msg</code>的<code>writeable</code>描述符修改为false，则表示对该属性进行复制的操作都会失败（在非严格模式下没有任何反应，在严格模式下报错）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"msg"</span>, &#123;</div><div class="line">	writable: <span class="literal">false</span></div><div class="line">&#125;);</div><div class="line">obj.msg = <span class="string">"xxx"</span>; <span class="comment">// 仍旧是"world"</span></div></pre></td></tr></table></figure></p>
+<p>看起来可以模拟一个常量哦。</p>
+<h3 id="enumerable"><a href="#enumerable" class="headerlink" title="enumerable"></a>enumerable</h3><p>我们知道，可以使用<code>for in</code>循环遍历某个对象的属性。实际上，决定某个属性是否在遍历中出现也是由属性描述符控制的，这个描述符就是<code>enumerable</code>。如果将该值设置为false，则该属性就不会被遍历。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Object.defineProperty(obj, &quot;msg&quot;, &#123;</div><div class="line">	enumerable: false,</div><div class="line">&#125;);</div><div class="line">for (var key in obj)&#123;</div><div class="line">	console.log(key); // msg不会被遍历</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要注意的是，<code>for in</code>会遍历对象的全部的<code>enumerable</code>为真的属性，包括从原型链委托获得的属性。如果只需要遍历对象本身的属性，需要使用<code>hasOwnProperty()</code>进行判断<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Fn()&#123;</div><div class="line">	this.x = 1;</div><div class="line">&#125;</div><div class="line">Fn.prototype.y = 1000;</div><div class="line">var obj = new Fn();</div><div class="line">obj.msg = &quot;hello&quot;;</div><div class="line">for (var key in obj)&#123;</div><div class="line">	if (obj.hasOwnProperty(key))&#123;</div><div class="line">		console.log(key)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此外，也可以使用下面两种方法</p>
+<ul>
+<li><code>Object.keys()</code>，直接返回一个包含参数对象自身全部可枚举属性的数组。</li>
+<li><code>Object.getOwnPropertyNames()</code>，直接返回一个包含参数对象全部自身属性的数组，即使是不可枚举的</li>
+</ul>
+<h3 id="configurable"><a href="#configurable" class="headerlink" title="configurable"></a>configurable</h3><p>前面提到，可以使用<code>defineProperty</code>来修改对象某个属性的描述符。实际上，这本身也是受描述符限制的，这个描述符是<code>configurable</code>。如果将该值修改为<code>false</code>，且则再次修改该属性的属性描述符就会报<code>TypeError</code>的错误（例外是仍旧可以把<code>writable</code>由<code>true</code>改为<code>false</code>）。<br><code>configurable</code>为假时，除了禁止修改属性描述符，还禁止从对象上删除该属性。<br>``</p>
+<h2 id="访问描述符"><a href="#访问描述符" class="headerlink" title="访问描述符"></a>访问描述符</h2><p>除了数据描述符，在ES5中，也可以使用getter和setter来改写单个属性的默认操作，由于这些操作关注的是对于属性的操作（而不是属性的值），因此也被称为<strong>访问描述符</strong>。在了解具体的getter和setter之前，我们先来了解对象的<code>[[get]]</code>和<code>[[put]]</code>操作。</p>
+<h3 id="get-和-put"><a href="#get-和-put" class="headerlink" title="[[get]]和[[put]]"></a>[[get]]和[[put]]</h3><h4 id="get"><a href="#get" class="headerlink" title="[[get]]"></a>[[get]]</h4><p>语言规范中，对象属性访问的实现实际上是<code>[[get]]</code>，该操作有点类似于函数调用，即首先在对象中根据指定的表示式或字符串常量查找对应的同名属性，如果找到就返回该属性值，如果不存在则会在原型链上实现委托查询（这是另外一个很重要的话题，这里就不展开了）。<br>需要注意的是，如果访问的属性不存在或者存在但值为空，则均会返回<code>undefined</code>，因此无法根据返回值判断属性是否存在还是值为<code>undefined</code></p>
+<h4 id="put"><a href="#put" class="headerlink" title="[[put]]"></a>[[put]]</h4><p>既然属性访问实际上是通过<code>[[get]]</code>实现的，那么肯定存在对属性进行赋值的操作<code>[[put]]</code>。实际上，<code>[[put]]</code>操作的触发并不仅仅是对属性进行赋值这么简单，而是取决于许多因素：</p>
+<ul>
+<li>属性的<code>writable</code>是否为<code>true</code></li>
+<li>属性是否是访问描述符（接下来就会提到）</li>
+<li>如果都不会，则会将该值设置为该属性的值</li>
+</ul>
+<h3 id="getter和setter"><a href="#getter和setter" class="headerlink" title="getter和setter"></a>getter和setter</h3><h4 id="getter"><a href="#getter" class="headerlink" title="getter"></a>getter</h4><p>前面提到，对象属性访问使用<code>[]</code>或<code>.</code>操作符进行，实际上，这都是通过<code>[[get]]</code>操作实现的，更具体一点，我们可以修改<code>[[get]]</code>操作，从而达到在返回属性值之前对其进行某些修饰，这是通过<code>getter</code>实现的，<code>getter</code>是一个隐藏函数，会在读取对象属性的时候被调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">	get msg()&#123;</div><div class="line">		return &quot;hello&quot;;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">console.log(obj.msg); // hello</div></pre></td></tr></table></figure></p>
+<h4 id="setter"><a href="#setter" class="headerlink" title="setter"></a>setter</h4><p>当然，我们也可以使用<code>setter</code>来设置属性值，<code>setter</code>也是一个隐藏函数，会在设置属性值时被调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">	__msg: &quot;hello&quot;,</div><div class="line">	get msg()&#123;</div><div class="line">		return this.__msg;</div><div class="line">	&#125;,</div><div class="line">	set msg(val)&#123;</div><div class="line">		this.__msg = &quot;|&quot; + val + &quot;|&quot;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">obj.msg = &quot;world&quot;;</div><div class="line">console.log(obj.msg); // |world|</div></pre></td></tr></table></figure></p>
+<p>这里使用了一个<code>__msg</code>的普通属性来关联<code>setter</code>和<code>getter</code>操作，以便能观察具体的结果。实际上，可以在<code>setter</code>和<code>getter</code>中使用任意的变量（只要能够明确变量的含义和作用域）。</p>
+<p>需要注意的是，当为某个属性（这里是<code>msg</code>）定义一个<code>getter</code>或<code>setter</code>时（或两者都存在），该属性就会被定义为<strong>访问描述符</strong>。对于访问描述符而言，JavaScript会忽略他们的<code>value</code>和<code>writable</code>特性，而关注<code>get</code>和<code>set</code>。</p>
+<h4 id="非标准方法"><a href="#非标准方法" class="headerlink" title="非标准方法"></a>非标准方法</h4><p>除了上面在对象初始化的时候定义访问描述符，也可以使用<code>__defineGetter__</code>和<code>__defineSetter__</code>为已存在的某个对象定义访问描述符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var v = 1000;</div><div class="line">o.__defineGetter__(&quot;x&quot;, function()&#123;</div><div class="line">	return v;</div><div class="line">&#125;)</div><div class="line">o.__defineSetter__(&quot;x&quot;, function(val)&#123;</div><div class="line">	v = val*2;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>根据<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__defineSetter__" target="_blank" rel="external">MDN</a>的描述，这两个方法是非标准方法，且已经从web标准中移除了，所以最好不要再使用了。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>通过<code>getter</code>和<code>setter</code>，我们可以更加灵活地操作对象的属性值，比如在获取属性值前对数据进行修饰，或者在设置属性值前对值进行校验。换句话说，我们可以监控对象的属性，并在属性值改变的时候执行相应的操作，更重要的是：我们可以在属性值变化的时候，操作DOM节点！</p>
+<h2 id="响应式数据"><a href="#响应式数据" class="headerlink" title="响应式数据"></a>响应式数据</h2><p>接下来让我们实现一个简单的类似于<code>Vue</code>的响应式数据。<br><a href="http://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="external">Vue文档</a>中提到：</p>
+<blockquote>
+<p>把一个普通 JavaScript 对象传给 Vue 实例的 data 选项，Vue 将遍历此对象所有的属性，并使用 Object.defineProperty 把这些属性全部转为 getter/setter<br>…<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新</p>
+</blockquote>
+<p>因此，我们需要具体实现的地方有：</p>
+<ul>
+<li>根据参数对象修改实例对应属性的访问描述符</li>
+<li>当实例某个属性的<code>setter</code>被调用时通知所有与该属性相关的页面节点，并执行相关操作</li>
+<li>将属性渲染成html文档，需要一个模板引擎</li>
+</ul>
+<h3 id="修改描述符"><a href="#修改描述符" class="headerlink" title="修改描述符"></a>修改描述符</h3><p>前面提到，我们可以使用<code>Object.defineProperty()</code>来修改对象的描述符，考虑到需要修改整个参数对象的描述符，可以使用<code>Object.keys()</code>进行一次遍历<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 改写访问描述符</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span>(<span class="params">obj, key, val</span>) </span>&#123;</div><div class="line">    <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</div><div class="line">        enumerable: <span class="literal">true</span>, </div><div class="line">        get: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> val;</div><div class="line">        &#125;,</div><div class="line">        set: <span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>) </span>&#123;</div><div class="line">            <span class="comment">// console.log(val, "=&gt;", newVal);</span></div><div class="line">            val = newVal;</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 遍历对象属性并执行改写</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">val2Reactive</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!obj || <span class="keyword">typeof</span> obj !== <span class="string">'object'</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">Object</span>.keys(obj).forEach(<span class="function">(<span class="params">key</span>)=&gt;</span>&#123;</div><div class="line">        defineReactive(obj, key, obj[key]);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> data = &#123;</div><div class="line">    x: <span class="number">1</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(data);</div><div class="line">val2Reactive(data);</div><div class="line"><span class="built_in">console</span>.log(data);</div><div class="line">data.x = <span class="number">2</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布-订阅模式"></a>发布-订阅模式</h3><p>发布-订阅模式又叫观察者模式，由于这里需要当属性变化时通知所有依赖该属性的地方，因此很有必要了解一下。下面是阅读《JavaScript设计模式与开发实践》第八章了解的一点东西。</p>
+<p>发布-订阅模式由一个发布者和数个订阅者组成，大致原理是：</p>
+<ul>
+<li>发布者提供一个订阅的接口，用于新的订阅者调用</li>
+<li>订阅者调用订阅接口，并为发布者提供自身的联系方式（一个回调函数）</li>
+<li>发布者负责维护一个订阅者的缓存列表，保存订阅者的名称和联系方式</li>
+<li>当发布者进行更新时，遍历订阅者的缓存列表，依次调用各订阅者的联系方式并进行通知</li>
+</ul>
+<p>了解了大致的原理，可以实现一个简陋的发布-订阅者模式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 发布者</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dep</span></span>&#123;</div><div class="line">    <span class="keyword">constructor</span>()&#123;</div><div class="line">        <span class="keyword">this</span>.subs = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 订阅</span></div><div class="line">    subscibe(name, cb)&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.subs[name] !== <span class="string">"undefined"</span>)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"已存在相同的订阅者，换个名字~"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">this</span>.subs[name] = cb;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 通知</span></div><div class="line">    notify(data)&#123;</div><div class="line">        <span class="keyword">var</span> subs = <span class="keyword">this</span>.subs;</div><div class="line">        <span class="built_in">Object</span>.keys(subs).forEach(<span class="function">(<span class="params">key</span>)=&gt;</span>&#123;</div><div class="line">            subs[key](data);</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> dep = <span class="keyword">new</span> Dep();</div><div class="line"></div><div class="line"><span class="comment">// 订阅者</span></div><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">    init()&#123;</div><div class="line">        dep.subscibe(<span class="string">"a"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"a receive changes: "</span> + data);</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> b = &#123;</div><div class="line">    init()&#123;</div><div class="line">        dep.subscibe(<span class="string">"b"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"b receive changes: "</span> + data);</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">a.init();</div><div class="line">b.init();</div><div class="line"></div><div class="line"><span class="comment">// 这里进行一些操作，然后发布者对订阅者进行通告</span></div><div class="line">dep.notify(<span class="number">100</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="渲染模板"><a href="#渲染模板" class="headerlink" title="渲染模板"></a>渲染模板</h3><p>由于一个将数据解析成html文档的模板引擎，这里使用<a href="https://www.layui.com/laytpl/" target="_blank" rel="external">laytpl</a>。<br><code>laytpl</code>的是一个很精简却十分强大的模板引擎，大致使用方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> wrap = <span class="built_in">document</span>.getElementById(<span class="string">"#wrap"</span>)</div><div class="line"><span class="comment">// 定义模板和数据</span></div><div class="line"><span class="keyword">var</span> tpl = <span class="string">"&lt;h1&gt;&#123;&#123; d.msg &#125;&#125;&lt;/h1&gt;"</span>,</div><div class="line">	data = &#123;<span class="attr">msg</span>: <span class="string">"Hello World"</span>&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 调用api进行渲染</span></div><div class="line">laytpl(tpl).render(data, (html)=&gt;&#123;</div><div class="line">  	wrap.innerHTML = html;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>更多的语法规则请参考官方文档，这里就不扯了。</p>
+<h3 id="完整实现"><a href="#完整实现" class="headerlink" title="完整实现"></a>完整实现</h3><p>现在，整个流程基本就跑通了：</p>
+<ul>
+<li>实例化一个vue对象，并遍历参数对象的值，修改vue实例的访问描述符</li>
+<li>定义一个发布者，当值发生改变时（即<code>setter</code>触发时）通知订阅者</li>
+<li>订阅者使用数据进行渲染</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dep</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>() &#123;</div><div class="line">        <span class="keyword">this</span>.subs = &#123;&#125;;</div><div class="line">    &#125;</div><div class="line">    subscibe(name, cb) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.subs[name] !== <span class="string">"undefined"</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"已存在相同的订阅者，换个名字~"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">this</span>.subs[name] = cb;</div><div class="line">    &#125;</div><div class="line">    notify(data) &#123;</div><div class="line">        <span class="keyword">var</span> subs = <span class="keyword">this</span>.subs;</div><div class="line">        <span class="built_in">Object</span>.keys(subs).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">            subs[key](data);</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">V</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(params) &#123;</div><div class="line">        <span class="keyword">this</span>.el = <span class="built_in">document</span>.querySelector(params.el);</div><div class="line">        <span class="keyword">this</span>.tpl = <span class="built_in">document</span>.querySelector(params.tpl);</div><div class="line"></div><div class="line">        <span class="keyword">this</span>.dep = <span class="keyword">new</span> Dep();</div><div class="line">        <span class="keyword">this</span>.data = params.data;</div><div class="line"></div><div class="line">        <span class="keyword">this</span>.init();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    init()&#123;</div><div class="line">        <span class="keyword">this</span>.observe(<span class="keyword">this</span>.data);</div><div class="line">        <span class="keyword">this</span>.render();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    render()&#123;</div><div class="line">        <span class="keyword">var</span> htm = <span class="keyword">this</span>.tpl.innerHTML,</div><div class="line">            data = <span class="keyword">this</span>.data;</div><div class="line"></div><div class="line">        laytpl(htm).render(data, (html)=&gt;&#123;</div><div class="line">            <span class="keyword">this</span>.el.innerHTML = html;</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    defineReactive(obj, key, val) &#123;</div><div class="line">    	<span class="comment">// 递归监听子属性</span></div><div class="line">        <span class="keyword">this</span>.observe(val); </div><div class="line">        </div><div class="line">        <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</div><div class="line">            enumerable: <span class="literal">true</span>,</div><div class="line">            get: <span class="function"><span class="params">()</span>=&gt;</span>&#123;</div><div class="line">                <span class="keyword">return</span> val;</div><div class="line">            &#125;,</div><div class="line">            set: <span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</div><div class="line">                val = data;</div><div class="line">                <span class="keyword">this</span>.dep.notify(data);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">  	<span class="comment">// 绑定发布者</span></div><div class="line">    observe(obj) &#123;</div><div class="line">        <span class="keyword">if</span> (!obj || <span class="keyword">typeof</span> obj !== <span class="string">'object'</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="built_in">Object</span>.keys(obj).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">            <span class="keyword">this</span>.defineReactive(obj, key, obj[key]);</div><div class="line">            <span class="keyword">this</span>.dep.subscibe(key, ()=&gt;&#123;</div><div class="line">            	<span class="comment">// 每次数据改变都重新渲染页面，这里可以进行优化</span></div><div class="line">                <span class="keyword">this</span>.render();</div><div class="line">            &#125;)</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在页面上进行测试<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>inedx<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"changeMsg()"</span>&gt;</span>change<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/html"</span> <span class="attr">id</span>=<span class="string">"appTpl"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">		&#123;&#123; d.msg &#125;&#125;</span></div><div class="line"><span class="xml">		<span class="tag">&lt;<span class="name">button</span>&gt;</span>&#123;&#123;d.count&#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></div><div class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"laytpl.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"main.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">		<span class="keyword">var</span> vx = <span class="keyword">new</span> V(&#123;</span></div><div class="line"><span class="javascript">			el: <span class="string">"#app"</span>,</span></div><div class="line"><span class="javascript">			tpl: <span class="string">"#appTpl"</span>,</span></div><div class="line"><span class="undefined">			data: &#123;</span></div><div class="line"><span class="javascript">				msg: <span class="string">"hello"</span>,</span></div><div class="line"><span class="undefined">				count: 0</span></div><div class="line"><span class="undefined">			&#125;</span></div><div class="line"><span class="undefined">		&#125;)</span></div><div class="line"><span class="javascript">		<span class="function"><span class="keyword">function</span> <span class="title">changeMsg</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">			vx.data.msg = <span class="string">"world"</span>;</span></div><div class="line"><span class="undefined">			vx.data.count++;</span></div><div class="line"><span class="undefined">		&#125;</span></div><div class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>现在，一个基本的响应式数据渲染框架就实现了。当然，需要改进的地方还有很多，</p>
+<ul>
+<li>每次都会重新生成整个模板（订阅者的通知方式内都只是调用了<code>render()</code>方法），存在不必要的性能消耗</li>
+<li>每次访问数据都需要使用<code>vx.data</code>，可以在<code>vx</code>上指定快捷方式</li>
+<li>增强模板标签的功能，比如事件和双向数据绑定等</li>
+</ul>
+<p><code>Vue</code>是我学习前端以来接触到的第一个<code>MVVM</code>框架，起初觉得十分神奇，但是完全无法猜想内部的实现原理，现在正在逐渐深入JavaScript，感觉新的大门正在敞开，加油吧。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/面向对象" class="article_tag">#面向对象</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性描述符"><span class="toc-number">1.</span> <span class="toc-text">属性描述符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#value"><span class="toc-number">1.1.</span> <span class="toc-text">value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#writable"><span class="toc-number">1.2.</span> <span class="toc-text">writable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#enumerable"><span class="toc-number">1.3.</span> <span class="toc-text">enumerable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#configurable"><span class="toc-number">1.4.</span> <span class="toc-text">configurable</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问描述符"><span class="toc-number">2.</span> <span class="toc-text">访问描述符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#get-和-put"><span class="toc-number">2.1.</span> <span class="toc-text">[[get]]和[[put]]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#get"><span class="toc-number">2.1.1.</span> <span class="toc-text">[[get]]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#put"><span class="toc-number">2.1.2.</span> <span class="toc-text">[[put]]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getter和setter"><span class="toc-number">2.2.</span> <span class="toc-text">getter和setter</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#getter"><span class="toc-number">2.2.1.</span> <span class="toc-text">getter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setter"><span class="toc-number">2.2.2.</span> <span class="toc-text">setter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非标准方法"><span class="toc-number">2.2.3.</span> <span class="toc-text">非标准方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">2.3.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#响应式数据"><span class="toc-number">3.</span> <span class="toc-text">响应式数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改描述符"><span class="toc-number">3.1.</span> <span class="toc-text">修改描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布-订阅模式"><span class="toc-number">3.2.</span> <span class="toc-text">发布-订阅模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#渲染模板"><span class="toc-number">3.3.</span> <span class="toc-text">渲染模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#完整实现"><span class="toc-number">3.4.</span> <span class="toc-text">完整实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-number">3.5.</span> <span class="toc-text">最后</span></a></li></ol></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>
