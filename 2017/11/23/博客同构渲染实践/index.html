@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">博客同构渲染实践</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/11/23 22:50:13</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/JavaScript" class="hover-highlight">JavaScript</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>作为拖延症晚期患者，在磨叽了两周之后，总算是完成了整个博客的同构渲染重构工作（只是勉强能跑起来，很多小功能后面慢慢完善）。这篇文章用来整理相关的工作思路和流程，也可以当做是《同构JavaScript应用开发》读后实践。</p>
+<p>&lt;!—more—&gt;</p>
+<p>整个项目放在<a href="https://github.com/tangxiangmin/ShyMean" target="_blank" rel="external">github</a>，目前位于master和koa分支上面。</p>
+<h2 id="关于同构"><a href="#关于同构" class="headerlink" title="关于同构"></a>关于同构</h2><p>重构博客的原因来自于换了一台配置更低的服务器。由于SSR对于服务器的性能有一定影响（虽然我没有测试过），加上对于Vue-SSR相关的工作原理并没有深入了解，Nuxt框架对于SEO的支持也不是十分完美（不能针对于单个页面设置<code>keywords</code>和<code>describle</code>），所以决定折腾一下（至于SSR和虚拟DOM相关的东西，后面肯定要去整理一下的）。</p>
+<p>我对于同构的理解比较简陋：第一次访问时通过服务端渲染页面（对SEO友好）,后续站内链接通过异步请求数据，在前端渲染模板（响应快，用户体验更好）。</p>
+<h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><p>之前接触过的NodeJS的框架主要是<code>restify</code>（用来写接口）和<code>express</code>，实际上express我也用的很少，基本上没在项目中实践过。由于同构渲染需要后端服务器具备模板渲染的能力，因此需要排除<code>restify</code>。稍作考虑，我选择了<code>Koa</code>作为后端框架。</p>
+<h3 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h3><p>选择Koa的原因很简单：之前没用过，我想试一试~</p>
+<p>好吧，跟express相比，Koa更加精简，大部分功能都是通过中间件来实现，这更符合项目的需求：我只需要一个可以中转路由、可以渲染模板、可以支持静态资源的web服务器即可。相关使用方法可参考<a href="http://koajs.com/" target="_blank" rel="external">Koa官方文档</a>。</p>
+<p>主要依赖下面几个中间件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">"koa"</span>)</div><div class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</div><div class="line"></div><div class="line"><span class="comment">// 支持静态资源 </span></div><div class="line"><span class="keyword">const</span> serve = <span class="built_in">require</span>(<span class="string">'koa-static'</span>)</div><div class="line">app.use(serve(path.join(__dirname)))</div><div class="line"></div><div class="line"><span class="comment">// 模板渲染</span></div><div class="line"><span class="keyword">const</span> views = <span class="built_in">require</span>(<span class="string">"koa-views"</span>)</div><div class="line">app.use(views(__dirname + <span class="string">'/views'</span>, &#123;</div><div class="line">    extension: <span class="string">"swig"</span>,</div><div class="line">    <span class="comment">// options: swigOptions</span></div><div class="line">&#125;))</div><div class="line"></div><div class="line"><span class="comment">// 自定义路由</span></div><div class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">"./router"</span>)</div><div class="line">app.use(router.routes())</div><div class="line">    .use(router.allowedMethods())</div><div class="line">    </div><div class="line"><span class="comment">// 开启服务器</span></div><div class="line">app.listen(<span class="number">3000</span>)</div></pre></td></tr></table></figure>
+<p>没错，还是熟悉的3000端口号，<code>Nuxt</code>的默认端口号哈哈，这样就不用改nginx的配置了~</p>
+<h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><p>最近半年基于Laravel和CI框架写了不少PHP代码，对于web开发的MVC还是稍微有了一点理解。因此整个项目的后端也采用常规的框架思路进行组建：</p>
+<ul>
+<li>通过<code>router.js</code>自定义路由，并映射到对应的控制器方法</li>
+<li>在控制器中根据模板参数调用模型方法，获取相关数据</li>
+<li>将数据填充到对应的模板上，返回生成的HTML字符串</li>
+</ul>
+<p>整个同构的核心在于我们需要在前端进行操作时覆盖上面的这三步：</p>
+<ul>
+<li>拦截需要跳转的a链接，转而请求对应路径的数据</li>
+<li>在控制器方法中根据请求方式进行判断，常规请求返回模板渲染的HTML，异步请求返回对应的json数据</li>
+<li>确定模板在服务端渲染还是在浏览器渲染的时机</li>
+</ul>
+<p>后面的章节我会阐述相关的处理方式。</p>
+<h3 id="nvm管理node版本"><a href="#nvm管理node版本" class="headerlink" title="nvm管理node版本"></a>nvm管理node版本</h3><p>另外Koa的<code>async</code>和<code>await</code>用起来也很舒服，由于需要高版本的<code>node</code>支持，这里推荐使用<code>nvm</code>进行node版本管理和切换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 查看已安装的版本</div><div class="line">nvm ls</div><div class="line"></div><div class="line"># 安装指定版本</div><div class="line">nvm install v8.9.0</div><div class="line"></div><div class="line"># 切换版本</div><div class="line">nvm use 8.9.0</div><div class="line"></div><div class="line"># 卸载指定版本</div><div class="line">nvm uninstall v8.9.0# 安装</div></pre></td></tr></table></figure>
+<p>安装版本时会自动更新npm版本，如果安装比较慢，可以考虑切换镜像，<a href="https://github.com/xhlwill/blog/issues/7" target="_blank" rel="external">参考</a></p>
+<p>如果是windows，在 nvm 的安装路径下，找到 settings.txt，在后面加上这两行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node_mirror: https://npm.taobao.org/mirrors/node/</div><div class="line">npm_mirror: https://npm.taobao.org/mirrors/npm/</div></pre></td></tr></table></figure>
+<h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><p>前面提到，我们需要拦截超链接的跳转，转而请求数据，只需要拦截a标签的点击事件然后阻止默认事件即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$(<span class="built_in">document</span>).on(<span class="string">"click"</span>, <span class="string">"a"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> href = $(<span class="keyword">this</span>).attr(<span class="string">"href"</span>)</div><div class="line">    <span class="comment">// 加载对应路由的数据和模板，并进行渲染</span></div><div class="line">    <span class="comment">// self.loadPage(href)</span></div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>由于爬虫不会执行JS代码，因此在收录整个站点时，访问到的是正常的页面，因此对SEO是十分友好的；而在<code>loadPage</code>这个方法中，我们会实现整套前端渲染的逻辑，并为用户增加过渡动画和渲染特效等，体验也会相应提高。</p>
+<p>上面拦截整个网站的超链接跳转可能有些不理智，比如友链、外部参考链接什么的，可以使用<code>data-*</code>自定义属性进行区分。</p>
+<h3 id="前端路由"><a href="#前端路由" class="headerlink" title="前端路由"></a>前端路由</h3><p>由于拦截了超链接的跳转，我们需要手动实现一个前端路由，这可以通过<code>History API</code>来实现，下面是开发时我列出的一些Todo事项，目前已经完成了一个简陋版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// todo 修改历史栈, history API</div><div class="line">// todo 高亮当前链接</div><div class="line">// todo 页面切换过渡动画及加载动画，使用animate.css和progress-bar</div><div class="line">// todo 关联页面、路由和模板，可以通过一个hash表实现</div><div class="line">// todo 缓存模板，不缓存数据</div></pre></td></tr></table></figure>
+<p>代码大概有100来行，这里就不贴出来了（接下来可能会进行调整，这块我觉得有BUG），整个路由核心代码位于项目的<code>/public/src/js/router.js</code>下。</p>
+<h2 id="同构部分"><a href="#同构部分" class="headerlink" title="同构部分"></a>同构部分</h2><h3 id="共用模板"><a href="#共用模板" class="headerlink" title="共用模板"></a>共用模板</h3><p>在<a href="article/《同构JavaScript应用开发》读书笔记">《同构JavaScript应用开发》读书笔记)</a>这篇文章中提到过，如果前后端管理两套模板，工作量和bug量都会增加，因此最好的办法是前后端共用同一套模板。</p>
+<p>庆幸的是社区已经提供了很多可以NodeJS和浏览器环境中运行的模板引擎，诸如<code>ejs</code>,<code>swig</code>等，由于Laravel的<code>blade</code>模板引擎的缘故，我非常喜欢<strong>模板继承</strong>的特性，因此在模板渲染上选择了<a href="http://yangxiaofu.com/swig/docs/" target="_blank" rel="external">swig</a>。</p>
+<p>为了减少前端文件的体积，将公共的模板文件存放在服务器上，然后在第一次请求数据时同时请求对应的模板资源，然后进行缓存，这样就可以实现按需加载模板了。</p>
+<p>这里的一个问题是，服务端渲染的模板的一个完整的页面，而前端渲染的往往只是页面某个区域的内容，这样如何才能完成共用呢？</p>
+<p>我的解决办法有点不那么优雅：利用swig的模板继承，比如我们渲染<code>/tags</code>页面，后端渲染的模板实际上是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;% extends &apos;./layout.swig&apos; %&#125;</div><div class="line"></div><div class="line">&#123;% block main %&#125;</div><div class="line">    &#123;% include &apos;./_page/tags.swig&apos; %&#125;</div><div class="line">&#123;% endblock %&#125;</div></pre></td></tr></table></figure>
+<p>而前端处理的模板才是<code>./_page/tags.swig</code>，这样可以保证前后端模板一致，且服务端可以完整渲染整个模板。</p>
+<h3 id="共用模块"><a href="#共用模块" class="headerlink" title="共用模块"></a>共用模块</h3><p>随着项目的进行，我们会产出一些与运行环境无关的公共模块，比如日期处理、字符串修饰等辅助函数，这些模块的共用十分简单：</p>
+<ul>
+<li>在后端使用CommonJS进行调用</li>
+<li>在前端使用webpack进行打包</li>
+</ul>
+<p>前面提到采用的模板引擎是swig，而Node环境与浏览器下的版本略有差异，比如浏览器环境下肯定不支持<code>fs</code>文件模块，因此需要为某些接口进行hack处理，而针对于自定义过滤器等公共模块，我们可以采用上述方式按需加载</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// filter.js</span></div><div class="line"><span class="comment">// 自定义过滤器</span></div><div class="line"><span class="keyword">let</span> filters = &#123;</div><div class="line">    <span class="comment">// 标签云</span></div><div class="line">    tagSize(num, idx)&#123;</div><div class="line">        <span class="keyword">let</span> fontSize = <span class="string">""</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> (num &lt;= <span class="number">2</span>) &#123;</div><div class="line">            fontSize =  <span class="string">"text-xs"</span></div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &gt; <span class="number">2</span> &amp;&amp; num &lt;= <span class="number">5</span>) &#123;</div><div class="line">            fontSize = <span class="string">"text-sm"</span></div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &gt; <span class="number">5</span> &amp;&amp; num &lt;= <span class="number">8</span>) &#123;</div><div class="line">            fontSize = <span class="string">"text-md"</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            fontSize = <span class="string">"text-lg"</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> fontSize</div><div class="line">    &#125;,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = filters</div></pre></td></tr></table></figure>
+<p>然后在前后端各自按需引入，需要注意区分不同依赖模块的前后端文件，比如我这里依赖的<code>marked.js</code>，后端可以直接通过<code>npm</code>安装引用 ，而前端需要配置<code>webpack</code>的<code>externals</code>选项然后引入CDN。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> swig = <span class="built_in">require</span>(<span class="string">"swigjs"</span>)</div><div class="line"></div><div class="line"><span class="comment">// 自定义过滤器</span></div><div class="line"><span class="keyword">let</span> filters = <span class="built_in">require</span>(<span class="string">"../../../lib/swig"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> filters)&#123;</div><div class="line">    swig.setFilter(key, filters[key])</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = swig</div></pre></td></tr></table></figure>
+<p>简而言之，实现模块共用的基本需求是理解JavaScript模块化，然后掌握一个打包工具。</p>
+<h3 id="共用数据和路由"><a href="#共用数据和路由" class="headerlink" title="共用数据和路由"></a>共用数据和路由</h3><p>为了减少路由的重复定义和控制器方法的冗余，我决定在同一个控制器方法中处理是否返回经过服务端渲染的HTML文件，还是单纯的JSON数据，这是通过<code>x-requested-with</code>判断来实现的，也许存在BUG。此外还可以通过传递某个约定的请求参数来实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">ctx</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> url = ctx.request.url,</div><div class="line">        data = ctx.state.data</div><div class="line"></div><div class="line">    <span class="keyword">let</span> header = ctx.request.header;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (header[<span class="string">'x-requested-with'</span>] === <span class="string">'XMLHttpRequest'</span>)&#123;</div><div class="line"></div><div class="line">        ctx.body = data;</div><div class="line"></div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// 需要将路由映射到对应的模板，</span></div><div class="line">        <span class="comment">// 这里暂时约定通过ctx.state传递</span></div><div class="line">        <span class="keyword">await</span> ctx.render(ctx.state.view, data)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于前后端路由对应的模板和数据相同，最终渲染的页面也肯定完全一致。</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>采用同构渲染的好处是，代码不需要经过二次打包。我的意思是不需要想nuxt那样每次部署前都需要进行编译（编译经常失败也是我折腾同构渲染的一个原因）。</p>
+<p>如果移除在浏览器端进行的处理之后，我们可以把整个项目看做纯服务端渲染，这样只需要运行程序然后使用Nginx进行中转端口即可，最后使用<code>forever</code>开启守护进程即可，相关的环境依赖和配置在<a href="/article/博客SSR实践总结">博客SSR实践总结</a>有提到，这里就不凑字数了。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>大概花了两三周的下班时间来折腾这次的同构（大部分时间去查资料和玩游戏了），最后出来的东西也不是很满意，相关的兼容测试也没有进行，总之还有很多需要完善的地方。</p>
+<p>今年就剩一个月了，还有一些其他的事情没做，可能要先放一放，不过有BUG肯定还是会改的，哈哈。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/模板引擎" class="article_tag">#模板引擎</a>
+        
+        <a href="/tags/NodeJS" class="article_tag">#NodeJS</a>
+        
+        <a href="/tags/同构" class="article_tag">#同构</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于同构"><span class="toc-number">1.</span> <span class="toc-text">关于同构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后端"><span class="toc-number">2.</span> <span class="toc-text">后端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Koa"><span class="toc-number">2.1.</span> <span class="toc-text">Koa</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC"><span class="toc-number">2.2.</span> <span class="toc-text">MVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nvm管理node版本"><span class="toc-number">2.3.</span> <span class="toc-text">nvm管理node版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前端"><span class="toc-number">3.</span> <span class="toc-text">前端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#前端路由"><span class="toc-number">3.1.</span> <span class="toc-text">前端路由</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同构部分"><span class="toc-number">4.</span> <span class="toc-text">同构部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#共用模板"><span class="toc-number">4.1.</span> <span class="toc-text">共用模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#共用模块"><span class="toc-number">4.2.</span> <span class="toc-text">共用模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#共用数据和路由"><span class="toc-number">4.3.</span> <span class="toc-text">共用数据和路由</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署"><span class="toc-number">5.</span> <span class="toc-text">部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

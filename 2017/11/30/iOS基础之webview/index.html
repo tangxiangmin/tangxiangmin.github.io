@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+            <a class="nav_item" href="/test">Test</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">iOS基础之webview</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2017/11/30 8:32:40</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/iOS" class="hover-highlight">iOS</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>iOS中的Webview与Android中的Webview有一些差异，包括网络权限、加载页面、与JS交互等。不过大体使用思路是类似的，下面总结一下iOS中的Webview。</p>
+<a id="more"></a>
+<p>参考：</p>
+<ul>
+<li><a href="http://www.imlifengfeng.com/blog/?p=528" target="_blank" rel="external">iOS UIWebView与WKWebView</a></li>
+<li><a href="https://developer.apple.com/documentation/uikit/uiwebview" target="_blank" rel="external">uiwebview官方文档</a></li>
+<li><a href="https://developer.apple.com/documentation/webkit/wkwebview?language=objc" target="_blank" rel="external">wkwebview官方文档</a></li>
+<li><a href="http://taobaofed.org/blog/2015/11/13/web-debug-in-ios/" target="_blank" rel="external">在 iOS 模拟器中调试 Web 页面</a></li>
+<li><a href="http://blog.csdn.net/y550918116j/article/details/50134625" target="_blank" rel="external">WebKit(WKScriptMessageHandler)</a></li>
+</ul>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>现在iOS提供了两套webview：<code>UIWebView</code>和<code>WKWebView</code>。根据官方文档的建议，iOS8之后建议使用<code>WKWebView</code></p>
+<blockquote>
+<p>Starting in iOS 8.0 and OS X 10.10, use WKWebView to add web content to your app. Do not use UIWebView or WebView.</p>
+</blockquote>
+<p>由于历史原因，我司iOS客户端貌似二者均有采用。因此不可避免地均需要了解一下~~。先看看最新的<code>WKWebView</code>吧。</p>
+<h2 id="WKWebView"><a href="#WKWebView" class="headerlink" title="WKWebView"></a>WKWebView</h2><h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><p>基本的使用方式是：构建请求对象，实例化webview对象，然后发送请求即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)setWKWebview&#123;</div><div class="line">  	// 加载路径</div><div class="line">    NSURL *url = [NSURL URLWithString:@&quot;https://www.baidu.com&quot;];</div><div class="line">    // 构造请求对象</div><div class="line">    NSURLRequest *request =[NSURLRequest requestWithURL:url];</div><div class="line">    // 实例化webview</div><div class="line">    WKWebView *webview = [[WKWebView alloc] initWithFrame:self.view.bounds];</div><div class="line">    // 将webview加载至当前视图</div><div class="line">    [self.view addSubview:webview];</div><div class="line">  	// 发送请求</div><div class="line">    [webview loadRequest:request];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>记得引入<code>#import&lt;WebKit/WebKit.h&gt;</code>文件。</p>
+<h3 id="本地服务器"><a href="#本地服务器" class="headerlink" title="本地服务器"></a>本地服务器</h3><p>在iPhone模拟器上，可以直接在safari中通过<code>localhost:port</code>访问本地服务器。</p>
+<p>在Android是通过<code>10.0.2.2:port</code>来访问本地服务器的。</p>
+<h3 id="请求http报错"><a href="#请求http报错" class="headerlink" title="请求http报错"></a>请求http报错</h3><p>在测试加载本地服务器文件时一直显示页面空白，找了半天也没有发现原因（没有任何错误也没有任何警告），后来测试iOS的网络请求时发现下面的警告</p>
+<blockquote>
+<p>App Transport Security has blocked a cleartext HTTP (http://) resource load since it is insecure. Temporary exceptions can be configured via your app’s Info.plist file.</p>
+</blockquote>
+<p>可以在<code>info.plist</code>中修改相关的权限，参考<a href="https://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http" target="_blank" rel="external">https://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http</a>.</p>
+<p>具体步骤：</p>
+<ul>
+<li>在资源管理器打开<code>info.plist</code>，增加一项<code>App Transport Security Settings</code>，选择数据类型为<code>Dictionary</code></li>
+<li>在<code>App Transport Security Settings</code>下增加一项<code>Allow Arbitrary Loads</code>，选择类型为<code>Boolean</code>，值为<code>YES</code></li>
+</ul>
+<p><code>info.plist</code>与<code>AndroidManifest.xml</code>功能相似，用来修改程序的一些基础配置，这个后面再了解。</p>
+<h3 id="添加加载进度条"><a href="#添加加载进度条" class="headerlink" title="添加加载进度条"></a>添加加载进度条</h3><p>在手机QQ中打开网页可以看见一个渐变的进度条，非常漂亮，实际上WKWebview的进度条是可以定制的。参考：<a href="http://www.jianshu.com/p/d3c8ba672760" target="_blank" rel="external">iOS WKWebView添加网页加载进度条</a>。</p>
+<h2 id="JavaScript交互"><a href="#JavaScript交互" class="headerlink" title="JavaScript交互"></a>JavaScript交互</h2><p>WKWebview与JS的交互十分简单，调用webview对象的<code>evaluateJavaScript</code>即可。</p>
+<p>由于是测试Demo，为了减少文件数，我们将webview的<code>navigationDelegate</code>代理指向当前视图控制器自身,</p>
+<p>这是因为我们需要使用<code>navigationDelegate</code>代理的<code>didFinishNavigation</code>方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)setWKWebview&#123;</div><div class="line">    // 初始化webview对象 </div><div class="line">    webview.navigationDelegate = self;</div><div class="line">    // ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="执行JavaScript代码"><a href="#执行JavaScript代码" class="headerlink" title="执行JavaScript代码"></a>执行JavaScript代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation</div><div class="line">&#123;</div><div class="line">    [webView evaluateJavaScript:@&quot;document.body.style.backgroundColor = &apos;blue&apos;&quot; completionHandler:^(id result, NSError *error) &#123;</div><div class="line">        NSLog(@&quot;Result %@&quot;, result);</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码从字面上很容易理解，页面加载完成执行一串JavaScript代码。关于WKNavigationDelegate更多可参考<a href="http://www.jianshu.com/p/f9c0ef72b01e" target="_blank" rel="external">这里</a>。此外如果需要测试<code>alert</code>等方法，需要实现<a href="http://www.jianshu.com/p/3cbb2e397ba2" target="_blank" rel="external">WKUIDelegate</a>代理。</p>
+<p><code>evaluateJavaScript</code>方法接受两个参数，需要执行的JS代码，以及执行完毕后的回调，执行完的JS表达式值会作为参数传递给该回调函数（比如上面的代码返回<code>blue</code>字符串）。</p>
+<h3 id="JavaScript调用原生代码"><a href="#JavaScript调用原生代码" class="headerlink" title="JavaScript调用原生代码"></a>JavaScript调用原生代码</h3><p>实际上目前工作中接触到的项目，很少有通过OC去执行JS代码的。相反地，一般是通过原生实现接口然后封装成SDK提供给JS，比如跳转原生界面、分享页面等。这是通过<code>WKScriptMessageHandler</code>协议来实现的。</p>
+<p><code>WKScriptMessageHandler</code>依赖于两个类：</p>
+<ul>
+<li><code>WKUserContentController</code>，用来向页面注入相关的原生接口，也可以直接向页面注入JS代码貌似</li>
+<li><code>WKScriptMessage</code>，可以理解为JS向原生方法传递的参数负载</li>
+</ul>
+<p>为了实现调用原生的功能，在实例化webview时需要额外的一些配置，以便传入上面的两个类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (void)setWKWebview&#123;</div><div class="line">    NSURL *url = [NSURL URLWithString:@&quot;http://localhost:9999&quot;];</div><div class="line">    NSURLRequest *request =[NSURLRequest requestWithURL:url];</div><div class="line">    </div><div class="line">    // 定义JS可调用的原生方法</div><div class="line">    WKUserContentController *userContentController = [[WKUserContentController alloc] init];</div><div class="line">    [userContentController addScriptMessageHandler:self name:@&quot;nativeTest&quot;];</div><div class="line">    </div><div class="line">    // 配置webview，此处使用上面实例化的userContentController对象</div><div class="line">    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];</div><div class="line">    configuration.userContentController = userContentController;</div><div class="line">    </div><div class="line">    // 传入配置</div><div class="line">    WKWebView *webview = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];</div><div class="line">    </div><div class="line">    [self.view addSubview:webview];</div><div class="line">    [webview loadRequest:request];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后实现一个通用的消息接收器，根据消息携带的方法名和参数，执行对应的原生方法，达到JS调用原生的目的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message &#123;</div><div class="line">  	// message 包含了对应的方法名和参数</div><div class="line">    NSLog(@&quot;方法名:%@&quot;, message.name);</div><div class="line">    NSLog(@&quot;参数:%@&quot;, message.body);</div><div class="line">    // 方法名</div><div class="line">    NSString *methods = [NSString stringWithFormat:@&quot;%@:&quot;, message.name];</div><div class="line">    SEL selector = NSSelectorFromString(methods);</div><div class="line">    // 调用方法</div><div class="line">    if ([self respondsToSelector:selector]) &#123;</div><div class="line">        [self performSelector:selector withObject:message.body];</div><div class="line">    &#125; else &#123;</div><div class="line">        NSLog(@&quot;未定义方法：%@&quot;, methods);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>做完准备工作，接下来实现相关的原生方法，这里的方法在上面<code>addScriptMessageHandler</code>处声明。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)nativeTest:(NSString *)str &#123;</div><div class="line">    <span class="comment">// 可以在原生中做许多事情...</span></div><div class="line">    NSLog(@<span class="string">"Hello this is OC"</span>);</div><div class="line">    NSLog(str);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后就是web端调用相关的接口的了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  	<span class="comment">// window.webkit.messageHandlers 为注入的全局对象，携带相关的接口方法</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">window</span>.webkit.messageHandlers)</div><div class="line">  	<span class="comment">// nativeTest接口被实现为一个对象，通过postMessage方法调用原生方法并传递相关参数</span></div><div class="line">    <span class="built_in">window</span>.webkit.messageHandlers.nativeTest.postMessage(<span class="string">'Hello from JS'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样在<code>userContentController</code>的message中，对应的<code>message.name</code>即为‘nativeTest’，而<code>message.body</code>的值即为’Hello from JS’，大功告成。</p>
+<p>还有个需要注意的问题就是JS传递参数的类型，一般来讲OC会接收一个<code>dist</code>类型的参数，对应JS的对象，所以十分方便。</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>参考<a href="http://liyaogang.com/ios%e8%b0%83%e8%af%95uiwebview%e5%92%8cwkwebview%e5%8a%a0%e8%bd%bd%e7%9a%84h5%e9%a1%b5%e9%9d%a2/" target="_blank" rel="external">iOS调试UIWebView和WKWebView加载的H5页面</a></p>
+<h3 id="模拟器调试"><a href="#模拟器调试" class="headerlink" title="模拟器调试"></a>模拟器调试</h3><p>在模拟器上调试页面十分简单</p>
+<ul>
+<li>打开模拟器，然后打开模拟器中的safari，打开需要调试的页面网址</li>
+<li>打开Mac上的safari，在“Devalop &gt; iOS Simulator”菜单下，会出现模拟器中已打开的网页列表，选中模拟器中打开的页面就可以调试了</li>
+</ul>
+<p>这里貌似跟webview没有多大关系，实际上app中的webview页面也可以通过这种方式进行调试，十分方便~</p>
+<p>最近在项目中遇见了一个比较神奇的BUG，在Chrome的分辨率模拟器中功能是正常的，而在iPhone的浏览器中却显示不正常，然后通过模拟器打开居然复现了这个BUG，然后根据safari调试很快就定位了问题然后得以解决，说明这个iPhone模拟器跟真机还是很接近的。</p>
+<p>如果打开Safari，在Develop菜单下没有找到<code>iOS Simulator</code>的选项，可以试试重启Safari，这个貌似是个<a href="https://forums.developer.apple.com/thread/67110" target="_blank" rel="external">BUG</a>。</p>
+<p>唯一的问题是需要掌握safari浏览器下的调试方法，与Chrome还是有一些区别的（有点不太习惯）。</p>
+<h3 id="真机调试"><a href="#真机调试" class="headerlink" title="真机调试"></a>真机调试</h3><p>查资料的时候发现历史上使用真机调试需要注册$99的开发者账号，然后下载调试证书啥的…幸好现在2017年都快结束了，好了不说废话了，下面说说操作步骤。</p>
+<p><strong>获得调试证书</strong></p>
+<p>首先打开<code>XCode</code>，选择<code>Preferences-&gt;Accounts</code>，绑定<code>Apple ID</code>，然后点击<code>Manage Certificates</code>，新增一个调试证书即可</p>
+<p><strong>关联设备</strong></p>
+<p>通过USB连接iPhone真机，选择<code>Window-&gt;Devices and Simulators</code>，可以查看到已关联的设备，貌似现在可以支持无线设备调试了，具体可以参考<a href="http://www.qingpingshan.com/rjbc/ios/285006.html" target="_blank" rel="external">这里</a>，不过我没有发现相关选项~</p>
+<p><strong>选择运行平台</strong></p>
+<p>这里有一篇<a href="http://ios.idup.club/xcode/Xcode%E6%A6%82%E8%BF%B0-6(%E8%BF%90%E8%A1%8C%EF%BC%8C%E8%B0%83%E8%AF%95%E5%92%8C%E6%B5%8B%E8%AF%95" target="_blank" rel="external">文章</a>/)，对iOS项目的运行做了比较详细的介绍。</p>
+<p>XCode项目编译方案和运行目标是分开的，我们只需要在切换编译右侧的运行平台，选择对应的设备或模拟器运行项目即可。</p>
+<p>这里遇见了几个问题：</p>
+<ul>
+<li>项目的目标版本和真机的系统版本不一致，可以通过修改项目的<code>Deployment Target</code>版本号调整，整个项目的设置可以通过左侧资源管理器中，点击项目目录名称打开（那个蓝色的xcode图标）</li>
+<li><code>requires a development team</code>错误，原因是项目<code>Signing</code>设置下的<code>Team</code>默认为空导致的，选择一个开发组即可。</li>
+<li>在真机上提示“您的设备管理设置不允许在此台iPhone上使用开发者XX的应用”，这个可以通过iPhone设置-&gt;描述文件-&gt;开发者文件-&gt;信任即可。</li>
+</ul>
+<p>好吧，上面的操作基本上都是针对iOS真机调试，不过在真机上调试webview页面，这些步骤也是必备的。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>至此对于iOS中的webview已有大致了解，最后的工作就是完成iPhoneX的页面样式适配~这是学习OC和WKWebview的主要目的。</p>
+<p>此外关于OC中的一些语法，比如代理、回调函数、选择器等，需要进一步了解。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/webview" class="article_tag">#webview</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WKWebView"><span class="toc-number">2.</span> <span class="toc-text">WKWebView</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方式"><span class="toc-number">2.1.</span> <span class="toc-text">使用方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地服务器"><span class="toc-number">2.2.</span> <span class="toc-text">本地服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#请求http报错"><span class="toc-number">2.3.</span> <span class="toc-text">请求http报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加加载进度条"><span class="toc-number">2.4.</span> <span class="toc-text">添加加载进度条</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript交互"><span class="toc-number">3.</span> <span class="toc-text">JavaScript交互</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#执行JavaScript代码"><span class="toc-number">3.1.</span> <span class="toc-text">执行JavaScript代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript调用原生代码"><span class="toc-number">3.2.</span> <span class="toc-text">JavaScript调用原生代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">4.</span> <span class="toc-text">调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟器调试"><span class="toc-number">4.1.</span> <span class="toc-text">模拟器调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真机调试"><span class="toc-number">4.2.</span> <span class="toc-text">真机调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>
