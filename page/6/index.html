@@ -37,8 +37,6 @@
             
             <a class="nav_item" href="/tags">标签</a>
             
-            <a class="nav_item" href="/test">Test</a>
-            
         </nav>
     </div>
 </header>
@@ -47,50 +45,15 @@
             
     <article class="article">
         <h2 class="article_hd">
-            <a href="/2017/02/09/使用BEM声明CSS样式名/" class="article_tt">
-                使用BEM声明CSS样式名
+            <a href="/2017/04/12/对象描述符与响应式数据/" class="article_tt">
+                对象描述符与响应式数据
             </a>
         </h2>
         <div class="article_info">
             <span class="hide-sm">发表于</span>
             <span class="show-sm">
                 <i class="iconfont icon-archives"></i>
-            </span>2017-02-09 22:04:30 |
-            <span class="hide-sm">分类于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-tag"></i>
-            </span>
-            
-            <a href="/categories/CSS/" class="hover-highlight">CSS</a>
-            
-        </div>
-        <div class="article_ct">
-            <p>折腾<code>CSS</code>类名已经很长一段时间了，也得到了一些教训和经验。维护<code>CSS</code>有几个比较困难的问题：</p>
-<ul>
-<li>默认全局命名空间，样式冲突十分常见</li>
-<li>混乱的样式重用或选择器的滥用，导致改动牵一发而动全身</li>
-<li>修改样式表的同时可能会改动页面结构，而且往往不只一个页面</li>
-</ul>
-<p>之前的关注点是通过选择器嵌套和样式复用来决定样式名，由于过分考虑样式的复用，又没有进行正确的限制，样式耦合十分严重。最后回过头一想，如果是使用类名来决定选择器的嵌套和样式重用，情形应该会怎么样呢？恰好之前也了解了一点<code>BEM</code>的东西，这篇文章是我关于<code>BEM</code>的思考和尝试。</p>
-        </div>
-        <div class="article_ft">
-                
-            <a href="/2017/02/09/使用BEM声明CSS样式名/#more" class="hover-highlight">阅读全文
-            </a>
-        </div>
-    </article>
-
-    <article class="article">
-        <h2 class="article_hd">
-            <a href="/2017/01/16/RequireJS使用心得/" class="article_tt">
-                RequireJS使用心得
-            </a>
-        </h2>
-        <div class="article_info">
-            <span class="hide-sm">发表于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-archives"></i>
-            </span>2017-01-16 23:04:35 |
+            </span>2017-04-12 21:05:44 |
             <span class="hide-sm">分类于</span>
             <span class="show-sm">
                 <i class="iconfont icon-tag"></i>
@@ -100,26 +63,26 @@
             
         </div>
         <div class="article_ct">
-            <p>一直对于JS模块化开发心存敬畏，尽管很早之前就接触到了RequireJS（在微擎里面），实际项目中却仍旧采用的是最原始的在HTML文档中script标签里面写代码。一方面是因为后台的同学有时候需要自己写JS处理逻辑；另一方面是后台模板将共用的头部样式表和底部脚本都分离为单独文件，管理起来也不是很麻烦。因此一直没有去了解<code>require.js</code>。<br>最近一个多月一直在折腾新的博客，想着要不要试试<code>require.js</code>，然后一发不可收拾。<br>
+            <p>自从接触<code>Vue</code>以来，就对它的响应式数据原理十分好奇。文档中提到是使用<code>Object.defineProperty</code>实现的，因此决定深入了解JavaScript中对象的一些特性。</p>
         </div>
         <div class="article_ft">
                 
-            <a href="/2017/01/16/RequireJS使用心得/#more" class="hover-highlight">阅读全文
+            <a href="/2017/04/12/对象描述符与响应式数据/#more" class="hover-highlight">阅读全文
             </a>
         </div>
     </article>
 
     <article class="article">
         <h2 class="article_hd">
-            <a href="/2017/01/15/在JS中遇见的一些BUG/" class="article_tt">
-                在JS中遇见的一些BUG
+            <a href="/2017/04/09/history与单页面应用路由/" class="article_tt">
+                history与单页面应用路由
             </a>
         </h2>
         <div class="article_info">
             <span class="hide-sm">发表于</span>
             <span class="show-sm">
                 <i class="iconfont icon-archives"></i>
-            </span>2017-01-15 21:55:29 |
+            </span>2017-04-09 8:50:48 |
             <span class="hide-sm">分类于</span>
             <span class="show-sm">
                 <i class="iconfont icon-tag"></i>
@@ -129,200 +92,26 @@
             
         </div>
         <div class="article_ct">
-            <p>前面写了一篇记录遇见的CSS的BUG，这篇文章就用来整理和记录写JS遇见的坑。实际上项目基本上都使用了jQuery，因此绝大部分兼容性问题已经很少遇到了，然而，总还是有一些蛋疼的问题出现。</p>
+            <p>在之前的<a href="#/title/BOM基础知识">BOM基础知识</a>中提到了History对象，提供浏览器历史纪录相关的接口，可以通过<code>window.history</code>对象来模拟工具栏的前进，后退和刷新。HTML5为history对象增加了几个新的方法，可以更灵活的操作历史记录。</p>
         </div>
         <div class="article_ft">
                 
-            <a href="/2017/01/15/在JS中遇见的一些BUG/#more" class="hover-highlight">阅读全文
+            <a href="/2017/04/09/history与单页面应用路由/#more" class="hover-highlight">阅读全文
             </a>
         </div>
     </article>
 
     <article class="article">
         <h2 class="article_hd">
-            <a href="/2017/01/15/在CSS中遇见的一些BUG/" class="article_tt">
-                在CSS中遇见的一些BUG
+            <a href="/2017/04/07/二进制计算/" class="article_tt">
+                二进制计算
             </a>
         </h2>
         <div class="article_info">
             <span class="hide-sm">发表于</span>
             <span class="show-sm">
                 <i class="iconfont icon-archives"></i>
-            </span>2017-01-15 21:15:47 |
-            <span class="hide-sm">分类于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-tag"></i>
-            </span>
-            
-            <a href="/categories/CSS/" class="hover-highlight">CSS</a>
-            
-        </div>
-        <div class="article_ct">
-            <p>今天打开有道云笔记，发现不知不觉中记录了不少关于CSS的BUG，有的问题在遇见的时候就成功解决了，有的却是采用某些折衷的办法进行处理。里面还有几个挺有趣的问题，一并整理一番，另外还有一篇是关于JS的浏览器的BUG。<br>
-        </div>
-        <div class="article_ft">
-                
-            <a href="/2017/01/15/在CSS中遇见的一些BUG/#more" class="hover-highlight">阅读全文
-            </a>
-        </div>
-    </article>
-
-    <article class="article">
-        <h2 class="article_hd">
-            <a href="/2017/01/08/从零开始实现一个简易的PHP框架/" class="article_tt">
-                从零开始实现一个简易的PHP框架
-            </a>
-        </h2>
-        <div class="article_info">
-            <span class="hide-sm">发表于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-archives"></i>
-            </span>2017-01-08 11:57:20 |
-            <span class="hide-sm">分类于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-tag"></i>
-            </span>
-            
-            <a href="/categories/PHP/" class="hover-highlight">PHP</a>
-            
-        </div>
-        <div class="article_ct">
-            <p>在11月份的时候，参照慕客网的视频，照猫画虎折腾了一个非常简陋的PHP框架半成品，简陋到只勉强实现了自动加载类和路由功能，由于功力不足暂时将这个小项目放在了旁边，到后面补习了一些PHP的基础知识，又花了大概一周的时间去了解Laravel，对于PHP框架的运行流程稍微长进了一点。现在趁着周末重新整理了之前的笔记：一个简易的PHP MVC框架的实现。</p>
-        </div>
-        <div class="article_ft">
-                
-            <a href="/2017/01/08/从零开始实现一个简易的PHP框架/#more" class="hover-highlight">阅读全文
-            </a>
-        </div>
-    </article>
-
-    <article class="article">
-        <h2 class="article_hd">
-            <a href="/2016/12/31/JS模板引擎（初级篇）/" class="article_tt">
-                JS模板引擎（初级篇）
-            </a>
-        </h2>
-        <div class="article_info">
-            <span class="hide-sm">发表于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-archives"></i>
-            </span>2016-12-31 18:22:22 |
-            <span class="hide-sm">分类于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-tag"></i>
-            </span>
-            
-            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
-            
-        </div>
-        <div class="article_ct">
-            <p>之前的项目中，通过ajax请求获得的数据，重新在页面上渲染出来，基本上都是采用字符串拼接或者定义一个<code>type/html</code>的script标签，然后通过jQuery查找结点然后插入数据的，在数据量不大的情况下，这么做貌似也没有什么问题。但是昨天遇见的情况是返回好评、中评、差评的多条数据，，且每天评论需要展示的内容十分多，因此考虑使用第三方的模板引擎库。</p>
-        </div>
-        <div class="article_ft">
-                
-            <a href="/2016/12/31/JS模板引擎（初级篇）/#more" class="hover-highlight">阅读全文
-            </a>
-        </div>
-    </article>
-
-    <article class="article">
-        <h2 class="article_hd">
-            <a href="/2016/12/27/关于CSS代码维护的思考/" class="article_tt">
-                关于CSS代码维护的思考
-            </a>
-        </h2>
-        <div class="article_info">
-            <span class="hide-sm">发表于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-archives"></i>
-            </span>2016-12-27 23:11:15 |
-            <span class="hide-sm">分类于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-tag"></i>
-            </span>
-            
-            <a href="/categories/CSS/" class="hover-highlight">CSS</a>
-            
-        </div>
-        <div class="article_ct">
-            <p>最近有个项目，已经开发了近两个月，然后客户说之前他们提供的设计图不满意，然后前端页面全部重新修改，个人中心页面维持现状并作相应调整…整个人都不好了，维护CSS代码真是一件可怕的事情，尽管是自己写的。这几天被折磨的死去活来，总结了一点经验，希望以后少给自己以及后面的哥们挖坑。</p>
-        </div>
-        <div class="article_ft">
-                
-            <a href="/2016/12/27/关于CSS代码维护的思考/#more" class="hover-highlight">阅读全文
-            </a>
-        </div>
-    </article>
-
-    <article class="article">
-        <h2 class="article_hd">
-            <a href="/2016/12/25/使用Node写爬虫（初级篇）/" class="article_tt">
-                使用Node.js写爬虫（初级篇）
-            </a>
-        </h2>
-        <div class="article_info">
-            <span class="hide-sm">发表于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-archives"></i>
-            </span>2016-12-25 20:18:40 |
-            <span class="hide-sm">分类于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-tag"></i>
-            </span>
-            
-            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
-            
-        </div>
-        <div class="article_ct">
-            <p>最近两周，写爬虫写出魔怔了。很早之前就打算用Python写爬虫，可一直没有时间重新学习Python。刚好现在正在学习Nodejs，用JS写爬虫，实际上也很酷炫。额当然我现在也只会爬一些很简单的静态爬虫，这篇文章主要是整理一下这两周的心得，由于我也是爬虫菜鸟，如果有错误的地方还请指正，感激不尽。</p>
-        </div>
-        <div class="article_ft">
-                
-            <a href="/2016/12/25/使用Node写爬虫（初级篇）/#more" class="hover-highlight">阅读全文
-            </a>
-        </div>
-    </article>
-
-    <article class="article">
-        <h2 class="article_hd">
-            <a href="/2016/12/07/《正则指引》读书笔记/" class="article_tt">
-                《正则指引》读书笔记
-            </a>
-        </h2>
-        <div class="article_info">
-            <span class="hide-sm">发表于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-archives"></i>
-            </span>2016-12-07 20:42:55 |
-            <span class="hide-sm">分类于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-tag"></i>
-            </span>
-            
-            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
-            
-        </div>
-        <div class="article_ct">
-            <p>爬虫真的非常有意思。为了更高效的处理获取的数据，开始正儿八经的学习正则表达式。<br>
-        </div>
-        <div class="article_ft">
-                
-            <a href="/2016/12/07/《正则指引》读书笔记/#more" class="hover-highlight">阅读全文
-            </a>
-        </div>
-    </article>
-
-    <article class="article">
-        <h2 class="article_hd">
-            <a href="/2016/12/01/《计算机网络-自顶向下的方法》读书笔记/" class="article_tt">
-                《计算机网络-自顶向下的方法》读书笔记
-            </a>
-        </h2>
-        <div class="article_info">
-            <span class="hide-sm">发表于</span>
-            <span class="show-sm">
-                <i class="iconfont icon-archives"></i>
-            </span>2016-12-01 23:20:34 |
+            </span>2017-04-07 20:32:18 |
             <span class="hide-sm">分类于</span>
             <span class="show-sm">
                 <i class="iconfont icon-tag"></i>
@@ -332,18 +121,221 @@
             
         </div>
         <div class="article_ct">
-            <p>大概是几个月前，曾被赶鸭子上架似的学习了一阵子socket，作为没有一丁点网络基础的菜鸟，完全无从下手，靠死记硬背写了几端代码，最后还是将它搁在哪里了。在现在的前端工作中，仍免不了要跟网络请求打交道，然而只明白几个http状态码，调用个Ajax接口是远远不够的，带着弄明白“从浏览器地址栏输入网址到看见整个网页发生了什么”这个经典面试题的目的，打开了《计算机网络》这本书。<br>
+            <p>虽然很早就接触了二进制，却一直没有正视这个问题，阅读《计算机科学导论》的时候，基本上是跳过了这一部分，总是以“这么基础的东西，反正工作中基本用不上”的理由给搪塞过去。最近正在阅读《编码》和《程序员的数学思维修炼》，心想终究还是得面对的，于是记录了一点笔记，希望不再回避letcode上关于二进制计算的题目。</p>
         </div>
         <div class="article_ft">
                 
-            <a href="/2016/12/01/《计算机网络-自顶向下的方法》读书笔记/#more" class="hover-highlight">阅读全文
+            <a href="/2017/04/07/二进制计算/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/04/05/NodeJS中的http模块/" class="article_tt">
+                NodeJS中的http模块
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-04-05 21:41:31 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>尽管<code>express</code>和<code>koa</code>等优秀的库已经对<code>http</code>模块进行了封装，但是针对NodeJS的Web开发，还是很有必须了解一下<code>http</code>模块。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/04/05/NodeJS中的http模块/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/03/29/HTTP协议之安全（五）/" class="article_tt">
+                HTTP协议之安全（五）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-03-29 22:44:20 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>HTTP使用明文发送报文，本身不具备加密的功能。这在危机四伏的互联网中是十分危险的，在阅读了《图解HTTP》第七章之后，整理了一点关于安全HTTP的内容，主要内容就是理解HTTPS的原理和工作机制。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/03/29/HTTP协议之安全（五）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/03/25/浏览器中的跨域/" class="article_tt">
+                浏览器中的跨域
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-03-25 20:14:50 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/JavaScript/" class="hover-highlight">JavaScript</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>在工作中遇见的跨域问题也有好几次了，但却一直对浏览器的跨域没有很完整的认知。最近正重新学习JS基础知识，这些之前学习过程中遗留下来的问题现在一个一个解决掉吧。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/03/25/浏览器中的跨域/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/03/15/HTTP协议之用户识别（四）/" class="article_tt">
+                HTTP协议之用户识别（四）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-03-15 20:47:10 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>HTTP协议是无状态的，这意味着每次的请求/响应都是独立进行的，也就是说服务器无法区分两次请求是否来自同一个用户（客户端）。但是在Web网页和应用中，服务器可能同时与多个客户端进行对话，<br>，因此区分用户身份信息是很有必要的。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/03/15/HTTP协议之用户识别（四）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/03/11/HTTP协议之缓存（三）/" class="article_tt">
+                HTTP协议之缓存（三）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-03-11 12:06:08 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>广义上的缓存不仅仅是Web缓存，还包括了像数据库缓存，服务端缓存，浏览器缓存，应用缓存等。我对于缓存的理解是，一份资源或数据，在他不改变的情况下，只有第一次的传输时有意义的。如果需要重新计算或发送一份完全相同的资源，会造成很大的浪费。这里要谈到的Web缓存指的是HTTP协议中规定的对请求资源的备份和缓存。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/03/11/HTTP协议之缓存（三）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/03/04/HTTP协议之报文（二）/" class="article_tt">
+                HTTP协议之报文（二）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-03-04 20:05:56 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>有一个经典的问题：在浏览器地址栏输入地址，然后回车，最后看见页面这个过程到底发生了什么？这个过程，用书面语来讲就是一个完整的<strong>浏览器事务</strong>。一个事务由一条请求命令（浏览器发往服务器）和一条响应结果（服务器发往浏览器）组成，而这种通信是通过<strong>HTTP报文</strong>进行的。学习HTTP，最基本的目标就是需要看懂HTTP报文。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/03/04/HTTP协议之报文（二）/#more" class="hover-highlight">阅读全文
+            </a>
+        </div>
+    </article>
+
+    <article class="article">
+        <h2 class="article_hd">
+            <a href="/2017/02/27/HTTP协议之资源（一）/" class="article_tt">
+                HTTP协议之资源（一）
+            </a>
+        </h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>2017-02-27 14:05:47 |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-tag"></i>
+            </span>
+            
+            <a href="/categories/计算机基础/" class="hover-highlight">计算机基础</a>
+            
+        </div>
+        <div class="article_ct">
+            <p>Web资源是Web服务的基础，我们上网，归根到底就是为了获取资源；而整个互联网，就是为了将资源从一个地方传递到另一个地方。这里整理了资源类型，资源路径和动态资源网关这三个部分知识。</p>
+        </div>
+        <div class="article_ft">
+                
+            <a href="/2017/02/27/HTTP协议之资源（一）/#more" class="hover-highlight">阅读全文
             </a>
         </div>
     </article>
 
 
 <div class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next</a>
+    <a class="extend prev" rel="prev" href="/page/5/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next</a>
 </div>
         </div>
     </main>

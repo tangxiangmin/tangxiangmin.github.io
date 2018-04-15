@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">《网络是怎样连接的》读书笔记</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2018/2/23 21:57:46</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/计算机基础" class="hover-highlight">计算机基础</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>在春运的路上把《网络是怎样连接的》这本书基本看完了，这本书从<strong>在地址栏输入URL到看到网页</strong>这个问题入手，详细地介绍了网络相关的知识，下面整理相关的读书笔记。</p>
+<a id="more"></a>
+<p>看了这本书，应该会了解下面的一些术语，有的可是天天见到的哦：</p>
+<ul>
+<li>URL</li>
+<li>IP地址与MAC地址</li>
+<li>端口号与套接字</li>
+<li>三次握手与四次挥手</li>
+<li>以太网ARP广播</li>
+<li>ADSL</li>
+<li>服务器</li>
+</ul>
+<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p>浏览器是一个具备多种客户端功能的综合性客户端软件，可以打开本地文件、FTP上传下载、访问web资源、发送电子邮件等，因此它需要一些东西来判断应该使用其中哪种功能来访问相应的数据，而各种不同的 URL 就是用来干这个的。</p>
+<p>我们这里主要需要了解的是浏览器使用HTTP协议访问Web服务器时的URL形式，这在之前学习HTTP时也有了解。一个常见的URL形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://shymean.com/static/test.png</div></pre></td></tr></table></figure>
+<p><strong>浏览器的第一步工作是解析URL</strong>，获取下列信息</p>
+<ul>
+<li>协议，这里是<code>http</code></li>
+<li>主机名，这里是<code>shymean.com</code></li>
+<li>文件路径名，这里是<code>/static/</code></li>
+<li>文件名，这里是<code>test.png</code></li>
+</ul>
+<p>有时候我们也会见到一些不太一样的路径名，需要注意下面几种特殊情形</p>
+<ul>
+<li>如果文件路径名后没有文件名，则默认访问对应路径下服务器预先设置好的默认文件名，一般像<code>index.html</code>、<code>index.htm</code>、<code>index.php</code>之类的</li>
+<li><code>www.shymean.com/</code>表示访问访问服务器根目录下的默认文件</li>
+<li>如果主机名后没有根文件路径，例如<code>www.shymean.com</code>，代表访问根目录下事先设置的默认文件（一般称为<strong>站点主页</strong>）</li>
+<li><code>/api/categories</code>这类的文件路径名，看起来不像是合法的文件（没有后缀名，虽然后缀名并不是文件必须的），一般按照下列惯例处理<ul>
+<li>如果存在<code>categories</code>文件，则直接访问该文件</li>
+<li>如果存在<code>categories</code>目录，则将其按照目录处理，并访问该目录下默认文件</li>
+</ul>
+</li>
+</ul>
+<p>在后台MVC框架中，实际上是通过单入口文件处理路由规则的。在早期Web服务器只是作为静态资源服务器，因此了解URL对应的映射规则是很有必要的</p>
+<h3 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h3><p>IP地址是一串32比特的数字，按照8比特一组分成4组，分别用10进制表示，然后圆点隔开。</p>
+<p>类似于邮寄地址的“XX号XX室”，IP包括网络号（对应”号“）和主机号（对应”室”），通过子网掩码的附加信息来分配网络号和主机号。子网掩码有下面两种形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 与IP地址主体相同的形式来标识子网掩码</div><div class="line">10.11.12.13/255.255.255.0</div><div class="line"># 网络号占据的比特数来表示子网掩码</div><div class="line">10.11.12.13/24</div><div class="line"># 上面表示IP地址中前24位表示网络号，后8位表示子网地址</div></pre></td></tr></table></figure>
+<p>主机号有两种特殊的形式</p>
+<ul>
+<li>全部为0，表示整个子网</li>
+<li>全部为1，向子网上所有设备发送包，表示广播</li>
+</ul>
+<h3 id="DNS服务器"><a href="#DNS服务器" class="headerlink" title="DNS服务器"></a>DNS服务器</h3><p>尽管浏览器能够解析URL并生成HTTP消息，但是将HTTP消息发送到网络中的功能是需要委托操作系统来完成的。</p>
+<p>这是因为除了浏览器，还有许多其他联网的应用程序，在设计上将联网的功能委托给操作系统是比较合理的做法。</p>
+<p>然而操作系统将HTTP消息发送到网络，需要的不是通过解析URL获取的域名，而是服务器域名对应的IP地址，域名方便用户记忆，而IP地址方便网络传输。</p>
+<p>通过IP地址就可以获得对象服务器的位置，从而将消息发送过去。查询目标域名对应的IP地址十分简单，只需要询问最近的DNS服务器即可。</p>
+<p><strong>查询过程</strong></p>
+<p>询问请求是由计算机上的DNS客户端（DNS解析器）发出的，解析器实际上是一段程序，包含在操作系统的socket库中。</p>
+<p>调用解析器，解析器会向DNS服务器发送查询消息，然后DNS服务器会进行查询操作</p>
+<ul>
+<li>如果访问的web服务器已经在DNS服务器上注册，那么该记录就能被找到（一般购买服务器和域名后需要将域名解析到目标服务器上，这个过程实际上就是在DNS服务器上注册）</li>
+<li>互联网中存在许多服务器，将全部的服务器信息保存在同一台DNS服务器上是不可能的，解决办法是将信息按照层次结构分布保存在多台服务器上，通过依次查询来获取对应的域名记录</li>
+<li>查询后的域名会缓存在DNS服务器上一段时间，加快IP查询的响应时间</li>
+</ul>
+<ul>
+<li>最后DNS服务器会向解析器返回对应域名的IP地址</li>
+</ul>
+<p>解析器取得该地址后，会将其写入浏览器指定的内存地址中，然后接下来浏览器再向web服务器发送消息时，只需要从该内存地址中取出IP，然后将它与HTTP消息一起交给操作系统就可以了。</p>
+<p><strong>DNS服务器的地址</strong></p>
+<p>DNS解析器实际上也是委托操作系统向DNS服务器发送请求，因此也需要知道DNS服务器的IP地址，不过这个一般作为设置项目预先内置的。不同的操作系统提供了修改DNS服务器地址的方法，在windows下也可以通过修改host文件来直接指定域名的IP地址</p>
+<h3 id="协议栈概览"><a href="#协议栈概览" class="headerlink" title="协议栈概览"></a>协议栈概览</h3><p>向操作系统内部的协议栈发出委托时，需要按照指定顺序来调用socket库中的程序组件，收发数据的操作分为若干阶段：</p>
+<ul>
+<li>创建套接字，创建完毕后协议栈会返回一个描述符，应用程序通过这个描述符来识别自己的套接字</li>
+<li>将管道连接到服务器端的套接字上，连接操作需要指定<strong>描述符</strong>、<strong>服务器IP地址</strong>和<strong>端口号</strong>这三个参数</li>
+<li>收发数据<ul>
+<li>应用程序在内存中准备好需要发送的数据，指定描述符和数据，然后委托协议栈将数据发送到服务器，描述符可以识别对应的套接字，套接字中包含了目标服务器的相关信息，数据就会通过网络发送到目标服务器</li>
+<li>服务器执行接收操作，解析数据内容，执行相关操作，向客户端返回响应消息</li>
+<li>协议栈将接收到的响应消息存放在接收缓冲区中，由于接收缓冲区是一块位于应用程序内部的内存空间，相当于将响应数据转交给了应用程序</li>
+</ul>
+</li>
+<li>断开管道并删除套接字</li>
+</ul>
+<p>这里需要注意的是，套接字描述符和端口号的区别</p>
+<ul>
+<li>描述符是应用程序用来识别套接字的机制</li>
+</ul>
+<ul>
+<li>端口号是客户端和服务端之间用来识别对方套接字的机制<ul>
+<li>服务器上所使用的端口号是根据应用的种类事先规定好的，比如web端口号是80，电子邮件是25</li>
+<li>客户端的端口号在创建套接字时由协议栈分配的，进行连接操作时会将客户端的端口号告诉服务端</li>
+</ul>
+</li>
+</ul>
+<h2 id="协议栈和网卡"><a href="#协议栈和网卡" class="headerlink" title="协议栈和网卡"></a>协议栈和网卡</h2><p>第一章提到浏览器需要委托操作系统发送HTTP消息，这一章主要介绍操作系统中的网络控制软件（西协议栈）和网络硬件（网卡）的工作流程</p>
+<p>协议栈内部分为了不同的层次，分别承担不同的功能，上层会向下层逐层委派工作</p>
+<h3 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h3><p>在协议栈内部有一块用于存放控制信息的内存空间，这里记录了用于控制通信操作的控制信息，比如通信对象的IP地址、端口号、通信操作的进行状态等，这些控制信息就是套接字的实体。</p>
+<p>协议栈在执行操作时需要查阅对应套接字的信息，换句话说，<strong>协议栈是根据套接字中记录的控制信息来工作的</strong>。这里提到的控制信息包括</p>
+<ul>
+<li>客户端和服务器互相联络时交换的控制信息，这些控制信息位于网络包的开头，因此被称为头部</li>
+<li>保存在套接字中，用来控制协议栈操作的信息</li>
+</ul>
+<p>创建套接字时，首先分配一个套接字所需的内存空间，然后向其中写入初始状态。接下来需要将表示这个套接字的描述符告知应用程序，此后应用程序在向协议栈进行收发数据委托时就需要提供这个描述符。</p>
+<h3 id="连接服务器-三次握手"><a href="#连接服务器-三次握手" class="headerlink" title="连接服务器-三次握手"></a>连接服务器-三次握手</h3><p>所谓的连接，并不是网线的物理连接，而是<strong>通信双方交换控制信息，并在套接字中记录这些必要信息并准备数据收发的一连串操作</strong>，比如</p>
+<ul>
+<li>客户端将IP地址和端口号告知服务器</li>
+<li>需要一块用来临时存放收发数据的内存空间（被称为缓冲区）</li>
+</ul>
+<p>TCP连接操作的大致流程如下</p>
+<ul>
+<li>第一步是在TCP模块创建表示控制信息的头部，<ul>
+<li>设置发送方和接收方的端口号和SYN比特，通过头部中发送方和接收方的端口号可以找到要连接的套接字</li>
+<li>然后客户端的TCP模块委托IP模块发送包含TCP头部的网络包，</li>
+</ul>
+</li>
+<li>服务器的TCP模块会根据这个网络包的TCP头部信息找到需要连接的服务器套接字信息，并写入相关信息，修改为正在连接状态然后服务器的TCP模块会返回响应<ul>
+<li>这个过程与客户端一样，创建控制信息的头部。</li>
+<li>此外在返回响应时还需要将ACK控制位设置为1，表示通信确认。</li>
+<li>然后服务器的TCP模块委托其IP模块发送响应数据包</li>
+</ul>
+</li>
+<li>客户端的TCP模块通过响应数据包的TCP头部信息确认连接服务器的操作是否成功，如果SYN为1则表示成功，此时会向客户端的套接字中写入服务器的IP地址、端口号等信息</li>
+<li>最后，客户端需要将ACK比特设置为1然后发回服务器，告知服务器刚才的响应包已经收到</li>
+</ul>
+<p>可以看见，上面一共进行了三次数据包的发送（客户端两次，服务器一次），因此被称为<strong>三次握手</strong>。</p>
+<p>连接成功后，就可以随时进行数据的收发操作了</p>
+<h3 id="收发数据"><a href="#收发数据" class="headerlink" title="收发数据"></a>收发数据</h3><p>协议栈并不关心数据的具体内容，在他看来，数据不过就是一定长度的二进制字节序列而已。</p>
+<p><strong>何时发送数据</strong></p>
+<p>协议栈并不是一收到数据就发送出去，而是将数据放在内部的发送缓冲区，何时发送数据由两个因素</p>
+<ul>
+<li>判断每个网络包能容纳的数据长度，当从应用程序接收到的数据长度超过<strong>MSS</strong>（一个网络包所能包含的最大数据长度）时再发送出去，这样可以避免发送大量小数据包的情形出现</li>
+<li>判断时间，协议栈内部有一个计时器，每隔一段时间就会把网络包发送出去，这样可以避免数据包小而导致的长时间发送延迟</li>
+<li>需要在上面两个因素间找到一个平衡点，此外也可以由应用程序控制何时发送数据包</li>
+</ul>
+<p><strong>对大数据包进行拆分</strong></p>
+<p>如果数据量超过了MSS，TCP模块就需要将其拆分成多个数据包（每个数据包前都包含头部信息）。</p>
+<p>其过程是：先算好每一块数据相当于从头开始的第几个字节，并写入”序号“这个头部字段中。序号可以用来检测是否有包遗漏，如果确认没有遗漏，则接收方会将已接收到的数据长度加起来，然后将这个长度写入响应数据包TCP头部的ACK号发送给对方。</p>
+<p>这个操作被称为<strong>确认响应</strong>，发送方可以通过这样的方式确认接收方已收到了多少数据，如果没有返回某些包的ACK号，则发送方会重新发送这些网络包。</p>
+<p><strong>使用窗口号管理ACK号</strong></p>
+<p>为了避免某个包丢失导致后面的包全部重新发送，最简单的方式就是发送方每发送一个包，就等待ACK号的返回（如果正常则发送下一个包，如果不正常或超时，则重新发送这个包）。</p>
+<p>这样的问题在于等待ACK号的这段时间太浪费了，TCP采用滑动窗口算法来管理发送和ACK号的操作，即在发送一个包后，不等待ACK返回而是直接发送。</p>
+<p>需要注意的是，发送包的频率可能超过接收方的处理能力，导致接收缓冲区溢出，后面接收的包被丢弃。</p>
+<p>因此，接收方需要告诉发送方自己最多能接收多少数据（被称为<strong>窗口大小</strong>），然后发送方根据这个值对数据发送进行控制</p>
+<ul>
+<li>每次发送时会计算接收方窗口大小减去当前发送包的大小，并保留剩余可接收的容量</li>
+<li>当剩余容量为0是停止发送，知道接收方返回响应重新更新窗口大小</li>
+</ul>
+<p>这就是滑动窗口的基本思路。要提高发送数据的效率，还需要考虑返回ACK号和更新窗口的时机</p>
+<ul>
+<li>更新窗口应该是接收方从缓冲区取出数据传递给应用程序的时候，此时会释放接收缓冲区</li>
+<li>只要确认数据没问题，就应该更新ACK号</li>
+</ul>
+<p>但是如果将更新窗口和ACK使用独立的两个包发送，会降低传送效率，因此接收方在发送ACK号和窗口更新时，并不会马上把包发送出去，而是等待一段时间的通知，这样就有可能将两条消息合并在一个包发送出去了，可以有效减少包的数量。</p>
+<p><strong>还原数据</strong></p>
+<p>接收方协议栈会检查收到的数据块和TCP头部，判断数据是否有丢失，如果没问题则返回ACK号，然后协议栈会将数据块暂存到数据缓冲区，并按顺序将数据块还原出原始的数据，接着将数据复制到应用程序指定的内存空间，最后将控制流程转回给应用程序。</p>
+<h3 id="断开连接"><a href="#断开连接" class="headerlink" title="断开连接"></a>断开连接</h3><p>在数据收发完成以后，就可以选择断开连接了。完成数据的发送的一方会断开过程，这里以服务器举例：</p>
+<ul>
+<li>首先，服务器协议栈会生成包含断开信息的TCP头部（即将FIN比特设为1），接着委托IP模块发送，同时，服务器的套接字会记录断开操作的相关信息</li>
+<li>客户端协议栈收到FIN为1的TCP头部时，会将客户端自己的套接字标记为进入断开的状态，同时向服务器发送一个ACK号表示确认收到服务器的断开操作</li>
+<li>过了一会应用程序读取了全部的数据之后，客户端协议栈也会与服务器协议栈一样，生成一个包含断开信息FIN为1的包，委托IP模块发送给服务器</li>
+<li>服务器最后会返回包含ACK号的确认包，最后会删除对应的套接字</li>
+</ul>
+<p>可以看见断开连接一共需要发送4个数据包（服务器两个，客户端两个），因此被称为<strong>四次挥手</strong>。</p>
+<h3 id="网卡"><a href="#网卡" class="headerlink" title="网卡"></a>网卡</h3><p>上面提到，不论是建立联结还是收发数据时，TCP模块都是委托IP    模块将数据封装成网络包发送给通信对象的。来看一看TCP/IP包的传输流程</p>
+<ul>
+<li>首先，发送方的网络设备负责创建包，创建包的过程就是生成含有正确信息的头部，然后再附加上要发送的数据。TCP/IP包包含如下两个头部<ul>
+<li>MAC头部，用于以太网协议，包含通过以太网的局域网将包传输至<strong>最近的路由器</strong>所需的控制信息</li>
+<li>IP头部，用于IP协议，包含将包发往<strong>目的地址</strong>所需的控制信息</li>
+</ul>
+</li>
+<li>然后包被交付给网络硬件（网卡）并发往最近的网络转发设备，转发设备根据头部信息和一张”表“判断包接下来应该发往哪个地方。<ul>
+<li>由于IP头部包含目标服务器的IP地址，IP协议可以根据这一地址来查找包的传输方向，从而确定下一个路由器的位置</li>
+<li>然后IP协议会查找下一个路由器的以太网地址（MAC地址），并将这个地址写入MAC头部</li>
+<li>以太网协议根据MAC头部的地址，然后将包发送到下一个路由器上</li>
+<li>然后重复查找接下来的路由器，修改MAC头部信息，然后委托以太网协议发送包，最后到达目标设备</li>
+<li>从上面这个过程可以看见，在传输过程中，IP头部是不会变化的，而MAC头部的信息会随着到达的路由器而改变</li>
+</ul>
+</li>
+</ul>
+<p>在发送过程中，网卡负责将数字信号转换成电信号或光信号，然后通过网线、光纤发送出去，然后这些信号到达集线器、路由器等设备，一步一步转发出去。</p>
+<p>在接收过程中，网卡负责将接收到的电信号或光信号转换为数字信号，并传递给IP模块。</p>
+<p><strong>以太网</strong></p>
+<p>以太网是一种为多台计算机能够彼此自由和廉价地相互通信而设计的 通信技术，具备3个基本性质</p>
+<ul>
+<li>将包发送到 MAC 头部的接收方 MAC 地址代表的目的地</li>
+<li>用发送方 MAC 地址识别发送方</li>
+<li>用以太类型识别包的内容</li>
+</ul>
+<p><strong>IP头部</strong></p>
+<p>IP 头部的“接收方 IP 地址”填写通信对象的 IP 地址。 </p>
+<p>发送方 IP 地址需要判断发送所使用的网卡，并填写该网卡的 IP 地址。</p>
+<p><strong>MAC头部</strong></p>
+<p>MAC地址是网卡生产时写入ROM里的，具有全球唯一性。网卡中保存的MAC地址会由网卡驱动程序读取并分配给MAC模块。</p>
+<p>发送方的MAC地址比较简单，只需要读取网卡中的MAC地址并将它写入MAC头部即可。</p>
+<p>接收方的MAC地址比较麻烦，需要执行根据IP地址查询MAC地址的操作。采用的是以太网中的ARP（<strong>广播</strong>）技术，即将包发给连接在同一以太网中的所有设备，然后询问某个IP地址所属设备的MAC地址，获得的MAC地址后，将其写入MAC头部的接收方MAC地址。一般会进行ARP缓存加快查询操作。</p>
+<p><strong>数字信号与电信号</strong></p>
+<p>用电信号来表达数字信息时，需要让 0 和 1 两种比特分别对应特 定的电压和电流。通过电信号来读取数据的过程就是将这种对应关系颠倒过来。</p>
+<p>网卡的 MAC 模块生成通用信号，然后由 PHY（MAU）模块转换 成可在网线中传输的格式，并通过网线发送出去。</p>
+<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><p>上面讨论的都是TCP协议来收发数据的过程，这也是HTTP协议所采用的形式，因为TCP协议保证数据的可靠性。</p>
+<p>不过，在某种情况下，即便没有 TCP 这样复杂的机制，我们也能够高 效地重发数据，这种情况就是数据很短，用一个包就能装得下。</p>
+<p>如果只有 一个包，就不用考虑哪个包未送达了，因为全部重发也只不过是重发一个 包而已，这种情况下我们就不需要 TCP 这样复杂的机制了，反之UDP更加更合。</p>
+<p>比如DNS服务器查询、音视频数据都采用UDP传输。</p>
+<h2 id="集线器、交换机、路由器"><a href="#集线器、交换机、路由器" class="headerlink" title="集线器、交换机、路由器"></a>集线器、交换机、路由器</h2><p>从计算机出来的网络包会经过集线器、交换机和路由器等设备被转发，最终到达目的地</p>
+<h3 id="集线器"><a href="#集线器" class="headerlink" title="集线器"></a>集线器</h3><p>信号到达集线器时并不是跟刚发送出去的时候一模一样，</p>
+<ul>
+<li>在网线的传输过程中，能量会逐渐损失，信号也会衰减，可能还会造成波形的变化</li>
+<li>信号会发生失真，加上噪声的影响，失真就会更厉害</li>
+</ul>
+<p>为了解决这个问题，局域网网线使用的是<strong>双绞线</strong>，即以两根信号线为一组缠绕在一起，这是为了抑制噪声，其原理是</p>
+<ul>
+<li>两根双绞线成螺旋线缠绕，其中产生的噪声电流方向就会相反，从而使得噪声电流相互抵消</li>
+<li>每一根双绞线的扭绞间隔（节距）都有一定的差异，这使得在某些地方正信号线距离近，另一些地方则是负信号线距离近。由于正负信号线产生的噪声影响是相反的，所以两者就会相互抵消</li>
+</ul>
+<p>集线器就是以太网架构的忠实体现，当信号到达集线器后，就会被广播到整个网络，准确来讲是集线器将信号发送给所有连接在它上面的线路设备，这些设备接收到信号后会判断信号是否是发送给自己的，</p>
+<p>接着指定MAC地址的集线器会继续传播信号。</p>
+<h3 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h3><p>交换机的设计是将网络包原样转发到目的地。</p>
+<p>交换机的一个端口就相当于一张网卡，但是交换机的端口不核对接收方的MAC地址，而是直接接收所有的包并放到缓冲区中，因此交换机端口不具备也不需要具备MAC地址。</p>
+<p>接下来交换机会查询内部的MAC地址表，然后根据包的接收方MAC地址获取交换机的输出端口，然后将信号发送到对应端口。</p>
+<p>可以看见，交换机只是将包转发到具有特定MAC地址的设备连接的端口。</p>
+<h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><p>路由器在转发包时，</p>
+<ul>
+<li>首先通过端口将发来的包接收进来<ul>
+<li>完成包接收后就会丢弃包开头的MAC头部（因为这个MAC头部包含的就是当前路由器端口的MAC地址）</li>
+</ul>
+</li>
+<li>然后转发模块会根据接受到的包的IP头部中记录的接收方IP地址，在路由表进行查询，以此判断转发目标<ul>
+<li>根据IP表，使用目标IP地址和子网掩码来匹配记录并确定路由器的输出端口，以及下一个路由器的IP地址</li>
+<li>如果匹配不到，则会导向默认路由（子网掩码为0），或直接丢弃该网络包；</li>
+</ul>
+</li>
+<li>最后转发模块将包转移至转发目标对应的端口，端口再按照硬件的规则将包发送出去。<ul>
+<li>如果路由表的网关列内容为IP地址，则该地址就是下一个转发目标</li>
+<li>如果路由表的网关列内容为空，则IP头部中的接收方IP地址就是下一个转发目标</li>
+<li>确认转发目标的IP地址后，通过目标IP地址广播查询MAC地址，并将查询结果写入网络包的MAC头部</li>
+</ul>
+</li>
+</ul>
+<p><strong>查询路由表</strong></p>
+<p>路由器的端口是以实际的发送方和接收方来收发网络包的，因此路由器的每个端口都具有MAC地址和IP地址，只接受与自身地址匹配的包。</p>
+<p>路由器根据IP地址表来判断转发目标，实际上这里的IP地址只包含表示子网的网络号部分的比特值（这里就体现了子网掩码的作用，即表示在匹配网络包目标地址时需要对比的比特数量），而表示主机号部分的比特值全部为0（这与交换机不同，交换机会匹配完整的MAC地址），这样就可以将多条某个子网的IP导向同一个端口。</p>
+<p>有时候可能会匹配多条子网记录，此时路由器会寻找网络号比特位最长的（网络号越长，说明主机号越短，子网内可分配的主机越少，可以缩小目标范围），如果网络号比特位相等，则匹配跃点数最小的记录。</p>
+<p>有时地址本身的子网掩码和路由表 中的子网掩码是不一致的，这是<strong>路由聚合</strong>的结果。路由聚合会将几个子 网合并成一个子网，并在路由表中只产生一条记录。经过路由聚合，多个子网会被合并成一个子网，子网掩码会发生 变化，同时，目标地址列也会改成聚合后的地址。</p>
+<p><strong>路由器和交换机的关系</strong></p>
+<p>路由器和交换机的关系，实际上就是IP与以太网的关系，IP协议本身没有传输包的功能，因此包的实际传输要委托以太网进行。</p>
+<p>IP并不是委托以太网将包传输至最终目的地的，而是传输到下一个路由器，在创建MAC头部的时候，也是从IP的路由表中查找出下一个路由器的IP地址（并不会修改IP头部），然后通过IP地址广播查询出MAC地址，然后写入MAC头部即可。这一过程反复执行，最终将包传送至目的地。</p>
+<blockquote>
+<p> IP 本身不负责包的传输，而是委托各种通信技术将包传输到下一个路 由器，这样的设计是有重要意义的，即可以根据需要灵活运用各种通信技 术，这也是 IP 的最大特点。正是有了这一特点，我们才能够构建出互联网 这一规模巨大的网络。</p>
+</blockquote>
+<p>##接入网、网络运营商</p>
+<p>网络包通过交换机和路由器的转发一步步地接近他的目的地，在通过互联网接入路由器后，就进入了互联网。</p>
+<p>家庭、公司的局域网通过接入网与互联网相连，所谓接入网，就是指连接互联网与家庭、公司网络的通信线路，一般的家用接入网有ADSL（不对称数字用户线）、FTTH（光纤到户）、电话线等。</p>
+<p>互联网接入 路由器发送网络包的操作和以太网路由器有一点不同，互联网接入路由器 是按照<strong>接入网</strong>规则来发送包的。</p>
+<h3 id="ASDL"><a href="#ASDL" class="headerlink" title="ASDL"></a>ASDL</h3><p>以ASDL为例</p>
+<ul>
+<li>客户端网络包经过集线器和交换机到达互联网接入路由器，互联网接入路由器会在网络包前面加上MAC头部、PPoE头部、PPP头部（点到点协议），然后发送给ADSL Modem（调制解调器）<ul>
+<li>互联网接入路由器转发包时需要进行地址转换，公有地址被分配给路由器，而计算机被分配一个私有地址</li>
+</ul>
+</li>
+<li>调制解调器会把包拆分成很多小格子（信元），并转换成电信号发送给分离器<ul>
+<li>同样是将数字信息转换成模拟信号，以太网采用的是方形波，调制解调器采用的是正弦波对信号进行合成（这种技术被称为<strong>调制</strong>，这也是调制解调器的名称缘由）</li>
+<li>调制有多种实现方式，ASDL采用的是振幅调制和相位调制相结合的正交振幅调制方式</li>
+</ul>
+</li>
+<li>信号进入分离器后，与电话的语音信号混合在一起从电话线传输出去<ul>
+<li>分离的的作用在相反的方向，即负责将电话和ASDL的信号分离</li>
+</ul>
+</li>
+<li>接下来信号会通过电话电缆到达电话局，</li>
+<li>到达电话局后，经过配盘线、分离器到达DSLAM（数字用户线复用设备），然后被还原成数字信号（信元）<ul>
+<li>DSLAM是一种将相当于很多个 ADSL Modem 的功能集中在一个外壳里的设备</li>
+<li>DSLAM 具有 ATM 接口，和后方路由器收发数据时使用的是原 始网络包拆分后的 ATM 信元形式。</li>
+</ul>
+</li>
+<li>从DSLAM出来后的信元会到达BAS包转发设备（可以理解为一种进化型的路由器），BAS 负责将 ATM 信元还原成网络包并转发到互联网内部<ul>
+<li>互联网接入路由器通过PPPoE的发现机制查询BAS的MAC地址的</li>
+<li>BAS会将收到的包前面的 MAC 头部和 PPPoE 头部丢弃，取出 PPP 头部以及后面的数据。MAC 头部和 PPPoE 头部的作用只是将包送达 BAS 的接口</li>
+<li>然后BAS 会在包的前面 加上隧道专用头部 A，并发送到隧道的出口B</li>
+<li>然后，网络包会到达隧道出口的隧道专用路由器，在这里隧道 头部会被去掉，IP 包会被取出，并被转发到互联网内部</li>
+</ul>
+</li>
+</ul>
+<p>BAS 在收到用户路由器发送的网络包之后，会去掉 MAC 头部和 PPPoE 头部，然后用隧道机制将包发送给网络运营商的路由器。</p>
+<p><strong>拨号</strong></p>
+<p>ADSL和FTTH接入网中，都需要输入用户名和密码，登录之后才能访问互联网，BAS正是这个登录的窗口，并使用PPPoE方式来实现这个功能，PPPoE是PPP拨号上网的进阶版，而PPP无法直接用于ADSL和FTTH的，因为PPP缺少以太网报头和FCS等基本信息。在ADSL中的PPPoE认证的基本流程如下</p>
+<ul>
+<li>用户在计算机上输入用户名和密码，并根据用户名和密码生成PPP消息</li>
+<li>将PPP消息<strong>装入以太网包</strong>进行发送</li>
+<li>将以太网帮拆分成ATM信元并通过调制解调器调制后，通过电话线发送</li>
+<li>电话局DSLAM接收信号后将其还原成信元，发送给BAS</li>
+<li>BAS接收信元并还原成以太网包，取出PPP消息交给认证模块</li>
+<li>将用户名和密码发送给认证服务器，服务器校验用户身份</li>
+</ul>
+<p>在FTTH中，唯一的区别在于信元的传送方式，以光信号取代电信号进行传播。</p>
+<p>认证完成后，BAS下发的TCP/IP参数会被配置到互联网接入路由器的BAS端的端口上，这样路由器就完成接入互联网的准备了。</p>
+<h3 id="网络运营商内部"><a href="#网络运营商内部" class="headerlink" title="网络运营商内部"></a>网络运营商内部</h3><p>互联网的实体并不是由一个组织运营管理的单一网络，而是由多个运营商网络相互连接组成的。</p>
+<p>网络包通过接入网之后，到达运营商 POP 的路由器，中的这个样子。POP 中包括各 种类型的路由器，路由器的基本工作方式是相同的，但根据其角色分成了 不同的类型，比如专线、RAS、BAS、ATM交换机等。</p>
+<p>NOC（网络运行中心）是运营商的核心设备，从POP传来的网络包都会集中到这里，并从这里被转发到离亩的地更近的POP或者其他运营商</p>
+<p>总之，对于互联网内部的路由器来说，无论最终目的地是否属于同一 家运营商，都可以从路由表中查到，因此只要一次接一次按照路由表中的目标地址来转发包，最终一定可以到达 Web 服务器所在的 POP。</p>
+<h2 id="web服务器"><a href="#web服务器" class="headerlink" title="web服务器"></a>web服务器</h2><p>网络包从互联网到达服务器的过程，根据服务器部署地点的不同而不 同。</p>
+<ul>
+<li>直接部署在公司网络，然后通过互联网直接访问。这种方式由于IP地址的不足及安全问题，已经不再是主流方式</li>
+<li>部署网络运营商管理的数据中心，数据中心直接与NOC相连，访问速度高。另外数据中心还提供安全保障和附加功能，比如防火墙、运维、非法入侵监控等</li>
+</ul>
+<p>防火墙的基本思路是：只允许发往特定服务器中的特定应用程序的包通过，然后屏蔽其他的包，几个基本操作包括</p>
+<ul>
+<li>设定防火墙的过滤规则</li>
+<li>通过端口号限定应用程序</li>
+<li>通过控制位判断连接方向</li>
+<li>从内网访问公开区域的规则以及从外部访问内网的权限</li>
+</ul>
+<p><strong>负载均衡</strong></p>
+<p>当服务器访问量上升时，除了增加服务器线路宽度，还可以使用多台服务器来分担负载，这种架构被称为分布式架构。其问题在于如何分配访问，这是通过<strong>负载均衡器</strong>实现的。</p>
+<p>负载均衡器的IP地址带起Web服务器的实际地址注册到DNS服务器上，然后由负载均衡器来判断将请求转发给哪台Web服务器。此外还需要判断多个请求之间的相关性（避免多台服务器之间的状态信息丢失），可以采用添加额外的表单信息，或者扩展HTTP头部的方式来实现跨服务器保持用户会话信息</p>
+<p><strong>缓存</strong></p>
+<p>除了使用多台功能相同的 Web 服务器分担负载之外，还有另外一种方 法，就是将整个系统按功能分成不同的服务器 B，如 Web 服务器、数据库服 务器。</p>
+<p>缓存服务器就是一种按功能来分担负载的方法。当进行中转时，缓存服务器代理将web服务器返回的数据保存在磁盘中，并可以代替Web服务器将磁盘中的数据返回给客户端。</p>
+<p><strong>代理</strong></p>
+<p>平常在开发中经常还是用正向代理测试，在NodeJS开发中经常使用nginx反向代理~</p>
+<p>这一小节没怎么理解，来日回头再看。</p>
+<h2 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h2><h3 id="服务器概览"><a href="#服务器概览" class="headerlink" title="服务器概览"></a>服务器概览</h3><p>在连接过程中，客户端发起连接操作，而服务器则等待连接操作。</p>
+<p>服务器的程序可以同时和多台客户端计算机进行通信，但一个程序处理多个客户端的请求比较困难（因为必须把握每一个客户端的操作状态），因此一般的做法是每有一个客户端连接进来，就启动一个新的服务器程序</p>
+<ul>
+<li>服务器程序包含两个模块，等待连接模块和负责与客户端通信的模块</li>
+<li>服务器启动后完成初始化操作，运行等待模块，创建套接字，等待客户端的连接</li>
+<li>当接收到客户端连接时，等待模块会恢复运行并接收连接，然后启动服务器的客户端通信模块，并移交完成连接的套接字</li>
+<li>每次有新的客户端发起连接，都会启动一个新的客户端通信模块（这个过程需要消耗服务器性能），因此通信模块与客户端是一对一的关系</li>
+</ul>
+<p>从上面的过程也可以看出服务器调用Socket的方式</p>
+<ul>
+<li>创建套接字</li>
+<li>将套接字设置为等待连接状态<ul>
+<li>如果接收到来自客户端的连接，则协议栈会给等待连接的套接字复制一个副本，然后将连接对象等控制信息写入新的套接字，然后通过这个新的套接字与客户端连接在一起</li>
+<li>之后的数据首发操作都有这个新的套接字负责，而原本等待的套接字会继续以等待连接的状态存在，当有新的客户端连接时，就会继续重复复制操作，生成一个新的套接字与客户端进行连接</li>
+</ul>
+</li>
+<li>收发数据</li>
+<li>断开连接</li>
+</ul>
+<p>上面有个需要注意的地方，创建新套接字时端口号也是一个关键点，端口号是用来识别套接字的，但是新创建的套接字需要与原本等待的套接字具有相同的端口号（客户端只知道等待连接的那个套接字的端口号，比如HTTP的80端口号），否则客户端无法判断数据包到底是要连接的那个对象返回的，还是其他程序返回的。</p>
+<p>但是随之而来的另一个问题是，端口号是用来是被套接字的，如果一个端口号对应多个套接字，就无法通过端口号来定位到某一个套接字了，这个问题的解决办法是通过服务器端套接字的端口号、服务器IP、客户端端口号和客户端IP地址这4个信息统一判断</p>
+<ul>
+<li>同一个客户端的套接字都是对应不同端口号的，因此可以使用客户端的端口号来确定服务器上的某个套接字（尽管服务器上可能存在多个端口相同的套接字，但是他们对应的客户端的端口号是不同的）</li>
+<li>需要注意，客户端端口号不同的限制只针对单个客户端，而对于多个客户端，还需要使用IP地址才能区分，因此需要上面这4个信息来进行判断</li>
+<li>在套接字刚好创建好的时候，还没有建立连接，这4个信息是不全的，因此为了表示一个套接字，还需要使用一个<strong>描述符</strong>来指代套接字</li>
+</ul>
+<h3 id="数据接收操作"><a href="#数据接收操作" class="headerlink" title="数据接收操作"></a>数据接收操作</h3><p>到达服务器的网络包实质是光信号或者电信号，服务器的网卡的 MAC 模块将网络包从信号还原为数字信息，校验 FCS 并存入缓冲区。</p>
+<p>网卡驱动会根据 MAC 头部判断协议类型，并将包交给相应的协 议栈。</p>
+<p>协议栈的 IP 模块会检查 IP 头部</p>
+<ul>
+<li>判断是不是发给自己的</li>
+<li>判断网络包是否经过分片</li>
+<li>将包转交给 TCP 模块或 UDP 模块</li>
+</ul>
+<p>这里假设是TCP的包，</p>
+<ul>
+<li>如果收到的是发起连接的包，则 TCP 模块会<ul>
+<li>确认 TCP 头 部的控制位 SYN</li>
+<li>检查接收方端口号</li>
+<li>为相应的等待连 接套接字复制一个新的副本</li>
+<li>记录发送方 IP 地址和端口号等 信息。</li>
+</ul>
+</li>
+<li>如果输收发数据阶段的包，TCP 模块会<ul>
+<li>根据收到的包的发送方 IP 地 址、发送方端口号、接收方 IP 地址、接收方端口号找到相对应 的套接字</li>
+<li>将数据块拼合起来并保存在接收缓冲区中</li>
+<li>向 客户端返回 ACK</li>
+</ul>
+</li>
+</ul>
+<h3 id="服务器的应用程序"><a href="#服务器的应用程序" class="headerlink" title="服务器的应用程序"></a>服务器的应用程序</h3><p>Web 服务器中，read 获取的数据内容是 HTTP 请求消息。 服务器程序会根据收到的请求消息中的内容进行相应的处理，并生成响应 消息，再通过 write 返回给客户端。</p>
+<p><strong>静态资源</strong></p>
+<p>比如一个获取静态资源的GET请求，服务器只需要从磁盘中读取文件，然后将其作为响应消息返回就可以了。</p>
+<p>Web 服务器公开的目录其实并不是磁盘上的实际目录（为了防止服务器目录暴露引发的安全隐患），而是虚拟目录，而 URI 中写的就是在这个虚拟目录结构下的路径名。因 此，当读取文件时，需要先查询虚拟目录与实际目录的对应关系，并将 URI 转换成实际的文件名后，才能读取文件并返回数据。</p>
+<p><strong>CGI程序</strong></p>
+<p>如果请求的不是一个文件，而是一个程序，服务器就会委托操作系统运行这个程序，然后将程序输出的数据返回给客户端。</p>
+<p>输出数据的内容由运行的程序生成的（一般会嵌入HTML文档中），Web服务器并不过问，也不会去修改。</p>
+<h3 id="浏览器接收消息"><a href="#浏览器接收消息" class="headerlink" title="浏览器接收消息"></a>浏览器接收消息</h3><p>Web服务器发送的相应消息会被分成多个包发送给客户端，然后客户端需要接收数据。其过程与服务器接收数据差不多（只是数据不同而已），通过网卡转换信号，然后交付给协议栈，协议栈再交付给TCP模块。</p>
+<p>这里需要注意的是浏览器如何显示内容</p>
+<ul>
+<li>要显示内容，首先要判断响应消息中的数据属于那种类型，这是根据HTTP报文头部的<code>Content-Type</code>来实现的</li>
+<li>然后根据数据类型调用用于显示内容的程序，将数据显示出来即可（大部分可由浏览器自己负责），这里包含了对于HTML文档的解析、样式渲染、JS执行等流程，又是另外一个很庞大的话题了</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这本书从浏览器地址栏输入地址开始，讲解了DNS查询，TCP连接，IP地址，MAC地址，网卡、集线器、交换机、路由器的工作流程，网络运营商，Web服务器和服务器响应的相关知识，对于整个网络有了更加全面的认识。</p>
+<p>当然，其中还有很多不太理解的地方，还需要深入学习才行。除此之外，还有一个收获就是看某些书，不能逐字逐句去阅读，而应该高屋建瓴，从整体到局部再到细节，这样有助于快速掌握。</p>
+<p>好好准备吧哈哈，为了更美好的明天~</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/读书笔记" class="article_tag">#读书笔记</a>
+        
+        <a href="/tags/网络" class="article_tag">#网络</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器"><span class="toc-number">1.</span> <span class="toc-text">浏览器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#URL"><span class="toc-number">1.1.</span> <span class="toc-text">URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IP地址"><span class="toc-number">1.2.</span> <span class="toc-text">IP地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS服务器"><span class="toc-number">1.3.</span> <span class="toc-text">DNS服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#协议栈概览"><span class="toc-number">1.4.</span> <span class="toc-text">协议栈概览</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协议栈和网卡"><span class="toc-number">2.</span> <span class="toc-text">协议栈和网卡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#套接字"><span class="toc-number">2.1.</span> <span class="toc-text">套接字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连接服务器-三次握手"><span class="toc-number">2.2.</span> <span class="toc-text">连接服务器-三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#收发数据"><span class="toc-number">2.3.</span> <span class="toc-text">收发数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#断开连接"><span class="toc-number">2.4.</span> <span class="toc-text">断开连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网卡"><span class="toc-number">2.5.</span> <span class="toc-text">网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP"><span class="toc-number">2.6.</span> <span class="toc-text">UDP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集线器、交换机、路由器"><span class="toc-number">3.</span> <span class="toc-text">集线器、交换机、路由器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#集线器"><span class="toc-number">3.1.</span> <span class="toc-text">集线器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交换机"><span class="toc-number">3.2.</span> <span class="toc-text">交换机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由器"><span class="toc-number">3.3.</span> <span class="toc-text">路由器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASDL"><span class="toc-number">3.4.</span> <span class="toc-text">ASDL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络运营商内部"><span class="toc-number">3.5.</span> <span class="toc-text">网络运营商内部</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web服务器"><span class="toc-number">4.</span> <span class="toc-text">web服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器响应"><span class="toc-number">5.</span> <span class="toc-text">服务器响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器概览"><span class="toc-number">5.1.</span> <span class="toc-text">服务器概览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据接收操作"><span class="toc-number">5.2.</span> <span class="toc-text">数据接收操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器的应用程序"><span class="toc-number">5.3.</span> <span class="toc-text">服务器的应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器接收消息"><span class="toc-number">5.4.</span> <span class="toc-text">浏览器接收消息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

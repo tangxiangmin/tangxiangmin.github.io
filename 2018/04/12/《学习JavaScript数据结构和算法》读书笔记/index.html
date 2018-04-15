@@ -37,8 +37,6 @@
             
             <a class="nav_item" href="/tags">标签</a>
             
-            <a class="nav_item" href="/test">Test</a>
-            
         </nav>
     </div>
 </header>
@@ -46,13 +44,13 @@
         <div class="container">
             <article class="article article-detail">
     <header class="text-center">
-        <h2 class="article_hd">Vue源码阅读笔记之响应式原理和渲染（二）</h2>
+        <h2 class="article_hd">《学习JavaScript数据结构和算法》读书笔记</h2>
         <div class="article_info">
             <span class="hide-sm">发表于</span>
             <span class="show-sm">
                 <i class="iconfont icon-archives"></i>
             </span>
-            <time>2017/12/10 22:55:42</time>
+            <time>2018/4/12 22:50:2</time>
             |
             <span class="hide-sm">分类于</span>
             <span class="show-sm"><i class="iconfont icon-tag"></i></span>
@@ -63,26 +61,18 @@
         </div>
     </header>
     <div class="article_ct">
-        <p>这是”Vue源码阅读笔记”系列第二篇文章。前一篇文章中我们提到<code>initState</code>中调用的<code>initData</code>方法，调用<code>observe(data)</code>完成了对数据的观察。</p>
-<p>在很早之前的<a href="/article/对象描述符与响应式数据">对象描述符与响应式数据</a>这篇文章中，对于<code>defineProperty</code>做了简单的整理，并实现了一个比较粗糙的响应式数据更新视图的例子。接下来让我们深入Vue的核心部分：响应式数据的工作原理。</p>
+        <p>数据结构和算法与编程语言关联并不是十分密切，但是之前看那本《数据结构和算法 - C语言描述》确实是有点头大。《学习JavaScript数据结构和算法》大概是16年的时候买的打折实体书看了一遍，最近在图灵社区上发现了第二版出售，于是入手了电子版，打算重新整理一下。</p>
 <a id="more"></a>
-<p>参考：</p>
-<ul>
-<li><a href="http://hcysun.me/2017/03/03/Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" target="_blank" rel="external">Vue源码学习</a></li>
-<li><a href="https://github.com/answershuto/learnVue" target="_blank" rel="external">https://github.com/answershuto/learnVue</a></li>
-</ul>
-<h2 id="响应式数据"><a href="#响应式数据" class="headerlink" title="响应式数据"></a>响应式数据</h2><p>接下来我们看看Vue中<code>initData</code>是如何实现的响应式数据的。</p>
-<p>同样对<code>initData</code>进行简化</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">initData</span> (<span class="params">vm: Component</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> data = vm.$options.data</div><div class="line">  <span class="comment">// 对数据进行代理</span></div><div class="line">  <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(data)</div><div class="line">  <span class="keyword">let</span> i = keys.length</div><div class="line">  <span class="keyword">while</span> (i--) &#123;</div><div class="line">    <span class="keyword">const</span> key = keys[i]</div><div class="line">    proxy(vm, <span class="string">`_data`</span>, key)</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 观察数据变化</span></div><div class="line">  observe(data, <span class="literal">true</span> <span class="comment">/* asRootData */</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="数据代理"><a href="#数据代理" class="headerlink" title="数据代理"></a>数据代理</h3><p>在Vue中，我们可以通过 <code>this.msg</code> 访问到 <code>this.$data.msg</code>，这是通过数据代理实现的，原理十分简单，即修改对应的getter和setter。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">proxy</span> (<span class="params">target: Object, sourceKey: string, key: string</span>) </span>&#123;</div><div class="line">  sharedPropertyDefinition.get = <span class="function"><span class="keyword">function</span> <span class="title">proxyGetter</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>[sourceKey][key]</div><div class="line">  &#125;</div><div class="line">  sharedPropertyDefinition.set = <span class="function"><span class="keyword">function</span> <span class="title">proxySetter</span> (<span class="params">val</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>[sourceKey][key] = val</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">Object</span>.defineProperty(target, key, sharedPropertyDefinition)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="响应式数据-1"><a href="#响应式数据-1" class="headerlink" title="响应式数据"></a>响应式数据</h3>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈是一种后进先出（LIFO）的有序集合。新元素都靠近栈顶</p>
+
     </div>
     <footer class="article_ft">
         
-        <a href="/tags/Vue" class="article_tag">#Vue</a>
+        <a href="/tags/读书笔记" class="article_tag">#读书笔记</a>
         
-        <a href="/tags/源码分析" class="article_tag">#源码分析</a>
+        <a href="/tags/数据结构" class="article_tag">#数据结构</a>
+        
+        <a href="/tags/算法" class="article_tag">#算法</a>
         
     </footer>
 
@@ -106,7 +96,7 @@
                 </li>
             </ul>
             <div class="tab_panel active" id="J_toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#响应式数据"><span class="toc-number">1.</span> <span class="toc-text">响应式数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据代理"><span class="toc-number">1.1.</span> <span class="toc-text">数据代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应式数据-1"><span class="toc-number">1.2.</span> <span class="toc-text">响应式数据</span></a></li></ol></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#栈"><span class="toc-number">1.</span> <span class="toc-text">栈</span></a></li></ol>
             </div>
             
             <div class="tab_panel " id="J_profile">

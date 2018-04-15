@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/fonts/iconfont.css">
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">-->
+    <link rel="stylesheet" href="//cdn.bootcss.com/fancybox/3.1.25/jquery.fancybox.min.css">
+    <script src="/js/require.js" data-main="/js/main"></script>
+</head>
+<body>
+<div id="blog" class="page page-theme-base" v-cloak>
+    <blog-header></blog-header>
+    <header class="page_hd" data-v-04342fbc="">
+    <div class="container header" data-v-04342fbc="">
+        <h1 class="logo" data-v-04342fbc="">
+            <a href="/" class="nuxt-link-exact-active nuxt-link-active" data-v-04342fbc="">橙红年代</a>
+        </h1>
+        <div class="show-md" data-v-04342fbc="">
+            <div class="btn-list" data-v-04342fbc="">
+                <div class="btn-icon" data-v-04342fbc="">
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                    <span class="btn-line" data-v-04342fbc=""></span>
+                </div>
+            </div>
+        </div>
+        <nav class="nav-responsive" data-v-04342fbc="">
+            
+            <a class="nav_item" href="/">首页</a>
+            
+            <a class="nav_item" href="/archives">归档</a>
+            
+            <a class="nav_item" href="/tags">标签</a>
+            
+        </nav>
+    </div>
+</header>
+    <main class="page_mn" >
+        <div class="container">
+            <article class="article article-detail">
+    <header class="text-center">
+        <h2 class="article_hd">一个web项目的总结</h2>
+        <div class="article_info">
+            <span class="hide-sm">发表于</span>
+            <span class="show-sm">
+                <i class="iconfont icon-archives"></i>
+            </span>
+            <time>2018/3/24 14:00:33</time>
+            |
+            <span class="hide-sm">分类于</span>
+            <span class="show-sm"><i class="iconfont icon-tag"></i></span>
+            
+                <a href="/categories/思考" class="hover-highlight">思考</a>
+            
+
+        </div>
+    </header>
+    <div class="article_ct">
+        <p>来公司快一年了，除了日常APP内webview活动页面开发之外，最主要的工作就是重构了公司的web项目，包括PC站、Wap端、微信公众号和小程序。</p>
+<p>除了前端开发工作之外，还负责后端路由和视图对接，以及一些业务功能的实现。现在回过头来整理一下整个项目，包括技术选型、开发环境搭建、项目分组等细节。</p>
+<a id="more"></a>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>重构有一个最重要的需求，即<strong>SEO优化</strong>。</p>
+<p>旧版本的PC站采用的是angularJS，Wap站采用的是weex打包构建的web端项目，均是通过JavaScript动态生成页面内容，进行SEO优化工作比较困难。</p>
+<p>由于公司的后台采用的是PHP，如果切换到Node然后使用SSR，维护成本比较高，因此决定采用原始的服务端渲染，后台框架使用Laravel。</p>
+<h2 id="数据接口"><a href="#数据接口" class="headerlink" title="数据接口"></a>数据接口</h2><p>服务端渲染带来的一个问题是：由于需要返回视图，早期的部分纯数据接口不能直接使用了。</p>
+<p>此外还需要添加一些来自于APP的新功能，如果重新写数据模型，需要花费大量时间精力，且后期需要维护两个地方（APP数据接口服务器和新的Web服务器）。</p>
+<p>为了保持三端数据、逻辑同步，重写模型和业务逻辑的成本实在是太高了（加上我本来是写前端的~）。</p>
+<p>这里的初期设计是：将web当做是跟iOS、Android客户端一样的一个新平台，统一请求后台接口服务器。</p>
+<h3 id="PHP进行客户端请求"><a href="#PHP进行客户端请求" class="headerlink" title="PHP进行客户端请求"></a>PHP进行客户端请求</h3><p>大体流程是通过请求接口服务器返回的数据，渲染对应模板，然后返回给浏览器。采用的网络请求库是<code>Guzzle</code>。</p>
+<p>由于接口很多，因此按照业务模块对接口进行分组，并命名为<code>XXXApiModel</code>此类形式，用于表示为网络接口模型。</p>
+<h3 id="网络请求效率"><a href="#网络请求效率" class="headerlink" title="网络请求效率"></a>网络请求效率</h3><p>在开发过程中遇见的一个问题是网络请求效率。由于每个页面需要展示多个数据模块，这意味着可能需要进行多次接口调用。</p>
+<p>然而<strong>Guzzle的默认网络请求是串行的*</strong>，这意味着页面打开时间是大于等于所有接口请求消耗时间总和的，这是一件完全不能容忍的事情。</p>
+<p>庆幸的是通过<code>Guzzle</code>提供了异步请求和Promise来实现并发请求。最后在项目中对Guzzle进行封装，实现了<strong>将某个控制器方法中的所有请求都进行并发处理</strong>的功能：</p>
+<ul>
+<li>请求由不同的模型生成，最后统一发送，这里可以使用单例实现。</li>
+<li>需要保证模型在控制器中的调用习惯（即同步代码），这是因为需要根据返回的数据处理部分业务逻辑，可以使用闭包和数据引用传递实现</li>
+</ul>
+<p>最终实现的效果类似于</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 请求api数据接口</span></div><div class="line">TestModel::getInstance()-&gt;test_1000_c($data[<span class="string">'data1'</span>]);</div><div class="line">TestModel::getInstance()-&gt;test_2000_c($data[<span class="string">'data2'</span>]);</div><div class="line"></div><div class="line"><span class="comment">// 发送并发请求</span></div><div class="line">TestModel::getInstance()-&gt;startAsync();</div></pre></td></tr></table></figure>
+<p>这在之前整理过一篇博文：<a href="/article/%E4%BD%BF%E7%94%A8Guzzle%E5%B9%B6%E5%8F%91%E8%AF%B7%E6%B1%82%E6%8E%A5%E5%8F%A3">使用Guzzle并发请求接口</a>。如果在Node中，直接使用<code>Promise.all</code>就可以了哈哈。</p>
+<h3 id="中转请求信息"><a href="#中转请求信息" class="headerlink" title="中转请求信息"></a>中转请求信息</h3><p>部分接口，除了依赖于参数传递之外，还需要获取原始的网络请求信息，如Cookie、自定义Header等。</p>
+<p>在项目中，通过Laravel的<code>Request</code>对象获取浏览器的请求信息，然后对Guzzle进行封装，在请求接口时带上对应的数据即可。</p>
+<h2 id="项目分组"><a href="#项目分组" class="headerlink" title="项目分组"></a>项目分组</h2><p>前面提到的数据接口，肯定是需要多个web平台（PC、Wap、小程序）共用的，在这一个大的web项目下，为了方便开发和后续维护，需要对这些平台进行分组。</p>
+<h3 id="路由分组"><a href="#路由分组" class="headerlink" title="路由分组"></a>路由分组</h3><p>在项目中，通过Laravel的路由分组，结合PHP的命名空间，对不同端的web项目路进行分组，包括</p>
+<ul>
+<li>PC站</li>
+<li>Wap端</li>
+<li>小程序</li>
+</ul>
+<p>比如下面是PC站的路由</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// pc.php</span></div><div class="line">$pcRoute = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// ... 定义路由</span></div><div class="line">&#125;</div><div class="line">Route::group([</div><div class="line">    <span class="string">"namespace"</span> =&gt; <span class="string">"Home"</span>,</div><div class="line">    <span class="string">"domain"</span>    =&gt; <span class="string">"www.xxx.la"</span></div><div class="line">], $pcRoute);</div></pre></td></tr></table></figure>
+<p>下面是Wap端的路由</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mobile.php</span></div><div class="line">$mobileRoute = <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// ... 定义路由</span></div><div class="line">&#125;</div><div class="line">Route::group([</div><div class="line">    <span class="string">"namespace"</span> =&gt; <span class="string">"Mobile"</span>,</div><div class="line">    <span class="string">"domain"</span>    =&gt; <span class="string">"m.xxx.la"</span></div><div class="line">], $mobileRoute);</div></pre></td></tr></table></figure>
+<p>在<code>RouteServiceProvider</code>中，引入对应的路由文件接口</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">mapApiRoutes</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    Route::middleware([<span class="string">'pc'</span>])</div><div class="line">        -&gt;namespace(<span class="keyword">$this</span>-&gt;namespace)</div><div class="line">        -&gt;group(base_path(<span class="string">'routes/api.php'</span>));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">mapMobileRoutes</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    Route::middleware(<span class="string">'mobile'</span>)</div><div class="line">        -&gt;namespace(<span class="keyword">$this</span>-&gt;namespace)</div><div class="line">        -&gt;group(base_path(<span class="string">'routes/mobile.php'</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另外对应的控制器命名空间，也按照不同的平台进行分组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- Pc</div><div class="line">- Mobile</div><div class="line">- Applet</div><div class="line">- Common</div></pre></td></tr></table></figure>
+<h3 id="公共代码"><a href="#公共代码" class="headerlink" title="公共代码"></a>公共代码</h3><p>在对项目进行分组后发现，多个项目之间有不少公共的代码，</p>
+<ul>
+<li>在后端第三方oAuth登录、获取验证码、购买接口等业务逻辑</li>
+<li>前端比如公共的样式、工具库函数等</li>
+</ul>
+<p>针对前后端的公共代码，处理方式也不尽相同</p>
+<ul>
+<li>后台的公共代码，通过PHP的继承，提取父类控制器，然后在不同平台的子类控制器进行重载</li>
+<li>前端的公共代码<ul>
+<li>样式表通过SCSS进行管理，拆分成多个样式单元，并在不同平台按需引入对应的公共样式模块（比如混合器、颜色变量等）</li>
+<li>公共脚本遵循JavaScript模块化，最后通过webpack打包。相关流程在下面的开发环境搭建再提</li>
+</ul>
+</li>
+</ul>
+<p>至于接口相关的代码，原本设计就是公共的<code>ApiModel</code>，因此肯定是最大程度上的共用。</p>
+<p>这里遇见的一个问题是：由于项目的渐进式开发的，先开发PC站，然后是Wap站，接着处理微信公众号，最后是微信小程序。因此公共模块的提取是边开发边进行的，这导致前期有一些不太合理的代码设计。</p>
+<p>比如Wap端和小程序的部分控制器功能基本相同，只是Wap端返回视图，而小程序返回JSON数据而已。这是接下来需要进行优化的地方，大概思路就是现在博客V0.4.0的样子，通过判断请求来源，在响应中间件中决定返回内容。</p>
+<p>不过由于各个平台的业务侧重不同，因此将Wap端和小程序的控制器放在一起并不是一个明智之选，分组还是很有必要的。</p>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><p>之前写过一段时间的Node，因此对于中间件这个概念并不陌生，Laravel中的中间件，尽管实现略有差异，但基本思想是相同的，即将业务逻辑进行分层。</p>
+<p>在项目中有不少使用中间件的地方，比如各个平台都有各自的名称中间件（如<code>pc</code>、<code>mobile</code>、<code>applet</code>），还有一些公共的中间件，比如判断登录状态进入个人中心的<code>personal</code>中间件。</p>
+<p>印象比较深刻的是web数据统计，由于业务需要统计用户的渠道来源，实现的原理是在分享链接后到特定渠道的id值，然后保存到session中，并关联对应的用户。</p>
+<p>在后续的迭代中，对这个功能做了很多扩展，之前将该功能封装在中间件中，在迭代的时候不用去修改对应的控制器方法，只需要专注特定的中间件即可，这对于代码维护还是很方便的。</p>
+<h2 id="前端开发环境"><a href="#前端开发环境" class="headerlink" title="前端开发环境"></a>前端开发环境</h2><p>整个项目，最开始决定使用的打包工具是webpack，但是在开发流程中遇见了下面两个问题</p>
+<h3 id="直接开发blade模板"><a href="#直接开发blade模板" class="headerlink" title="直接开发blade模板"></a>直接开发blade模板</h3><p>由于我还需要负责后端路由、控制器和视图，因此直接开发Laravel的blade视图模板，跳过了开发静态页面的步骤，</p>
+<ul>
+<li>单个站点的页面不多，但公共样式较多，因此所有页面共享一个样式表</li>
+<li>每个页面独立脚本文件</li>
+</ul>
+<p>公司的开发环境是windows，由于直接开发模板，因此使用WAMP搭建的PHP本地开发环境，这意味着没必要在因此<code>webpack-dev-server</code>搭建开发服务器，此外如<code>HtmlWebpackPlugin</code>、<code>ExtractTextPlugin</code>等插件也就不太适合了。</p>
+<p>事实上我之前也折腾过通过<code>HtmlWebpackPlugin</code>输出<code>blade</code>模板（详细记录在<a href="/article/一次失败的HTML模块化尝试">这里</a>），然后后来发现这个完全是瞎折腾，还是直接写PHP模板比较合适。</p>
+<p>因此最后的选择是：<strong>基于<code>gulp</code>进行环境搭建，使用<code>gulp-webpack</code>进行脚本打包，使用<code>gulp-sass</code>进行样式表打包</strong>。</p>
+<p>由于存在多个平台，因此使用<code>gulp-config.js</code>配置文件，设置设置<code>env</code>参数选择对应的开发模块（参数可设为<code>pc</code>，<code>mobile</code>），决定最终的输出目录。</p>
+<p>然后在对应的<code>gulpfile.js</code>文件中读取<code>gulp-config</code>.js配置文件，编写相关的任务即可，代码热更新使用的是<code>gulp-watch</code>插件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// gulp-config.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    env: <span class="string">"mobile"</span>, <span class="comment">// 用于切换工作环境</span></div><div class="line">    pc: &#123;</div><div class="line">        folder: <span class="string">"assets"</span>,</div><div class="line">        webpack: <span class="function"><span class="keyword">function</span> (<span class="params">PAGE_SCRIPT_PATH</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">                entry: &#123;</div><div class="line">                    <span class="comment">// common : PAGE_SCRIPT_PATH + "/common.js",</span></div><div class="line">                   	<span class="comment">// ... 其他页面</span></div><div class="line">                &#125;,</div><div class="line">                output: &#123;</div><div class="line">                    filename: <span class="string">"page/[name].js"</span></div><div class="line">                &#125;,</div><div class="line">                <span class="comment">// 其他webpack配置...</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    mobile: &#123;</div><div class="line">        folder: <span class="string">"mobile"</span>,</div><div class="line">        webpack: <span class="function"><span class="keyword">function</span> (<span class="params">PAGE_SCRIPT_PATH</span>) </span>&#123;</div><div class="line">        	<span class="comment">// 移动端webpack配置</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>小程序的前端开发使用了<code>wepy</code>框架，因此直接使用<code>wepy</code>集成好的开发环境（只是将默认less修改为了scss），因此位于另外一个独立分支上面。</p>
+<h3 id="位于CDN上面的依赖库"><a href="#位于CDN上面的依赖库" class="headerlink" title="位于CDN上面的依赖库"></a>位于CDN上面的依赖库</h3><p>在开发中，大部分JavaScript依赖库都保存在CDN上面，如何统一管理这些CDN依赖也是一个比较重要的问题。如果在每个页面上都手动引入库文件，然后配置webpack的<code>externals</code>，最后在文件中引入依赖，则后期很难进行维护。</p>
+<p>关于webpack与CDN的问题，之前也整理过一篇<a href="/article/webpack折腾记（三）">文章</a>。大体思路是通过模块加载器加载cdn依赖库，然后再通过webpack进行打包。</p>
+<p>在项目中使用的是<code>SystemJS</code>加载cdn模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// base.js</span></div><div class="line"><span class="keyword">let</span> SystemJS = <span class="built_in">require</span>(<span class="string">"SystemJS"</span>);</div><div class="line">SystemJS.config(&#123;</div><div class="line">    map: &#123;</div><div class="line">        jquery: cdn(<span class="string">'jquery/jquery-3.2.1.min.js'</span>),</div><div class="line">        layer: cdn(<span class="string">'layer/layer.js'</span>), <span class="comment">// layer弹窗</span></div><div class="line">        swiper: cdn(<span class="string">'swiper/swiper.min.js'</span>), <span class="comment">// 轮播图swiper</span></div><div class="line">        swiper: cdn(<span class="string">'vue/vue.min.js'</span>), <span class="comment">// vue</span></div><div class="line">        <span class="comment">// 其他</span></div><div class="line">    &#125;,</div><div class="line">    depCache: &#123;</div><div class="line">        layer: [<span class="string">'jquery'</span>],</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><code>base.js</code>是所有页面公共的依赖脚本，每个页面还具有自己的独立页面脚本，负责当前页面的业务逻辑，手动引入也比较麻烦，因此写了一个加载器，根据<code>localtion.href</code>判断当前页面，然后自动引入对应脚本</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// base.js</span></div><div class="line"><span class="keyword">let</span> pageMap = &#123;</div><div class="line">	<span class="comment">// 这里配置当前页面对应的脚本路径，实际上是gulp-webpack输出的脚本文件</span></div><div class="line">	<span class="comment">// 这里的实现不太合理，后续可能会重构</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> page = (<span class="function"><span class="keyword">function</span> (<span class="params">pageMap</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> path = location.pathname,</div><div class="line">        page = pageMap[path];</div><div class="line">	<span class="comment">// ... 路由正则检测</span></div><div class="line">    <span class="keyword">return</span> page;</div><div class="line">&#125;)(pageMap);</div><div class="line"></div><div class="line">page &amp;&amp; <span class="built_in">Promise</span>.all([</div><div class="line">    SystemJS.import(page),</div><div class="line">]).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</div><div class="line">    <span class="comment">// 公共代码</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>然后，只需要在具体的页面文件中，通过<code>SystemJS.import</code>手动引入依赖模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// home.js</span></div><div class="line"><span class="built_in">Promise</span>.all([</div><div class="line">    SystemJS.import(<span class="string">"jquery"</span>),</div><div class="line">    SystemJS.import(<span class="string">"swiper"</span>),</div><div class="line">    SystemJS.import(<span class="string">"layer"</span>),</div><div class="line">]).then(<span class="function">(<span class="params">[$, Swiper, layer]</span>) =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 业务代码</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>实际上SystemJS的使用与RequireJS比较相似，但是模块的定义不用局限于AMD形式，这样子的迁移成本比较低，也方便后续维护。</p>
+<h3 id="模板管理"><a href="#模板管理" class="headerlink" title="模板管理"></a>模板管理</h3><p>回到页面开发，<code>blade</code>是一个非常棒的模板引擎（类似于JavaScript中的<code>swig</code>），它提供了两个非常方便的功能</p>
+<ul>
+<li>父模板继承，可以规划整站的基础布局，包括header、footer等，此外还可以统一加载样式表、公共脚本等。</li>
+<li>子模板引入，可以用来提取公共的布局组件</li>
+</ul>
+<p>通过这两个功能，开发模板变得十分轻松。</p>
+<p>将子模板拆分成组件的另外一个好处是，在后续迁移到小程序的过程中，基本上不需要修改页面结构和样式，只需要替换标签为小程序的<code>view</code>和<code>text</code>即可。</p>
+<p>由于PC站和Wap站的视图都位于<code>/views</code>文件夹下，因此我们也需要对视图文件进行分组，这样方便修改和定位问题。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="SEO优化"><a href="#SEO优化" class="headerlink" title="SEO优化"></a>SEO优化</h3><p>由于早期旧网站对于SEO并不友好，导致百度快照更新周期十分长（大概二十多天一次），SEO的需求十分重要，由于我对于SEO并不是特别了解，因此在开发时也处于边摸索边尝试的阶段，主要从下面几个方面入手</p>
+<p><strong>TDK</strong></p>
+<p>TDK是SEO的一个缩写术语，即<code>title</code>、<code>describe</code>和<code>keywords</code>。这也是SEO最基本的三个元素。</p>
+<p>由于公司的业务主要是小说阅读，整个站点的页面可分为内容聚合页和内容详情页两大部分</p>
+<ul>
+<li>内容聚合页包括搜索、排行榜等页面，这些页面适合堆砌小说分类关键字，提高整站的排名</li>
+<li>内容详情页包括小说首页、章节阅读页，这些页面适合填充小说名称等关键字，提高单本小说的搜索几率</li>
+</ul>
+<p>而具体的修改操作，则参考了起点、红袖添香等著名的小说阅读网站。</p>
+<p>比如下面是小说阅读页的标题形式</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">小说标题_小说分类_作者名_站点名</div></pre></td></tr></table></figure>
+<p>针对不同的页面，可以动态生成最适合的描述和关键字，这样有助于整体的优化效果。</p>
+<p><strong>URL优化</strong></p>
+<p>当时采用Laravel的一个重要原因就是它支持自定义路由，除了前面提到的路由分组之外，自定义路由可以更方便地进行SEO优化。</p>
+<p>较短的URL更适合SEO，此外在内容详情页，将路径中的<code>/</code>转换成<code>-</code>符号，进一步减少URL层次。</p>
+<p><strong>代码优化</strong></p>
+<p>在开发模板时注意页面结构层次，配置链接title、图片alt等属性。</p>
+<p><strong>历史链接</strong></p>
+<p>由于历史问题，旧网站的域名跟现在采用的域名并不太一样，导致百度搜索显示的域名还是旧的。</p>
+<p>这里的处理方式是通过服务器设置304重定向，然后去站长平台提交死链，大概半个月后，收录了新的站点域名。</p>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><p>性能优化方面，主要包括图片懒加载、精灵图、资源CDN、配置缓存等常规的web优化方案…</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>虽然在项目中写了很多PHP，但对于数据库接触到的仍旧比较少，主要负责路由和控制器视图这块，因此也算是前端的工作。</p>
+<p>就前端而言，主要实现了将前端开发环境嵌入视图开发流程中，以及处理模块加载、性能优化等工作。</p>
+<p>就后台而言，完成整个项目，对于传统服务端渲染web项目有了更加丰富的经验，也认识到了MVC框架中各个层的作用和分离。Laravel是比较先进的后台开发框架，其中还有很多需要学习的东西，包括内部的原理和一些设计模式。</p>
+<p>现在回过头看，整个项目还有很多不足的地方，早期项目分组和命名空间等也存在不合理的地方，踩过的坑都是经验哈哈哈，继续努力。</p>
+
+    </div>
+    <footer class="article_ft">
+        
+        <a href="/tags/工程化" class="article_tag">#工程化</a>
+        
+    </footer>
+
+    <div class="article_nav"><a href="/article/mockjs使用心得" class="hover-highlight article_prev">mockjs使用心得</a><a
+                href="/article/博客SSR实践总结" class="hover-highlight article_next">博客SSR实践总结</a></div>
+</article>
+        </div>
+    </main>
+
+    <aside>
+    <div class="page_sd hide-md">
+        <div class="tab">
+            <!---->
+            
+            <ul class="tab_nav">
+                <li class="tab_item active" data-target="#J_toc">
+                    文章目录
+                </li>
+                <li class="tab_item" data-target="#J_profile">
+                    站点资料
+                </li>
+            </ul>
+            <div class="tab_panel active" id="J_toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求"><span class="toc-number">1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据接口"><span class="toc-number">2.</span> <span class="toc-text">数据接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP进行客户端请求"><span class="toc-number">2.1.</span> <span class="toc-text">PHP进行客户端请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络请求效率"><span class="toc-number">2.2.</span> <span class="toc-text">网络请求效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中转请求信息"><span class="toc-number">2.3.</span> <span class="toc-text">中转请求信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目分组"><span class="toc-number">3.</span> <span class="toc-text">项目分组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#路由分组"><span class="toc-number">3.1.</span> <span class="toc-text">路由分组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公共代码"><span class="toc-number">3.2.</span> <span class="toc-text">公共代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中间件"><span class="toc-number">3.3.</span> <span class="toc-text">中间件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前端开发环境"><span class="toc-number">4.</span> <span class="toc-text">前端开发环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接开发blade模板"><span class="toc-number">4.1.</span> <span class="toc-text">直接开发blade模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位于CDN上面的依赖库"><span class="toc-number">4.2.</span> <span class="toc-text">位于CDN上面的依赖库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板管理"><span class="toc-number">4.3.</span> <span class="toc-text">模板管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化"><span class="toc-number">5.</span> <span class="toc-text">优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SEO优化"><span class="toc-number">5.1.</span> <span class="toc-text">SEO优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性能优化"><span class="toc-number">5.2.</span> <span class="toc-text">性能优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+            </div>
+            
+            <div class="tab_panel " id="J_profile">
+                <div>
+                    <div class="me">
+                        <img src="http://shymean.com/_nuxt/img/head.dd612ee.jpg" alt="shymean" width="100" height="100">
+                        <h3>shymean</h3>
+                        <p>一个不学无术且无趣的人。</p>
+                    </div>
+                    <div class="nav-border">
+                        <a href="/book" class="nav_item">
+                            <i class="iconfont icon-bookshelf"></i>
+                            <br>书架
+                        </a>
+                        <a href="/message" class="nav_item">
+                            <i class="iconfont icon-comment"></i>
+                            <br>留言
+                        </a>
+                        <a href="/about" class="nav_item">
+                            <i class="iconfont icon-info"></i>
+                            <br>关于
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <a href="https://github.com/tangxiangmin" target="_blank" class="contact_link">
+                            <i class="iconfont icon-github"></i> GitHub</a>
+                        <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=645234650&amp;site=qq&amp;menu=yes"
+                            target="_blank" class="contact_link">
+                            <i class="iconfont icon-qq"></i> QQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tool">
+        <div class="btn-list hide-md" id="J_toggleSide">
+            <div class="btn-icon">
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+                <span class="btn-line"></span>
+            </div>
+        </div>
+        <div class="btn-top">
+            <i class="iconfont icon-top"></i>
+        </div>
+    </div>
+</aside>
+    <footer class="page_ft">
+    <div class="container footer">
+        <p>世人的悲欢并不相通，我只是觉得他们吵闹。</p>
+        <p>
+            Copyright © Shymean 2016 - 2017
+            <a href="http://www.miitbeian.gov.cn" rel="nofollow" target="_blank" style="display:inline-block;">粤ICP备17060238号-1</a>
+        </p>
+    </div>
+    <div class="hide-xs">
+        <script src="https://s19.cnzz.com/z_stat.php?id=1264491168&amp;web_id=1264491168" language="JavaScript"></script>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>
