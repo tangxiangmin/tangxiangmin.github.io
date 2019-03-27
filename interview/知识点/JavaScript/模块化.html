@@ -17,6 +17,22 @@
     
             
                 
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -49,6 +65,7 @@
         
     
     
+    
     <meta name="HandheldFriendly" content="true"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -62,6 +79,17 @@
     
     <link rel="prev" href="函数式编程.html" />
     
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]};
+    </script>
 
     </head>
     <body>
@@ -1061,7 +1089,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="javascript&#x6A21;&#x5757;">JavaScript&#x6A21;&#x5757;</h1>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#javascript&#x6A21;&#x5757;"><b></b>JavaScript&#x6A21;&#x5757;</a></li><ul><li><span class="title-icon "></span><a href="#&#x670D;&#x52A1;&#x7AEF;commonjs&#x6A21;&#x5757;&#x89C4;&#x8303;"><b></b>&#x670D;&#x52A1;&#x7AEF;CommonJS&#x6A21;&#x5757;&#x89C4;&#x8303;</a></li><li><span class="title-icon "></span><a href="#&#x6D4F;&#x89C8;&#x5668;&#x7AEF;amd&#x4E0E;cmd&#x89C4;&#x8303;"><b></b>&#x6D4F;&#x89C8;&#x5668;&#x7AEF;AMD&#x4E0E;CMD&#x89C4;&#x8303;</a></li><ul><li><span class="title-icon "></span><a href="#amd&#x6A21;&#x5757;&#x89C4;&#x8303;"><b></b>AMD&#x6A21;&#x5757;&#x89C4;&#x8303;</a></li><li><span class="title-icon "></span><a href="#cmd"><b></b>CMD</a></li><li><span class="title-icon "></span><a href="#cmd&#x4E0E;amd&#x7684;&#x533A;&#x522B;"><b></b>CMD&#x4E0E;AMD&#x7684;&#x533A;&#x522B;</a></li></ul><li><span class="title-icon "></span><a href="#es6&#x6A21;&#x5757;&#x673A;&#x5236;"><b></b>ES6&#x6A21;&#x5757;&#x673A;&#x5236;</a></li><ul><li><span class="title-icon "></span><a href="#es6&#x6A21;&#x5757;&#x548C;commonjs&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;"><b></b>ES6&#x6A21;&#x5757;&#x548C;CommonJS&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;</a></li></ul><li><span class="title-icon "></span><a href="#&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;"><b></b>&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;</a></li><ul><li><span class="title-icon "></span><a href="#commonjs&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;"><b></b>CommonJS&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;</a></li></ul><li><span class="title-icon "></span><a href="#amd&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;"><b></b>AMD&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;</a></li></ul></ul></div><a href="#javascript&#x6A21;&#x5757;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="javascript&#x6A21;&#x5757;"><a name="javascript&#x6A21;&#x5757;" class="anchor-navigation-ex-anchor" href="#javascript&#x6A21;&#x5757;"><i class="fa fa-link" aria-hidden="true"></i></a>JavaScript&#x6A21;&#x5757;</h1>
 <blockquote>
 <p>&#x95EE;&#x9898;&#xFF1A;JavaScript&#x6709;&#x54EA;&#x4E9B;&#x6A21;&#x5757;&#x89C4;&#x8303;&#xFF1F;&#x4ED6;&#x4EEC;&#x7684;&#x533A;&#x522B;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</p>
 </blockquote>
@@ -1085,7 +1113,7 @@
 <li><a href="#amd&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;">AMD&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;</a></li>
 </ul>
 <!-- /TOC -->
-<h2 id="&#x670D;&#x52A1;&#x7AEF;commonjs&#x6A21;&#x5757;&#x89C4;&#x8303;">&#x670D;&#x52A1;&#x7AEF;CommonJS&#x6A21;&#x5757;&#x89C4;&#x8303;</h2>
+<h2 id="&#x670D;&#x52A1;&#x7AEF;commonjs&#x6A21;&#x5757;&#x89C4;&#x8303;"><a name="&#x670D;&#x52A1;&#x7AEF;commonjs&#x6A21;&#x5757;&#x89C4;&#x8303;" class="anchor-navigation-ex-anchor" href="#&#x670D;&#x52A1;&#x7AEF;commonjs&#x6A21;&#x5757;&#x89C4;&#x8303;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x670D;&#x52A1;&#x7AEF;CommonJS&#x6A21;&#x5757;&#x89C4;&#x8303;</h2>
 <p>&#x4F7F;&#x7528;<code>module.exports</code>&#x3001;<code>exports</code>&#x5BFC;&#x51FA;&#x6A21;&#x5757;&#xFF0C;&#x4F7F;&#x7528;<code>require</code>&#x5F15;&#x5165;&#x6A21;&#x5757;&#x3002;</p>
 <p>NodeJS&#x91C7;&#x7528;&#x7684;&#x662F;CommonJS&#x89C4;&#x8303;&#xFF0C;<code>CommonJS</code>&#x7684;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x811A;&#x672C;&#x6587;&#x4EF6;&#x3002;require&#x547D;&#x4EE4;&#x7B2C;&#x4E00;&#x6B21;&#x52A0;&#x8F7D;&#x8BE5;&#x811A;&#x672C;&#x65F6;&#x5C31;&#x4F1A;&#x6267;&#x884C;&#x6574;&#x4E2A;&#x811A;&#x672C;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5185;&#x5B58;&#x4E2D;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;</p>
 <p>&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x7406;&#x89E3;module.exports&#x548C;exports&#x7684;&#x533A;&#x522B;</p>
@@ -1101,10 +1129,10 @@
 <li>module.exports&#x5982;&#x679C;&#x6307;&#x5411;&#x4E86;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5219;exports&#x7684;&#x4FEE;&#x6539;&#x5168;&#x90E8;&#x65E0;&#x6548;&#x4E86;&#xFF08;&#x56E0;&#x4E3A;&#x6700;&#x540E;&#x5BFC;&#x51FA;&#x7684;&#x662F;module.exports&#xFF09;</li>
 </ul>
 <p>&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x662F;<code>require</code>&#x52A0;&#x8F7D;&#x5305;&#x7684;&#x987A;&#x5E8F;&#x89C4;&#x5219;&#xFF0C;&#x5728;NodeJS&#x5185;&#x90E8;&#x6709;&#x4E2A;&#x5F88;&#x590D;&#x6742;&#x5B9E;&#x73B0;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x5C55;&#x5F00;&#x4E86;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x53EF;&#x4EE5;&#x79FB;&#x6B65;&#x8FD9;&#x91CC;&#xFF1A;<a href="http://www.ruanyifeng.com/blog/2015/05/require.html" target="_blank">require() &#x6E90;&#x7801;&#x89E3;&#x8BFB;</a></p>
-<h2 id="&#x6D4F;&#x89C8;&#x5668;&#x7AEF;amd&#x4E0E;cmd&#x89C4;&#x8303;">&#x6D4F;&#x89C8;&#x5668;&#x7AEF;AMD&#x4E0E;CMD&#x89C4;&#x8303;</h2>
+<h2 id="&#x6D4F;&#x89C8;&#x5668;&#x7AEF;amd&#x4E0E;cmd&#x89C4;&#x8303;"><a name="&#x6D4F;&#x89C8;&#x5668;&#x7AEF;amd&#x4E0E;cmd&#x89C4;&#x8303;" class="anchor-navigation-ex-anchor" href="#&#x6D4F;&#x89C8;&#x5668;&#x7AEF;amd&#x4E0E;cmd&#x89C4;&#x8303;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D4F;&#x89C8;&#x5668;&#x7AEF;AMD&#x4E0E;CMD&#x89C4;&#x8303;</h2>
 <p>CommonJS&#x662F;&#x540C;&#x6B65;&#x52A0;&#x8F7D;&#x7684;&#xFF0C;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x65F6;&#x4F1A;&#x963B;&#x585E;&#x540E;&#x7EED;&#x4EE3;&#x7801;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x8FD9;&#x5BF9;&#x4E8E;Node&#x8BB2;&#x95EE;&#x9898;&#x4E0D;&#x5927;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x800C;&#x8A00;&#x7F51;&#x7EDC;&#x4F20;&#x8F93;&#x7684;&#x6548;&#x7387;&#x662F;&#x4E0D;&#x5BB9;&#x5FFD;&#x89C6;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x624D;&#x6709;&#x4E86;AMD&#x89C4;&#x8303;</p>
 <p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x8BA8;&#x8BBA;&#x4E00;&#x4E0B;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x7684;&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x673A;&#x5236;&#xFF1A;AMD&#x548C;CMD&#x89C4;&#x8303;&#x3002;&#x5E76;&#x7ED9;&#x51FA;&#x7B80;&#x5355;&#x7684;&#x5B9E;&#x73B0;&#xFF08;&#x975E;&#x5E38;&#x62BD;&#x8C61;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x4E00;&#x4E9B;&#x91CD;&#x8981;&#x7684;&#x7279;&#x6027;&#x5982;&#x4F9D;&#x8D56;&#x5206;&#x6790;&#x3001;&#x5F02;&#x6B65;&#x6A21;&#x5757;&#x7B49;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x5FFD;&#x7565;&#xFF09;&#x3002;</p>
-<h3 id="amd&#x6A21;&#x5757;&#x89C4;&#x8303;">AMD&#x6A21;&#x5757;&#x89C4;&#x8303;</h3>
+<h3 id="amd&#x6A21;&#x5757;&#x89C4;&#x8303;"><a name="amd&#x6A21;&#x5757;&#x89C4;&#x8303;" class="anchor-navigation-ex-anchor" href="#amd&#x6A21;&#x5757;&#x89C4;&#x8303;"><i class="fa fa-link" aria-hidden="true"></i></a>AMD&#x6A21;&#x5757;&#x89C4;&#x8303;</h3>
 <p>&#x7531;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x5728;&#x89E3;&#x6790;&#x6587;&#x6863;&#x65F6;&#xFF0C;&#x9047;&#x89C1;&#x811A;&#x672C;&#x4F1A;&#x52A0;&#x8F7D;&#x89E3;&#x6790;&#x548C;&#x6267;&#x884C;&#xFF0C;&#x4E3A;&#x4E86;&#x63D0;&#x9AD8;&#x9875;&#x9762;&#x6027;&#x80FD;&#xFF0C;&#x4E00;&#x822C;&#x7684;&#x5904;&#x7406;&#x529E;&#x6CD5;&#x662F;&#x5F02;&#x6B65;&#x5EF6;&#x8FDF;&#x52A0;&#x8F7D;&#x811A;&#x672C;&#xFF0C;&#x8FD9;&#x6B63;&#x662F;AMD&#x5168;&#x79F0;&#x4E2D;Asynchronous&#x7684;&#x542B;&#x4E49;&#xFF0C;&#x5728;AMD&#x4E2D;&#xFF0C;&#x6A21;&#x5757;&#x5C06;&#x88AB;&#x5F02;&#x6B65;&#x52A0;&#x8F7D;&#xFF0C;&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x4E0D;&#x5F71;&#x54CD;&#x540E;&#x9762;&#x8BED;&#x53E5;&#x7684;&#x8FD0;&#x884C;&#x3002;&#x6240;&#x6709;&#x4F9D;&#x8D56;&#x67D0;&#x4E9B;&#x6A21;&#x5757;&#x7684;&#x8BED;&#x53E5;&#x5747;&#x653E;&#x7F6E;&#x5728;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x3002;</p>
 <p>&#x5F02;&#x6B65;&#x52A0;&#x8F7D;&#x5E26;&#x6765;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF1A;&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#xFF0C;&#x5FC5;&#x987B;&#x7B49;&#x5F85;&#x4F9D;&#x8D56;&#x7684;&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x6210;&#x529F;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x58F0;&#x660E;&#x6A21;&#x5757;&#x624D;&#x80FD;&#x591F;&#x6267;&#x884C;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;AMD&#x4E2D;&#x7684;&#x6A21;&#x5757;&#x662F;&#x4F9D;&#x8D56;&#x524D;&#x7F6E;&#x7684;&#x3002;&#x5728;AMD&#x89C4;&#x8303;&#x4E2D;&#xFF0C;&#x901A;&#x8FC7;<code>define</code>&#x5B9A;&#x4E49;&#x6A21;&#x5757;&#xFF0C;&#x901A;&#x8FC7;<code>require</code>&#x5F15;&#x5165;&#x6A21;&#x5757;&#x3002;&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x6781;&#x7B80;&#x7248;&#x7684;AMD&#x6A21;&#x5757;&#x7BA1;&#x7406;&#x5DE5;&#x5177;&#x7684;&#x5B9E;&#x73B0;</p>
 <pre><code class="lang-js">
@@ -1159,7 +1187,7 @@ test exec
 hello from bar
 hello from test
 </code></pre><p>&#x6839;&#x636E;&#x5176;&#x5B9E;&#x73B0;&#x53EF;&#x4EE5;&#x770B;&#x89C1;&#xFF0C;&#x6A21;&#x5757;&#x5728;require&#x58F0;&#x660E;&#x4F9D;&#x8D56;&#x65F6;&#x5C31;&#x4F1A;&#x7ACB;&#x5373;&#x6267;&#x884C;&#xFF0C;&#x5E76;&#x5C06;&#x6A21;&#x5757;&#x7ED3;&#x679C;&#x901A;&#x8FC7;&#x4F9D;&#x8D56;&#x524D;&#x7F6E;&#x7684;&#x65B9;&#x5F0F;&#x4F20;&#x5165;&#x5BF9;&#x5E94;&#x6240;&#x9700;&#x7684;&#x51FD;&#x6570;&#x4E2D;&#x6267;&#x884C;&#x3002;</p>
-<h3 id="cmd">CMD</h3>
+<h3 id="cmd"><a name="cmd" class="anchor-navigation-ex-anchor" href="#cmd"><i class="fa fa-link" aria-hidden="true"></i></a>CMD</h3>
 <p>&#x4E0B;&#x9762;&#x662F;&#x5B9E;&#x73B0;&#x7684;&#x4E00;&#x4E2A;&#x6781;&#x7B80;&#x6613;&#x7248;&#x672C;&#x7684;CMD&#x6A21;&#x5757;&#x52A0;&#x8F7D;&#x5DE5;&#x5177;</p>
 <pre><code class="lang-js">(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">window</span>) </span>{
     <span class="hljs-comment">// &#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x4FDD;&#x5B58;&#x6A21;&#x5757;&#x7684;&#x95ED;&#x5305;&#x53D8;&#x91CF;</span>
@@ -1228,13 +1256,13 @@ test exec
 hello from test
 true // &#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x53EA;&#x6267;&#x884C;&#x4E86;&#x4E00;&#x6B21;
 </code></pre><p>&#x53EF;&#x4EE5;&#x770B;&#x89C1;&#xFF0C;&#x53EA;&#x6709;&#x5F53;&#x8C03;&#x7528;require&#x65F6;&#xFF0C;&#x6A21;&#x5757;&#x624D;&#x4F1A;&#x8FD0;&#x884C;&#xFF0C;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x8DDF;&#x8C03;&#x7528;require&#x7684;&#x987A;&#x5E8F;&#x4E00;&#x81F4;</p>
-<h3 id="cmd&#x4E0E;amd&#x7684;&#x533A;&#x522B;">CMD&#x4E0E;AMD&#x7684;&#x533A;&#x522B;</h3>
+<h3 id="cmd&#x4E0E;amd&#x7684;&#x533A;&#x522B;"><a name="cmd&#x4E0E;amd&#x7684;&#x533A;&#x522B;" class="anchor-navigation-ex-anchor" href="#cmd&#x4E0E;amd&#x7684;&#x533A;&#x522B;"><i class="fa fa-link" aria-hidden="true"></i></a>CMD&#x4E0E;AMD&#x7684;&#x533A;&#x522B;</h3>
 <p>&#x53C2;&#x8003;:<a href="https://div.io/topic/430" target="_blank">&#x518D;&#x8C08; SeaJS &#x4E0E; RequireJS &#x7684;&#x5DEE;&#x5F02;</a></p>
 <ul>
 <li>AMD &#x662F;&#x63D0;&#x524D;&#x6267;&#x884C;&#xFF0C;CMD &#x662F;&#x5EF6;&#x8FDF;&#x6267;&#x884C;</li>
 <li>CMD &#x63A8;&#x5D07;&#x4F9D;&#x8D56;&#x5C31;&#x8FD1;&#xFF0C;AMD &#x63A8;&#x5D07;&#x4F9D;&#x8D56;&#x524D;&#x7F6E;</li>
 </ul>
-<h2 id="es6&#x6A21;&#x5757;&#x673A;&#x5236;">ES6&#x6A21;&#x5757;&#x673A;&#x5236;</h2>
+<h2 id="es6&#x6A21;&#x5757;&#x673A;&#x5236;"><a name="es6&#x6A21;&#x5757;&#x673A;&#x5236;" class="anchor-navigation-ex-anchor" href="#es6&#x6A21;&#x5757;&#x673A;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>ES6&#x6A21;&#x5757;&#x673A;&#x5236;</h2>
 <p>&#x65B0;&#x589E;<code>import</code>&#x548C;<code>export</code>&#xFF0C;&#x53C2;&#x8003;</p>
 <ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import" target="_blank">import&#x6587;&#x6863;</a></li>
@@ -1246,7 +1274,7 @@ true // &#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x53EA;&#x6267;&#x884C;&#x4E86;&#x4E00;
 <li>&#x9ED8;&#x8BA4;&#x5BFC;&#x51FA;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EFB;&#x4F55;&#x540D;&#x79F0;&#x5BFC;&#x5165;&#x9ED8;&#x8BA4;&#x5BFC;&#x51FA;</li>
 </ul>
 <p>&#x6CE8;&#x610F;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;var&#xFF0C;let&#x6216;const&#x4F5C;&#x4E3A;&#x9ED8;&#x8BA4;&#x5BFC;&#x51FA;&#x3002;</p>
-<h3 id="es6&#x6A21;&#x5757;&#x548C;commonjs&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;">ES6&#x6A21;&#x5757;&#x548C;CommonJS&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;</h3>
+<h3 id="es6&#x6A21;&#x5757;&#x548C;commonjs&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;"><a name="es6&#x6A21;&#x5757;&#x548C;commonjs&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;" class="anchor-navigation-ex-anchor" href="#es6&#x6A21;&#x5757;&#x548C;commonjs&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;"><i class="fa fa-link" aria-hidden="true"></i></a>ES6&#x6A21;&#x5757;&#x548C;CommonJS&#x6A21;&#x5757;&#x7684;&#x533A;&#x522B;</h3>
 <p>&#x53C2;&#x8003;</p>
 <ul>
 <li><a href="https://juejin.im/entry/5a879e28f265da4e82635152" target="_blank">https://juejin.im/entry/5a879e28f265da4e82635152</a></li>
@@ -1269,11 +1297,11 @@ ES6 &#x6A21;&#x5757;&#x7F16;&#x8BD1;&#x65F6;&#x6267;&#x884C;&#x4F1A;&#x5BFC;&#x8
 <li>import &#x547D;&#x4EE4;&#x4F1A;&#x88AB; JavaScript &#x5F15;&#x64CE;&#x9759;&#x6001;&#x5206;&#x6790;&#xFF0C;&#x4F18;&#x5148;&#x4E8E;&#x6A21;&#x5757;&#x5185;&#x7684;&#x5176;&#x4ED6;&#x5185;&#x5BB9;&#x6267;&#x884C;&#xFF0C;&#x5373;&#x5728;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x4EFB;&#x4F55;&#x4F4D;&#x7F6E;&#x5F15;&#x5165; import &#x6A21;&#x5757;&#x90FD;&#x4F1A;&#x88AB;&#x63D0;&#x524D;&#x5230;&#x6587;&#x4EF6;&#x9876;&#x90E8;</li>
 <li>export &#x547D;&#x4EE4;&#x4F1A;&#x6709;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#x63D0;&#x524D;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x901A;&#x8FC7;&#x6A21;&#x5757;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x5176;&#x6548;&#x679C;</li>
 </ul>
-<h2 id="&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;">&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;</h2>
+<h2 id="&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;"><a name="&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;" class="anchor-navigation-ex-anchor" href="#&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6A21;&#x5757;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;</h2>
 <blockquote>
 <p>&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x6BD4;&#x8F83;&#x7F55;&#x89C1;&#xFF0C;&#x5B83;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x91CD;&#x6784;&#x4EE3;&#x7801;&#x91CD;&#x65B0;&#x8BBE;&#x8BA1;&#x7684;&#x8B66;&#x793A;&#x706F;&#x3002;</p>
 </blockquote>
-<h3 id="commonjs&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;">CommonJS&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;</h3>
+<h3 id="commonjs&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;"><a name="commonjs&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;" class="anchor-navigation-ex-anchor" href="#commonjs&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;"><i class="fa fa-link" aria-hidden="true"></i></a>CommonJS&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x673A;&#x5236;</h3>
 <p>&#x53C2;&#x8003;&#xFF1A;</p>
 <ul>
 <li><a href="https://nodejs.org/api/modules.html#modules_cycles" target="_blank">node</a>&#x63D0;&#x4F9B;&#x7684;&#x4F8B;&#x5B50;</li>
@@ -1332,7 +1360,7 @@ exports.good = function (arg) {
 exports.bad = function (arg) {
   return foo(&apos;bad&apos;, arg); // &#x4F7F;&#x7528;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x90E8;&#x5206;&#x52A0;&#x8F7D;&#x65F6;&#x7684;&#x503C;&#xFF0C;&#x6B64;&#x65F6;foo&#x53EF;&#x80FD;&#x5E76;&#x4E0D;&#x662F;&#x6700;&#x7EC8;&#x5BFC;&#x51FA;&#x7684;&#x503C;
 };
-</code></pre><h2 id="amd&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;">AMD&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;</h2>
+</code></pre><h2 id="amd&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;"><a name="amd&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;" class="anchor-navigation-ex-anchor" href="#amd&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;"><i class="fa fa-link" aria-hidden="true"></i></a>AMD&#x4E2D;&#x7684;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;</h2>
 <p>&#x5728;requireJS&#x4E2D;&#xFF0C;&#x5982;&#x679C;a&#x3001;b&#x6A21;&#x5757;&#x4EA7;&#x751F;&#x4E86;&#x5FAA;&#x73AF;&#x4F9D;&#x8D56;&#x90A3;&#x4E48;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x5F53;b&#x7684;&#x6A21;&#x5757;&#x51FD;&#x6570;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x5C06;&#x4F1A;&#x63D0;&#x793A;&#x6A21;&#x5757;a undefined&#x3002;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x662F;b&#x53EF;&#x4EE5;&#x5728;&#x6A21;&#x5757;&#x5DF2;&#x7ECF;&#x5B9A;&#x4E49;&#x597D;&#x540E;&#x7528;require()&#x65B9;&#x6CD5;&#x518D;&#x83B7;&#x53D6;&#xFF0C;&#x9700;&#x8981;&#x628A;require&#x4F5C;&#x4E3A;&#x4F9D;&#x8D56;&#x6CE8;&#x5165;&#x8FDB;&#x6765;&#x3002;</p>
 <p>&#x5373;&#x672C;&#x6765;&#x7684;&#x5199;&#x6CD5;&#x662F;&#xFF1A;</p>
 <pre><code class="lang-js"><span class="hljs-comment">// b.js</span>
@@ -1356,7 +1384,9 @@ define([<span class="hljs-string">&apos;require&apos;</span>,<span class="hljs-s
     }
 });
 </code></pre>
-
+<footer class="page-footer"><span class="copyright">&#xA9; shymean all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
+2019-03-23 23:16:26
+</span></footer>
                                 
                                 </section>
                             
@@ -1399,7 +1429,7 @@ define([<span class="hljs-string">&apos;require&apos;</span>,<span class="hljs-s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"模块化.md","level":"2.3.8","depth":2,"next":{"title":"正则.md","level":"2.3.9","depth":2,"path":"知识点/JavaScript/正则.md","ref":"./知识点/JavaScript/正则.md","articles":[]},"previous":{"title":"函数式编程.md","level":"2.3.7","depth":2,"path":"知识点/JavaScript/函数式编程.md","ref":"./知识点/JavaScript/函数式编程.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"知识点/JavaScript/模块化.md","mtime":"2019-03-23T15:16:26.388Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-23T09:16:16.855Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"模块化.md","level":"2.3.8","depth":2,"next":{"title":"正则.md","level":"2.3.9","depth":2,"path":"知识点/JavaScript/正则.md","ref":"./知识点/JavaScript/正则.md","articles":[]},"previous":{"title":"函数式编程.md","level":"2.3.7","depth":2,"path":"知识点/JavaScript/函数式编程.md","ref":"./知识点/JavaScript/函数式编程.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["expandable-chapters","donate","tbfed-pagefooter","anchor-navigation-ex","sitemap-general","github-buttons","catalogue-title","livereload"],"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy shymean","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"livereload":{},"simple-page-toc":{"maxDepth":3,"skipFirstH1":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"donate":{"alipay":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1goltfohrj308w08wgm4.jpg","alipayText":"支付宝","button":"打赏","title":"你要请我喝奶茶吗？","wechat":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1gom432f5j308w08wt93.jpg","wechatText":"微信"},"sitemap-general":{"prefix":"https://shymean.com"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"catalogue-title":{},"github-buttons":{"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"知识点/JavaScript/模块化.md","mtime":"2019-03-23T15:16:26.388Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-27T02:26:46.407Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -1407,6 +1437,18 @@ define([<span class="hljs-string">&apos;require&apos;</span>,<span class="hljs-s
         
     <script src="../../gitbook/gitbook.js"></script>
     <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
     
         
         <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>

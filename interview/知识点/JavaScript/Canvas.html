@@ -17,6 +17,22 @@
     
             
                 
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -49,6 +65,7 @@
         
     
     
+    
     <meta name="HandheldFriendly" content="true"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -60,6 +77,17 @@
     <link rel="next" href="DOM和BOM.html" />
     
     
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]};
+    </script>
 
     </head>
     <body>
@@ -1059,14 +1087,14 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="canvas">canvas</h1>
-<h2 id="100--100-&#x7684;-canvas-&#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;">100 * 100 &#x7684; Canvas &#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;</h2>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#canvas"><b></b>canvas</a></li><ul><li><span class="title-icon "></span><a href="#100--100-&#x7684;-canvas-&#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;"><b></b>100 * 100 &#x7684; Canvas &#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;</a></li><li><span class="title-icon "></span><a href="#&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;"><b></b>&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;</a></li><li><span class="title-icon "></span><a href="#canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;"><b></b>canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;</a></li></ul></ul></div><a href="#canvas" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="canvas"><a name="canvas" class="anchor-navigation-ex-anchor" href="#canvas"><i class="fa fa-link" aria-hidden="true"></i></a>canvas</h1>
+<h2 id="100--100-&#x7684;-canvas-&#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;"><a name="100--100-&#x7684;-canvas-&#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;" class="anchor-navigation-ex-anchor" href="#100--100-&#x7684;-canvas-&#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;"><i class="fa fa-link" aria-hidden="true"></i></a>100 * 100 &#x7684; Canvas &#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;&#xFF1F;</h2>
 <p>imageData = ctx.getImageData(sx, sy, sw, sh)&#x8FD9;&#x4E2A; API&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A; ImageData &#x6570;&#x7EC4;&#xFF0C;&#x8FD9;&#x4E2A;&#x6570;&#x7EC4;&#x662F; Uint8 &#x7C7B;&#x578B;&#x7684;&#xFF0C;&#x4E14;&#x56DB;&#x4F4D;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x50CF;&#x7D20;</p>
 <p>&#x56E0;&#x6B64;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x662F; 
 100 <em> 100 </em> 4 bytes = 40,000 bytes&#x3002;</p>
 <p>&#x7ED3;&#x679C;&#x4E0D;&#x4E00;&#x5B9A;&#x51C6;&#x786E;&#xFF0C;&#x540E;&#x9762;&#x518D;&#x8865;&#x5145;&#x3002;</p>
 <p>&#x53C2;&#x8003;<a href="https://juejin.im/post/5bdeb357e51d4536140fc7df" target="_blank">&#x5934;&#x6761;&#x9762;&#x8BD5;&#x9898;&#xFF1A;100 * 100 &#x7684; Canvas &#x5360;&#x5185;&#x5B58;&#x591A;&#x5927;</a></p>
-<h2 id="&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;">&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;</h2>
+<h2 id="&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;"><a name="&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x5728;&#x79FB;&#x52A8;&#x7AEF;&#x5229;&#x7528;canvas&#x751F;&#x6210;&#x56FE;&#x7247;&#x65F6;&#xFF0C;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x4E0D;&#x591F;&#x7684;&#x95EE;&#x9898;</h2>
 <p>&#x8FD9;&#x4E2A;&#x662F;&#x56E0;&#x4E3A;&#x9AD8;&#x6E05;&#x5C4F;&#x50CF;&#x7D20;&#x5BC6;&#x5EA6;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8C03;&#x6574;&#x6574;&#x4E2A;&#x56FE;&#x7247;&#x7684;&#x5206;&#x8FA8;&#x7387;&#xFF08;canvas&#x753B;&#x5E03;&#x7684;&#x5BBD;&#x5EA6;&#x548C;&#x9AD8;&#x5EA6;&#xFF09;&#xFF0C;&#x4ECE;&#x800C;&#x751F;&#x6210;&#x8F83;&#x5927;&#x7684;&#x56FE;&#x7247;&#xFF0C;&#x56FE;&#x7247;&#x7684;&#x5206;&#x8FA8;&#x7387;&#x8D8A;&#x5927;&#xFF0C;&#x4FDD;&#x5B58;&#x7684;&#x56FE;&#x7247;&#x6E05;&#x6670;&#x5EA6;&#x8D8A;&#x9AD8;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x7B80;&#x5355;&#x5B9E;&#x73B0;</p>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> scale = <span class="hljs-built_in">window</span>.devicePixelRatio; <span class="hljs-comment">//&#x5B9A;&#x4E49;&#x4EFB;&#x610F;&#x653E;&#x5927;&#x500D;&#x6570; &#x652F;&#x6301;&#x5C0F;&#x6570;</span>
 
@@ -1090,7 +1118,7 @@ canvas.height = height * scale; <span class="hljs-comment">//&#x5B9A;&#x4E49;can
 canvas.style.width = width + <span class="hljs-string">&quot;px&quot;</span>;
 canvas.style.height = height + <span class="hljs-string">&quot;px&quot;</span>;
 </code></pre>
-<h2 id="canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;">canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;</h2>
+<h2 id="canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;"><a name="canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;" class="anchor-navigation-ex-anchor" href="#canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;"><i class="fa fa-link" aria-hidden="true"></i></a>canvas&#x4E2D;&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x7684;&#x8DE8;&#x57DF;&#x95EE;&#x9898;</h2>
 <p>&#x5982;&#x679C;&#x7ED8;&#x5236;&#x4E86;&#x8DE8;&#x57DF;&#x7684;&#x56FE;&#x7247;&#xFF0C;&#x5219;&#x4F1A;&#x5BFC;&#x81F4;&#x753B;&#x5E03;&#x88AB;&#x65E0;&#x6CD5;&#xFF0C;&#x8C03;&#x7528;<code>ctx.getImageData</code>&#x3001;<code>canvas.toDataURL</code>&#x7B49;&#x65B9;&#x6CD5;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;
 &#x89E3;&#x51B3;canvas&#x56FE;&#x7247;&#x8DE8;&#x57DF;&#x4E00;&#x822C;&#x6709;</p>
 <ul>
@@ -1108,8 +1136,10 @@ $pic = &quot;data:{$arr[&apos;mime&apos;]};base64,&quot; . base64_encode(file_ge
 ?&gt;</li>
 </ul>
 <p><img src="&lt;?php echo $pic ?&gt;">
-```</p>
-
+``` </p>
+<footer class="page-footer"><span class="copyright">&#xA9; shymean all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
+2019-03-21 09:18:33
+</span></footer>
                                 
                                 </section>
                             
@@ -1148,7 +1178,7 @@ $pic = &quot;data:{$arr[&apos;mime&apos;]};base64,&quot; . base64_encode(file_ge
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Canvas.md","level":"2.3.1","depth":2,"next":{"title":"DOM和BOM.md","level":"2.3.2","depth":2,"path":"知识点/JavaScript/DOM和BOM.md","ref":"./知识点/JavaScript/DOM和BOM.md","articles":[]},"previous":{"title":"JavaScript","level":"2.3","depth":1,"ref":"","articles":[{"title":"Canvas.md","level":"2.3.1","depth":2,"path":"知识点/JavaScript/Canvas.md","ref":"./知识点/JavaScript/Canvas.md","articles":[]},{"title":"DOM和BOM.md","level":"2.3.2","depth":2,"path":"知识点/JavaScript/DOM和BOM.md","ref":"./知识点/JavaScript/DOM和BOM.md","articles":[]},{"title":"ECMAScript.md","level":"2.3.3","depth":2,"path":"知识点/JavaScript/ECMAScript.md","ref":"./知识点/JavaScript/ECMAScript.md","articles":[]},{"title":"NodeJS.md","level":"2.3.4","depth":2,"path":"知识点/JavaScript/NodeJS.md","ref":"./知识点/JavaScript/NodeJS.md","articles":[]},{"title":"event loop.md","level":"2.3.5","depth":2,"path":"知识点/JavaScript/event loop.md","ref":"./知识点/JavaScript/event loop.md","articles":[]},{"title":"npm.md","level":"2.3.6","depth":2,"path":"知识点/JavaScript/npm.md","ref":"./知识点/JavaScript/npm.md","articles":[]},{"title":"函数式编程.md","level":"2.3.7","depth":2,"path":"知识点/JavaScript/函数式编程.md","ref":"./知识点/JavaScript/函数式编程.md","articles":[]},{"title":"模块化.md","level":"2.3.8","depth":2,"path":"知识点/JavaScript/模块化.md","ref":"./知识点/JavaScript/模块化.md","articles":[]},{"title":"正则.md","level":"2.3.9","depth":2,"path":"知识点/JavaScript/正则.md","ref":"./知识点/JavaScript/正则.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"知识点/JavaScript/Canvas.md","mtime":"2019-03-21T01:18:33.476Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-23T09:16:16.855Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Canvas.md","level":"2.3.1","depth":2,"next":{"title":"DOM和BOM.md","level":"2.3.2","depth":2,"path":"知识点/JavaScript/DOM和BOM.md","ref":"./知识点/JavaScript/DOM和BOM.md","articles":[]},"previous":{"title":"JavaScript","level":"2.3","depth":1,"ref":"","articles":[{"title":"Canvas.md","level":"2.3.1","depth":2,"path":"知识点/JavaScript/Canvas.md","ref":"./知识点/JavaScript/Canvas.md","articles":[]},{"title":"DOM和BOM.md","level":"2.3.2","depth":2,"path":"知识点/JavaScript/DOM和BOM.md","ref":"./知识点/JavaScript/DOM和BOM.md","articles":[]},{"title":"ECMAScript.md","level":"2.3.3","depth":2,"path":"知识点/JavaScript/ECMAScript.md","ref":"./知识点/JavaScript/ECMAScript.md","articles":[]},{"title":"NodeJS.md","level":"2.3.4","depth":2,"path":"知识点/JavaScript/NodeJS.md","ref":"./知识点/JavaScript/NodeJS.md","articles":[]},{"title":"event loop.md","level":"2.3.5","depth":2,"path":"知识点/JavaScript/event loop.md","ref":"./知识点/JavaScript/event loop.md","articles":[]},{"title":"npm.md","level":"2.3.6","depth":2,"path":"知识点/JavaScript/npm.md","ref":"./知识点/JavaScript/npm.md","articles":[]},{"title":"函数式编程.md","level":"2.3.7","depth":2,"path":"知识点/JavaScript/函数式编程.md","ref":"./知识点/JavaScript/函数式编程.md","articles":[]},{"title":"模块化.md","level":"2.3.8","depth":2,"path":"知识点/JavaScript/模块化.md","ref":"./知识点/JavaScript/模块化.md","articles":[]},{"title":"正则.md","level":"2.3.9","depth":2,"path":"知识点/JavaScript/正则.md","ref":"./知识点/JavaScript/正则.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["expandable-chapters","donate","tbfed-pagefooter","anchor-navigation-ex","sitemap-general","github-buttons","catalogue-title","livereload"],"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy shymean","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"livereload":{},"simple-page-toc":{"maxDepth":3,"skipFirstH1":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"donate":{"alipay":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1goltfohrj308w08wgm4.jpg","alipayText":"支付宝","button":"打赏","title":"你要请我喝奶茶吗？","wechat":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1gom432f5j308w08wt93.jpg","wechatText":"微信"},"sitemap-general":{"prefix":"https://shymean.com"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"catalogue-title":{},"github-buttons":{"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"知识点/JavaScript/Canvas.md","mtime":"2019-03-21T01:18:33.476Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-27T02:26:46.407Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -1156,6 +1186,18 @@ $pic = &quot;data:{$arr[&apos;mime&apos;]};base64,&quot; . base64_encode(file_ge
         
     <script src="../../gitbook/gitbook.js"></script>
     <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
     
         
         <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>

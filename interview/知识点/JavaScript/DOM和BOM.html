@@ -17,6 +17,22 @@
     
             
                 
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
                 
             
@@ -49,6 +65,7 @@
         
     
     
+    
     <meta name="HandheldFriendly" content="true"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -62,6 +79,17 @@
     
     <link rel="prev" href="Canvas.html" />
     
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]};
+    </script>
 
     </head>
     <body>
@@ -1061,7 +1089,7 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="bom">BOM</h1>
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#bom"><b></b>BOM</a></li><li><span class="title-icon "></span><a href="#dom"><b></b>DOM</a></li><ul><li><span class="title-icon "></span><a href="#dom&#x64CD;&#x4F5C;"><b></b>DOM&#x64CD;&#x4F5C;</a></li><ul><li><span class="title-icon "></span><a href="#&#x83B7;&#x53D6;dom&#x8282;&#x70B9;"><b></b>&#x83B7;&#x53D6;DOM&#x8282;&#x70B9;</a></li><li><span class="title-icon "></span><a href="#&#x64CD;&#x4F5C;&#x8282;&#x70B9;"><b></b>&#x64CD;&#x4F5C;&#x8282;&#x70B9;</a></li><li><span class="title-icon "></span><a href="#&#x904D;&#x5386;&#x8282;&#x70B9;"><b></b>&#x904D;&#x5386;&#x8282;&#x70B9;</a></li><li><span class="title-icon "></span><a href="#&#x64CD;&#x4F5C;css&#x6837;&#x5F0F;"><b></b>&#x64CD;&#x4F5C;CSS&#x6837;&#x5F0F;</a></li><li><span class="title-icon "></span><a href="#&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;"><b></b>&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;</a></li><li><span class="title-icon "></span><a href="#&#x63D2;&#x5165;&#x8282;&#x70B9;"><b></b>&#x63D2;&#x5165;&#x8282;&#x70B9;</a></li><li><span class="title-icon "></span><a href="#&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;"><b></b>&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;</a></li></ul><li><span class="title-icon "></span><a href="#&#x4E8B;&#x4EF6;"><b></b>&#x4E8B;&#x4EF6;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4E8B;&#x4EF6;&#x59D4;&#x6258;"><b></b>&#x4E8B;&#x4EF6;&#x59D4;&#x6258;</a></li></ul><li><span class="title-icon "></span><a href="#&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;"><b></b>&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</a></li><ul><li><span class="title-icon "></span><a href="#ajax"><b></b>Ajax</a></li><li><span class="title-icon "></span><a href="#fetch"><b></b>Fetch</a></li></ul><li><span class="title-icon "></span><a href="#web-storage-api"><b></b>Web Storage API</a></li><li><span class="title-icon "></span><a href="#requestanimationframe"><b></b>requestAnimationFrame</a></li></ul></ul></div><a href="#bom" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="bom"><a name="bom" class="anchor-navigation-ex-anchor" href="#bom"><i class="fa fa-link" aria-hidden="true"></i></a>BOM</h1>
 <p>BOM&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#x5BF9;&#x8C61;&#x6A21;&#x578B;&#xFF09;&#x662F;&#x6D4F;&#x89C8;&#x5668;&#x672C;&#x8EAB;&#x7684;&#x4E00;&#x4E9B;&#x4FE1;&#x606F;&#x7684;&#x8BBE;&#x7F6E;&#x548C;&#x83B7;&#x53D6;&#xFF0C;&#x4E00;&#x822C;&#x5E38;&#x7528;&#x7684;&#x662F;</p>
 <ul>
 <li>navigator&#xFF0C;&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x6D4F;&#x89C8;&#x5668;&#x7279;&#x5F81;&#xFF0C;&#x6BD4;&#x5982;&#x5224;&#x65AD;&#x5E73;&#x53F0;&#x7B49;</li>
@@ -1070,7 +1098,7 @@
 <li>history&#xFF0C;&#x8BBF;&#x95EE;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x5386;&#x53F2;&#x8BB0;&#x5F55;&#x6808;</li>
 </ul>
 <hr>
-<h1 id="dom">DOM</h1>
+<h1 id="dom"><a name="dom" class="anchor-navigation-ex-anchor" href="#dom"><i class="fa fa-link" aria-hidden="true"></i></a>DOM</h1>
 <ul>
 <li>DOM&#x64CD;&#x4F5C;&#x3001;&#x8282;&#x70B9;&#x5E38;&#x7528;&#x5C5E;&#x6027;</li>
 <li>&#x4E8B;&#x4EF6;&#x7684;&#x6267;&#x884C;&#x9636;&#x6BB5;&#xFF0C;&#x4E8B;&#x4EF6;&#x59D4;&#x6258;</li>
@@ -1078,9 +1106,9 @@
 <li><a href="https://mp.weixin.qq.com/s?__biz=MzIzNTU2ODM4Mw==&amp;mid=2247485935&amp;idx=1&amp;sn=b3faae7b8e21c4ff296d64b4dfaaeb58&amp;chksm=e8e4647fdf93ed696db04e9b0dbd4fe1a06df6221ea1c2ede19ce1baf91d911be14110516d3b&amp;mpshare=1&amp;scene=1&amp;srcid=02242xNs4l2IA16v4qOcJPA6#rd" target="_blank">&#x524D;&#x7AEF;HTML5&#x51E0;&#x79CD;&#x5B58;&#x50A8;&#x65B9;&#x5F0F;&#x7684;&#x603B;&#x7ED3;</a></li>
 <li>requestAnimFrame &#xFF0C;&#x4F20;&#x5165;&#x7684;&#x51FD;&#x6570;&#x5728;&#x91CD;&#x7ED8;&#x4E4B;&#x524D;&#x8C03;&#x7528;</li>
 </ul>
-<h2 id="dom&#x64CD;&#x4F5C;">DOM&#x64CD;&#x4F5C;</h2>
+<h2 id="dom&#x64CD;&#x4F5C;"><a name="dom&#x64CD;&#x4F5C;" class="anchor-navigation-ex-anchor" href="#dom&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>DOM&#x64CD;&#x4F5C;</h2>
 <p>&#x53C2;&#x8003;&#x4E4B;&#x524D;&#x7684;&#x6574;&#x7406;:<a href="http://www.shymean.com/article/DOM%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%8A%82%E7%82%B9%EF%BC%88%E4%B8%80%EF%BC%89" target="_blank">DOM&#x7F16;&#x7A0B;&#x4E4B;&#x8282;&#x70B9;&#xFF08;&#x4E00;&#xFF09;</a></p>
-<h3 id="&#x83B7;&#x53D6;dom&#x8282;&#x70B9;">&#x83B7;&#x53D6;DOM&#x8282;&#x70B9;</h3>
+<h3 id="&#x83B7;&#x53D6;dom&#x8282;&#x70B9;"><a name="&#x83B7;&#x53D6;dom&#x8282;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x83B7;&#x53D6;dom&#x8282;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x83B7;&#x53D6;DOM&#x8282;&#x70B9;</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// &#x6839;&#x636E;id&#x8FD4;&#x56DE;&#x5355;&#x4E2A;&#x5143;&#x7D20;&#x8282;&#x70B9;</span>
 <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&quot;id&quot;</span>);
 
@@ -1096,7 +1124,7 @@
 <span class="hljs-built_in">document</span>.querySelector(selector);
 <span class="hljs-built_in">document</span>.querySelectorAll(selector);
 </code></pre>
-<h3 id="&#x64CD;&#x4F5C;&#x8282;&#x70B9;">&#x64CD;&#x4F5C;&#x8282;&#x70B9;</h3>
+<h3 id="&#x64CD;&#x4F5C;&#x8282;&#x70B9;"><a name="&#x64CD;&#x4F5C;&#x8282;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;&#x8282;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x64CD;&#x4F5C;&#x8282;&#x70B9;</h3>
 <p><strong>&#x5C5E;&#x6027;&#x8282;&#x70B9;</strong></p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> oTest = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#test&quot;</span>);
 oTest.getAttribute(<span class="hljs-string">&quot;title&quot;</span>); <span class="hljs-comment">//&#x83B7;&#x53D6;title&#x5C5E;&#x6027;&#x7684;&#x503C;&#xFF0C;&#x82E5;&#x65E0;&#x8FD4;&#x56DE;null</span>
@@ -1113,7 +1141,7 @@ oTest.dataset.demo
 oTest.innerHTML = <span class="hljs-string">&quot;Hello World&quot;</span>;
 oTest.innerText; <span class="hljs-comment">// Haha link</span>
 </code></pre>
-<h3 id="&#x904D;&#x5386;&#x8282;&#x70B9;">&#x904D;&#x5386;&#x8282;&#x70B9;</h3>
+<h3 id="&#x904D;&#x5386;&#x8282;&#x70B9;"><a name="&#x904D;&#x5386;&#x8282;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x904D;&#x5386;&#x8282;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x904D;&#x5386;&#x8282;&#x70B9;</h3>
 <pre><code class="lang-js">parentNode <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x7ED3;&#x70B9;&#x7684;&#x7236;&#x8282;&#x70B9;</span>
 offsetParent <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x7684;&#x662F;&#x79BB;&#x5F53;&#x524D;&#x7ED3;&#x70B9;&#x6700;&#x8FD1;&#x7684;&#x6709;&#x5B9A;&#x4F4D;&#x7684;&#x7236;&#x8282;&#x70B9;</span>
 childNodes <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x7ED3;&#x70B9;&#x7684;&#x5168;&#x90E8;&#x5B50;&#x8282;&#x70B9;</span>
@@ -1127,7 +1155,7 @@ previousSibling
 nextElementSibling
 previousSibling
 </code></pre>
-<h3 id="&#x64CD;&#x4F5C;css&#x6837;&#x5F0F;">&#x64CD;&#x4F5C;CSS&#x6837;&#x5F0F;</h3>
+<h3 id="&#x64CD;&#x4F5C;css&#x6837;&#x5F0F;"><a name="&#x64CD;&#x4F5C;css&#x6837;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x64CD;&#x4F5C;css&#x6837;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x64CD;&#x4F5C;CSS&#x6837;&#x5F0F;</h3>
 <p>&#x67E5;&#x8BE2;&#x5143;&#x7D20;&#x7684;style&#x5C5E;&#x6027;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x53EB;&#x505A;<code>CSSStyleDeclaration</code>&#x5BF9;&#x8C61;&#x800C;&#x4E0D;&#x662F;&#x7B80;&#x5355;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8BE5;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x4E86;&#x5143;&#x7D20;&#x7684;&#x6837;&#x5F0F;
 &#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF1A;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x53EA;&#x80FD;&#x83B7;&#x5F97;&#x5143;&#x7D20;&#x7684;&#x884C;&#x5185;&#x6837;&#x5F0F;</p>
 <pre><code>// &#x7531;&#x4E8E;-&#x662F;JavaScript&#x7684;&#x5143;&#x7D20;&#x7B26;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;&#x6240;&#x9700;&#x7684;CSS&#x5C5E;&#x6027;&#x4E2D;&#x5305;&#x542B;-&#x8FDE;&#x5B57;&#x7B26;&#xFF0C;&#x6BD4;&#x5982;font-size&#x7B49;&#xFF0C;&#x9700;&#x8981;&#x8F6C;&#x6362;&#x6210;fontSize&#x9A7C;&#x5CF0;&#x5F62;&#x5F0F;&#x7684;&#x624D;&#x884C;
@@ -1142,7 +1170,7 @@ test.style.color = &quot;red&quot;;
 <pre><code class="lang-js">test.className = <span class="hljs-string">&quot;text-green&quot;</span>;
 </code></pre>
 <p>HTML5&#x4E3A;&#x5143;&#x7D20;&#x8282;&#x70B9;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;classList&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x8BE5;&#x5C5E;&#x6027;&#x662F;&#x4E00;&#x4E2A;&#x53EA;&#x8BFB;&#x7684;&#x7C7B;&#x6570;&#x7EC4;&#x5BF9;&#x8C61;&#xFF08;&#x65E0;&#x6CD5;&#x88AB;&#x8986;&#x76D6;&#xFF09;&#xFF0C;&#x5305;&#x542B;&#x4E86;&#x8BE5;&#x5143;&#x7D20;&#x8282;&#x70B9;&#x7684;&#x5355;&#x72EC;&#x7C7B;&#x540D;&#xFF0C;&#x5E76;&#x63D0;&#x4F9B;&#x4E86;&#x76F8;&#x5173;&#x7684;&#x63A5;&#x53E3;&#x7528;&#x4E8E;&#x64CD;&#x4F5C;&#xFF0C;<code>add</code>&#x3001;<code>remove</code>&#x3001;<code>toggle</code>&#x548C;<code>contains</code></p>
-<h3 id="&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;">&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;</h3>
+<h3 id="&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;"><a name="&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6784;&#x9020;&#x5143;&#x7D20;&#x8282;&#x70B9;</h3>
 <p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5411;&#x6587;&#x6863;&#x4E2D;&#x6DFB;&#x52A0;&#x6807;&#x8BB0;&#xFF0C;&#x8BA9;&#x6D4F;&#x89C8;&#x5668;&#x91CD;&#x65B0;&#x89E3;&#x6790;&#x6587;&#x6863;&#x5E76;&#x751F;&#x6210;&#x8282;&#x70B9;&#x3002;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7684;&#x662F;<code>document.write()</code>&#x65B9;&#x6CD5;&#x548C;<code>node.innerHTML</code>&#x5C5E;&#x6027;&#x3002;</p>
 <p>&#x6B64;&#x5916;DOM&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;&#x76F8;&#x5173;&#x7684;&#x63A5;&#x53E3;</p>
 <pre><code class="lang-js"><span class="hljs-comment">// &#x521B;&#x5EFA;&#x5BF9;&#x5E94;&#x6807;&#x7B7E;&#x7684;&#x5143;&#x7D20;&#x8282;&#x70B9;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;ElementNode&#x5BF9;&#x8C61;</span>
@@ -1157,7 +1185,7 @@ test.style.color = &quot;red&quot;;
 <span class="hljs-comment">// &#x514B;&#x9686;&#x8282;&#x70B9;,&#x4F20;&#x5165;true&#x5219;&#x4F1A;&#x9012;&#x5F52;&#x590D;&#x5236;&#x8BE5;&#x8282;&#x70B9;&#x7684;&#x6240;&#x6709;&#x5B50;&#x8282;&#x70B9;</span>
 test.cloneNode()
 </code></pre>
-<h3 id="&#x63D2;&#x5165;&#x8282;&#x70B9;">&#x63D2;&#x5165;&#x8282;&#x70B9;</h3>
+<h3 id="&#x63D2;&#x5165;&#x8282;&#x70B9;"><a name="&#x63D2;&#x5165;&#x8282;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x63D2;&#x5165;&#x8282;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x63D2;&#x5165;&#x8282;&#x70B9;</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// &#x5C06;&#x52A8;&#x6001;&#x521B;&#x5EFA;&#x7684;&#x8282;&#x70B9;&#x63D2;&#x5165;&#x5230;&#x7236;&#x8282;&#x70B9;&#x4E2D;</span>
 parent.appendChild(node);
 <span class="hljs-comment">// &#x5C06;&#x52A8;&#x6001;&#x521B;&#x5EFA;&#x7684;&#x8282;&#x70B9;&#x63D2;&#x5165;&#x5230;&#x5144;&#x5F1F;&#x8282;&#x70B9;&#x524D;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4E5F;&#x662F;&#x5728;&#x7236;&#x8282;&#x70B9;&#x4E0A;&#x8FDB;&#x884C;&#x7684;</span>
@@ -1177,14 +1205,14 @@ parentUl.insertBefore(oLi, siblingLi);
 }
 </code></pre>
 <p>HTML5&#x5F15;&#x8FDB;&#x4E86;&#x4E00;&#x4E2A;&#x5341;&#x5206;&#x5F3A;&#x5927;&#x7684;&#x63D2;&#x5165;&#x8282;&#x70B9;&#x7684;API&#xFF0C;&#x53EB;&#x505A;<code>innerAdjacentHTML</code>&#xFF0C;&#x7528;&#x4E8E;&#x63D2;&#x5165;&#x6587;&#x6863;&#x8282;&#x70B9;&#xFF0C;&#x8FD9;&#x91CC;&#x662F;<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Element/insertAdjacentHTML" target="_blank">&#x6587;&#x6863;&#x4F20;&#x9001;&#x95E8;</a></p>
-<h3 id="&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;">&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;</h3>
+<h3 id="&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;"><a name="&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;" class="anchor-navigation-ex-anchor" href="#&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5220;&#x9664;&#x548C;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// &#x79FB;&#x9664;&#x5B50;&#x8282;&#x70B9;</span>
 parentUl.removeChild(siblingLi)
 <span class="hljs-comment">// &#x4F7F;&#x7528;oLi&#x65B0;&#x8282;&#x70B9;&#x66FF;&#x6362;&#x5B50;&#x8282;&#x70B9;</span>
  parentUl.replaceChild(oLi, siblingLi)
 </code></pre>
 <p>&#x6B64;&#x5916;&#x8FD8;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>innerHTML</code>&#x8FDB;&#x884C;&#x8986;&#x76D6;&#xFF0C;&#x79FB;&#x9664;&#x76F8;&#x5173;&#x7684;&#x8282;&#x70B9;&#x3002;</p>
-<h2 id="&#x4E8B;&#x4EF6;">&#x4E8B;&#x4EF6;</h2>
+<h2 id="&#x4E8B;&#x4EF6;"><a name="&#x4E8B;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x4E8B;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E8B;&#x4EF6;</h2>
 <p>&#x53C2;&#x8003;&#x4E4B;&#x524D;&#x7684;&#x6574;&#x7406;:<a href="http://www.shymean.com/article/DOM%E7%BC%96%E7%A8%8B%E4%B9%8B%E4%BA%8B%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89" target="_blank">DOM&#x7F16;&#x7A0B;&#x4E4B;&#x4E8B;&#x4EF6;&#xFF08;&#x4E8C;&#xFF09;</a></p>
 <p>&#x5F53;&#x6587;&#x6863;&#x3001;&#x6D4F;&#x89C8;&#x5668;&#x3001;&#x5143;&#x7D20;&#x6216;&#x4E0E;&#x4E4B;&#x76F8;&#x5173;&#x7684;&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x67D0;&#x4E9B;&#x6709;&#x8DA3;&#x7684;&#x4E8B;&#x60C5;&#x65F6;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x5C31;&#x4F1A;&#x4EA7;&#x751F;&#x4E8B;&#x4EF6;&#xFF08;&#x4E5F;&#x53EF;&#x4EE5;&#x8BF4;&#x6210;&#x662F;&#x6D4F;&#x89C8;&#x5668;&#x901A;&#x77E5;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53D1;&#x751F;&#x4E86;&#x4EC0;&#x4E48;&#x4E8B;&#x60C5;&#xFF09;</p>
 <p>&#x5173;&#x4E8E;&#x4E8B;&#x4EF6;&#xFF0C;&#x9700;&#x8981;&#x7406;&#x89E3;&#x7684;&#x5305;&#x62EC;</p>
@@ -1196,12 +1224,12 @@ parentUl.removeChild(siblingLi)
 <li>&#x4E8B;&#x4EF6;&#x4F20;&#x64AD;</li>
 <li>&#x9ED8;&#x8BA4;&#x4E8B;&#x4EF6;&#x53D6;&#x6D88;&#x7B49;</li>
 </ul>
-<h3 id="&#x4E8B;&#x4EF6;&#x59D4;&#x6258;">&#x4E8B;&#x4EF6;&#x59D4;&#x6258;</h3>
+<h3 id="&#x4E8B;&#x4EF6;&#x59D4;&#x6258;"><a name="&#x4E8B;&#x4EF6;&#x59D4;&#x6258;" class="anchor-navigation-ex-anchor" href="#&#x4E8B;&#x4EF6;&#x59D4;&#x6258;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E8B;&#x4EF6;&#x59D4;&#x6258;</h3>
 <p>&#x4E8B;&#x4EF6;&#x5192;&#x6CE1;&#x6A21;&#x578B;&#x5728;&#x4E3A;&#x5927;&#x91CF;&#x5355;&#x72EC;&#x5143;&#x7D20;&#x4E0A;&#x6CE8;&#x518C;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x63D0;&#x4F9B;&#x4E86;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF08;&#x5728;&#x5176;&#x516C;&#x6709;&#x7956;&#x5148;&#x5143;&#x7D20;&#x4E0A;&#x6CE8;&#x518C;&#x4E8B;&#x4EF6;,&#x5373;<strong>&#x4E8B;&#x4EF6;&#x59D4;&#x6258;</strong>&#xFF09;&#x3002;</p>
 <p>&#x4E8B;&#x4EF6;&#x59D4;&#x6258;&#x5C31;&#x662F;&#x4E8B;&#x4EF6;&#x76EE;&#x6807;&#x4E0D;&#x76F4;&#x63A5;&#x5904;&#x7406;&#x4E8B;&#x4EF6;&#xFF0C;&#x800C;&#x662F;&#x59D4;&#x6258;&#x5176;&#x7236;&#x5143;&#x7D20;&#x6216;&#x8005;&#x7956;&#x5148;&#x5143;&#x7D20;&#x751A;&#x81F3;&#x6839;&#x5143;&#x7D20;&#xFF08;document&#xFF09;&#x7684;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x51FD;&#x6570;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E8B;&#x4EF6;&#x5BF9;&#x8C61;&#x7684;target&#x5C5E;&#x6027;&#x83B7;&#x5F97;&#x771F;&#x6B63;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;&#x7684;&#x5F15;&#x7528;&#x3002;</p>
 <p>&#x4E8B;&#x4EF6;&#x59D4;&#x6258;&#x662F;&#x5EFA;&#x7ACB;&#x5728;&#x5192;&#x6CE1;&#x6A21;&#x578B;&#x4E4B;&#x4E0A;&#x7684;&#x3002;</p>
-<h2 id="&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;">&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</h2>
-<h3 id="ajax">Ajax</h3>
+<h2 id="&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;"><a name="&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;" class="anchor-navigation-ex-anchor" href="#&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</h2>
+<h3 id="ajax"><a name="ajax" class="anchor-navigation-ex-anchor" href="#ajax"><i class="fa fa-link" aria-hidden="true"></i></a>Ajax</h3>
 <p>&#x4E4B;&#x524D;&#x9047;&#x89C1;&#x7684;&#x4E00;&#x4E2A;&#x9762;&#x8BD5;&#x9898;&#x76EE;&#x662F;&#x624B;&#x5199;&#x4EE3;&#x7801;&#xFF0C;&#x5C01;&#x88C5;ajax~</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest()
 <span class="hljs-keyword">var</span> url = <span class="hljs-string">&apos;/api&apos;</span>
@@ -1217,7 +1245,7 @@ xhr.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">
 xhr.send(<span class="hljs-literal">null</span>)...
 </code></pre>
 <p>&#x9700;&#x8981;&#x638C;&#x63E1;<code>readyState</code>&#x548C;<code>status</code>&#x72B6;&#x6001;&#x7801;&#x7684;&#x542B;&#x4E49;</p>
-<h3 id="fetch">Fetch</h3>
+<h3 id="fetch"><a name="fetch" class="anchor-navigation-ex-anchor" href="#fetch"><i class="fa fa-link" aria-hidden="true"></i></a>Fetch</h3>
 <p>&#x73B0;&#x5728;&#x6709;&#x4E00;&#x4E2A;&#x66F4;&#x7B80;&#x5355;&#x7684;&#x53D1;&#x8D77;HTTP&#x8BF7;&#x6C42;&#x7684;&#x63A5;&#x53E3;&#xFF1A;<code>Fetch</code>
 &#x53C2;&#x8003;<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch" target="_blank">&#x6587;&#x6863;&#x4F20;&#x9001;&#x95E8;</a></p>
 <pre><code class="lang-js">fetch(<span class="hljs-string">&apos;url&apos;</span>, {
@@ -1225,7 +1253,7 @@ xhr.send(<span class="hljs-literal">null</span>)...
     headers:{}, <span class="hljs-comment">// &#x8BF7;&#x6C42;&#x7684;&#x5934;&#x4FE1;&#x606F;&#xFF0C;&#x5F62;&#x5F0F;&#x4E3A; Headers &#x5BF9;&#x8C61;&#x6216; ByteString</span>
 }).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>{ ... });
 </code></pre>
-<h2 id="web-storage-api">Web Storage API</h2>
+<h2 id="web-storage-api"><a name="web-storage-api" class="anchor-navigation-ex-anchor" href="#web-storage-api"><i class="fa fa-link" aria-hidden="true"></i></a>Web Storage API</h2>
 <p>HTML5&#x65B0;&#x589E;&#x4E86;sessionStorage&#x548C;localStorage&#x7528;&#x4E8E;&#x672C;&#x5730;&#x5B58;&#x50A8;&#xFF0C;&#x4E13;&#x95E8;&#x4E3A;&#x4E86;&#x6D4F;&#x89C8;&#x5668;&#x7AEF;&#x7F13;&#x5B58;&#x800C;&#x8BBE;&#x8BA1;&#x7684;&#xFF0C;&#x4F18;&#x70B9;&#x6709;&#xFF1A;</p>
 <ul>
 <li>&#x5B58;&#x50A8;&#x91CF;&#x589E;&#x5927;&#x5230; 5MB</li>
@@ -1233,7 +1261,7 @@ xhr.send(<span class="hljs-literal">null</span>)...
 </ul>
 <p>&#x76F8;&#x5173;&#x63A5;&#x53E3;<code>setItem</code>&#x3001;<code>getItem</code>&#x3001;<code>removeItem</code></p>
 <p>&#x9488;&#x5BF9;localStorage.setItem&#xFF0C;&#x4F7F;&#x7528;&#x65F6;&#x5C3D;&#x91CF;&#x52A0;&#x5165;&#x5230;try-catch&#x4E2D;&#xFF0C;&#x67D0;&#x4E9B;&#x6D4F;&#x89C8;&#x5668;&#x662F;&#x7981;&#x7528;&#x8FD9;&#x4E2A; API &#x7684;&#xFF0C;&#x8981;&#x6CE8;&#x610F;&#x3002;</p>
-<h2 id="requestanimationframe">requestAnimationFrame</h2>
+<h2 id="requestanimationframe"><a name="requestanimationframe" class="anchor-navigation-ex-anchor" href="#requestanimationframe"><i class="fa fa-link" aria-hidden="true"></i></a>requestAnimationFrame</h2>
 <p>&#x53C2;&#x8003;&#xFF1A;</p>
 <ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame" target="_blank">MDN&#x6587;&#x6863;</a></li>
@@ -1241,9 +1269,11 @@ xhr.send(<span class="hljs-literal">null</span>)...
 <pre><code>window.requestAnimationFrame(callback);
 </code></pre><ul>
 <li>&#x5728;&#x5927;&#x591A;&#x6570;&#x6D4F;&#x89C8;&#x5668;&#x91CC;&#xFF0C;&#x5F53;&#x8FD0;&#x884C;&#x5728;&#x540E;&#x53F0;&#x6807;&#x7B7E;&#x9875;&#x6216;&#x8005;&#x9690;&#x85CF;&#x7684;<iframe> 里时，requestAnimationFrame() 会暂停调用以提升性能和电池寿命。</iframe></li>
-<li>callback&#x4F1A;&#x88AB;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;DOMHighResTimeStamp&#xFF0C;&#x6307;&#x793A;&#x5F53;&#x524D;&#x88AB; requestAnimationFrame() &#x6392;&#x5E8F;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x88AB;&#x89E6;&#x53D1;&#x7684;&#x65F6;&#x95F4;&#x3002;&#x5373;&#x4F7F;&#x6BCF;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x5DE5;&#x4F5C;&#x91CF;&#x7684;&#x8BA1;&#x7B97;&#x90FD;&#x82B1;&#x4E86;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4E2A;&#x5E27;&#x4E2D;&#x7684;&#x591A;&#x4E2A;&#x56DE;&#x8C03;&#x4E5F;&#x90FD;&#x5C06;&#x88AB;&#x4F20;&#x5165;&#x76F8;&#x540C;&#x7684;&#x65F6;&#x95F4;&#x6233;</li>
+<li>callback&#x4F1A;&#x88AB;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;DOMHighResTimeStamp&#xFF0C;&#x6307;&#x793A;&#x5F53;&#x524D;&#x88AB; requestAnimationFrame() &#x6392;&#x5E8F;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x88AB;&#x89E6;&#x53D1;&#x7684;&#x65F6;&#x95F4;&#x3002;&#x5373;&#x4F7F;&#x6BCF;&#x4E2A;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x7684;&#x5DE5;&#x4F5C;&#x91CF;&#x7684;&#x8BA1;&#x7B97;&#x90FD;&#x82B1;&#x4E86;&#x65F6;&#x95F4;&#xFF0C;&#x5355;&#x4E2A;&#x5E27;&#x4E2D;&#x7684;&#x591A;&#x4E2A;&#x56DE;&#x8C03;&#x4E5F;&#x90FD;&#x5C06;&#x88AB;&#x4F20;&#x5165;&#x76F8;&#x540C;&#x7684;&#x65F6;&#x95F4;&#x6233; </li>
 </ul>
-
+<footer class="page-footer"><span class="copyright">&#xA9; shymean all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
+2019-03-21 09:18:43
+</span></footer>
                                 
                                 </section>
                             
@@ -1286,7 +1316,7 @@ xhr.send(<span class="hljs-literal">null</span>)...
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"DOM和BOM.md","level":"2.3.2","depth":2,"next":{"title":"ECMAScript.md","level":"2.3.3","depth":2,"path":"知识点/JavaScript/ECMAScript.md","ref":"./知识点/JavaScript/ECMAScript.md","articles":[]},"previous":{"title":"Canvas.md","level":"2.3.1","depth":2,"path":"知识点/JavaScript/Canvas.md","ref":"./知识点/JavaScript/Canvas.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"知识点/JavaScript/DOM和BOM.md","mtime":"2019-03-21T01:18:43.992Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-23T09:16:16.855Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"DOM和BOM.md","level":"2.3.2","depth":2,"next":{"title":"ECMAScript.md","level":"2.3.3","depth":2,"path":"知识点/JavaScript/ECMAScript.md","ref":"./知识点/JavaScript/ECMAScript.md","articles":[]},"previous":{"title":"Canvas.md","level":"2.3.1","depth":2,"path":"知识点/JavaScript/Canvas.md","ref":"./知识点/JavaScript/Canvas.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["expandable-chapters","donate","tbfed-pagefooter","anchor-navigation-ex","sitemap-general","github-buttons","catalogue-title","livereload"],"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy shymean","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"livereload":{},"simple-page-toc":{"maxDepth":3,"skipFirstH1":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"donate":{"alipay":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1goltfohrj308w08wgm4.jpg","alipayText":"支付宝","button":"打赏","title":"你要请我喝奶茶吗？","wechat":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1gom432f5j308w08wt93.jpg","wechatText":"微信"},"sitemap-general":{"prefix":"https://shymean.com"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"catalogue-title":{},"github-buttons":{"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"知识点/JavaScript/DOM和BOM.md","mtime":"2019-03-21T01:18:43.992Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-03-27T02:26:46.407Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -1294,6 +1324,18 @@ xhr.send(<span class="hljs-literal">null</span>)...
         
     <script src="../../gitbook/gitbook.js"></script>
     <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
     
         
         <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
