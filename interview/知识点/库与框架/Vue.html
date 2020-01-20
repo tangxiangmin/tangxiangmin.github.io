@@ -1,0 +1,1799 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Vue.md · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="Vuex.html" />
+    
+    
+    <link rel="prev" href="Redux源码分析.html" />
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">知识点</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" >
+            
+                <span>
+            
+                    
+                    CSS
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="../CSS/BFC.html">
+            
+                <a href="../CSS/BFC.html">
+            
+                    
+                    BFC.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="../CSS/CSS3.html">
+            
+                <a href="../CSS/CSS3.html">
+            
+                    
+                    CSS3.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="../CSS/分辨率.html">
+            
+                <a href="../CSS/分辨率.html">
+            
+                    
+                    分辨率.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.4" data-path="../CSS/包含块.html">
+            
+                <a href="../CSS/包含块.html">
+            
+                    
+                    包含块.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.5" data-path="../CSS/基础知识.html">
+            
+                <a href="../CSS/基础知识.html">
+            
+                    
+                    基础知识.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6" data-path="../CSS/选择器.html">
+            
+                <a href="../CSS/选择器.html">
+            
+                    
+                    选择器.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7" data-path="../CSS/重绘和回流.html">
+            
+                <a href="../CSS/重绘和回流.html">
+            
+                    
+                    重绘和回流.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" >
+            
+                <span>
+            
+                    
+                    HTML
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="../HTML/HTML.html">
+            
+                <a href="../HTML/HTML.html">
+            
+                    
+                    HTML.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.2" data-path="../HTML/SEO优化.html">
+            
+                <a href="../HTML/SEO优化.html">
+            
+                    
+                    SEO优化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.3" data-path="../HTML/Web Components.html">
+            
+                <a href="../HTML/Web Components.html">
+            
+                    
+                    Web Components.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" >
+            
+                <span>
+            
+                    
+                    JavaScript
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="../JavaScript/Canvas.html">
+            
+                <a href="../JavaScript/Canvas.html">
+            
+                    
+                    Canvas.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.2" data-path="../JavaScript/DOM和BOM.html">
+            
+                <a href="../JavaScript/DOM和BOM.html">
+            
+                    
+                    DOM和BOM.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.3" data-path="../JavaScript/ECMAScript.html">
+            
+                <a href="../JavaScript/ECMAScript.html">
+            
+                    
+                    ECMAScript.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.4" data-path="../JavaScript/EventLoop.html">
+            
+                <a href="../JavaScript/EventLoop.html">
+            
+                    
+                    EventLoop.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.5" data-path="../JavaScript/NodeJS.html">
+            
+                <a href="../JavaScript/NodeJS.html">
+            
+                    
+                    NodeJS.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.6" data-path="../JavaScript/TypeScript.html">
+            
+                <a href="../JavaScript/TypeScript.html">
+            
+                    
+                    TypeScript.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.7" data-path="../JavaScript/Worker.html">
+            
+                <a href="../JavaScript/Worker.html">
+            
+                    
+                    Worker.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.8" data-path="../JavaScript/npm.html">
+            
+                <a href="../JavaScript/npm.html">
+            
+                    
+                    npm.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.9" data-path="../JavaScript/函数式编程.html">
+            
+                <a href="../JavaScript/函数式编程.html">
+            
+                    
+                    函数式编程.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.10" data-path="../JavaScript/原型.html">
+            
+                <a href="../JavaScript/原型.html">
+            
+                    
+                    原型.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.11" data-path="../JavaScript/数据类型.html">
+            
+                <a href="../JavaScript/数据类型.html">
+            
+                    
+                    数据类型.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.12" data-path="../JavaScript/正则.html">
+            
+                <a href="../JavaScript/正则.html">
+            
+                    
+                    正则.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.13" data-path="../JavaScript/装饰器.html">
+            
+                <a href="../JavaScript/装饰器.html">
+            
+                    
+                    装饰器.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4.14" data-path="../JavaScript/运算符.html">
+            
+                <a href="../JavaScript/运算符.html">
+            
+                    
+                    运算符.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" >
+            
+                <span>
+            
+                    
+                    业务相关
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.5.1" data-path="../业务相关/Babel.html">
+            
+                <a href="../业务相关/Babel.html">
+            
+                    
+                    Babel.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.2" data-path="../业务相关/Chrome扩展程序.html">
+            
+                <a href="../业务相关/Chrome扩展程序.html">
+            
+                    
+                    Chrome扩展程序.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.3" data-path="../业务相关/Docker.html">
+            
+                <a href="../业务相关/Docker.html">
+            
+                    
+                    Docker.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.4" data-path="../业务相关/Electron.html">
+            
+                <a href="../业务相关/Electron.html">
+            
+                    
+                    Electron.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.5" data-path="../业务相关/webpack.html">
+            
+                <a href="../业务相关/webpack.html">
+            
+                    
+                    webpack.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.6" data-path="../业务相关/webview.html">
+            
+                <a href="../业务相关/webview.html">
+            
+                    
+                    webview.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.7" data-path="../业务相关/web安全.html">
+            
+                <a href="../业务相关/web安全.html">
+            
+                    
+                    web安全.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.8" data-path="../业务相关/前端工程化.html">
+            
+                <a href="../业务相关/前端工程化.html">
+            
+                    
+                    前端工程化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.9" data-path="../业务相关/小程序.html">
+            
+                <a href="../业务相关/小程序.html">
+            
+                    
+                    小程序.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.10" data-path="../业务相关/性能优化.html">
+            
+                <a href="../业务相关/性能优化.html">
+            
+                    
+                    性能优化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.11" data-path="../业务相关/技术前沿.html">
+            
+                <a href="../业务相关/技术前沿.html">
+            
+                    
+                    技术前沿.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5.12" data-path="../业务相关/调试.html">
+            
+                <a href="../业务相关/调试.html">
+            
+                    
+                    调试.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" >
+            
+                <span>
+            
+                    
+                    库与框架
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.6.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.2" data-path="Dva源码分析.html">
+            
+                <a href="Dva源码分析.html">
+            
+                    
+                    Dva源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.3" data-path="Immutable.html">
+            
+                <a href="Immutable.html">
+            
+                    
+                    Immutable.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.4" data-path="React.html">
+            
+                <a href="React.html">
+            
+                    
+                    React.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.5" data-path="React源码分析.html">
+            
+                <a href="React源码分析.html">
+            
+                    
+                    React源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.6" data-path="Redux源码分析.html">
+            
+                <a href="Redux源码分析.html">
+            
+                    
+                    Redux源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.6.7" data-path="Vue.html">
+            
+                <a href="Vue.html">
+            
+                    
+                    Vue.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.8" data-path="Vuex.html">
+            
+                <a href="Vuex.html">
+            
+                    
+                    Vuex.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.9" data-path="axios源码分析.html">
+            
+                <a href="axios源码分析.html">
+            
+                    
+                    axios源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.10" data-path="diff算法.html">
+            
+                <a href="diff算法.html">
+            
+                    
+                    diff算法.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.11" data-path="koa源码分析.html">
+            
+                <a href="koa源码分析.html">
+            
+                    
+                    koa源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.12" data-path="wepy.html">
+            
+                <a href="wepy.html">
+            
+                    
+                    wepy.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.13" data-path="单页面应用Router.html">
+            
+                <a href="单页面应用Router.html">
+            
+                    
+                    单页面应用Router.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" >
+            
+                <span>
+            
+                    
+                    数据结构和算法
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.7.1" data-path="../数据结构和算法/动态规划.html">
+            
+                <a href="../数据结构和算法/动态规划.html">
+            
+                    
+                    动态规划.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7.2" data-path="../数据结构和算法/基本数据结构.html">
+            
+                <a href="../数据结构和算法/基本数据结构.html">
+            
+                    
+                    基本数据结构.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7.3" data-path="../数据结构和算法/基本算法.html">
+            
+                <a href="../数据结构和算法/基本算法.html">
+            
+                    
+                    基本算法.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7.4" data-path="../数据结构和算法/栈.html">
+            
+                <a href="../数据结构和算法/栈.html">
+            
+                    
+                    栈.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" >
+            
+                <span>
+            
+                    
+                    网络
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.8.1" data-path="../网络/DNS.html">
+            
+                <a href="../网络/DNS.html">
+            
+                    
+                    DNS.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8.2" data-path="../网络/RPC.html">
+            
+                <a href="../网络/RPC.html">
+            
+                    
+                    RPC.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8.3" data-path="../网络/http.html">
+            
+                <a href="../网络/http.html">
+            
+                    
+                    http.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8.4" data-path="../网络/nginx.html">
+            
+                <a href="../网络/nginx.html">
+            
+                    
+                    nginx.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8.5" data-path="../网络/前端网络请求.html">
+            
+                <a href="../网络/前端网络请求.html">
+            
+                    
+                    前端网络请求.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8.6" data-path="../网络/抓包.html">
+            
+                <a href="../网络/抓包.html">
+            
+                    
+                    抓包.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8.7" data-path="../网络/计算机网络.html">
+            
+                <a href="../网络/计算机网络.html">
+            
+                    
+                    计算机网络.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" >
+            
+                <span>
+            
+                    
+                    计算机基础
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.9.1" data-path="../计算机基础/计算机原理.html">
+            
+                <a href="../计算机基础/计算机原理.html">
+            
+                    
+                    计算机原理.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.2" data-path="../计算机基础/设计模式.html">
+            
+                <a href="../计算机基础/设计模式.html">
+            
+                    
+                    设计模式.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">面试</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" >
+            
+                <span>
+            
+                    
+                    面试记录
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../../面试/面试记录/AYLDM.html">
+            
+                <a href="../../面试/面试记录/AYLDM.html">
+            
+                    
+                    AYLDM.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../../面试/面试记录/DaE.html">
+            
+                <a href="../../面试/面试记录/DaE.html">
+            
+                    
+                    DaE.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../../面试/面试记录/HDJR.html">
+            
+                <a href="../../面试/面试记录/HDJR.html">
+            
+                    
+                    HDJR.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../../面试/面试记录/JRTT.html">
+            
+                <a href="../../面试/面试记录/JRTT.html">
+            
+                    
+                    JRTT.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="../../面试/面试记录/MD.html">
+            
+                <a href="../../面试/面试记录/MD.html">
+            
+                    
+                    MD.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.6" data-path="../../面试/面试记录/PAKJ（外包岗）.html">
+            
+                <a href="../../面试/面试记录/PAKJ（外包岗）.html">
+            
+                    
+                    PAKJ（外包岗）.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.7" data-path="../../面试/面试记录/QKCJ.html">
+            
+                <a href="../../面试/面试记录/QKCJ.html">
+            
+                    
+                    QKCJ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.8" data-path="../../面试/面试记录/SFWY.html">
+            
+                <a href="../../面试/面试记录/SFWY.html">
+            
+                    
+                    SFWY.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.9" data-path="../../面试/面试记录/TE（外包岗）.html">
+            
+                <a href="../../面试/面试记录/TE（外包岗）.html">
+            
+                    
+                    TE（外包岗）.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.10" data-path="../../面试/面试记录/TW.html">
+            
+                <a href="../../面试/面试记录/TW.html">
+            
+                    
+                    TW.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.11" data-path="../../面试/面试记录/YHKJ.html">
+            
+                <a href="../../面试/面试记录/YHKJ.html">
+            
+                    
+                    YHKJ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.12" data-path="../../面试/面试记录/YSKJ.html">
+            
+                <a href="../../面试/面试记录/YSKJ.html">
+            
+                    
+                    YSKJ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.13" data-path="../../面试/面试记录/Z8.html">
+            
+                <a href="../../面试/面试记录/Z8.html">
+            
+                    
+                    Z8.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" >
+            
+                <span>
+            
+                    
+                    面试题
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.2.1" data-path="../../面试/面试题/">
+            
+                <a href="../../面试/面试题/">
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.2" data-path="../../面试/面试题/CSS.html">
+            
+                <a href="../../面试/面试题/CSS.html">
+            
+                    
+                    CSS.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.3" data-path="../../面试/面试题/DOM.html">
+            
+                <a href="../../面试/面试题/DOM.html">
+            
+                    
+                    DOM.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.4" data-path="../../面试/面试题/ECMAScript.html">
+            
+                <a href="../../面试/面试题/ECMAScript.html">
+            
+                    
+                    ECMAScript.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.5" data-path="../../面试/面试题/HTML.html">
+            
+                <a href="../../面试/面试题/HTML.html">
+            
+                    
+                    HTML.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.6" data-path="../../面试/面试题/React.html">
+            
+                <a href="../../面试/面试题/React.html">
+            
+                    
+                    React.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.7" data-path="../../面试/面试题/Vue.html">
+            
+                <a href="../../面试/面试题/Vue.html">
+            
+                    
+                    Vue.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.8" data-path="../../面试/面试题/代码实现.html">
+            
+                <a href="../../面试/面试题/代码实现.html">
+            
+                    
+                    代码实现.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.9" data-path="../../面试/面试题/代码阅读.html">
+            
+                <a href="../../面试/面试题/代码阅读.html">
+            
+                    
+                    代码阅读.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.10" data-path="../../面试/面试题/其他问题.html">
+            
+                <a href="../../面试/面试题/其他问题.html">
+            
+                    
+                    其他问题.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.11" data-path="../../面试/面试题/兼容及BUG.html">
+            
+                <a href="../../面试/面试题/兼容及BUG.html">
+            
+                    
+                    兼容及BUG.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.12" data-path="../../面试/面试题/常见需求.html">
+            
+                <a href="../../面试/面试题/常见需求.html">
+            
+                    
+                    常见需求.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.13" data-path="../../面试/面试题/算法实现.html">
+            
+                <a href="../../面试/面试题/算法实现.html">
+            
+                    
+                    算法实现.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.14" data-path="../../面试/面试题/网络.html">
+            
+                <a href="../../面试/面试题/网络.html">
+            
+                    
+                    网络.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Vue.md</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#vue"><b></b>Vue</a></li><ul><li><span class="title-icon "></span><a href="#mvc&#x3001;mvp&#x3001;mvvm"><b></b>MVC&#x3001;MVP&#x3001;MVVM</a></li><li><span class="title-icon "></span><a href="#&#x865A;&#x62DF;dom"><b></b>&#x865A;&#x62DF;DOM</a></li><li><span class="title-icon "></span><a href="#&#x54CD;&#x5E94;&#x5F0F;&#x7CFB;&#x7EDF;"><b></b>&#x54CD;&#x5E94;&#x5F0F;&#x7CFB;&#x7EDF;</a></li><li><span class="title-icon "></span><a href="#&#x8BED;&#x6CD5;&#x7CD6;"><b></b>&#x8BED;&#x6CD5;&#x7CD6;</a></li><li><span class="title-icon "></span><a href="#&#x7EC4;&#x4EF6;"><b></b>&#x7EC4;&#x4EF6;</a></li><ul><li><span class="title-icon "></span><a href="#&#x7EC4;&#x4EF6;&#x901A;&#x4FE1;"><b></b>&#x7EC4;&#x4EF6;&#x901A;&#x4FE1;</a></li><li><span class="title-icon "></span><a href="#&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;&#x7684;&#x6280;&#x5DE7;"><b></b>&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;&#x7684;&#x6280;&#x5DE7;</a></li></ul><li><span class="title-icon "></span><a href="#&#x6027;&#x80FD;&#x4F18;&#x5316;"><b></b>&#x6027;&#x80FD;&#x4F18;&#x5316;</a></li><li><span class="title-icon "></span><a href="#&#x5F00;&#x53D1;&#x73AF;&#x5883;"><b></b>&#x5F00;&#x53D1;&#x73AF;&#x5883;</a></li><ul><li><span class="title-icon "></span><a href="#vue-cli3"><b></b>vue-cli3</a></li><li><span class="title-icon "></span><a href="#vue-loader"><b></b>Vue-loader</a></li><li><span class="title-icon "></span><a href="#&#x624B;&#x52A8;&#x914D;&#x7F6E;vue&#x5F00;&#x53D1;&#x73AF;&#x5883;"><b></b>&#x624B;&#x52A8;&#x914D;&#x7F6E;vue&#x5F00;&#x53D1;&#x73AF;&#x5883;</a></li></ul></ul></ul></div><a href="#vue" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="vue"><a name="vue" class="anchor-navigation-ex-anchor" href="#vue"><i class="fa fa-link" aria-hidden="true"></i></a>Vue</h1>
+<ul>
+<li><a href="https://www.shymean.com/article/%E9%87%8D%E6%96%B0%E9%98%85%E8%AF%BBVue%E6%BA%90%E7%A0%81" target="_blank">&#x91CD;&#x65B0;&#x9605;&#x8BFB;Vue&#x6E90;&#x7801;</a></li>
+</ul>
+<h2 id="mvc&#x3001;mvp&#x3001;mvvm"><a name="mvc&#x3001;mvp&#x3001;mvvm" class="anchor-navigation-ex-anchor" href="#mvc&#x3001;mvp&#x3001;mvvm"><i class="fa fa-link" aria-hidden="true"></i></a>MVC&#x3001;MVP&#x3001;MVVM</h2>
+<p>MVC&#xFF0C;&#x4EE5;&#x4F20;&#x7EDF;web&#x5E94;&#x7528;&#x4E3A;&#x4F8B;</p>
+<ul>
+<li>HTML&#x6587;&#x4EF6;&#x4EE3;&#x8868;View&#xFF0C;&#x4E13;&#x95E8;&#x5904;&#x7406;&#x6570;&#x636E;&#x5C55;&#x793A;</li>
+<li>&#x540E;&#x53F0;&#x63A5;&#x53E3;&#x76F8;&#x5F53;&#x4E8E;Model&#xFF0C;&#x4E13;&#x95E8;&#x5904;&#x7406;&#x6570;&#x636E;&#x903B;&#x8F91;</li>
+<li>JavaScript&#x4EE3;&#x8868;Controller&#xFF0C;&#x76D1;&#x542C;View&#x7684;&#x4EA4;&#x4E92;&#xFF08;&#x5982;&#x4E8B;&#x4EF6;&#x6CE8;&#x518C;&#xFF09;,&#x4ECE;Model&#x83B7;&#x53D6;&#x6570;&#x636E;(&#x5982;Ajax&#x8BF7;&#x6C42;)&#xFF0C;&#x7136;&#x540E;&#x64CD;&#x4F5C;DOM&#x5C06;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x5230;View&#x4E0A;<ul>
+<li>View&#x2192;Controller&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;</li>
+<li>Controller&#x2192;Model&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;</li>
+<li>Model&#x2192;View &#x64CD;&#x4F5C;DOM&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x5728;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x56DE;&#x8C03;&#x4E2D;&#x76F4;&#x63A5;&#x66F4;&#x65B0;DOM</li>
+</ul>
+</li>
+</ul>
+<p>&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x5404;&#x4E2A;&#x6A21;&#x5757;&#x4E92;&#x76F8;&#x8026;&#x5408;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x66F4;&#x65B0;View&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x5206;&#x6563;&#x5728;&#x5404;&#x4E2A;&#x7F51;&#x7EDC;&#x56DE;&#x8C03;&#x4E2D;&#xFF0C;&#x56E0;&#x6B64;&#x51FA;&#x73B0;&#x4E86;MVP&#xFF0C;MVP&#x5C06;View&#x548C;Model&#x5206;&#x9694;&#x5F00;&#xFF0C;</p>
+<ul>
+<li>Presenter&#x4E2D;&#x63A5;&#x6536;View&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x8BF7;&#x6C42;Model&#x83B7;&#x53D6;&#x6570;&#x636E;</li>
+<li>Presenter&#x5C06;&#x83B7;&#x53D6;&#x7684;&#x6570;&#x636E;&#x66F4;&#x65B0;&#x5230;View&#x4E0A;&#xFF0C;&#xFF08;&#x4E0D;&#x662F;&#x5728;&#x7F51;&#x7EDC;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x4E2D;&#x76F4;&#x63A5;&#x64CD;&#x4F5C;DOM&#xFF0C;&#x800C;&#x662F;&#x5728;JavaScript&#x4E2D;&#x5C01;&#x88C5;&#x64CD;&#x4F5C;DOM&#x8282;&#x70B9;&#x7684;&#x76F8;&#x5173;&#x65B9;&#x6CD5;&#xFF09;</li>
+</ul>
+<p>&#x5728;Presenter&#x4E2D;&#x9700;&#x8981;&#x5C01;&#x88C5;&#x5927;&#x91CF;&#x624B;&#x52A8;&#x64CD;&#x4F5C;DOM&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5BF9;&#x4E8E;&#x5F00;&#x53D1;&#x8005;&#x800C;&#x8A00;&#x662F;&#x5341;&#x5206;&#x82E6;&#x607C;&#x7684;&#xFF0C;&#x4E8E;&#x662F;&#x51FA;&#x73B0;&#x4E86;MVVM&#xFF0C;&#x5176;&#x4E2D;&#x7684;<code>VM</code>&#x8868;&#x793A;ViewModel</p>
+<ul>
+<li>ViewModel&#x53EF;&#x4EE5;&#x548C;View&#x7ED1;&#x5B9A;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x6570;&#x636E;&#x7684;&#x53D8;&#x5316;&#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x5230;View&#x4E0A;</li>
+<li>ViewModel&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x4E00;&#x4E2A;&#x6982;&#x5FF5;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#xFF0C;&#x5E38;&#x89C1;&#x7684;&#x5982;<code>Object.defineProperty</code></li>
+</ul>
+<h2 id="&#x865A;&#x62DF;dom"><a name="&#x865A;&#x62DF;dom" class="anchor-navigation-ex-anchor" href="#&#x865A;&#x62DF;dom"><i class="fa fa-link" aria-hidden="true"></i></a>&#x865A;&#x62DF;DOM</h2>
+<p>&#x4E0E;React&#x57FA;&#x672C;&#x4E00;&#x81F4;</p>
+<h2 id="&#x54CD;&#x5E94;&#x5F0F;&#x7CFB;&#x7EDF;"><a name="&#x54CD;&#x5E94;&#x5F0F;&#x7CFB;&#x7EDF;" class="anchor-navigation-ex-anchor" href="#&#x54CD;&#x5E94;&#x5F0F;&#x7CFB;&#x7EDF;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x54CD;&#x5E94;&#x5F0F;&#x7CFB;&#x7EDF;</h2>
+<ul>
+<li>&#x5C5E;&#x6027;&#x52AB;&#x6301;&#xFF0C;&#x76D1;&#x542C;&#x6570;&#x636E;&#x53D8;&#x5316;</li>
+<li>&#x4F9D;&#x8D56;&#x6536;&#x96C6;&#xFF0C;&#x5728;get&#x65F6;&#x8BA2;&#x9605;&#x6570;&#x636E;&#x53D8;&#x5316;&#xFF0C;&#x5728;set&#x65F6;&#x901A;&#x77E5;Watcher&#x66F4;&#x65B0;</li>
+<li>&#x6279;&#x91CF;&#x66F4;&#x65B0;&#xFF0C;&#x5BF9;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;Watcher&#xFF0C;&#x5728;&#x4E00;&#x6B21;&#x66F4;&#x65B0;&#x9636;&#x6BB5;&#x53EA;&#x4F1A;&#x8FDB;&#x5165;&#x961F;&#x5217;&#x4E00;&#x6B21;</li>
+</ul>
+<h2 id="&#x8BED;&#x6CD5;&#x7CD6;"><a name="&#x8BED;&#x6CD5;&#x7CD6;" class="anchor-navigation-ex-anchor" href="#&#x8BED;&#x6CD5;&#x7CD6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8BED;&#x6CD5;&#x7CD6;</h2>
+<p>Vue&#x4E2D;&#x63D0;&#x4F9B;&#x4E86;&#x5927;&#x91CF;&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;</p>
+<ul>
+<li>v-model</li>
+<li>&#x4E8B;&#x4EF6;&#x4FEE;&#x9970;&#x7B26;</li>
+<li>filters &#x8FC7;&#x6EE4;&#x5668;</li>
+<li>computed &#x8BA1;&#x7B97;&#x5C5E;&#x6027;</li>
+<li>is&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;</li>
+</ul>
+<h2 id="&#x7EC4;&#x4EF6;"><a name="&#x7EC4;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#&#x7EC4;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7EC4;&#x4EF6;</h2>
+<p>&#x9700;&#x8981;&#x638C;&#x63E1;&#x6838;&#x5FC3;&#x6982;&#x5FF5;</p>
+<ul>
+<li>prop</li>
+<li>event</li>
+<li>slot</li>
+</ul>
+<h3 id="&#x7EC4;&#x4EF6;&#x901A;&#x4FE1;"><a name="&#x7EC4;&#x4EF6;&#x901A;&#x4FE1;" class="anchor-navigation-ex-anchor" href="#&#x7EC4;&#x4EF6;&#x901A;&#x4FE1;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7EC4;&#x4EF6;&#x901A;&#x4FE1;</h3>
+<p>&#x4F7F;&#x7528;prop&#x3001;eventBus&#x3001;provide/inject&#x7B49;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5168;&#x5C40;&#x72B6;&#x6001;&#x7BA1;&#x7406;&#x5DE5;&#x5177;Vuex&#x7B49;</p>
+<h3 id="&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;&#x7684;&#x6280;&#x5DE7;"><a name="&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;&#x7684;&#x6280;&#x5DE7;" class="anchor-navigation-ex-anchor" href="#&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;&#x7684;&#x6280;&#x5DE7;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;&#x7684;&#x6280;&#x5DE7;</h3>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://www.shymean.com/article/%E5%B0%81%E8%A3%85Vue%E7%BB%84%E4%BB%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7" target="_blank">&#x5C01;&#x88C5;Vue&#x7EC4;&#x4EF6;&#x7684;&#x4E00;&#x4E9B;&#x6280;&#x5DE7;</a></p>
+<h2 id="&#x6027;&#x80FD;&#x4F18;&#x5316;"><a name="&#x6027;&#x80FD;&#x4F18;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x6027;&#x80FD;&#x4F18;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6027;&#x80FD;&#x4F18;&#x5316;</h2>
+<p>&#x53C2;&#x8003;</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/MRrUDEfNcWA340u1Ovhh0A" target="_blank">&#x6700;&#x5168;&#x7684; Vue &#x6027;&#x80FD;&#x4F18;&#x5316;&#x6307;&#x5357;&#xFF0C;&#x503C;&#x5F97;&#x6536;&#x85CF;</a></li>
+</ul>
+<p>&#x4EE3;&#x7801;&#x5C42;&#x9762;&#x7684;&#x4F18;&#x5316;</p>
+<ul>
+<li><code>v-if</code>&#x548C;<code>v-show</code></li>
+<li>computed &#x548C; watch&#xFF0C;&#x8BA1;&#x7B97;&#x5C5E;&#x6027; <code>computed</code> &#x7684;&#x503C;&#x6709;&#x7F13;&#x5B58;&#xFF0C;<code>watch</code>&#x6BCF;&#x5F53;&#x76D1;&#x542C;&#x7684;&#x6570;&#x636E;&#x53D8;&#x5316;&#x65F6;&#x90FD;&#x4F1A;&#x6267;&#x884C;&#x56DE;&#x8C03; </li>
+<li>&#x4F7F;&#x7528;<code>Object.freeze</code>&#x5BF9;&#x4E0D;&#x9700;&#x8981;&#x54CD;&#x5E94;&#x5F0F;&#x7684;&#x6570;&#x636E;&#x907F;&#x514D;&#x52AB;&#x6301;&#x3002;</li>
+<li>&#x5728;beforeDestory&#x4E4B;&#x524D;&#x9500;&#x6BC1;&#x4E8B;&#x4EF6;&#x8BA2;&#x9605;&#x3001;&#x5B9A;&#x65F6;&#x5668;&#x7B49;&#xFF0C;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</li>
+<li>&#x957F;&#x5217;&#x8868;&#x901A;&#x8FC7;&#x7A97;&#x53E3;&#x5316;&#x590D;&#x7528;DOM&#x8282;&#x70B9;</li>
+<li>SSR&#x6E32;&#x67D3;SEO&#x4F18;&#x5316;</li>
+</ul>
+<p>&#x6253;&#x5305;&#x5C42;&#x9762;&#x7684;&#x4F18;&#x5316;</p>
+<ul>
+<li>&#x8DEF;&#x7531;&#x61D2;&#x52A0;&#x8F7D;</li>
+<li>&#x5E93;&#x6587;&#x4EF6;&#x6309;&#x9700;&#x52A0;&#x8F7D;</li>
+</ul>
+<p>&#x7F51;&#x7EDC;&#x5C42;&#x9762;&#x7684;&#x4F18;&#x5316;</p>
+<h2 id="&#x5F00;&#x53D1;&#x73AF;&#x5883;"><a name="&#x5F00;&#x53D1;&#x73AF;&#x5883;" class="anchor-navigation-ex-anchor" href="#&#x5F00;&#x53D1;&#x73AF;&#x5883;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5F00;&#x53D1;&#x73AF;&#x5883;</h2>
+<h3 id="vue-cli3"><a name="vue-cli3" class="anchor-navigation-ex-anchor" href="#vue-cli3"><i class="fa fa-link" aria-hidden="true"></i></a>vue-cli3</h3>
+<h3 id="vue-loader"><a name="vue-loader" class="anchor-navigation-ex-anchor" href="#vue-loader"><i class="fa fa-link" aria-hidden="true"></i></a>Vue-loader</h3>
+<p>&#x53C2;&#x8003;</p>
+<ul>
+<li><a href="https://www.shymean.com/article/%E4%BB%8Evue-loader%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90CSS-Scoped%E7%9A%84%E5%AE%9E%E7%8E%B0" target="_blank">&#x4ECE;vue-loader&#x6E90;&#x7801;&#x5206;&#x6790;CSS-Scoped&#x7684;&#x5B9E;&#x73B0;</a></li>
+</ul>
+<p>&#x9700;&#x8981;&#x7406;&#x89E3;&#x5728;loader&#x4E2D;&#x662F;&#x5982;&#x4F55;&#x5904;&#x7406;SFC&#x5355;&#x6587;&#x4EF6;&#x7EC4;&#x4EF6;&#x7684;&#x3002;</p>
+<h3 id="&#x624B;&#x52A8;&#x914D;&#x7F6E;vue&#x5F00;&#x53D1;&#x73AF;&#x5883;"><a name="&#x624B;&#x52A8;&#x914D;&#x7F6E;vue&#x5F00;&#x53D1;&#x73AF;&#x5883;" class="anchor-navigation-ex-anchor" href="#&#x624B;&#x52A8;&#x914D;&#x7F6E;vue&#x5F00;&#x53D1;&#x73AF;&#x5883;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x624B;&#x52A8;&#x914D;&#x7F6E;vue&#x5F00;&#x53D1;&#x73AF;&#x5883;</h3>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;</p>
+<ul>
+<li>&#x5B89;&#x88C5;<code>vue-loader</code>&#x548C;<code>vue-template-compiler</code>&#x540C;&#x7248;&#x672C;</li>
+<li>&#x5F15;&#x5165;<code>VueLoaderPlugin</code>
+```js
+let HtmlWebpackPlugin = require(&quot;html-webpack-plugin&quot;);
+const VueLoaderPlugin = require(&apos;vue-loader/lib/plugin&apos;)
+const path = require(&quot;path&quot;);</li>
+</ul>
+<p>module.exports = {
+    mode: &quot;development&quot;,
+    entry: &quot;./src/index.js&quot;,
+    devtool: &quot;inline-source-map&quot;,
+    output: {
+        filename: &quot;bundle.js&quot;,
+        path: path.resolve(__dirname, &quot;dist&quot;)
+    },
+    module: {
+        rules: [
+            {
+                test: /.vue?$/,
+                use: &quot;vue-loader&quot;,
+                exclude: /node_modules/
+            }
+        ]
+    },</p>
+<pre><code>plugins: [
+    new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, &quot;./src/index.html&quot;)
+    }),
+    new VueLoaderPlugin()
+]
+</code></pre><p>};</p>
+<pre><code>
+
+## Vue3
+
+&gt; &#x6709;&#x4E86;&#x89E3;&#x8FC7;Vue3&#x5417;&#xFF1F;
+
+&#x53C2;&#x8003;&#xFF1A;[Vue3 &#x6DF1;&#x5EA6;&#x89E3;&#x6790;](https://juejin.im/post/5dd3d4dae51d453d493092da#heading-8)
+
+```html
+&lt;div id=&quot;app&quot;&gt;
+    &lt;p&gt;{{ state.text }}&lt;/p&gt;
+    &lt;button @click=&quot;clickBtn&quot;&gt;click&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const { createApp, reactive, onMounted } = Vue
+  const App = {
+    setup() {
+      onMounted(() =&gt; {
+        console.log(&apos;onMounted: hello world!&apos;)
+      })
+      let state = reactive({ text: &apos;hello world!&apos; })
+      return {
+        state,
+        clickBtn: () =&gt; {
+          state.text = &apos;hell world&apos;
+        }
+      }
+    }
+  }
+  createApp().mount(App, &apos;#app&apos;)
+&lt;/script&gt;
+</code></pre><p>&#x4E3B;&#x8981;&#x6539;&#x52A8;</p>
+<ul>
+<li>API&#x5199;&#x6CD5;&#x8C03;&#x6574;&#xFF0C;&#x4ECE;&#x4E4B;&#x524D;&#x7684;Option API &#x66F4;&#x65B0;&#x4E3A;&#x65B0;&#x7684;Composition API &#xFF0C;&#x4E0E;React Hook&#x7C7B;&#x4F3C;&#xFF0C;&#x53EF;&#x4EE5;&#x66F4;&#x65B9;&#x4FBF;&#x5730;&#x590D;&#x7528;&#x903B;&#x8F91;&#x4EE3;&#x7801;</li>
+<li>&#x4F7F;&#x7528;<code>Proxy</code>&#x4EE3;&#x66FF;<code>Object.defineProperty</code></li>
+<li>&#x6E90;&#x7801;&#x4ECE;flow&#x8FC1;&#x79FB;&#x5230;TypeScript</li>
+</ul>
+<p>&#x53EA;&#x662F;&#x5927;&#x6982;&#x4E86;&#x89E3;&#x4E86;&#x4E00;&#x4E0B;&#x4E00;&#x4E9B;&#x65B0;&#x7279;&#x6027;&#xFF0C;&#x5177;&#x4F53;&#x7EC6;&#x8282;&#x8FD8;&#x6CA1;&#x6709;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#x3002; </p>
+<footer class="page-footer"><span class="copyright">&#xA9; shymean all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
+2019-12-20 17:43:02
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Redux源码分析.html" class="navigation navigation-prev " aria-label="Previous page: Redux源码分析.md">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="Vuex.html" class="navigation navigation-next " aria-label="Next page: Vuex.md">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Vue.md","level":"2.6.7","depth":2,"next":{"title":"Vuex.md","level":"2.6.8","depth":2,"path":"知识点/库与框架/Vuex.md","ref":"./知识点/库与框架/Vuex.md","articles":[]},"previous":{"title":"Redux源码分析.md","level":"2.6.6","depth":2,"path":"知识点/库与框架/Redux源码分析.md","ref":"./知识点/库与框架/Redux源码分析.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["expandable-chapters","donate","tbfed-pagefooter","anchor-navigation-ex","github-buttons"],"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy shymean","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"simple-page-toc":{"maxDepth":3,"skipFirstH1":true},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"donate":{"alipay":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1goltfohrj308w08wgm4.jpg","alipayText":"支付宝","button":"打赏","title":"你要请我喝奶茶吗？","wechat":"https://ws3.sinaimg.cn/large/006tKfTcgy1g1gom432f5j308w08wt93.jpg","wechatText":"微信"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":false},"github-buttons":{"buttons":[{"user":"tangxiangmin","repo":"interview","type":"star","size":"small"},{"user":"tangxiangmin","repo":"interview","type":"watch","size":"small"}]},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"知识点/库与框架/Vue.md","mtime":"2019-12-20T09:43:02.102Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-01-20T01:09:34.428Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
