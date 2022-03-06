@@ -1,0 +1,2075 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redux源码分析.md · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="axios源码分析.html" />
+    
+    
+    <link rel="prev" href="React源码分析.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">源码分析</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="React源码分析.html">
+            
+                <a href="React源码分析.html">
+            
+                    
+                    React源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.3" data-path="Redux源码分析.html">
+            
+                <a href="Redux源码分析.html">
+            
+                    
+                    Redux源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="axios源码分析.html">
+            
+                <a href="axios源码分析.html">
+            
+                    
+                    axios源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="koa源码分析.html">
+            
+                <a href="koa源码分析.html">
+            
+                    
+                    koa源码分析.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">知识点</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../知识点/README.md">
+            
+                <span>
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" >
+            
+                <span>
+            
+                    
+                    CSS
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.2.1" data-path="../知识点/CSS/README.md">
+            
+                <span>
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.2" data-path="../知识点/CSS/CSS3.md">
+            
+                <span>
+            
+                    
+                    CSS3.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.3" data-path="../知识点/CSS/分辨率.md">
+            
+                <span>
+            
+                    
+                    分辨率.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.4" data-path="../知识点/CSS/基础知识.md">
+            
+                <span>
+            
+                    
+                    基础知识.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.5" data-path="../知识点/CSS/性能优化.md">
+            
+                <span>
+            
+                    
+                    性能优化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.6" data-path="../知识点/CSS/核心知识.md">
+            
+                <span>
+            
+                    
+                    核心知识.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.7" data-path="../知识点/CSS/编写样式表.md">
+            
+                <span>
+            
+                    
+                    编写样式表.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.8" data-path="../知识点/CSS/选择器.md">
+            
+                <span>
+            
+                    
+                    选择器.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" >
+            
+                <span>
+            
+                    
+                    HTML
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.3.1" data-path="../知识点/HTML/HTML.md">
+            
+                <span>
+            
+                    
+                    HTML.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.2" data-path="../知识点/HTML/SEO优化.md">
+            
+                <span>
+            
+                    
+                    SEO优化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3.3" data-path="../知识点/HTML/Web Components.md">
+            
+                <span>
+            
+                    
+                    Web Components.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" >
+            
+                <span>
+            
+                    
+                    JavaScript
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.4.1" data-path="../知识点/JavaScript/README.md">
+            
+                <span>
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.2" data-path="../知识点/JavaScript/Canvas.md">
+            
+                <span>
+            
+                    
+                    Canvas.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.3" data-path="../知识点/JavaScript/DOM和BOM.md">
+            
+                <span>
+            
+                    
+                    DOM和BOM.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.4" data-path="../知识点/JavaScript/ECMAScript.md">
+            
+                <span>
+            
+                    
+                    ECMAScript.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.5" data-path="../知识点/JavaScript/EventLoop.md">
+            
+                <span>
+            
+                    
+                    EventLoop.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.6" data-path="../知识点/JavaScript/NodeJS.md">
+            
+                <span>
+            
+                    
+                    NodeJS.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.7" data-path="../知识点/JavaScript/TypeScript.md">
+            
+                <span>
+            
+                    
+                    TypeScript.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.8" data-path="../知识点/JavaScript/Worker.md">
+            
+                <span>
+            
+                    
+                    Worker.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.9" data-path="../知识点/JavaScript/函数式编程.md">
+            
+                <span>
+            
+                    
+                    函数式编程.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.10" data-path="../知识点/JavaScript/原型.md">
+            
+                <span>
+            
+                    
+                    原型.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.11" data-path="../知识点/JavaScript/数据类型.md">
+            
+                <span>
+            
+                    
+                    数据类型.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.12" data-path="../知识点/JavaScript/正则.md">
+            
+                <span>
+            
+                    
+                    正则.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.13" data-path="../知识点/JavaScript/装饰器.md">
+            
+                <span>
+            
+                    
+                    装饰器.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4.14" data-path="../知识点/JavaScript/运算符.md">
+            
+                <span>
+            
+                    
+                    运算符.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" >
+            
+                <span>
+            
+                    
+                    业务相关
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.5.1" data-path="../知识点/业务相关/Babel.md">
+            
+                <span>
+            
+                    
+                    Babel.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.2" data-path="../知识点/业务相关/CI.md">
+            
+                <span>
+            
+                    
+                    CI.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.3" data-path="../知识点/业务相关/Docker.md">
+            
+                <span>
+            
+                    
+                    Docker.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.4" data-path="../知识点/业务相关/git.md">
+            
+                <span>
+            
+                    
+                    git.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.5" data-path="../知识点/业务相关/mock.md">
+            
+                <span>
+            
+                    
+                    mock.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.6" data-path="../知识点/业务相关/npm.md">
+            
+                <span>
+            
+                    
+                    npm.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.7" data-path="../知识点/业务相关/webpack.md">
+            
+                <span>
+            
+                    
+                    webpack.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.8" data-path="../知识点/业务相关/web安全.md">
+            
+                <span>
+            
+                    
+                    web安全.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.9" data-path="../知识点/业务相关/前端工程化.md">
+            
+                <span>
+            
+                    
+                    前端工程化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.10" data-path="../知识点/业务相关/单元测试.md">
+            
+                <span>
+            
+                    
+                    单元测试.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.11" data-path="../知识点/业务相关/性能优化.md">
+            
+                <span>
+            
+                    
+                    性能优化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.12" data-path="../知识点/业务相关/数据埋点.md">
+            
+                <span>
+            
+                    
+                    数据埋点.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.13" data-path="../知识点/业务相关/模块化.md">
+            
+                <span>
+            
+                    
+                    模块化.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.14" data-path="../知识点/业务相关/类前端业务.md">
+            
+                <span>
+            
+                    
+                    类前端业务.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.15" data-path="../知识点/业务相关/调试.md">
+            
+                <span>
+            
+                    
+                    调试.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.16" data-path="../知识点/业务相关/错误上报.md">
+            
+                <span>
+            
+                    
+                    错误上报.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" >
+            
+                <span>
+            
+                    
+                    库与框架
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.6.1" data-path="../知识点/库与框架/README.md">
+            
+                <span>
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.2" data-path="../知识点/库与框架/Chrome扩展程序.md">
+            
+                <span>
+            
+                    
+                    Chrome扩展程序.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.3" data-path="../知识点/库与框架/Electron.md">
+            
+                <span>
+            
+                    
+                    Electron.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.4" data-path="../知识点/库与框架/Immutable.md">
+            
+                <span>
+            
+                    
+                    Immutable.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.5" data-path="../知识点/库与框架/React.md">
+            
+                <span>
+            
+                    
+                    React.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.6" data-path="../知识点/库与框架/Vue.md">
+            
+                <span>
+            
+                    
+                    Vue.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.7" data-path="../知识点/库与框架/Vuex.md">
+            
+                <span>
+            
+                    
+                    Vuex.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.8" data-path="../知识点/库与框架/diff算法.md">
+            
+                <span>
+            
+                    
+                    diff算法.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.9" data-path="../知识点/库与框架/单页面应用Router.md">
+            
+                <span>
+            
+                    
+                    单页面应用Router.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.10" data-path="../知识点/库与框架/微信小程序.md">
+            
+                <span>
+            
+                    
+                    微信小程序.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6.11" data-path="../知识点/库与框架/技术选型.md">
+            
+                <span>
+            
+                    
+                    技术选型.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">面试</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../面试/">
+            
+                <a href="../面试/">
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" >
+            
+                <span>
+            
+                    
+                    面试记录
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../面试/面试记录/2017_DaE.html">
+            
+                <a href="../面试/面试记录/2017_DaE.html">
+            
+                    
+                    2017_DaE.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../面试/面试记录/2017_TE.html">
+            
+                <a href="../面试/面试记录/2017_TE.html">
+            
+                    
+                    2017_TE.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.3" data-path="../面试/面试记录/2018_AYLDM.html">
+            
+                <a href="../面试/面试记录/2018_AYLDM.html">
+            
+                    
+                    2018_AYLDM.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.4" data-path="../面试/面试记录/2018_HDJR.html">
+            
+                <a href="../面试/面试记录/2018_HDJR.html">
+            
+                    
+                    2018_HDJR.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.5" data-path="../面试/面试记录/2018_MD.html">
+            
+                <a href="../面试/面试记录/2018_MD.html">
+            
+                    
+                    2018_MD.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.6" data-path="../面试/面试记录/2018_PAKJ.html">
+            
+                <a href="../面试/面试记录/2018_PAKJ.html">
+            
+                    
+                    2018_PAKJ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.7" data-path="../面试/面试记录/2018_QKCJ.html">
+            
+                <a href="../面试/面试记录/2018_QKCJ.html">
+            
+                    
+                    2018_QKCJ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.8" data-path="../面试/面试记录/2018_SFWY.html">
+            
+                <a href="../面试/面试记录/2018_SFWY.html">
+            
+                    
+                    2018_SFWY.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.9" data-path="../面试/面试记录/2018_TW.html">
+            
+                <a href="../面试/面试记录/2018_TW.html">
+            
+                    
+                    2018_TW.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.10" data-path="../面试/面试记录/2018_YHKJ.html">
+            
+                <a href="../面试/面试记录/2018_YHKJ.html">
+            
+                    
+                    2018_YHKJ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.11" data-path="../面试/面试记录/2018_YSKJ.html">
+            
+                <a href="../面试/面试记录/2018_YSKJ.html">
+            
+                    
+                    2018_YSKJ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.12" data-path="../面试/面试记录/2018_Z8.html">
+            
+                <a href="../面试/面试记录/2018_Z8.html">
+            
+                    
+                    2018_Z8.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.13" data-path="../面试/面试记录/2019_BCZ.html">
+            
+                <a href="../面试/面试记录/2019_BCZ.html">
+            
+                    
+                    2019_BCZ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.14" data-path="../面试/面试记录/2019_HKJT.html">
+            
+                <a href="../面试/面试记录/2019_HKJT.html">
+            
+                    
+                    2019_HKJT.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.15" data-path="../面试/面试记录/2019_JRTT.html">
+            
+                <a href="../面试/面试记录/2019_JRTT.html">
+            
+                    
+                    2019_JRTT.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.16" data-path="../面试/面试记录/2019_LDS.html">
+            
+                <a href="../面试/面试记录/2019_LDS.html">
+            
+                    
+                    2019_LDS.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.17" data-path="../面试/面试记录/2019_QEXR.html">
+            
+                <a href="../面试/面试记录/2019_QEXR.html">
+            
+                    
+                    2019_QEXR.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.18" data-path="../面试/面试记录/2019_WBLZ.html">
+            
+                <a href="../面试/面试记录/2019_WBLZ.html">
+            
+                    
+                    2019_WBLZ.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.19" data-path="../面试/面试记录/2019_XFLX.html">
+            
+                <a href="../面试/面试记录/2019_XFLX.html">
+            
+                    
+                    2019_XFLX.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" >
+            
+                <span>
+            
+                    
+                    面试题
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="../面试/面试题/">
+            
+                <a href="../面试/面试题/">
+            
+                    
+                    README.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="../面试/面试题/CSS.html">
+            
+                <a href="../面试/面试题/CSS.html">
+            
+                    
+                    CSS.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="../面试/面试题/DOM.html">
+            
+                <a href="../面试/面试题/DOM.html">
+            
+                    
+                    DOM.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.4" data-path="../面试/面试题/ECMAScript.html">
+            
+                <a href="../面试/面试题/ECMAScript.html">
+            
+                    
+                    ECMAScript.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.5" data-path="../面试/面试题/HTML.html">
+            
+                <a href="../面试/面试题/HTML.html">
+            
+                    
+                    HTML.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.6" data-path="../面试/面试题/React.html">
+            
+                <a href="../面试/面试题/React.html">
+            
+                    
+                    React.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.7" data-path="../面试/面试题/Vue.html">
+            
+                <a href="../面试/面试题/Vue.html">
+            
+                    
+                    Vue.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.8" data-path="../面试/面试题/代码实现.html">
+            
+                <a href="../面试/面试题/代码实现.html">
+            
+                    
+                    代码实现.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.9" data-path="../面试/面试题/代码阅读.html">
+            
+                <a href="../面试/面试题/代码阅读.html">
+            
+                    
+                    代码阅读.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.10" data-path="../面试/面试题/其他问题.html">
+            
+                <a href="../面试/面试题/其他问题.html">
+            
+                    
+                    其他问题.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.11" data-path="../面试/面试题/兼容及BUG.html">
+            
+                <a href="../面试/面试题/兼容及BUG.html">
+            
+                    
+                    兼容及BUG.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.12" data-path="../面试/面试题/常见需求.html">
+            
+                <a href="../面试/面试题/常见需求.html">
+            
+                    
+                    常见需求.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.13" data-path="../面试/面试题/算法实现.html">
+            
+                <a href="../面试/面试题/算法实现.html">
+            
+                    
+                    算法实现.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.14" data-path="../面试/面试题/网络.html">
+            
+                <a href="../面试/面试题/网络.html">
+            
+                    
+                    网络.md
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Redux源码分析.md</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redux&#x6E90;&#x7801;&#x5206;&#x6790;">redux&#x6E90;&#x7801;&#x5206;&#x6790;</h1>
+<h2 id="redux">redux</h2>
+<p>redux&#x672C;&#x8EAB;&#x53EA;&#x63D0;&#x4F9B;&#x4E86;&#x51E0;&#x4E2A;&#x63A5;&#x53E3;</p>
+<ul>
+<li><code>createStore</code>&#xFF0C;&#x63A5;&#x6536;<code>reducer</code>&#x5E76;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;store&#x4ED3;&#x5E93;</li>
+<li><code>store.dispatch</code>&#xFF0C;&#x63D0;&#x4EA4;<code>action</code></li>
+<li><code>store.getState</code>&#xFF0C;&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7684;<code>state</code></li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> [ADD, MINUS] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
+<span class="hljs-keyword">let</span> reducer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">currentState, action</span>) </span>{
+    <span class="hljs-keyword">let</span> newState = <span class="hljs-built_in">Object</span>.assign({}, currentState);
+
+    <span class="hljs-keyword">const</span> {type, payload} = action
+    <span class="hljs-keyword">switch</span> (type) {
+        <span class="hljs-keyword">case</span> ADD:
+            newState.count += payload;
+            <span class="hljs-keyword">return</span> newState;
+        <span class="hljs-keyword">case</span> MINUS:
+            ADD;
+            newState.count -= payload;
+            <span class="hljs-keyword">return</span> newState;
+        <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">return</span> currentState;
+            <span class="hljs-keyword">break</span>;
+    }
+};
+<span class="hljs-keyword">let</span> initState = {
+    count: <span class="hljs-number">0</span>
+};
+<span class="hljs-keyword">let</span> store = Redux.createStore(reducer, initState);
+
+store.subscribe(() =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;stateChange&quot;</span>, store.getState());
+});
+
+addBtn.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    store.dispatch({ type: ADD, payload: <span class="hljs-number">10</span> });
+};
+minusBtn.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    store.dispatch({ type: MINUS, payload: <span class="hljs-number">3</span> });
+};
+</code></pre>
+<p>&#x6570;&#x636E;&#x662F;&#x5355;&#x5411;&#x6D41;&#x52A8;&#x7684;</p>
+<pre><code>getState()-&gt;&#x521D;&#x59CB;&#x5316;&#x89C6;&#x56FE;-&gt;&#x7528;&#x6237;&#x4EA4;&#x4E92;&#x89E6;&#x53D1;&#x4E8B;&#x4EF6;-&gt;dispatch&#x63D0;&#x4EA4;action
+-&gt;reducer&#x6839;&#x636E;action&#x66F4;&#x65B0;state-&gt;&#x901A;&#x77E5;`subscribe`&#x8BA2;&#x9605;&#x8005;&#x66F4;&#x65B0;-&gt;getState&#x83B7;&#x53D6;&#x6700;&#x65B0;&#x7684;state
+</code></pre><h3 id="createstore">createStore</h3>
+<p>&#x5927;&#x81F4;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x53D1;&#x5E03;&#x8BA2;&#x9605;&#x6A21;&#x578B;&#xFF1A;&#x5728;dispatch&#x65F6;&#x6267;&#x884C;&#x6CE8;&#x518C;&#x7684;reducer&#x51FD;&#x6570;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x77E5;&#x5728;<code>subscribe</code>&#x6CE8;&#x518C;&#x7684;&#x56DE;&#x8C03;&#x51FD;&#x6570;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// preloadedState &#x8868;&#x793A;&#x5F53;&#x524D;&#x7684;state</span>
+<span class="hljs-comment">// enhancer&#x8868;&#x793A;&#x6269;&#x5C55;createStore</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createStore</span>(<span class="hljs-params">reducer, preloadedState, enhancer</span>) </span>{
+  <span class="hljs-comment">// &#x8FDB;&#x884C;&#x4E86;&#x4E00;&#x4E9B;&#x53C2;&#x6570;&#x7C7B;&#x578B;&#x7684;&#x68C0;&#x6D4B; &#x5904;&#x7406;preloadedState&#x548C;enhancer</span>
+
+  <span class="hljs-comment">// &#x901A;&#x8FC7;&#x95ED;&#x5305;&#x7EF4;&#x62A4;&#x4E0B;&#x9762;&#x7684;&#x53D8;&#x91CF;</span>
+  <span class="hljs-keyword">let</span> currentReducer = reducer
+  <span class="hljs-keyword">let</span> currentState = preloadedState
+  <span class="hljs-keyword">let</span> currentListeners = []
+  <span class="hljs-keyword">let</span> nextListeners = currentListeners
+  <span class="hljs-keyword">let</span> isDispatching = <span class="hljs-literal">false</span>
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> enhancer == <span class="hljs-string">&apos;function&apos;</span>) {
+    <span class="hljs-comment">// enhancer&#x53EF;&#x4EE5;&#x662F;Redux.applyMiddleware()&#x7B49;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x589E;&#x5F3A;&#x7248;createStore</span>
+    <span class="hljs-keyword">return</span> enhancer(createStore)(reducer, preloadedState)
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ensureCanMutateNextListeners</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (nextListeners === currentListeners) {
+      nextListeners = currentListeners.slice()
+    }
+  }
+
+  <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x5F53;&#x524D;state</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getState</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> (isDispatching) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>()
+    }
+
+    <span class="hljs-keyword">return</span> currentState
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subscribe</span>(<span class="hljs-params">listener</span>) </span>{
+    <span class="hljs-keyword">if</span> (isDispatching) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>()
+    }
+
+    <span class="hljs-keyword">let</span> isSubscribed = <span class="hljs-literal">true</span>
+
+    ensureCanMutateNextListeners()
+    nextListeners.push(listener)
+
+    <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x53D6;&#x6D88;&#x8BA2;&#x9605;&#x7684;&#x65B9;&#x6CD5;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unsubscribe</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">if</span> (!isSubscribed) {
+        <span class="hljs-keyword">return</span>
+      }
+
+      isSubscribed = <span class="hljs-literal">false</span>
+
+      ensureCanMutateNextListeners()
+      <span class="hljs-keyword">const</span> index = nextListeners.indexOf(listener)
+      nextListeners.splice(index, <span class="hljs-number">1</span>)
+      currentListeners = <span class="hljs-literal">null</span>
+    }
+  }
+
+  <span class="hljs-comment">// &#x63D0;&#x4EA4;action&#xFF0C;&#x8FD9;&#x662F;&#x4FEE;&#x6539;state&#x7684;&#x552F;&#x4E00;&#x65B9;&#x6CD5;</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatch</span>(<span class="hljs-params">action</span>) </span>{
+    <span class="hljs-comment">// &#x7C7B;&#x578B;&#x68C0;&#x6D4B;&#x4FDD;&#x8BC1;action&#x662F;&#x4E00;&#x4E2A;&#x643A;&#x5E26;type&#x5C5E;&#x6027;&#x7684;&#x5BF9;&#x8C61;</span>
+    <span class="hljs-keyword">if</span> (isDispatching) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Reducers may not dispatch actions.&apos;</span>)
+    }
+
+    <span class="hljs-keyword">try</span> {
+      isDispatching = <span class="hljs-literal">true</span>
+      <span class="hljs-comment">// &#x8C03;&#x7528;reducer&#xFF0C;&#x5E76;&#x4F20;&#x5165;currentState&#x548C;action</span>
+      currentState = currentReducer(currentState, action)
+    } <span class="hljs-keyword">finally</span> {
+      isDispatching = <span class="hljs-literal">false</span>
+    }
+    <span class="hljs-comment">// &#x901A;&#x77E5;&#x8BA2;&#x9605;&#x8005;&#x6267;&#x884C;&#x56DE;&#x8C03;</span>
+    <span class="hljs-keyword">const</span> listeners = (currentListeners = nextListeners)
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; listeners.length; i++) {
+      <span class="hljs-keyword">const</span> listener = listeners[i]
+      listener()
+    }
+
+    <span class="hljs-keyword">return</span> action
+  }
+
+  <span class="hljs-comment">// &#x4FEE;&#x6539;reducer&#xFF0C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x8F83;&#x5C11;&#x7528;&#x5230;</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">replaceReducer</span>(<span class="hljs-params">nextReducer</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> nextReducer !== <span class="hljs-string">&apos;function&apos;</span>) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;Expected the nextReducer to be a function.&apos;</span>)
+    }
+
+    currentReducer = nextReducer
+    dispatch({ type: ActionTypes.REPLACE })
+  }
+
+  <span class="hljs-comment">// react observable</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">observable</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> outerSubscribe = subscribe
+    <span class="hljs-keyword">return</span> {
+      subscribe(observer) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> observer !== <span class="hljs-string">&apos;object&apos;</span> || observer === <span class="hljs-literal">null</span>) {
+          <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&apos;Expected the observer to be an object.&apos;</span>)
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">observeState</span>(<span class="hljs-params"></span>) </span>{
+          <span class="hljs-keyword">if</span> (observer.next) {
+            observer.next(getState())
+          }
+        }
+
+        observeState()
+        <span class="hljs-keyword">const</span> unsubscribe = outerSubscribe(observeState)
+        <span class="hljs-keyword">return</span> { unsubscribe }
+      },
+
+      [$$observable]() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
+      }
+    }
+  }
+
+
+  dispatch({ type: ActionTypes.INIT })
+    <span class="hljs-comment">// &#x8FD4;&#x56DE;store&#x7684;&#x4E00;&#x4E9B;&#x65B9;&#x6CD5;</span>
+  <span class="hljs-keyword">return</span> {
+    dispatch,
+    subscribe,
+    getState,
+    replaceReducer,
+    [$$observable]: observable
+  }
+}
+</code></pre>
+<p>&#x5F53;&#x9700;&#x8981;&#x5904;&#x7406;&#x7684;action&#x8FC7;&#x591A;&#x65F6;&#xFF0C;reducer&#x5C31;&#x4F1A;&#x975E;&#x5E38;&#x5E9E;&#x5927;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>combineReducers</code>&#x5C06;&#x591A;&#x4E2A;reducer&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;</p>
+<h3 id="combinereducers">combineReducers</h3>
+<pre><code class="lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">combineReducers</span>(<span class="hljs-params">reducers</span>) </span>{
+  <span class="hljs-keyword">const</span> reducerKeys = <span class="hljs-built_in">Object</span>.keys(reducers)
+  <span class="hljs-keyword">const</span> finalReducers = {}
+  <span class="hljs-comment">// &#x83B7;&#x53D6;&#x6709;&#x6548;&#x7684;reducer</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; reducerKeys.length; i++) {
+    <span class="hljs-keyword">const</span> key = reducerKeys[i]
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> reducers[key] === <span class="hljs-string">&apos;function&apos;</span>) {
+      finalReducers[key] = reducers[key]
+    }
+  }
+  <span class="hljs-keyword">const</span> finalReducerKeys = <span class="hljs-built_in">Object</span>.keys(finalReducers)
+  <span class="hljs-keyword">let</span> unexpectedKeyCache
+  <span class="hljs-keyword">let</span> shapeAssertionError
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// &#x4E3A;&#x6BCF;&#x4E2A;reducer&#x6267;&#x884C;&#xFF0C;reducer(undefined, { type: ActionTypes.INIT })&#x5224;&#x65AD;&#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;state&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x5982;&#x679C;&#x672A;&#x7A7A;&#x5219;&#x629B;&#x51FA;&#x5F02;&#x5E38;</span>
+    assertReducerShape(finalReducers)
+  } <span class="hljs-keyword">catch</span> (e) {
+    shapeAssertionError = e
+  }
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">combination</span>(<span class="hljs-params">state = {}, action</span>) </span>{
+    <span class="hljs-keyword">if</span> (shapeAssertionError) {
+      <span class="hljs-keyword">throw</span> shapeAssertionError
+    }
+
+    <span class="hljs-keyword">let</span> hasChanged = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">const</span> nextState = {}
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; finalReducerKeys.length; i++) {
+      <span class="hljs-keyword">const</span> key = finalReducerKeys[i]
+      <span class="hljs-keyword">const</span> reducer = finalReducers[key]
+      <span class="hljs-keyword">const</span> previousStateForKey = state[key]
+      <span class="hljs-keyword">const</span> nextStateForKey = reducer(previousStateForKey, action)
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> nextStateForKey === <span class="hljs-string">&apos;undefined&apos;</span>) {
+        <span class="hljs-keyword">const</span> errorMessage = getUndefinedStateErrorMessage(key, action)
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(errorMessage)
+      }
+      nextState[key] = nextStateForKey
+      <span class="hljs-comment">// &#x81F3;&#x5C11;&#x9700;&#x8981;&#x6709;&#x4E00;&#x4E2A;reducer&#x4E2D;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5168;&#x65B0;&#x7684;state</span>
+      hasChanged = hasChanged || nextStateForKey !== previousStateForKey
+    }
+    <span class="hljs-comment">// &#x5F53;state&#x4E0A;&#x67D0;&#x4E2A;key&#x88AB;&#x5220;&#x9664;&#x65F6;&#x4E5F;&#x89C6;&#x4E3A;&#x6539;&#x53D8;</span>
+    hasChanged =
+      hasChanged || finalReducerKeys.length !== <span class="hljs-built_in">Object</span>.keys(state).length
+    <span class="hljs-comment">// &#x53EA;&#x6709;&#x6539;&#x53D8;&#x65F6;&#x624D;&#x8FD4;&#x56DE;&#x65B0;&#x7684;&#x5168;&#x5C40;State&#xFF0C;&#x5982;&#x679C;&#x6240;&#x6709;reducer&#x90FD;&#x672A;&#x8FD4;&#x56DE;&#x65B0;&#x7684;state&#xFF0C;&#x4E14;&#x5168;&#x5C40;state&#x4E0A;&#x7684;&#x5C5E;&#x6027;&#x672A;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x65E7;state</span>
+    <span class="hljs-keyword">return</span> hasChanged ? nextState : state
+  }
+}
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x89C1;&#x4F20;&#x5165;<code>combineReducers</code>&#x7684;&#x5BF9;&#x8C61;&#x662F;&#x4E00;&#x4E2A;<code>&lt;key, reducer</code>&#x7684;Map&#x7ED3;&#x6784;&#xFF0C;&#x4E14;&#x521D;&#x59CB;&#x5316;&#x7684;&#x5168;&#x5C40;state&#x4E0E;&#x8BE5;&#x5BF9;&#x8C61;&#x5305;&#x542B;&#x76F8;&#x540C;&#x7684;<code>key</code>&#x503C;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> initState = {
+    base: {
+        count: <span class="hljs-number">0</span>
+    },
+    user: {
+        name: <span class="hljs-string">&quot;shymean&quot;</span>
+    }
+};
+<span class="hljs-comment">// &#x6BCF;&#x4E2A;reducer&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x9ED8;&#x8BA4;&#x7684;state&#xFF0C;&#x5373;&#x8C03;&#x7528;reducer(undefined, { type: ActionTypes.INIT })&#x65F6;&#x548C;reducer(undefined, {type: ActionTypes.PROBE_UNKNOWN_ACTION()}&#x4E0D;&#x80FD;&#x8FD4;&#x56DE;undefined</span>
+<span class="hljs-keyword">let</span> baseReducer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">currentState = {}, action</span>) </span>{}
+<span class="hljs-keyword">let</span> userReducer = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">currentState = {}, action</span>) </span>{}
+
+<span class="hljs-keyword">let</span> reducer = Redux.combineReducers({
+    base: baseReducer, <span class="hljs-comment">// &#x4E0E;initState&#x5305;&#x542B;&#x76F8;&#x540C;&#x7684;&#x952E;&#x540D;</span>
+    user: userReducer
+});
+</code></pre>
+<h3 id="bindactioncreators">bindActionCreators</h3>
+<p>action&#x662F;diaptch&#x4E0E;reducer&#x7EA6;&#x5B9A;&#x7684;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x5BF9;&#x8C61;&#xFF0C;&#x5FC5;&#x987B;&#x5305;&#x542B;type&#x5C5E;&#x6027;&#xFF0C;&#x4E00;&#x79CD;&#x5E38;&#x89C1;&#x7684;&#x5F00;&#x53D1;&#x65B9;&#x5F0F;&#x662F;&#x901A;&#x8FC7;&#x5DE5;&#x5382;&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x7279;&#x5B9A;<code>type</code>&#x7684;action&#xFF0C;&#x8FD9;&#x79CD;&#x51FD;&#x6570;&#x88AB;&#x79F0;&#x4E3A;<code>ActionCreators</code></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7C7B;&#x578B;&#x4E3A;ADD_TODO&#x7684;action</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addTodo</span>(<span class="hljs-params">text</span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    type: <span class="hljs-string">&apos;ADD_TODO&apos;</span>,
+    text
+  };
+}
+<span class="hljs-comment">// &#x4F7F;&#x7528;</span>
+<span class="hljs-keyword">let</span> action = addTodo(<span class="hljs-string">&apos;eat&apos;</span>)
+dispatch(action)
+</code></pre>
+<p>action&#x603B;&#x662F;&#x4E0E;<code>dispatch</code>&#x7D27;&#x5BC6;&#x76F8;&#x8FDE;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x53EF;&#x4EE5;&#x628A;&#x4ED6;&#x4EEC;&#x5C01;&#x88C5;&#x5728;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5185;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bindActionCreator</span>(<span class="hljs-params">actionCreator, dispatch</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// &#x9996;&#x5148;&#x8C03;&#x7528;actionCreator&#x521B;&#x5EFA;&#x4E00;&#x4E2A;action&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;dispatch&#x63D0;&#x4EA4;action</span>
+    <span class="hljs-keyword">return</span> dispatch(actionCreator.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>))
+  }
+}
+</code></pre>
+<p><code>Redux.bindActionCreators</code>&#x53EF;&#x4EE5;&#x63A5;&#x6536;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5E76;&#x8FD4;&#x56DE;<code>bindActionCreator</code>&#x5C01;&#x88C5;&#x540E;&#x7684;&#x65B0;&#x5BF9;&#x8C61;&#xFF0C;&#x65B0;&#x5BF9;&#x8C61;&#x4E0A;&#x7684;&#x6BCF;&#x4E2A;&#x5C5E;&#x6027;&#x90FD;&#x53EF;&#x4EE5;&#x770B;&#x505A;&#x662F;&#x63D0;&#x4EA4;&#x7279;&#x5B9A;action&#x7684;&#x65B9;&#x6CD5;</p>
+<pre><code class="lang-js">let boundActionCreators = bindActionCreators({addTodo}, dispatch)
+// &#x8FD9;&#x6837;&#x5B8C;&#x6210;&#x5C01;&#x88C5;&#xFF0C;&#x5176;&#x4ED6;&#x5730;&#x65B9;&#x5B8C;&#x5168;&#x4E0D;&#x9700;&#x77E5;&#x9053;dispatch&#xFF0C;&#x4E14;action&#x66F4;&#x65B9;&#x4FBF;&#x5B9A;&#x4E49;&#xFF0C;&#x907F;&#x514D;&#x5B57;&#x9762;&#x91CF;&#x5BF9;&#x8C61;&#x53EF;&#x7EF4;&#x62A4;&#x6027;&#x8F83;&#x5DEE;&#x7684;&#x95EE;&#x9898;
+boundActionCreators.addTodo(&apos;eat)
+</code></pre>
+<p>&#x6E90;&#x7801;&#x5185;&#x90E8;&#x53EA;&#x662F;&#x904D;&#x5386;&#x4E86;&#x4E00;&#x4E0B;&#x914D;&#x7F6E;&#x53C2;&#x6570;&#xFF0C;&#x4F9D;&#x6B21;&#x8C03;&#x7528;<code>bindActionCreator</code></p>
+<pre><code class="lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bindActionCreators</span>(<span class="hljs-params">actionCreators, dispatch</span>) </span>{
+  <span class="hljs-comment">// &#x5355;&#x4E2A;&#x65F6;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> actionCreators === <span class="hljs-string">&apos;function&apos;</span>) {
+    <span class="hljs-keyword">return</span> bindActionCreator(actionCreators, dispatch)
+  }
+
+  <span class="hljs-keyword">const</span> boundActionCreators = {}
+  <span class="hljs-comment">// &#x4F20;&#x5165;&#x7684;&#x4E3A;{addTodo}&#x7C7B;&#x4F3C;&#x7684;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x4F1A;&#x4F9D;&#x6B21;&#x8C03;&#x7528;bindActionCreator&#x5E76;&#x5C06;&#x8FD4;&#x56DE;&#x503C;&#x6302;&#x8F7D;&#x5230;boundActionCreators&#xFF0C;&#x6700;&#x540E;&#x7EDF;&#x4E00;&#x8FD4;&#x56DE;</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> actionCreators) {
+    <span class="hljs-keyword">const</span> actionCreator = actionCreators[key]
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> actionCreator === <span class="hljs-string">&apos;function&apos;</span>) {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
+    }
+  }
+  <span class="hljs-keyword">return</span> boundActionCreators
+}
+</code></pre>
+<h3 id="applymiddleware">applyMiddleware</h3>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E2D;&#x95F4;&#x4EF6;&#x6765;&#x6269;&#x5C55;redux&#xFF0C;&#x5B8C;&#x6210;&#x7279;&#x6027;&#x529F;&#x80FD;&#xFF0C;&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x65E5;&#x5FD7;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x5B9E;&#x73B0;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logger</span>(<span class="hljs-params">{ getState, dispatch }</span>) </span>{
+    <span class="hljs-comment">// next&#x4EE3;&#x8868;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;action&#x8868;&#x793A;&#x5F53;&#x524D;&#x63A5;&#x6536;&#x5230;&#x7684;&#x52A8;&#x4F5C;</span>
+    <span class="hljs-keyword">return</span> next =&gt; action =&gt; {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;before change&quot;</span>, action);
+        <span class="hljs-comment">// &#x8C03;&#x7528; middleware &#x94FE;&#x4E2D;&#x4E0B;&#x4E00;&#x4E2A; middleware &#x7684; dispatch&#x3002;</span>
+        <span class="hljs-keyword">let</span> val = next(action);
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;after change&quot;</span>, getState(), val);
+        <span class="hljs-keyword">return</span> val;
+    };
+}
+
+<span class="hljs-keyword">let</span> createStoreWithMiddleware = Redux.applyMiddleware(logger)(Redux.createStore)
+<span class="hljs-comment">// &#x53EF;&#x4EE5;&#x628A;&#x4E2D;&#x95F4;&#x4EF6;&#x770B;&#x505A;&#x662F;&#x589E;&#x5F3A;&#x7248;&#x7684;createStore</span>
+<span class="hljs-keyword">let</span> store = createStoreWithMiddleware(reducer, initState);
+<span class="hljs-comment">// &#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;createStore&#x7B2C;&#x4E09;&#x4E2A;&#x53C2;&#x6570;enhancer</span>
+<span class="hljs-comment">// let store = Redux.createStore(reducer,initState,Redux.applyMiddleware(logger));</span>
+</code></pre>
+<p>&#x53EF;&#x89C1;&#x770B;&#x89C1;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x4E00;&#x4E9B;&#x7279;&#x5F81;</p>
+<ul>
+<li>&#x4E2D;&#x95F4;&#x4EF6;&#x63A5;&#x6536;&#x53C2;&#x6570;&#x5305;&#x62EC;<code>getState</code>&#x548C;<code>dispatch</code></li>
+<li>&#x4E2D;&#x95F4;&#x4EF6;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x8BE5;&#x51FD;&#x6570;&#x63A5;&#x6536;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;next&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x63A5;&#x6536;action&#x7684;&#x65B0;&#x7684;dispatch&#x65B9;&#x6CD5;</li>
+<li>&#x53EA;&#x6709;&#x624B;&#x52A8;&#x8C03;&#x7528;<code>next(action)</code>&#x624D;&#x4F1A;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;</li>
+</ul>
+<p>&#x7B80;&#x800C;&#x8A00;&#x4E4B;&#xFF0C;&#x4E00;&#x4E2A;&#x6700;&#x57FA;&#x672C;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x5E94;&#x8BE5;&#x662F;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A;&#x6837;&#x5B50;&#x7684;&#xFF0C;&#x901A;&#x8FC7;&#x67EF;&#x91CC;&#x5316;&#x7684;&#x65B9;&#x5F0F;&#x5B9A;&#x4E49;&#x4E2D;&#x95F4;&#x4EF6;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> pureMiddleware = ({dispatch, getState}) =&gt; next =&gt; action =&gt; next(action)
+</code></pre>
+<p>&#x67EF;&#x91CC;&#x5316;&#x662F;&#x51FD;&#x6570;&#x5F0F;&#x7F16;&#x7A0B;&#x91CC;&#x9762;&#x7684;&#x4E00;&#x4E2A;&#x6982;&#x5FF5;&#xFF0C;&#x5176;&#x529F;&#x80FD;&#x662F;&#x628A;&#x591A;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x51FD;&#x6570;&#x7F16;&#x7A0B;&#x4E00;&#x4E2A;&#x63A5;&#x6536;&#x5355;&#x4E00;&#x53C2;&#x6570;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x63A5;&#x6536;&#x4F59;&#x4E0B;&#x53C2;&#x6570;&#x7684;&#x65B0;&#x51FD;&#x6570;</p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x666E;&#x901A;&#x5B9E;&#x73B0;</span>
+<span class="hljs-keyword">const</span> add = (a, b) =&gt; a + b
+
+<span class="hljs-comment">// &#x67EF;&#x91CC;&#x5316;&#x5B9E;&#x73B0;</span>
+<span class="hljs-keyword">const</span> add = (a) =&gt; (b) =&gt; a + b
+<span class="hljs-keyword">const</span> add10 = add(<span class="hljs-number">10</span>) <span class="hljs-comment">// &#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x590D;&#x7528;&#x7684;add(10)&#x51FD;&#x6570;</span>
+add10(<span class="hljs-number">20</span>) <span class="hljs-comment">// 30</span>
+add10(<span class="hljs-number">30</span>) <span class="hljs-comment">// 30</span>
+<span class="hljs-keyword">const</span> add100 = add(<span class="hljs-number">100</span>) <span class="hljs-comment">// &#x4F9D;&#x6B21;&#x7C7B;&#x63A8;&#xFF0C;&#x53EF;&#x4EE5;&#x751F;&#x6210;&#x9AD8;&#x5EA6;&#x590D;&#x7528;&#x7684;&#x65B0;&#x51FD;&#x6570;</span>
+</code></pre>
+<p>&#x6B64;&#x5916;&#x9700;&#x8981;&#x4E86;&#x89E3;<code>compose</code>&#x7684;&#x6982;&#x5FF5;&#xFF0C;<code>compose</code>&#x662F;&#x51FD;&#x6570;&#x5F0F;&#x7F16;&#x7A0B;&#x91CC;&#x9762;&#x7684;<strong>&#x7EC4;&#x5408;</strong>&#xFF0C;&#x5176;&#x529F;&#x80FD;&#x662F;&#x5C06;&#x591A;&#x4E2A;&#x5355;&#x529F;&#x80FD;&#x7684;&#x51FD;&#x6570;&#x5408;&#x5E76;&#x4E3A;&#x4E00;&#x4E2A;&#x51FD;&#x6570;</p>
+<pre><code class="lang-js"> <span class="hljs-comment">// &#x7EC4;&#x5408;&#x51FD;&#x6570;, &#x5982;compose(f, g, h)&#x4F1A;&#x8FD4;&#x56DE; (...args) =&gt; f(g(h(...args)))</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compose</span>(<span class="hljs-params">...funcs</span>) </span>{
+  <span class="hljs-keyword">if</span> (funcs.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> arg =&gt; arg
+  }
+
+  <span class="hljs-keyword">if</span> (funcs.length === <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">return</span> funcs[<span class="hljs-number">0</span>]
+  }
+  <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x7EC4;&#x5408;&#x540E;&#x7684;&#x51FD;&#x6570;</span>
+  <span class="hljs-comment">// &#x8C03;&#x7528;&#x65F6;&#xFF0C;funcs&#x5217;&#x8868;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4ECE;&#x540E;&#x5411;&#x524D;&#x4F9D;&#x6B21;&#x8C03;&#x7528;&#xFF0C;&#x5E76;&#x5C06;&#x4E0A;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x4F5C;&#x4E3A;&#x4F5C;&#x4E3A;&#x4E0B;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;</span>
+
+  <span class="hljs-keyword">return</span> funcs.reduce((a, b) =&gt; (...args) =&gt; a(b(...args)))
+}
+</code></pre>
+<p>&#x4EE5;&#x4E0B;&#x9762;&#x4E3A;&#x4F8B;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> funcs = [
+    (a)=&gt;{
+        <span class="hljs-built_in">console</span>.log(a)
+        <span class="hljs-keyword">return</span> a+<span class="hljs-number">1</span>
+    },
+    (b)=&gt;{
+        <span class="hljs-built_in">console</span>.log(b)
+        <span class="hljs-keyword">return</span> b+<span class="hljs-number">2</span>
+    }
+]
+<span class="hljs-keyword">var</span> res = compose(...funcs)
+<span class="hljs-built_in">console</span>.log(res(<span class="hljs-number">1</span>)) <span class="hljs-comment">// 1,3,4</span>
+</code></pre>
+<p>&#x73B0;&#x5728;&#x6765;&#x770B;<code>applyMiddleware</code>&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;&#x4EE3;&#x7801;&#x5341;&#x5206;&#x7CBE;&#x5F69;&#xFF0C;&#x77ED;&#x77ED;&#x51E0;&#x884C;&#x5C31;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x7CFB;&#x7EDF;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">applyMiddleware</span>(<span class="hljs-params">...middlewares</span>) </span>{
+  <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x63A5;&#x6536;createStore&#x53C2;&#x6570;&#x7684;&#x95ED;&#x5305;&#xFF0C;&#x4E2D;&#x95F4;&#x4EF6;&#x901A;&#x8FC7;middlewares&#x53C2;&#x6570;&#x5217;&#x8868;&#x7EF4;&#x62A4;</span>
+  <span class="hljs-keyword">return</span> createStore =&gt; (...args) =&gt; {
+    <span class="hljs-comment">// &#x521B;&#x5EFA;&#x539F;&#x59CB;&#x7684;store</span>
+    <span class="hljs-keyword">const</span> store = createStore(...args)
+
+    <span class="hljs-keyword">let</span> dispatch = () =&gt; {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(
+        <span class="hljs-string">&apos;Dispatching while constructing your middleware is not allowed. &apos;</span> +
+          <span class="hljs-string">&apos;Other middleware would not be applied to this dispatch.&apos;</span>
+      )
+    }
+    <span class="hljs-comment">// &#x6BCF;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x90FD;&#x5305;&#x542B;&#x7EDF;&#x4E00;&#x53C2;&#x6570;&#xFF1A;getState&#x548C;dispatch</span>
+    <span class="hljs-keyword">const</span> middlewareAPI = {
+      getState: store.getState,
+      dispatch: (...args) =&gt; dispatch(...args) <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x95ED;&#x5305;&#xFF0C;&#x8BA9;&#x6BCF;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x7EF4;&#x6301;&#x5BF9;&#x7EC4;&#x5408;dispatch&#x7684;&#x5F15;&#x7528;</span>
+    }
+    <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;store&#x65F6;&#xFF0C;&#x4E2D;&#x95F4;&#x4EF6;&#x6309;&#x53C2;&#x6570;&#x987A;&#x5E8F;&#x4F9D;&#x6B21;&#x8C03;&#x7528;&#xFF0C;&#x6BCF;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x8FD4;&#x56DE;&#x7684;&#x662F; next =&gt; action =&gt; next(action) &#x7EDF;&#x4E00;&#x683C;&#x5F0F;</span>
+    <span class="hljs-keyword">const</span> chain = middlewares.map(middleware =&gt; middleware(middlewareAPI))
+    <span class="hljs-comment">// compose(...chain)&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x7EC4;&#x5408;&#x7684; next =&gt; action =&gt; next(action) &#x65B9;&#x6CD5;</span>
+    <span class="hljs-comment">// compose(...chain)(store.dispatch)&#x4F1A;&#x5C06;store.dispatch&#x4F5C;&#x4E3A;&#x6700;&#x540E;&#x4E00;&#x4E2A;next&#x4E2D;&#x95F4;&#x4EF6;&#x4F20;&#x5165;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7EC4;&#x5408;&#x540E;&#x7684;dispatch</span>
+    dispatch = compose(...chain)(store.dispatch)
+    <span class="hljs-comment">// compose&#x662F;&#x6309;&#x7167;&#x4ECE;&#x53F3;&#x5411;&#x5DE6;&#x7684;&#x987A;&#x5E8F;&#x652F;&#x6301;&#x51FD;&#x6570;&#x5217;&#x8868;&#xFF0C;&#x56E0;&#x6B64;&#x5F53;&#x5728;&#x89C6;&#x56FE;&#x4E2D;&#x8C03;&#x7528;dispatch(action)&#x65F6;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x4E2D;&#x8C03;&#x7528;next(action)&#x624D;&#x4F1A;&#x89E6;&#x53D1;&#x771F;&#x5B9E;&#x7684;store.dispatch(action)</span>
+    <span class="hljs-comment">// &#x5728;&#x6B64;&#x4E4B;&#x524D;state&#x672A;&#x66F4;&#x65B0;&#xFF0C;&#x5728;&#x6B64;&#x4E4B;&#x540E;state&#x5DF2;&#x66F4;&#x65B0;&#xFF0C;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#xFF0C;&#x63A7;&#x5236;&#x6743;&#x8FD4;&#x56DE;&#x4E0A;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;next&#x540E;&#x9762;&#x90E8;&#x5206;&#xFF0C;&#x4F9D;&#x6B21;&#x9000;&#x51FA;&#x8C03;&#x7528;&#x6808;</span>
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x524D;&#x9762;&#x67D0;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x672A;&#x8C03;&#x7528;next&#xFF0C;&#x5219;&#x540E;&#x9762;&#x6240;&#x6709;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x90FD;&#x4E0D;&#x4F1A;&#x6267;&#x884C;</span>
+    <span class="hljs-keyword">return</span> {
+      ...store,
+      dispatch  <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x589E;&#x5F3A;&#x4E86;dispatch&#x7684;store</span>
+    }
+  }
+}
+</code></pre>
+<p>&#x96C6;&#x5408;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x683C;&#x5F0F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4E86;&#x89E3;&#x5230;</p>
+<ul>
+<li><code>chain</code>&#x4E2D;&#x4FDD;&#x5B58;&#x7684;&#x90FD;&#x662F;<code>next =&gt; action =&gt; {next(action)}</code>&#x7684;&#x65B9;&#x6CD5;</li>
+<li>&#x901A;&#x8FC7;<code>compose</code>&#x8FD4;&#x56DE;&#x4E86;&#x4E00;&#x4E2A;&#x7EC4;&#x5408;&#x51FD;&#x6570;&#xFF0C;&#x5C06;<code>store.dispatch</code>&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x4F20;&#x9012;&#x7ED9;&#x7EC4;&#x5408;&#x51FD;&#x6570;&#xFF0C;&#x7EC4;&#x5408;&#x51FD;&#x6570;&#x6267;&#x884C;&#x65F6;&#x4F1A;&#x9006;&#x5E8F;&#x8C03;&#x7528;chain&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x5C06;&#x4E0A;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x4F5C;&#x4E3A;&#x4F5C;&#x4E3A;&#x4E0B;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;</li>
+<li>&#x8FD9;&#x91CC;&#x7684;&#x4E0A;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x5C31;&#x662F;<code>action =&gt; {next(action)}</code>&#xFF0C;&#x8DDF;&#x539F;&#x59CB;&#x7684;<code>store.dispatch</code>&#x7ED3;&#x6784;&#x4E00;&#x81F4;&#xFF0C;&#x56E0;&#x6B64;&#x7EC4;&#x5408;&#x51FD;&#x6570;&#x6700;&#x540E;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x662F;&#x7ECF;&#x8FC7;&#x7EC4;&#x5408;&#x51FD;&#x6570;&#x5305;&#x88C5;&#x540E;&#x7684;<code>dispatch</code></li>
+</ul>
+<p>&#x6240;&#x4EE5;&#x6839;&#x636E;&#x6E90;&#x7801;&#xFF0C;&#x5219;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x5E94;&#x8BE5;&#x662F;</p>
+<pre><code>&#x6B63;&#x5E38;&#x540C;&#x6B65;&#x8C03;&#x7528;next&#xFF0C;&#x5728;dispatch&#x524D;&#x6267;&#x884C;next&#x524D;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x90E8;&#x5206;&#xFF0C;&#x5728;dispatch&#x540E;&#x6267;&#x884C;next&#x540E;&#x9762;&#x7684;&#x90E8;&#x5206;
+mid1 before next -&gt; mid2 before next -&gt; mid3 before next-&gt; dispatch -&gt; mid3 after next -&gt; mid2 after next -&gt; mid1 after next
+
+&#x6B63;&#x5E38;&#x540C;&#x6B65;&#x8C03;&#x7528;&#xFF0C;&#x5982;&#x679C;&#x5728;mid2&#x4E2D;&#x672A;&#x8C03;&#x7528;next&#xFF0C;&#x5219;
+mid1 before next -&gt; mid2 full -&gt; mid1 after next
+
+&#x5982;&#x679C;&#x5728;mid2&#x4E2D;&#x662F;&#x5F02;&#x6B65;&#x8C03;&#x7528;next&#xFF0C;&#x5219;
+mid1 before nex -&gt; mid2 full sync -&gt; mid1 after next -&gt; mid2 async before next -&gt; mid3 before next -&gt; dispatch -&gt; mid3 after next -&gt; mid2 async after next
+</code></pre><p>&#x6B64;&#x5916;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x5728;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x6267;&#x884C;&#x4E2D;&#xFF0C;&#x4E0D;&#x80FD;&#x624B;&#x52A8;&#x8C03;&#x7528;&#x4F20;&#x5165;&#x7684;&#x7EC4;&#x5408;<code>dispatch</code>&#xFF0C;&#x800C;&#x5E94;&#x8BE5;&#x901A;&#x8FC7;next&#x8C03;&#x7528;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x51FA;&#x73B0;&#x6B7B;&#x5FAA;&#x73AF;&#x3002;</p>
+<h2 id="redux-thunk">redux-thunk</h2>
+<p>&#x5982;&#x679C;&#x9700;&#x8981;&#x63D0;&#x4EA4;&#x5F02;&#x6B65;&#x7684;&#x52A8;&#x4F5C;&#xFF0C;&#x5E76;&#x5728;&#x5F02;&#x6B65;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#x540E;&#x5728;&#x66F4;&#x65B0;state&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>redux-thunk</code>&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> store = Redux.createStore(reducer,initState,Redux.applyMiddleware(logger, logger2, thunk));
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asycnAction</span>(<span class="hljs-params">dispatch, getState, extra</span>)</span>{
+    setTimeout(() =&gt; {
+        dispatch({
+            type: UPDATE,
+            payload: <span class="hljs-built_in">Math</span>.random().toString()
+        });
+    }, <span class="hljs-number">100</span>);
+}
+store.dispatch(asycnAction);
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x662F;<code>redux-thunk</code>&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5176;&#x6982;&#x5FF5;&#x548C;&#x5B9E;&#x73B0;&#x90FD;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x652F;&#x6301;&#x4E86;&#x51FD;&#x6570;&#x7C7B;&#x578B;&#x7684;<code>action</code>&#xFF0C;&#x5E76;&#x4F20;&#x5165;dispatch&#x8BA9;&#x7528;&#x6237;&#x5728;action&#x7684;&#x903B;&#x8F91;&#x4E2D;&#x624B;&#x52A8;&#x8C03;&#x7528;</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createThunkMiddleware</span>(<span class="hljs-params">extraArgument</span>) </span>{
+  <span class="hljs-keyword">return</span> ({ dispatch, getState }) =&gt; next =&gt; action =&gt; {
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x6536;&#x5230;&#x7684;&#x662F;&#x4E00;&#x4E2A;action&#xFF0C;&#x5C31;&#x5C06;middlewareAPI&#x4E0A;&#x7684;dispatch&#x4F20;&#x7ED9;action&#xFF0C;&#x5728;action&#x4E2D;&#x7531;&#x7528;&#x6237;&#x81EA;&#x884C;&#x8C03;&#x7528;dispatch&#x4E00;&#x4E2A;&#x540C;&#x6B65;&#x7684;action</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">&apos;function&apos;</span>) {
+      <span class="hljs-keyword">return</span> action(dispatch, getState, extraArgument);
+    }
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x662F;&#x51FD;&#x6570;&#x7C7B;&#x578B;&#x7684;action&#xFF0C;&#x5219;&#x4E0D;&#x4F1A;&#x8FDB;&#x5165;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#xFF0C;&#x907F;&#x514D;&#x6B7B;&#x5FAA;&#x73AF;&#xFF0C;&#x56E0;&#x6B64;&#x4F7F;&#x7528;thunk&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x987A;&#x5E8F;&#x4E5F;&#x5F88;&#x91CD;&#x8981;</span>
+    <span class="hljs-comment">// &#x5BF9;&#x4E8E;&#x67D0;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x800C;&#x8A00;&#xFF0C;&#x5982;&#x679C;&#x76D1;&#x542C;&#x6240;&#x6709;&#x7684;action&#xFF0C;&#x5728;applyMiddleware&#x65F6;&#x5219;&#x5E94;&#x8BE5;&#x653E;&#x5728;thunk&#x524D;&#x9762;&#xFF1B;&#x5982;&#x679C;&#x53EA;&#x60F3;&#x76D1;&#x542C;&#x5E38;&#x89C4;&#x7684;&#x975E;&#x51FD;&#x6570;action&#xFF0C;&#x5219;&#x5E94;&#x8BE5;&#x653E;&#x5728;thunk&#x540E;&#x9762;</span>
+    <span class="hljs-keyword">return</span> next(action);
+  };
+}
+
+<span class="hljs-keyword">const</span> thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware; <span class="hljs-comment">// &#x66B4;&#x9732;createThunkMiddleware &#x65B9;&#x6CD5;&#xFF0C;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x4E3A;&#x6BCF;&#x4E2A;actino&#x4F20;&#x5165;&#x989D;&#x5916;&#x53C2;&#x6570;</span>
+</code></pre>
+<h2 id="redux-saga">redux-saga</h2>
+<p><a href="https://redux-saga-in-chinese.js.org/" target="_blank">Redux-Saga</a>&#x4F7F;&#x7528;&#x4E86; ES6 &#x7684; Generator &#x529F;&#x80FD;&#xFF0C;&#x8BA9;redux&#x4E2D;&#x5F02;&#x6B65;&#x6D41;&#x7A0B;&#x66F4;&#x6613;&#x4E8E;&#x8BFB;&#x53D6;&#xFF0C;&#x5199;&#x5165;&#x548C;&#x6D4B;&#x8BD5;</p>
+<p>&#x57FA;&#x7840;&#x4F7F;&#x7528;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { call, put, takeEvery, takeLatest } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-saga/effects&apos;</span>
+<span class="hljs-keyword">import</span> { createStore, applyMiddleware } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux&apos;</span>
+<span class="hljs-keyword">import</span> createSagaMiddleware <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;redux-saga&apos;</span>
+
+<span class="hljs-keyword">const</span> Api = {
+    <span class="hljs-keyword">async</span> fetchUser() {
+        <span class="hljs-keyword">return</span> { name: <span class="hljs-string">&apos;xxx&apos;</span>, age: <span class="hljs-number">10</span> }
+    }
+}
+
+<span class="hljs-comment">// worker Saga: will be fired on USER_FETCH_REQUESTED actions</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">fetchUser</span>(<span class="hljs-params">action</span>) </span>{
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">yield</span> call(Api.fetchUser, action.payload.userId);
+        <span class="hljs-keyword">yield</span> put({ type: <span class="hljs-string">&quot;USER_FETCH_SUCCEEDED&quot;</span>, user: user });
+    } <span class="hljs-keyword">catch</span> (e) {
+        <span class="hljs-keyword">yield</span> put({ type: <span class="hljs-string">&quot;USER_FETCH_FAILED&quot;</span>, message: e.message });
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span>* <span class="hljs-title">mySaga</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// &#x5141;&#x8BB8;&#x6BCF;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;&#x7684;dispatch&#x8BBF;&#x95EE;&#xFF0C;&#x5219;&#x4F7F;&#x7528;takeEvery</span>
+    <span class="hljs-comment">// yield takeEvery(&quot;USER_FETCH_REQUESTED&quot;, fetchUser);</span>
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x53EA;&#x5E0C;&#x671B;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x6210;&#x529F;&#x53D1;&#x9001;&#xFF0C;&#x5219;&#x4F7F;&#x7528;takeLatest</span>
+    <span class="hljs-keyword">yield</span> takeLatest(<span class="hljs-string">&quot;USER_FETCH_REQUESTED&quot;</span>, fetchUser);
+}
+
+<span class="hljs-keyword">let</span> reducre = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">state, action</span>) </span>{
+    <span class="hljs-keyword">switch</span> (action.type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;USER_FETCH_SUCCEEDED&apos;</span>:
+            <span class="hljs-keyword">return</span> { user: action.user }
+    }
+    <span class="hljs-keyword">return</span> { user: <span class="hljs-literal">null</span> }
+}
+
+<span class="hljs-keyword">const</span> sagaMiddleware = createSagaMiddleware()
+
+<span class="hljs-keyword">let</span> store = createStore(reducre, applyMiddleware(sagaMiddleware))
+store.subscribe(() =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;subscribe:&apos;</span>, store.getState())
+})
+
+sagaMiddleware.run(mySaga)
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i) {
+    getUserInfo() <span class="hljs-comment">// &#x4E0A;&#x9762;&#x4F7F;&#x7528;&#x4E86;takeLatest&#xFF0C;&#x53EA;&#x6709;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x8BF7;&#x6C42;&#x4F1A;&#x89E6;&#x53D1;`USER_FETCH_SUCCEEDED`</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getUserInfo</span>(<span class="hljs-params"></span>) </span>{
+    store.dispatch({
+        type: <span class="hljs-string">&apos;USER_FETCH_REQUESTED&apos;</span>,
+        payload: {
+            userId: <span class="hljs-number">10</span>
+        }
+    })
+}
+</code></pre>
+<p>// todo &#x6E90;&#x7801;&#x5206;&#x6790;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="React源码分析.html" class="navigation navigation-prev " aria-label="Previous page: React源码分析.md">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="axios源码分析.html" class="navigation navigation-next " aria-label="Next page: axios源码分析.md">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redux源码分析.md","level":"2.3","depth":1,"next":{"title":"axios源码分析.md","level":"2.4","depth":1,"path":"源码分析/axios源码分析.md","ref":"./源码分析/axios源码分析.md","articles":[]},"previous":{"title":"React源码分析.md","level":"2.2","depth":1,"path":"源码分析/React源码分析.md","ref":"./源码分析/React源码分析.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"源码分析/Redux源码分析.md","mtime":"2021-04-18T09:43:06.207Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-06T06:56:04.240Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
