@@ -1,1959 +1,320 @@
-
-<!DOCTYPE HTML>
-<html lang="" >
-    <head>
-        <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>代码实现.md · GitBook</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.3">
-        
-        
-        
-    
-    <link rel="stylesheet" href="../../gitbook/style.css">
-
-    
-            
-                
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
-                
-            
-                
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
-                
-            
-                
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
-                
-            
-        
-
-    
-
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-        
-    
-    
-    <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
-    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
-
-    
-    <link rel="next" href="代码阅读.html" />
-    
-    
-    <link rel="prev" href="Vue.html" />
-    
-
-    </head>
-    <body>
-        
-<div class="book">
-    <div class="book-summary">
-        
-            
-<div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
-</div>
-
-            
-                <nav role="navigation">
-                
-
-
-<ul class="summary">
-    
-    
-
-    
-
-    
-        
-        
-    
-        <li class="chapter " data-level="1.1" data-path="../../">
-            
-                <a href="../../">
-            
-                    
-                    Introduction
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-    
-        
-        <li class="header">源码分析</li>
-        
-        
-    
-        <li class="chapter " data-level="2.1" data-path="../../源码分析/">
-            
-                <a href="../../源码分析/">
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="../../源码分析/React源码分析.html">
-            
-                <a href="../../源码分析/React源码分析.html">
-            
-                    
-                    React源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.3" data-path="../../源码分析/Redux源码分析.html">
-            
-                <a href="../../源码分析/Redux源码分析.html">
-            
-                    
-                    Redux源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.4" data-path="../../源码分析/axios源码分析.html">
-            
-                <a href="../../源码分析/axios源码分析.html">
-            
-                    
-                    axios源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.5" data-path="../../源码分析/koa源码分析.html">
-            
-                <a href="../../源码分析/koa源码分析.html">
-            
-                    
-                    koa源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-    
-        
-        <li class="header">知识点</li>
-        
-        
-    
-        <li class="chapter " data-level="3.1" data-path="../../知识点/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2" >
-            
-                <span>
-            
-                    
-                    CSS
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.2.1" data-path="../../知识点/CSS/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.2" data-path="../../知识点/CSS/CSS3.md">
-            
-                <span>
-            
-                    
-                    CSS3.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.3" data-path="../../知识点/CSS/分辨率.md">
-            
-                <span>
-            
-                    
-                    分辨率.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.4" data-path="../../知识点/CSS/基础知识.md">
-            
-                <span>
-            
-                    
-                    基础知识.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.5" data-path="../../知识点/CSS/性能优化.md">
-            
-                <span>
-            
-                    
-                    性能优化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.6" data-path="../../知识点/CSS/核心知识.md">
-            
-                <span>
-            
-                    
-                    核心知识.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.7" data-path="../../知识点/CSS/编写样式表.md">
-            
-                <span>
-            
-                    
-                    编写样式表.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.8" data-path="../../知识点/CSS/选择器.md">
-            
-                <span>
-            
-                    
-                    选择器.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3" >
-            
-                <span>
-            
-                    
-                    HTML
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.3.1" data-path="../../知识点/HTML/HTML.md">
-            
-                <span>
-            
-                    
-                    HTML.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3.2" data-path="../../知识点/HTML/SEO优化.md">
-            
-                <span>
-            
-                    
-                    SEO优化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3.3" data-path="../../知识点/HTML/Web Components.md">
-            
-                <span>
-            
-                    
-                    Web Components.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4" >
-            
-                <span>
-            
-                    
-                    JavaScript
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.4.1" data-path="../../知识点/JavaScript/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.2" data-path="../../知识点/JavaScript/Canvas.md">
-            
-                <span>
-            
-                    
-                    Canvas.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.3" data-path="../../知识点/JavaScript/DOM和BOM.md">
-            
-                <span>
-            
-                    
-                    DOM和BOM.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.4" data-path="../../知识点/JavaScript/ECMAScript.md">
-            
-                <span>
-            
-                    
-                    ECMAScript.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.5" data-path="../../知识点/JavaScript/EventLoop.md">
-            
-                <span>
-            
-                    
-                    EventLoop.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.6" data-path="../../知识点/JavaScript/NodeJS.md">
-            
-                <span>
-            
-                    
-                    NodeJS.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.7" data-path="../../知识点/JavaScript/TypeScript.md">
-            
-                <span>
-            
-                    
-                    TypeScript.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.8" data-path="../../知识点/JavaScript/Worker.md">
-            
-                <span>
-            
-                    
-                    Worker.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.9" data-path="../../知识点/JavaScript/函数式编程.md">
-            
-                <span>
-            
-                    
-                    函数式编程.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.10" data-path="../../知识点/JavaScript/原型.md">
-            
-                <span>
-            
-                    
-                    原型.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.11" data-path="../../知识点/JavaScript/数据类型.md">
-            
-                <span>
-            
-                    
-                    数据类型.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.12" data-path="../../知识点/JavaScript/正则.md">
-            
-                <span>
-            
-                    
-                    正则.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.13" data-path="../../知识点/JavaScript/装饰器.md">
-            
-                <span>
-            
-                    
-                    装饰器.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.14" data-path="../../知识点/JavaScript/运算符.md">
-            
-                <span>
-            
-                    
-                    运算符.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5" >
-            
-                <span>
-            
-                    
-                    业务相关
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.5.1" data-path="../../知识点/业务相关/Babel.md">
-            
-                <span>
-            
-                    
-                    Babel.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.2" data-path="../../知识点/业务相关/CI.md">
-            
-                <span>
-            
-                    
-                    CI.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.3" data-path="../../知识点/业务相关/Docker.md">
-            
-                <span>
-            
-                    
-                    Docker.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.4" data-path="../../知识点/业务相关/git.md">
-            
-                <span>
-            
-                    
-                    git.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.5" data-path="../../知识点/业务相关/mock.md">
-            
-                <span>
-            
-                    
-                    mock.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.6" data-path="../../知识点/业务相关/npm.md">
-            
-                <span>
-            
-                    
-                    npm.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.7" data-path="../../知识点/业务相关/webpack.md">
-            
-                <span>
-            
-                    
-                    webpack.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.8" data-path="../../知识点/业务相关/web安全.md">
-            
-                <span>
-            
-                    
-                    web安全.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.9" data-path="../../知识点/业务相关/前端工程化.md">
-            
-                <span>
-            
-                    
-                    前端工程化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.10" data-path="../../知识点/业务相关/单元测试.md">
-            
-                <span>
-            
-                    
-                    单元测试.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.11" data-path="../../知识点/业务相关/性能优化.md">
-            
-                <span>
-            
-                    
-                    性能优化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.12" data-path="../../知识点/业务相关/数据埋点.md">
-            
-                <span>
-            
-                    
-                    数据埋点.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.13" data-path="../../知识点/业务相关/模块化.md">
-            
-                <span>
-            
-                    
-                    模块化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.14" data-path="../../知识点/业务相关/类前端业务.md">
-            
-                <span>
-            
-                    
-                    类前端业务.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.15" data-path="../../知识点/业务相关/调试.md">
-            
-                <span>
-            
-                    
-                    调试.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.16" data-path="../../知识点/业务相关/错误上报.md">
-            
-                <span>
-            
-                    
-                    错误上报.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6" >
-            
-                <span>
-            
-                    
-                    库与框架
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.6.1" data-path="../../知识点/库与框架/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.2" data-path="../../知识点/库与框架/Chrome扩展程序.md">
-            
-                <span>
-            
-                    
-                    Chrome扩展程序.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.3" data-path="../../知识点/库与框架/Electron.md">
-            
-                <span>
-            
-                    
-                    Electron.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.4" data-path="../../知识点/库与框架/Immutable.md">
-            
-                <span>
-            
-                    
-                    Immutable.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.5" data-path="../../知识点/库与框架/React.md">
-            
-                <span>
-            
-                    
-                    React.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.6" data-path="../../知识点/库与框架/Vue.md">
-            
-                <span>
-            
-                    
-                    Vue.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.7" data-path="../../知识点/库与框架/Vuex.md">
-            
-                <span>
-            
-                    
-                    Vuex.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.8" data-path="../../知识点/库与框架/diff算法.md">
-            
-                <span>
-            
-                    
-                    diff算法.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.9" data-path="../../知识点/库与框架/单页面应用Router.md">
-            
-                <span>
-            
-                    
-                    单页面应用Router.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.10" data-path="../../知识点/库与框架/微信小程序.md">
-            
-                <span>
-            
-                    
-                    微信小程序.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.11" data-path="../../知识点/库与框架/技术选型.md">
-            
-                <span>
-            
-                    
-                    技术选型.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-
-    
-        
-        <li class="header">面试</li>
-        
-        
-    
-        <li class="chapter " data-level="4.1" data-path="../">
-            
-                <a href="../">
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2" >
-            
-                <span>
-            
-                    
-                    面试记录
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="4.2.1" data-path="../面试记录/2017_DaE.html">
-            
-                <a href="../面试记录/2017_DaE.html">
-            
-                    
-                    2017_DaE.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.2" data-path="../面试记录/2017_TE.html">
-            
-                <a href="../面试记录/2017_TE.html">
-            
-                    
-                    2017_TE.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.3" data-path="../面试记录/2018_AYLDM.html">
-            
-                <a href="../面试记录/2018_AYLDM.html">
-            
-                    
-                    2018_AYLDM.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.4" data-path="../面试记录/2018_HDJR.html">
-            
-                <a href="../面试记录/2018_HDJR.html">
-            
-                    
-                    2018_HDJR.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.5" data-path="../面试记录/2018_MD.html">
-            
-                <a href="../面试记录/2018_MD.html">
-            
-                    
-                    2018_MD.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.6" data-path="../面试记录/2018_PAKJ.html">
-            
-                <a href="../面试记录/2018_PAKJ.html">
-            
-                    
-                    2018_PAKJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.7" data-path="../面试记录/2018_QKCJ.html">
-            
-                <a href="../面试记录/2018_QKCJ.html">
-            
-                    
-                    2018_QKCJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.8" data-path="../面试记录/2018_SFWY.html">
-            
-                <a href="../面试记录/2018_SFWY.html">
-            
-                    
-                    2018_SFWY.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.9" data-path="../面试记录/2018_TW.html">
-            
-                <a href="../面试记录/2018_TW.html">
-            
-                    
-                    2018_TW.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.10" data-path="../面试记录/2018_YHKJ.html">
-            
-                <a href="../面试记录/2018_YHKJ.html">
-            
-                    
-                    2018_YHKJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.11" data-path="../面试记录/2018_YSKJ.html">
-            
-                <a href="../面试记录/2018_YSKJ.html">
-            
-                    
-                    2018_YSKJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.12" data-path="../面试记录/2018_Z8.html">
-            
-                <a href="../面试记录/2018_Z8.html">
-            
-                    
-                    2018_Z8.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.13" data-path="../面试记录/2019_BCZ.html">
-            
-                <a href="../面试记录/2019_BCZ.html">
-            
-                    
-                    2019_BCZ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.14" data-path="../面试记录/2019_HKJT.html">
-            
-                <a href="../面试记录/2019_HKJT.html">
-            
-                    
-                    2019_HKJT.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.15" data-path="../面试记录/2019_JRTT.html">
-            
-                <a href="../面试记录/2019_JRTT.html">
-            
-                    
-                    2019_JRTT.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.16" data-path="../面试记录/2019_LDS.html">
-            
-                <a href="../面试记录/2019_LDS.html">
-            
-                    
-                    2019_LDS.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.17" data-path="../面试记录/2019_QEXR.html">
-            
-                <a href="../面试记录/2019_QEXR.html">
-            
-                    
-                    2019_QEXR.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.18" data-path="../面试记录/2019_WBLZ.html">
-            
-                <a href="../面试记录/2019_WBLZ.html">
-            
-                    
-                    2019_WBLZ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.19" data-path="../面试记录/2019_XFLX.html">
-            
-                <a href="../面试记录/2019_XFLX.html">
-            
-                    
-                    2019_XFLX.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3" >
-            
-                <span>
-            
-                    
-                    面试题
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="4.3.1" data-path="./">
-            
-                <a href="./">
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.2" data-path="CSS.html">
-            
-                <a href="CSS.html">
-            
-                    
-                    CSS.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.3" data-path="DOM.html">
-            
-                <a href="DOM.html">
-            
-                    
-                    DOM.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.4" data-path="ECMAScript.html">
-            
-                <a href="ECMAScript.html">
-            
-                    
-                    ECMAScript.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.5" data-path="HTML.html">
-            
-                <a href="HTML.html">
-            
-                    
-                    HTML.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.6" data-path="React.html">
-            
-                <a href="React.html">
-            
-                    
-                    React.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.7" data-path="Vue.html">
-            
-                <a href="Vue.html">
-            
-                    
-                    Vue.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter active" data-level="4.3.8" data-path="代码实现.html">
-            
-                <a href="代码实现.html">
-            
-                    
-                    代码实现.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.9" data-path="代码阅读.html">
-            
-                <a href="代码阅读.html">
-            
-                    
-                    代码阅读.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.10" data-path="其他问题.html">
-            
-                <a href="其他问题.html">
-            
-                    
-                    其他问题.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.11" data-path="兼容及BUG.html">
-            
-                <a href="兼容及BUG.html">
-            
-                    
-                    兼容及BUG.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.12" data-path="常见需求.html">
-            
-                <a href="常见需求.html">
-            
-                    
-                    常见需求.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.13" data-path="算法实现.html">
-            
-                <a href="算法实现.html">
-            
-                    
-                    算法实现.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.14" data-path="网络.html">
-            
-                <a href="网络.html">
-            
-                    
-                    网络.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-
-    
-
-    <li class="divider"></li>
-
-    <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
-        </a>
-    </li>
-</ul>
-
-
-                </nav>
-            
-        
-    </div>
-
-    <div class="book-body">
-        
-            <div class="body-inner">
-                
-                    
-
-<div class="book-header" role="navigation">
-    
-
-    <!-- Title -->
-    <h1>
-        <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >代码实现.md</a>
-    </h1>
-</div>
-
-
-
-
-                    <div class="page-wrapper" tabindex="-1" role="main">
-                        <div class="page-inner">
-                            
-<div id="book-search-results">
-    <div class="search-noresults">
-    
-                                <section class="normal markdown-section">
-                                
-                                <h2 id="&#x5B9E;&#x73B0;&#x8282;&#x6D41;&#x548C;&#x53BB;&#x6296;&#x51FD;&#x6570;">&#x5B9E;&#x73B0;&#x8282;&#x6D41;&#x548C;&#x53BB;&#x6296;&#x51FD;&#x6570;</h2>
-<p>&#x9996;&#x5148;&#x9700;&#x8981;&#x4E86;&#x89E3;&#x4E24;&#x4E2A;&#x51FD;&#x6570;&#x7684;&#x6982;&#x5FF5;&#x548C;&#x4F7F;&#x7528;&#x573A;&#x666F;</p>
-<p><a href="https://github.com/tangxiangmin/JSMagic/tree/master/Throttle%20%26%20Debounce" target="_blank">&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</a></p>
-<h2 id="&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;promise">&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;Promise</h2>
-<p><a href="https://github.com/tangxiangmin/JSMagic/blob/master/Promise/Promise.js" target="_blank">&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</a>&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x6784;&#x9020;&#x51FD;&#x6570;&#x548C;&#x94FE;&#x5F0F;&#x8C03;&#x7528;&#x7684;then&#x65B9;&#x6CD5;</p>
-<h2 id="&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;bind&#x51FD;&#x6570;">&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;bind&#x51FD;&#x6570;</h2>
-<pre><code class="lang-js"><span class="hljs-built_in">Function</span>.prototype.my_bind = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span> <span class="hljs-comment">// &#x4FDD;&#x5B58;&#x539F;&#x51FD;&#x6570;</span>
-    <span class="hljs-keyword">var</span> [context, ...args] = <span class="hljs-built_in">arguments</span> <span class="hljs-comment">// &#x7ED1;&#x5B9A;&#x65F6;&#x9884;&#x5148;&#x51FA;&#x5165;&#x7684;&#x53C2;&#x6570;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        args = args.concat(...arguments) <span class="hljs-comment">// &#x8C03;&#x7528;&#x65F6;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;</span>
-        <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x65B0;&#x51FD;&#x6570;</span>
-        self.apply(context, args);
-    };
-};
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params">m, n, o</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">&quot; &quot;</span> + m + <span class="hljs-string">&quot; &quot;</span> + n + <span class="hljs-string">&quot; &quot;</span> + o);
-}
-<span class="hljs-keyword">var</span> b = {
-    name: <span class="hljs-string">&quot;xxx&quot;</span>
-};
-a.my_bind(b, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)(<span class="hljs-number">3</span>); <span class="hljs-comment">// xxx 1, 2, 3</span>
-</code></pre>
-<h2 id="&#x5B9E;&#x73B0;&#x6DF1;&#x62F7;&#x8D1D;&#x51FD;&#x6570;">&#x5B9E;&#x73B0;&#x6DF1;&#x62F7;&#x8D1D;&#x51FD;&#x6570;</h2>
-<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://juejin.im/post/5d6aa4f96fb9a06b112ad5b1" target="_blank">&#x5982;&#x4F55;&#x5199;&#x51FA;&#x4E00;&#x4E2A;&#x60CA;&#x8273;&#x9762;&#x8BD5;&#x5B98;&#x7684;&#x6DF1;&#x62F7;&#x8D1D;?</a></p>
-<p>&#x4E0B;&#x9762;&#x662F;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x539F;&#x59CB;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x9700;&#x8981;&#x8003;&#x8651;&#x591A;&#x4E2A;&#x7EC6;&#x8282;</p>
-<ul>
-<li>&#x57FA;&#x7840;&#x9012;&#x5F52;</li>
-<li>&#x62F7;&#x8D1D;&#x6570;&#x7EC4;</li>
-<li>&#x5F15;&#x7528;&#x8D4B;&#x503C;&#xFF0C;&#x4F7F;&#x7528;weakMap&#xFF0C;&#x907F;&#x514D;&#x989D;&#x5916;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x672A;&#x53CA;&#x65F6;&#x91CA;&#x653E;</li>
-<li>&#x51FD;&#x6570;&#x7684;&#x62F7;&#x8D1D;</li>
-</ul>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> deepClone = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">target, obj</span>)</span>{
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> obj){
-        <span class="hljs-keyword">if</span> (obj.hasOwnProperty(key)){
-            <span class="hljs-keyword">var</span> val = obj[key];
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">&quot;object&quot;</span>) {
-                target[key] = {};
-                deepClone(target[key], val)
-            }<span class="hljs-keyword">else</span> {
-                target[key] = val;
-            }
-        }
-    }
-    <span class="hljs-keyword">return</span> target;
-}
-</code></pre>
-<p>&#x5982;&#x4F55;&#x62F7;&#x8D1D;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5462;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cloneFn</span>(<span class="hljs-params">fn</span>) </span>{
-    <span class="hljs-keyword">var</span> str = fn.toString()
-    <span class="hljs-keyword">var</span> res
-    <span class="hljs-built_in">eval</span>(<span class="hljs-string">&apos;res = &apos;</span> + str);
-    <span class="hljs-keyword">return</span> res
-}
-</code></pre>
-<h2 id="&#x5B9E;&#x73B0;flattendeep&#xFF0C;&#x5C06;&#x6570;&#x7EC4;&#x5C55;&#x5E73;">&#x5B9E;&#x73B0;flattenDeep&#xFF0C;&#x5C06;&#x6570;&#x7EC4;&#x5C55;&#x5E73;</h2>
-<p>&#x5C06;&#x8F93;&#x5165;[1,[2,[3,4]],5]&#x8F6C;&#x6362;&#x6210;&#x4E00;&#x7EF4;&#x6570;&#x7EC4;[1,2,3,4,5]</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flattenDeep</span>(<span class="hljs-params">array</span>)</span>{
-    <span class="hljs-keyword">let</span> res = []
-    array.forEach(item=&gt;{
-        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Array</span>.isArray(item)){
-            res = res.concat(flattenDeep(item));
-        }<span class="hljs-keyword">else</span> {
-            res.push(item)
-        }
-    })
-    <span class="hljs-keyword">return</span> res
-}
-</code></pre>
-<h2 id="&#x5B9E;&#x73B0;&#x51FD;&#x6570;&#x67EF;&#x91CC;&#x5316;">&#x5B9E;&#x73B0;&#x51FD;&#x6570;&#x67EF;&#x91CC;&#x5316;</h2>
-<p>&#x5C06;&#x591A;&#x53C2;&#x6570;&#x8F6C;&#x6362;&#x4E3A;&#x5355;&#x53C2;&#x6570;&#x7684;&#x5F62;&#x5F0F;&#xFF0C;&#x4E3B;&#x8981;&#x5229;&#x7528;&#x7684;&#x51FD;&#x6570;&#x7684;<code>length</code>&#x5C5E;&#x6027;&#x83B7;&#x53D6;&#x5B9A;&#x4E49;&#x65F6;&#x7684;&#x53C2;&#x6570;&#x4E2A;&#x6570;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curry</span>(<span class="hljs-params">fn, ...args</span>) </span>{
-    <span class="hljs-keyword">if</span> (fn.length &lt;= args.length) {
-        <span class="hljs-keyword">return</span> fn.call(<span class="hljs-keyword">this</span>, ...args)
-    } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">...arg2s</span>) </span>{
-            <span class="hljs-keyword">return</span> curry(fn, ...args, ...arg2s)
-        }
-    }
-}
-</code></pre>
-<h2 id="&#x5B9E;&#x73B0;compose">&#x5B9E;&#x73B0;compose</h2>
-<p>&#x53C2;&#x8003;redux&#x91CC;&#x9762;&#x7684;&#x5B9E;&#x73B0;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compose</span>(<span class="hljs-params">...funcs</span>) </span>{
-  <span class="hljs-keyword">if</span> (funcs.length === <span class="hljs-number">0</span>) {
-    <span class="hljs-keyword">return</span> arg =&gt; arg
-  }
-
-  <span class="hljs-keyword">if</span> (funcs.length === <span class="hljs-number">1</span>) {
-    <span class="hljs-keyword">return</span> funcs[<span class="hljs-number">0</span>]
-  }
-
-  <span class="hljs-keyword">return</span> funcs.reduce((a, b) =&gt; (...args) =&gt; a(b(...args)))
-}
-</code></pre>
-<h2 id="javascript&#x4EE3;&#x7801;&#x5B9E;&#x73B0;">JavaScript&#x4EE3;&#x7801;&#x5B9E;&#x73B0;</h2>
-<blockquote>
-<p>&#x5B9E;&#x73B0;finDocList&#x65B9;&#x6CD5;&#x6EE1;&#x8DB3;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x8F93;&#x51FA;</p>
-</blockquote>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> docs = [
-    {id:<span class="hljs-number">1</span>, words: [<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;world&quot;</span>]},
-    {id:<span class="hljs-number">2</span>, words: [<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;kids&quot;</span>]},
-    {id:<span class="hljs-number">3</span>, words: [<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;hello&quot;</span>]},
-];
-
-<span class="hljs-keyword">var</span> res = finDocList(docs, [<span class="hljs-string">&quot;hello&quot;</span>]); <span class="hljs-comment">// 1,2,3</span>
-<span class="hljs-keyword">var</span> res = finDocList(docs, [<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;world&quot;</span>]); <span class="hljs-comment">// 1</span>
-</code></pre>
-<p>&#x5B9E;&#x73B0;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> finDocList = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">docs, target</span>)</span>{
-    <span class="hljs-keyword">var</span> res = docs.filter((item)=&gt;{
-        <span class="hljs-keyword">var</span> words = item.words;
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = target.length; i &lt; len; ++i){
-            <span class="hljs-keyword">var</span> idx = words.indexOf(target[i])
-            <span class="hljs-keyword">if</span> (!~idx){
-                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-            }
-        }
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    })
-    <span class="hljs-keyword">return</span> res;
-};
-</code></pre>
-<blockquote>
-<p>&#x7ED9;&#x5B9A;&#x4E00;&#x6BB5;&#x6587;&#x672C;&#x5185;&#x5BB9;&#x548C;&#x654F;&#x611F;&#x8BCD;&#xFF0C;&#x5B9E;&#x73B0;&#x654F;&#x611F;&#x8BCD;&#x6807;&#x8BB0;</p>
-</blockquote>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> content = <span class="hljs-string">&quot;XX&#x963F;&#x65AF;&#x987F;&#x6492;&#x65E6;&#x6492;&#x65E6;&#x548C;&#x8F7B;&#x5FAE;oo&#x9965;&#x997F;&#x548C;&#x6B66;as&#x5668;&#x5C31;&#x53EF;&#x601C;&#x89C1;&#x770B;&#x5B8C;&#x4F60;&#x53BB;&#x4E86;&#x54C7;&quot;</span>;
-<span class="hljs-keyword">var</span> res = content.replace(<span class="hljs-regexp">/(XX|oo|as)/g</span>, <span class="hljs-string">&quot;&lt;span&gt;$1&lt;/span&quot;</span>);
-<span class="hljs-built_in">console</span>.log(res);
-</code></pre>
-<blockquote>
-<p>&#x5B9E;&#x73B0;&#x5B57;&#x7B26;&#x4E32;&#x53CD;&#x8F6C;</p>
-</blockquote>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> reverse = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">str</span>)</span>{
-    <span class="hljs-keyword">return</span> str.split(<span class="hljs-string">&quot;&quot;</span>).reverse().join(<span class="hljs-string">&quot;&quot;</span>);
-}
-</code></pre>
-<blockquote>
-<p>&#x4E0D;&#x4F7F;&#x7528;&#x904D;&#x5386;&#x53D6;&#x51FA;&#x6570;&#x7EC4;&#x4E2D;&#x7684;&#x6700;&#x5927;&#x503C;</p>
-</blockquote>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> res = <span class="hljs-built_in">Math</span>.max.apply(<span class="hljs-literal">null</span>, arr);
-</code></pre>
-<blockquote>
-<p>&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x62FC;&#x63A5;&#x952E;&#x540D;&#x8DEF;&#x5F84;</p>
-</blockquote>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> tarrgetObj = {
-    a:{
-        b:{
-            c:{
-                d:{
-                    e:{
-                        name:<span class="hljs-string">&quot;&#x767E;&#x5EA6;&quot;</span>
-                    }
-                },
-                l:{
-                    name:<span class="hljs-string">&quot;&#x674E;&#x9E4F;--&gt; QQ:3206064928&quot;</span>
-                }
-            }
-        }
-    },
-    d:<span class="hljs-string">&quot;90&quot;</span>,
-    e:<span class="hljs-string">&quot;90&quot;</span>,
-    l:{
-        a:{
-            b:{
-                c:{
-                    version:<span class="hljs-string">&quot;1.0.0.1&quot;</span>,
-                    name:<span class="hljs-string">&quot;&#x674E;&#x9E4F;--&gt; QQ:3206064928&quot;</span>
-                }
-            }
-        }
-    },
-    f:{
-        name:<span class="hljs-string">&quot;&#x674E;&#x9E4F;--&gt; QQ:3206064928&quot;</span>,
-        update:<span class="hljs-string">&quot;2017&#x5E74;03&#x6708;20&#x65E5;&quot;</span>
-    }
-}
-
-<span class="hljs-comment">// &#x63A5;&#x6536;tarrgetObj&#xFF0C; &#x7136;&#x540E;&#x8F93;&#x51FA;</span>
-<span class="hljs-comment">/* [ { path: &apos;a-&gt;b-&gt;c-&gt;d-&gt;e-&gt;l-&gt;name&apos;, val: &apos;&#x674E;&#x9E4F;--&gt; QQ:3206064928&apos; },
-  { path: &apos;l-&gt;a-&gt;b-&gt;c-&gt;name&apos;, val: &apos;&#x674E;&#x9E4F;--&gt; QQ:3206064928&apos; },
-  { path: &apos;f-&gt;name&apos;, val: &apos;&#x674E;&#x9E4F;--&gt; QQ:3206064928&apos; } ] */</span>
-</code></pre>
-<p>&#x5B9E;&#x73B0;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> res = [];
-<span class="hljs-keyword">var</span> path = <span class="hljs-string">&quot;&quot;</span>;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params">obj</span>)</span>{
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> obj) {
-        <span class="hljs-keyword">var</span> val = obj[key];
-        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">&quot;object&quot;</span>) {
-            path += key + <span class="hljs-string">&quot;-&gt;&quot;</span>;
-            foo(val);
-        }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">&quot;string&quot;</span> &amp;&amp; ~val.indexOf(<span class="hljs-string">&quot;&#x674E;&#x9E4F;&quot;</span>)){
-            path += key;
-            res.push({
-                path,
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>实现节流和去抖函数 | Shymean</title>
+    <meta name="description" content="fe">
+    <link rel="stylesheet" href="/assets/style.4eab0d57.css">
+    <link rel="modulepreload" href="/assets/app.946f11db.js">
+    <link rel="modulepreload" href="/assets/面试_面试题_代码实现.md.c845b9a2.lean.js">
+    
+    <meta name="twitter:title" content="实现节流和去抖函数 | Shymean">
+  <meta property="og:title" content="实现节流和去抖函数 | Shymean">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme"><header class="nav-bar" data-v-40587210><div class="sidebar-button" data-v-40587210><svg class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z" class></path></svg></div><a class="nav-bar-title" href="/" aria-label="Shymean, back to home" data-v-40587210 data-v-016a8bd8><!----> Shymean</a><div class="flex-grow" data-v-40587210></div><div class="nav" data-v-40587210><nav class="nav-links" data-v-40587210 data-v-35b91e7e><!--[--><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/导读" data-v-49fe041d>导读 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>前端</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/HTML/HTML" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>HTML</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/CSS/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>CSS</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/JavaScript/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>JavaScript</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/库与框架/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>库与框架</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/业务相关/前端工程化" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>业务相关</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/源码分析/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>源码分析</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/App/Android" data-v-49fe041d>App <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/后台/README" data-v-49fe041d>后台 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>计算机基础</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/计算机基础/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>计算机基础</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/数据结构和算法/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>数据结构和算法</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/网络/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>网络</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item active" href="/面试/README" data-v-49fe041d>面试 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/游戏开发/README" data-v-49fe041d>游戏开发 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/读书笔记/README" data-v-49fe041d>读书笔记 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://github.com/tangxiangmin/interview" target="_blank" rel="noopener noreferrer" data-v-49fe041d>github <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://shymean.com" target="_blank" rel="noopener noreferrer" data-v-49fe041d>shymean <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><!--]--><!----><!----></nav></div><!--[--><!--]--></header><aside class="sidebar" data-v-17c48e2f><nav class="nav-links nav" data-v-17c48e2f data-v-35b91e7e><!--[--><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/导读" data-v-49fe041d>导读 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>前端</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/HTML/HTML" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>HTML</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/CSS/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>CSS</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/JavaScript/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>JavaScript</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/库与框架/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>库与框架</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/业务相关/前端工程化" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>业务相关</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/源码分析/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>源码分析</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/App/Android" data-v-49fe041d>App <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/后台/README" data-v-49fe041d>后台 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>计算机基础</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/计算机基础/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>计算机基础</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/数据结构和算法/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>数据结构和算法</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/网络/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>网络</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item active" href="/面试/README" data-v-49fe041d>面试 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/游戏开发/README" data-v-49fe041d>游戏开发 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/读书笔记/README" data-v-49fe041d>读书笔记 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://github.com/tangxiangmin/interview" target="_blank" rel="noopener noreferrer" data-v-49fe041d>github <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://shymean.com" target="_blank" rel="noopener noreferrer" data-v-49fe041d>shymean <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><!--]--><!----><!----></nav><!--[--><!--]--><ul class="sidebar-links" data-v-17c48e2f><!--[--><li class="sidebar-link"><p class="sidebar-link-item">面试记录</p><ul class="sidebar-links"><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2017_DaE">2017_DaE</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2017_TE">2017_TE</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_AYLDM">2018_AYLDM</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_HDJR">2018_HDJR</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_MD">2018_MD</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_PAKJ">2018_PAKJ</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_QKCJ">2018_QKCJ</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_SFWY">2018_SFWY</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_TW">2018_TW</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_YHKJ">2018_YHKJ</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_YSKJ">2018_YSKJ</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2018_Z8">2018_Z8</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2019_BCZ">2019_BCZ</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2019_HKJT">2019_HKJT</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2019_JRTT">2019_JRTT</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2019_LDS">2019_LDS</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2019_QEXR">2019_QEXR</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2019_WBLZ">2019_WBLZ</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试记录/2019_XFLX">2019_XFLX</a><!----></li></ul></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/README">面试题</a><ul class="sidebar-links"><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/CSS">CSS</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/DOM">DOM</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/ECMAScript">ECMAScript</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/HTML">HTML</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/React">React</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/Vue">Vue</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item active" href="/面试/面试题/代码实现">代码实现</a><ul class="sidebar-links"><li class="sidebar-link"><a class="sidebar-link-item" href="#实现节流和去抖函数">实现节流和去抖函数</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#实现一个promise">实现一个Promise</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#实现一个bind函数">实现一个bind函数</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#实现深拷贝函数">实现深拷贝函数</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#实现flattendeep，将数组展平">实现flattenDeep，将数组展平</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#实现函数柯里化">实现函数柯里化</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#实现compose">实现compose</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#javascript代码实现">JavaScript代码实现</a><!----></li></ul></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/代码阅读">代码阅读</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/其他问题">其他问题</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/兼容及BUG">兼容及BUG</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/常见需求">常见需求</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/算法实现">算法实现</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/面试/面试题/网络">网络</a><!----></li></ul></li><!--]--></ul><!--[--><!--]--></aside><div class="sidebar-mask"></div><main class="page" data-v-8fcebc32><div class="container" data-v-8fcebc32><!--[--><!--]--><div style="position:relative;" class="content" data-v-8fcebc32><div><h2 id="实现节流和去抖函数" tabindex="-1">实现节流和去抖函数 <a class="header-anchor" href="#实现节流和去抖函数" aria-hidden="true">#</a></h2><p>首先需要了解两个函数的概念和使用场景</p><p><a href="https://github.com/tangxiangmin/JSMagic/tree/master/Throttle%20%26%20Debounce" target="_blank" rel="noopener noreferrer">代码实现</a></p><h2 id="实现一个promise" tabindex="-1">实现一个Promise <a class="header-anchor" href="#实现一个promise" aria-hidden="true">#</a></h2><p><a href="https://github.com/tangxiangmin/JSMagic/blob/master/Promise/Promise.js" target="_blank" rel="noopener noreferrer">代码实现</a>，实现了构造函数和链式调用的then方法</p><h2 id="实现一个bind函数" tabindex="-1">实现一个bind函数 <a class="header-anchor" href="#实现一个bind函数" aria-hidden="true">#</a></h2><div class="language-js"><pre><code><span class="token class-name">Function</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">my_bind</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> self <span class="token operator">=</span> <span class="token keyword">this</span> <span class="token comment">// 保存原函数</span>
+    <span class="token keyword">var</span> <span class="token punctuation">[</span>context<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">]</span> <span class="token operator">=</span> arguments <span class="token comment">// 绑定时预先出入的参数</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        args <span class="token operator">=</span> args<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token operator">...</span>arguments<span class="token punctuation">)</span> <span class="token comment">// 调用时传入的参数</span>
+        <span class="token comment">// 返回一个新函数</span>
+        <span class="token function">self</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token parameter">m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> o</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">&quot; &quot;</span> <span class="token operator">+</span> m <span class="token operator">+</span> <span class="token string">&quot; &quot;</span> <span class="token operator">+</span> n <span class="token operator">+</span> <span class="token string">&quot; &quot;</span> <span class="token operator">+</span> o<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">&quot;xxx&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+a<span class="token punctuation">.</span><span class="token function">my_bind</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// xxx 1, 2, 3</span>
+</code></pre></div><h2 id="实现深拷贝函数" tabindex="-1">实现深拷贝函数 <a class="header-anchor" href="#实现深拷贝函数" aria-hidden="true">#</a></h2><p>参考：<a href="https://juejin.im/post/5d6aa4f96fb9a06b112ad5b1" target="_blank" rel="noopener noreferrer">如何写出一个惊艳面试官的深拷贝?</a></p><p>下面是一个比较原始的版本，需要考虑多个细节</p><ul><li>基础递归</li><li>拷贝数组</li><li>引用赋值，使用weakMap，避免额外的内存空间未及时释放</li><li>函数的拷贝</li></ul><div class="language-js"><pre><code><span class="token keyword">var</span> <span class="token function-variable function">deepClone</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">target<span class="token punctuation">,</span> obj</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> key <span class="token keyword">in</span> obj<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>obj<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">var</span> val <span class="token operator">=</span> obj<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;object&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                target<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+                <span class="token function">deepClone</span><span class="token punctuation">(</span>target<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span> val<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                target<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> val<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> target<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>如何拷贝一个函数呢</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">cloneFn</span><span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> str <span class="token operator">=</span> fn<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">var</span> res
+    <span class="token function">eval</span><span class="token punctuation">(</span><span class="token string">&#39;res = &#39;</span> <span class="token operator">+</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> res
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="实现flattendeep，将数组展平" tabindex="-1">实现flattenDeep，将数组展平 <a class="header-anchor" href="#实现flattendeep，将数组展平" aria-hidden="true">#</a></h2><p>将输入[1,[2,[3,4]],5]转换成一维数组[1,2,3,4,5]</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">flattenDeep</span><span class="token punctuation">(</span><span class="token parameter">array</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    array<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            res <span class="token operator">=</span> res<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token function">flattenDeep</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+            res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> res
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="实现函数柯里化" tabindex="-1">实现函数柯里化 <a class="header-anchor" href="#实现函数柯里化" aria-hidden="true">#</a></h2><p>将多参数转换为单参数的形式，主要利用的函数的<code>length</code>属性获取定义时的参数个数</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">curry</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> <span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>fn<span class="token punctuation">.</span>length <span class="token operator">&lt;=</span> args<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>arg2s</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token function">curry</span><span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">,</span> <span class="token operator">...</span>arg2s<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h2 id="实现compose" tabindex="-1">实现compose <a class="header-anchor" href="#实现compose" aria-hidden="true">#</a></h2><p>参考redux里面的实现</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">compose</span><span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>funcs</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>funcs<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token parameter">arg</span> <span class="token operator">=&gt;</span> arg
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>funcs<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> funcs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> funcs<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token function">b</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="javascript代码实现" tabindex="-1">JavaScript代码实现 <a class="header-anchor" href="#javascript代码实现" aria-hidden="true">#</a></h2><blockquote><p>实现finDocList方法满足下面代码输出</p></blockquote><div class="language-js"><pre><code><span class="token keyword">var</span> docs <span class="token operator">=</span> <span class="token punctuation">[</span>
+	<span class="token punctuation">{</span><span class="token literal-property property">id</span><span class="token operator">:</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">words</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token punctuation">{</span><span class="token literal-property property">id</span><span class="token operator">:</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token literal-property property">words</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;kids&quot;</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+	<span class="token punctuation">{</span><span class="token literal-property property">id</span><span class="token operator">:</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token literal-property property">words</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> res <span class="token operator">=</span> <span class="token function">finDocList</span><span class="token punctuation">(</span>docs<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1,2,3</span>
+<span class="token keyword">var</span> res <span class="token operator">=</span> <span class="token function">finDocList</span><span class="token punctuation">(</span>docs<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span>
+</code></pre></div><p>实现</p><div class="language-js"><pre><code><span class="token keyword">var</span> <span class="token function-variable function">finDocList</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">docs<span class="token punctuation">,</span> target</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">var</span> res <span class="token operator">=</span> docs<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+        <span class="token keyword">var</span> words <span class="token operator">=</span> item<span class="token punctuation">.</span>words<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> len <span class="token operator">=</span> target<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">var</span> idx <span class="token operator">=</span> words<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>target<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">~</span>idx<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><blockquote><p>给定一段文本内容和敏感词，实现敏感词标记</p></blockquote><div class="language-js"><pre><code><span class="token keyword">var</span> content <span class="token operator">=</span> <span class="token string">&quot;XX阿斯顿撒旦撒旦和轻微oo饥饿和武as器就可怜见看完你去了哇&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> res <span class="token operator">=</span> content<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(XX|oo|as)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">&quot;&lt;span&gt;$1&lt;/span&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><blockquote><p>实现字符串反转</p></blockquote><div class="language-js"><pre><code><span class="token keyword">var</span> <span class="token function-variable function">reverse</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">str</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+	<span class="token keyword">return</span> str<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>不使用遍历取出数组中的最大值</p></blockquote><div class="language-js"><pre><code><span class="token keyword">var</span> res <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><blockquote><p>编写一个方法，拼接键名路径</p></blockquote><div class="language-js"><pre><code><span class="token keyword">var</span> tarrgetObj <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">a</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">b</span><span class="token operator">:</span><span class="token punctuation">{</span>
+            <span class="token literal-property property">c</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                <span class="token literal-property property">d</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                    <span class="token literal-property property">e</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                        <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">&quot;百度&quot;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token literal-property property">l</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                    <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">&quot;李鹏--&gt; QQ:3206064928&quot;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">d</span><span class="token operator">:</span><span class="token string">&quot;90&quot;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">e</span><span class="token operator">:</span><span class="token string">&quot;90&quot;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">l</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">a</span><span class="token operator">:</span><span class="token punctuation">{</span>
+            <span class="token literal-property property">b</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                <span class="token literal-property property">c</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                    <span class="token literal-property property">version</span><span class="token operator">:</span><span class="token string">&quot;1.0.0.1&quot;</span><span class="token punctuation">,</span>
+                    <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">&quot;李鹏--&gt; QQ:3206064928&quot;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">f</span><span class="token operator">:</span><span class="token punctuation">{</span>
+        <span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">&quot;李鹏--&gt; QQ:3206064928&quot;</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">update</span><span class="token operator">:</span><span class="token string">&quot;2017年03月20日&quot;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 接收tarrgetObj， 然后输出</span>
+<span class="token comment">/* [ { path: &#39;a-&gt;b-&gt;c-&gt;d-&gt;e-&gt;l-&gt;name&#39;, val: &#39;李鹏--&gt; QQ:3206064928&#39; },
+  { path: &#39;l-&gt;a-&gt;b-&gt;c-&gt;name&#39;, val: &#39;李鹏--&gt; QQ:3206064928&#39; },
+  { path: &#39;f-&gt;name&#39;, val: &#39;李鹏--&gt; QQ:3206064928&#39; } ] */</span>
+</code></pre></div><p>实现</p><div class="language-js"><pre><code><span class="token keyword">var</span> res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token parameter">obj</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> key <span class="token keyword">in</span> obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> val <span class="token operator">=</span> obj<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;object&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            path <span class="token operator">+=</span> key <span class="token operator">+</span> <span class="token string">&quot;-&gt;&quot;</span><span class="token punctuation">;</span>
+            <span class="token function">foo</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;string&quot;</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">~</span>val<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">&quot;李鹏&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            path <span class="token operator">+=</span> key<span class="token punctuation">;</span>
+            res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                path<span class="token punctuation">,</span>
                 val
-            });
-            path = <span class="hljs-string">&quot;&quot;</span>;
-        }
-    }
-}
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            path <span class="token operator">=</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-foo(tarrgetObj);
-<span class="hljs-built_in">console</span>.log(res);
-</code></pre>
-<blockquote>
-<p>&#x5B9E;&#x73B0; lazyman&#xFF0C;&#x53EF;&#x4EE5;&#x6309;&#x7167;&#x4EE5;&#x4E0B;&#x65B9;&#x5F0F;&#x8C03;&#x7528;</p>
-</blockquote>
-<pre><code class="lang-js">LazyMan(&#x201C;Hank&#x201D;)&#x8F93;&#x51FA;:
-Hi! This is Hank!
+<span class="token function">foo</span><span class="token punctuation">(</span>tarrgetObj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><blockquote><p>实现 lazyman，可以按照以下方式调用</p></blockquote><div class="language-js"><pre><code><span class="token function">LazyMan</span><span class="token punctuation">(</span>“Hank”<span class="token punctuation">)</span>输出<span class="token operator">:</span>
+Hi<span class="token operator">!</span> This is Hank<span class="token operator">!</span>
 
-LazyMan(&#x201C;Hank&#x201D;).sleep(<span class="hljs-number">10</span>).eat(&#x201C;dinner&#x201D;)&#x8F93;&#x51FA;
-Hi! This is Hank!
-<span class="hljs-comment">//&#x7B49;&#x5F85;10&#x79D2;..</span>
-Wake up after <span class="hljs-number">10</span>
-Eat dinner~
+<span class="token function">LazyMan</span><span class="token punctuation">(</span>“Hank”<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span>“dinner”<span class="token punctuation">)</span>输出
+Hi<span class="token operator">!</span> This is Hank<span class="token operator">!</span>
+<span class="token comment">//等待10秒..</span>
+Wake up after <span class="token number">10</span>
+Eat dinner<span class="token operator">~</span>
 
-LazyMan(&#x201C;Hank&#x201D;).eat(&#x201C;dinner&#x201D;).eat(&#x201C;supper&#x201D;)&#x8F93;&#x51FA;
-Hi This is Hank!
-Eat dinner~
-Eat supper~
+<span class="token function">LazyMan</span><span class="token punctuation">(</span>“Hank”<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span>“dinner”<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span>“supper”<span class="token punctuation">)</span>输出
+Hi This is Hank<span class="token operator">!</span>
+Eat dinner<span class="token operator">~</span>
+Eat supper<span class="token operator">~</span>
 
-LazyMan(&#x201C;Hank&#x201D;).sleepFirst(<span class="hljs-number">5</span>).eat(&#x201C;supper&#x201D;)&#x8F93;&#x51FA;
-<span class="hljs-comment">//&#x7B49;&#x5F85;5&#x79D2;</span>
-Wake up after <span class="hljs-number">5</span>
-Hi This is Hank!
+<span class="token function">LazyMan</span><span class="token punctuation">(</span>“Hank”<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sleepFirst</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">eat</span><span class="token punctuation">(</span>“supper”<span class="token punctuation">)</span>输出
+<span class="token comment">//等待5秒</span>
+Wake up after <span class="token number">5</span>
+Hi This is Hank<span class="token operator">!</span>
 Eat supper
-</code></pre>
-<p>&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x961F;&#x5217;</p>
-<blockquote>
-<p>&#x5B9E;&#x73B0;&#x53EF;&#x8FDE;&#x7EED;&#x8C03;&#x7528;&#x7684;&#x52A0;&#x6CD5;</p>
-</blockquote>
-<p>&#x51FD;&#x6570; add &#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x8FDE;&#x7EED;&#x7684;&#x52A0;&#x6CD5;&#x8FD0;&#x7B97;&#xFF0C; &#x8BED;&#x6CD5;&#x5982;&#x4E0B; </p>
-<pre><code class="lang-js">add(<span class="hljs-number">10</span>)(<span class="hljs-number">10</span>); <span class="hljs-comment">// 20</span>
-add(<span class="hljs-number">10</span>)(<span class="hljs-number">20</span>)(<span class="hljs-number">50</span>); <span class="hljs-comment">// 80</span>
-add(<span class="hljs-number">10</span>)(<span class="hljs-number">20</span>)(<span class="hljs-number">50</span>)(<span class="hljs-number">100</span>); <span class="hljs-comment">// 180 //&#x6CE8;&#x610F;&#x53EF;&#x4EE5;&#x53EF;&#x65E0;&#x9650;&#x8C03;&#x7528;</span>
+</code></pre></div><p>可以实现一个任务队列</p><blockquote><p>实现可连续调用的加法</p></blockquote><p>函数 add 可以实现连续的加法运算， 语法如下</p><div class="language-js"><pre><code><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 20</span>
+<span class="token function">add</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 80</span>
+<span class="token function">add</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 180 //注意可以可无限调用</span>
 
-<span class="hljs-keyword">var</span> add30 = add(<span class="hljs-number">10</span>)(<span class="hljs-number">20</span>); <span class="hljs-comment">// 30</span>
-<span class="hljs-keyword">var</span> add100 = add30(<span class="hljs-number">30</span>)(<span class="hljs-number">40</span>); <span class="hljs-comment">// 100</span>
-<span class="hljs-keyword">var</span> add31 = add30(<span class="hljs-number">1</span>); <span class="hljs-comment">// 31</span>
-<span class="hljs-keyword">var</span> add40 = add31(<span class="hljs-number">9</span>); <span class="hljs-comment">// 40</span>
-</code></pre>
-<p>&#x601D;&#x8DEF;&#xFF0C;&#x6BCF;&#x6B21;&#x8C03;&#x7528;&#x90FD;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x65E0;&#x9650;&#x8C03;&#x7528;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">a</span>) </span>{
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">x</span>(<span class="hljs-params">b</span>) </span>{
-        a += b;
-        <span class="hljs-keyword">return</span> x;
-    }
-    <span class="hljs-comment">// &#x5728;&#x6253;&#x5370;&#x6570;&#x636E;&#x65F6;&#x4F1A;&#x8C03;&#x7528;&#x5BF9;&#x8C61;&#x7684;toString&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x79CD;&#x5F88;&#x53D6;&#x5DE7;&#x7684;&#x65B9;&#x5F0F;</span>
-    x.toString = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">return</span> a;
-    };
-    x.valueOf = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">return</span> a;
-    };
-    <span class="hljs-keyword">return</span> x;
-}
-</code></pre>
-<blockquote>
-<p>&#x5B9E;&#x73B0;groupBy&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;</p>
-</blockquote>
-<p>key&#x662F;collection&#x7ECF;&#x8FC7;cb&#x8FED;&#x4EE3;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x679C;&#xFF0C;value&#x662F;collection&#x7684;&#x4E00;&#x4E2A;&#x5143;&#x7D20;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">groupBy</span>(<span class="hljs-params">collection, cb</span>) </span>{
-    <span class="hljs-keyword">let</span> hash = {}
+<span class="token keyword">var</span> add30 <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 30</span>
+<span class="token keyword">var</span> add100 <span class="token operator">=</span> <span class="token function">add30</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 100</span>
+<span class="token keyword">var</span> add31 <span class="token operator">=</span> <span class="token function">add30</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 31</span>
+<span class="token keyword">var</span> add40 <span class="token operator">=</span> <span class="token function">add31</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 40</span>
+</code></pre></div><p>思路，每次调用都返回一个函数，则可以实现无限调用</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token parameter">a</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">function</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token parameter">b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a <span class="token operator">+=</span> b<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 在打印数据时会调用对象的toString方法，这是一种很取巧的方式</span>
+    x<span class="token punctuation">.</span><span class="token function-variable function">toString</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    x<span class="token punctuation">.</span><span class="token function-variable function">valueOf</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>实现groupBy方法，其返回一个对象，</p></blockquote><p>key是collection经过cb迭代得到的结果，value是collection的一个元素</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">groupBy</span><span class="token punctuation">(</span><span class="token parameter">collection<span class="token punctuation">,</span> cb</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> hash <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-    collection.forEach(item=&gt;{
-        <span class="hljs-keyword">let</span> key = cb(item)
-        <span class="hljs-keyword">if</span> (!hash[key]){
-            hash[key] = [item]
-        }<span class="hljs-keyword">else</span> {
-            hash[key].push(item)
-        }
-    })
-    <span class="hljs-keyword">return</span> hash
-}
+    collection<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+        <span class="token keyword">let</span> key <span class="token operator">=</span> <span class="token function">cb</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>item<span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+            hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> hash
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">// &#x76F4;&#x63A5;&#x4F7F;&#x7528;reduce&#x4E5F;&#x53EF;&#x4EE5;</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">otherGroupBy</span>(<span class="hljs-params">collection, cb</span>)</span>{
-    <span class="hljs-keyword">return</span> collection.reduce((hash, item) =&gt; {
-        <span class="hljs-keyword">let</span> key = cb(item);
-        <span class="hljs-keyword">if</span> (!hash[key]) {
-            hash[key] = [item];
-        } <span class="hljs-keyword">else</span> {
-            hash[key].push(item);
-        }
-        <span class="hljs-keyword">return</span> hash
-    }, {});
-}
+<span class="token comment">// 直接使用reduce也可以</span>
+<span class="token keyword">function</span> <span class="token function">otherGroupBy</span><span class="token punctuation">(</span><span class="token parameter">collection<span class="token punctuation">,</span> cb</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> collection<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">hash<span class="token punctuation">,</span> item</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> key <span class="token operator">=</span> <span class="token function">cb</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>item<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> hash
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">var</span> collection = [<span class="hljs-number">6.1</span>, <span class="hljs-number">4.2</span>, <span class="hljs-number">6.3</span>]
-<span class="hljs-keyword">var</span> res = groupBy(collection, <span class="hljs-built_in">Math</span>.floor) 
-<span class="hljs-built_in">console</span>.log(res)
-</code></pre>
-<blockquote>
-<p>&#x683C;&#x5F0F;&#x5316;&#x5343;&#x5206;&#x4F4D;&#x6570;&#x5B57;&#xFF0C;&#x4E09;&#x4E2A;&#x4E00;&#x7EC4;&#xFF0C;&#x9017;&#x53F7;&#x5206;&#x9694;</p>
-</blockquote>
-<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x96F6;&#x5BBD;&#x6B63;&#x5219;&#x5B9E;&#x73B0;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toThousands</span>(<span class="hljs-params">num</span>) </span>{
-    <span class="hljs-keyword">return</span> (num || <span class="hljs-number">0</span>).toString().replace(<span class="hljs-regexp">/(\d)(?=(?:\d{3})+$)/g</span>, <span class="hljs-string">&apos;$1,&apos;</span>);
-}
-</code></pre>
-<p>&#x5176;&#x5B9E;&#x8FD8;&#x6709;&#x66F4;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6CD5;</p>
-<pre><code class="lang-js"><span class="hljs-built_in">Number</span>(<span class="hljs-number">1234556</span>).toLocaleString()
-</code></pre>
-<blockquote>
-<p>&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#xFF0C;&#x6EE1;&#x8DB3;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x7684;&#x8F93;&#x51FA;</p>
-</blockquote>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">machine</span>(<span class="hljs-params"></span>) </span>{
+<span class="token keyword">var</span> collection <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">6.1</span><span class="token punctuation">,</span> <span class="token number">4.2</span><span class="token punctuation">,</span> <span class="token number">6.3</span><span class="token punctuation">]</span>
+<span class="token keyword">var</span> res <span class="token operator">=</span> <span class="token function">groupBy</span><span class="token punctuation">(</span>collection<span class="token punctuation">,</span> Math<span class="token punctuation">.</span>floor<span class="token punctuation">)</span> 
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
+</code></pre></div><blockquote><p>格式化千分位数字，三个一组，逗号分隔</p></blockquote><p>可以使用零宽正则实现</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">toThousands</span><span class="token punctuation">(</span><span class="token parameter">num</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>num <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d)(?=(?:\d{3})+$)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">&#39;$1,&#39;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>其实还有更简单的方法</p><div class="language-js"><pre><code><span class="token function">Number</span><span class="token punctuation">(</span><span class="token number">1234556</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toLocaleString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><blockquote><p>实现一个任务队列，满足下面代码的输出</p></blockquote><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">machine</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+<span class="token punctuation">}</span>
+<span class="token function">machine</span><span class="token punctuation">(</span><span class="token string">&#39;ygy&#39;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+<span class="token comment">// start ygy</span>
+<span class="token function">machine</span><span class="token punctuation">(</span><span class="token string">&#39;ygy&#39;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">do</span><span class="token punctuation">(</span><span class="token string">&#39;eat&#39;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment">// start ygy</span>
+<span class="token comment">// ygy eat</span>
+<span class="token function">machine</span><span class="token punctuation">(</span><span class="token string">&#39;ygy&#39;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">do</span><span class="token punctuation">(</span><span class="token string">&#39;eat&#39;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// start ygy</span>
+<span class="token comment">// wait 5s（这里等待了5s）</span>
+<span class="token comment">// ygy eat</span>
+<span class="token function">machine</span><span class="token punctuation">(</span><span class="token string">&#39;ygy&#39;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">waitFirst</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">do</span><span class="token punctuation">(</span><span class="token string">&#39;eat&#39;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// wait 5s</span>
+<span class="token comment">// start ygy</span>
+<span class="token comment">// ygy eat</span>
 
-}
-machine(<span class="hljs-string">&apos;ygy&apos;</span>).execute() 
-<span class="hljs-comment">// start ygy</span>
-machine(<span class="hljs-string">&apos;ygy&apos;</span>).do(<span class="hljs-string">&apos;eat&apos;</span>).execute(); 
-<span class="hljs-comment">// start ygy</span>
-<span class="hljs-comment">// ygy eat</span>
-machine(<span class="hljs-string">&apos;ygy&apos;</span>).wait(<span class="hljs-number">5</span>).do(<span class="hljs-string">&apos;eat&apos;</span>).execute();
-<span class="hljs-comment">// start ygy</span>
-<span class="hljs-comment">// wait 5s&#xFF08;&#x8FD9;&#x91CC;&#x7B49;&#x5F85;&#x4E86;5s&#xFF09;</span>
-<span class="hljs-comment">// ygy eat</span>
-machine(<span class="hljs-string">&apos;ygy&apos;</span>).waitFirst(<span class="hljs-number">5</span>).do(<span class="hljs-string">&apos;eat&apos;</span>).execute();
-<span class="hljs-comment">// wait 5s</span>
-<span class="hljs-comment">// start ygy</span>
-<span class="hljs-comment">// ygy eat</span>
-</code></pre>
-<p>&#x4E3B;&#x8981;&#x8003;&#x5BDF;&#x4E86;&#x5229;&#x7528;&#x4E86;async&#x3001;&#x6808;&#x3001;&#x961F;&#x5217;&#x76F8;&#x5173;&#x77E5;&#x8BC6;&#x70B9;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> timeout = (time) =&gt; {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
-        setTimeout(() =&gt; {
-            resolve(<span class="hljs-literal">true</span>)
-        }, time*<span class="hljs-number">1000</span>)
-    })
-}
+</code></pre></div><p>主要考察了利用了async、栈、队列相关知识点</p><div class="language-js"><pre><code><span class="token keyword">let</span> <span class="token function-variable function">timeout</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">time</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> time<span class="token operator">*</span><span class="token number">1000</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">machine</span>(<span class="hljs-params">name</span>) </span>{
-    <span class="hljs-keyword">let</span> tasks = []
+<span class="token keyword">function</span> <span class="token function">machine</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> tasks <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+   
+    <span class="token keyword">function</span> <span class="token function">doTask</span><span class="token punctuation">(</span><span class="token parameter">act</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> <span class="token function-variable function">task</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>act<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        tasks<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doTask</span>(<span class="hljs-params">act</span>) </span>{
-        <span class="hljs-keyword">let</span> task = () =&gt; {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${name}</span> <span class="hljs-subst">${act}</span>`</span>);
-        }
-        tasks.push(task)
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
+    <span class="token keyword">function</span> <span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        tasks<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">promise<span class="token punctuation">,</span> task</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">await</span> promise<span class="token punctuation">;</span>
+            <span class="token keyword">await</span> <span class="token function">task</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> Promise<span class="token punctuation">.</span>resolve<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">execute</span>(<span class="hljs-params"></span>)</span>{
-        tasks.reduce(<span class="hljs-keyword">async</span> (promise, task) =&gt; {
-            <span class="hljs-keyword">await</span> promise;
-            <span class="hljs-keyword">await</span> task();
-        }, <span class="hljs-built_in">Promise</span>.resolve);
-    }
+    <span class="token keyword">function</span> <span class="token function">waitFirst</span><span class="token punctuation">(</span><span class="token parameter">sec</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">task</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">wait </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>sec<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">s</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">await</span> <span class="token function">timeout</span><span class="token punctuation">(</span>sec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">waitFirst</span>(<span class="hljs-params">sec</span>) </span>{
-        <span class="hljs-keyword">const</span> task = <span class="hljs-keyword">async</span> () =&gt; {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`wait <span class="hljs-subst">${sec}</span>s`</span>);
-            <span class="hljs-keyword">await</span> timeout(sec);
-        };
-
-        tasks.unshift(task);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wait</span>(<span class="hljs-params">sec</span>)</span>{
-        <span class="hljs-keyword">const</span> task = <span class="hljs-keyword">async</span> () =&gt; {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`wait <span class="hljs-subst">${sec}</span>s`</span>);
-            <span class="hljs-keyword">await</span> timeout(sec);
-        };
-        tasks.push(task);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>
-    }
-
-    <span class="hljs-keyword">return</span> {
-        execute,
-        <span class="hljs-keyword">do</span>: doTask,
-        wait: wait,
+        tasks<span class="token punctuation">.</span><span class="token function">unshift</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">function</span> <span class="token function">wait</span><span class="token punctuation">(</span><span class="token parameter">sec</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">task</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">wait </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>sec<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">s</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">await</span> <span class="token function">timeout</span><span class="token punctuation">(</span>sec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        tasks<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span>
+    <span class="token punctuation">}</span>
+   
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        execute<span class="token punctuation">,</span>
+        <span class="token keyword">do</span><span class="token operator">:</span> doTask<span class="token punctuation">,</span>
+        <span class="token literal-property property">wait</span><span class="token operator">:</span> wait<span class="token punctuation">,</span>
         waitFirst
-    };
-}
-</code></pre>
-
-                                
-                                </section>
-                            
-    </div>
-    <div class="search-results">
-        <div class="has-results">
-            
-            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
-            <ul class="search-results-list"></ul>
-            
-        </div>
-        <div class="no-results">
-            
-            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
-            
-        </div>
-    </div>
-</div>
-
-                        </div>
-                    </div>
-                
-            </div>
-
-            
-                
-                <a href="Vue.html" class="navigation navigation-prev " aria-label="Previous page: Vue.md">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                
-                
-                <a href="代码阅读.html" class="navigation navigation-next " aria-label="Next page: 代码阅读.md">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-                
-            
-        
-    </div>
-
-    <script>
-        var gitbook = gitbook || [];
-        gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"代码实现.md","level":"4.3.8","depth":2,"next":{"title":"代码阅读.md","level":"4.3.9","depth":2,"path":"面试/面试题/代码阅读.md","ref":"./面试/面试题/代码阅读.md","articles":[]},"previous":{"title":"Vue.md","level":"4.3.7","depth":2,"path":"面试/面试题/Vue.md","ref":"./面试/面试题/Vue.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"面试/面试题/代码实现.md","mtime":"2021-03-31T07:48:18.053Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-06T06:56:04.240Z"},"basePath":"../..","book":{"language":""}});
-        });
-    </script>
-</div>
-
-        
-    <script src="../../gitbook/gitbook.js"></script>
-    <script src="../../gitbook/theme.js"></script>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div></div><footer class="page-footer" data-v-8fcebc32 data-v-b65b4b36><div class="edit" data-v-b65b4b36><div class="edit-link" data-v-b65b4b36 data-v-55695e90><!----></div></div><div class="updated" data-v-b65b4b36><!----></div></footer><div class="next-and-prev-link" data-v-8fcebc32 data-v-e65a9748><div class="container" data-v-e65a9748><div class="prev" data-v-e65a9748><a class="link" href="/面试/面试题/Vue" data-v-e65a9748><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-prev" data-v-e65a9748><path d="M19,11H7.4l5.3-5.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-7,7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.1,0.2-0.1,0.5,0,0.8c0.1,0.1,0.1,0.2,0.2,0.3l7,7c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L7.4,13H19c0.6,0,1-0.4,1-1S19.6,11,19,11z"></path></svg><span class="text" data-v-e65a9748>Vue</span></a></div><div class="next" data-v-e65a9748><a class="link" href="/面试/面试题/代码阅读" data-v-e65a9748><span class="text" data-v-e65a9748>代码阅读</span><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-next" data-v-e65a9748><path d="M19.9,12.4c0.1-0.2,0.1-0.5,0-0.8c-0.1-0.1-0.1-0.2-0.2-0.3l-7-7c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l5.3,5.3H5c-0.6,0-1,0.4-1,1s0.4,1,1,1h11.6l-5.3,5.3c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l7-7C19.8,12.6,19.9,12.5,19.9,12.4z"></path></svg></a></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"app_android.md\":\"88eacd24\",\"app_flutter.md\":\"7f564ecd\",\"app_ios.md\":\"4c18063d\",\"app_webview.md\":\"86f7ba86\",\"readme.md\":\"49adce16\",\"index.md\":\"aadab414\",\"前端_css_css3.md\":\"9d989739\",\"前端_css_readme.md\":\"e9d0f855\",\"前端_css_分辨率.md\":\"d1a81e33\",\"前端_css_基础知识.md\":\"bcc288d6\",\"前端_css_性能优化.md\":\"6037e0d5\",\"前端_css_核心知识.md\":\"82830b61\",\"前端_css_编写样式表.md\":\"80820bb7\",\"前端_css_选择器.md\":\"4fe18340\",\"前端_html_html.md\":\"eea121b8\",\"前端_html_seo优化.md\":\"ee33fb47\",\"前端_html_web components.md\":\"c4bcf8d8\",\"前端_html_webassembly.md\":\"777cea40\",\"前端_html_浏览器解析与渲染流程.md\":\"a8a93eda\",\"前端_javascript_canvas.md\":\"46aae565\",\"前端_javascript_dom和bom.md\":\"3638de69\",\"前端_javascript_ecmascript.md\":\"d60fd8be\",\"前端_javascript_eventloop.md\":\"924decd2\",\"前端_javascript_nodejs.md\":\"b7821438\",\"前端_javascript_readme.md\":\"029607f3\",\"前端_javascript_typescript.md\":\"b34ec077\",\"前端_javascript_事件流.md\":\"ebad3727\",\"前端_javascript_函数式编程.md\":\"e97f06af\",\"前端_javascript_原型.md\":\"23b08ebb\",\"前端_javascript_数据类型.md\":\"142d4642\",\"前端_javascript_正则.md\":\"aa4251f4\",\"前端_javascript_运算符.md\":\"e1a8dc1c\",\"前端_readme.md\":\"f1b76e6f\",\"前端_业务相关_ab测试.md\":\"06f39520\",\"前端_业务相关_babel.md\":\"1be9a29d\",\"前端_业务相关_ci.md\":\"a23b9446\",\"前端_业务相关_docker.md\":\"dc0bc011\",\"前端_业务相关_web直播.md\":\"bc4475ce\",\"前端_业务相关_git.md\":\"23566562\",\"前端_业务相关_mock.md\":\"5a8ad29a\",\"前端_业务相关_npm.md\":\"82b6d7be\",\"前端_业务相关_webpack.md\":\"8c8f7832\",\"前端_业务相关_web安全.md\":\"2f72bede\",\"前端_业务相关_前端工程化.md\":\"a5fb99c3\",\"前端_业务相关_单元测试.md\":\"891b3501\",\"前端_业务相关_可视化页面工具.md\":\"67dc2a49\",\"前端_业务相关_微前端.md\":\"5bad2d6c\",\"前端_业务相关_性能优化.md\":\"54e2e6f2\",\"前端_业务相关_数据埋点.md\":\"e341e9d8\",\"前端_业务相关_模块化.md\":\"ab800ad9\",\"前端_业务相关_类前端业务.md\":\"23a0f9a3\",\"前端_业务相关_调试.md\":\"87d0349d\",\"前端_业务相关_跨端.md\":\"664bbb37\",\"前端_库与框架_chrome扩展程序.md\":\"4e4e43f7\",\"前端_库与框架_electron.md\":\"ecac288b\",\"前端_库与框架_immutable.md\":\"d6a033f2\",\"前端_库与框架_readme.md\":\"9a25cc50\",\"前端_库与框架_react.md\":\"7a4befbb\",\"前端_库与框架_rxjs.md\":\"318f2e4a\",\"前端_库与框架_svelet.md\":\"ce72c922\",\"前端_库与框架_vue.md\":\"fbbda928\",\"前端_库与框架_vuex.md\":\"f142f41b\",\"前端_库与框架_diff算法.md\":\"c17466da\",\"前端_库与框架_几种框架的对比.md\":\"4b7ff044\",\"前端_库与框架_单页面应用router.md\":\"699f9a23\",\"前端_库与框架_微信小程序.md\":\"d382cf0b\",\"前端_库与框架_技术选型.md\":\"aea8d481\",\"后台_clickhouse.md\":\"8bf72810\",\"后台_java.md\":\"5d578169\",\"后台_mongodb.md\":\"f20bee13\",\"后台_mysql.md\":\"5579460e\",\"后台_php.md\":\"bb2f3dfc\",\"后台_readme.md\":\"a7fe6628\",\"后台_restful.md\":\"a6d17b21\",\"导读.md\":\"b62bd81e\",\"数据结构和算法_readme.md\":\"9b72aee6\",\"数据结构和算法_动态规划.md\":\"08ad7e65\",\"数据结构和算法_基本数据结构.md\":\"7d240f09\",\"数据结构和算法_基本算法.md\":\"0f1efe93\",\"数据结构和算法_栈.md\":\"5a141448\",\"游戏开发_readme.md\":\"1bd1e015\",\"游戏开发_tiledmap教程汇总.md\":\"a78eb64e\",\"游戏开发_技能系统.md\":\"ee5a565f\",\"游戏开发_游戏开发之前的准备.md\":\"beef52cc\",\"游戏开发_游戏类型.md\":\"5122a88e\",\"源码分析_readme.md\":\"1261ca68\",\"源码分析_reactfibler源码分析.md\":\"cb3a8df5\",\"源码分析_react源码分析.md\":\"973fb801\",\"源码分析_redux源码分析.md\":\"e569c73b\",\"源码分析_axios源码分析.md\":\"b45075a0\",\"源码分析_koa源码分析.md\":\"7e867057\",\"网络_dns.md\":\"21607a28\",\"网络_http.md\":\"29763526\",\"网络_nginx.md\":\"0f55e3eb\",\"网络_readme.md\":\"4f1359e7\",\"网络_rpc.md\":\"769592fb\",\"网络_前端网络请求.md\":\"e7650483\",\"网络_抓包.md\":\"f4ff7da3\",\"计算机基础_readme.md\":\"2ce2bef9\",\"计算机基础_操作系统.md\":\"d47ce3bd\",\"计算机基础_编译原理.md\":\"83723f03\",\"计算机基础_计算机网络.md\":\"51deb230\",\"计算机基础_软件工程.md\":\"8552319d\",\"读书笔记_readme.md\":\"c56c8a78\",\"读书笔记_如何阅读一本书.md\":\"95acaa0e\",\"面试_readme.md\":\"3fdb19fd\",\"面试_面试记录_2017_dae.md\":\"3ee342dc\",\"面试_面试记录_2017_te.md\":\"bc8cba12\",\"面试_面试记录_2018_ayldm.md\":\"09fd23e2\",\"面试_面试记录_2018_hdjr.md\":\"e4b7b8cd\",\"面试_面试记录_2018_md.md\":\"4e3693ef\",\"面试_面试记录_2018_pakj.md\":\"c3deb803\",\"面试_面试记录_2018_qkcj.md\":\"5236db39\",\"面试_面试记录_2018_sfwy.md\":\"dfec2361\",\"面试_面试记录_2018_tw.md\":\"2e712294\",\"面试_面试记录_2018_yhkj.md\":\"0a93cc3b\",\"面试_面试记录_2018_yskj.md\":\"bdfd1d0c\",\"面试_面试记录_2018_z8.md\":\"520cdfeb\",\"面试_面试记录_2019_bcz.md\":\"9b4ca3e6\",\"面试_面试记录_2019_hkjt.md\":\"08ed2c29\",\"面试_面试记录_2019_jrtt.md\":\"64387aac\",\"面试_面试记录_2019_lds.md\":\"0814bbac\",\"面试_面试记录_2019_qexr.md\":\"c7330531\",\"面试_面试记录_2019_wblz.md\":\"c4a597d8\",\"面试_面试记录_2019_xflx.md\":\"ccc21ace\",\"面试_面试题_css.md\":\"2f456c7e\",\"面试_面试题_dom.md\":\"6441fea4\",\"面试_面试题_ecmascript.md\":\"3c852470\",\"面试_面试题_html.md\":\"3d8879c0\",\"面试_面试题_readme.md\":\"68edd278\",\"面试_面试题_react.md\":\"290ae939\",\"面试_面试题_vue.md\":\"9076be2f\",\"面试_面试题_代码实现.md\":\"c845b9a2\",\"面试_面试题_代码阅读.md\":\"6cea6994\",\"面试_面试题_其他问题.md\":\"79ba15a0\",\"面试_面试题_兼容及bug.md\":\"3d439627\",\"面试_面试题_常见需求.md\":\"fd736d8a\",\"面试_面试题_算法实现.md\":\"1321d2da\",\"面试_面试题_网络.md\":\"baf75f4a\"}")</script>
+    <script type="module" async src="/assets/app.946f11db.js"></script>
     
-        
-        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
-        
-    
-        
-        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
-        
-    
-
-    </body>
+  </body>
 </html>
-

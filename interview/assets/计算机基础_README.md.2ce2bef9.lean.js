@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,a as o}from"./app.946f11db.js";const u='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"\u8BA1\u7B97\u673A\u57FA\u7840/README.md"}',s={},r=o("p",null,"\u8BA1\u7B97\u673A\u57FA\u7840",-1),c=[r];function n(_,d,i,p,l,f){return a(),t("div",null,c)}var h=e(s,[["render",n]]);export{u as __pageData,h as default};

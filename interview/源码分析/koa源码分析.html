@@ -1,1874 +1,280 @@
-
-<!DOCTYPE HTML>
-<html lang="" >
-    <head>
-        <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>koa源码分析.md · GitBook</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.3">
-        
-        
-        
-    
-    <link rel="stylesheet" href="../gitbook/style.css">
-
-    
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
-                
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
-                
-            
-                
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
-                
-            
-        
-
-    
-
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-        
-    
-    
-    <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
-    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
-
-    
-    <link rel="next" href="../知识点/README.md" />
-    
-    
-    <link rel="prev" href="axios源码分析.html" />
-    
-
-    </head>
-    <body>
-        
-<div class="book">
-    <div class="book-summary">
-        
-            
-<div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
-</div>
-
-            
-                <nav role="navigation">
-                
-
-
-<ul class="summary">
-    
-    
-
-    
-
-    
-        
-        
-    
-        <li class="chapter " data-level="1.1" data-path="../">
-            
-                <a href="../">
-            
-                    
-                    Introduction
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-    
-        
-        <li class="header">源码分析</li>
-        
-        
-    
-        <li class="chapter " data-level="2.1" data-path="./">
-            
-                <a href="./">
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.2" data-path="React源码分析.html">
-            
-                <a href="React源码分析.html">
-            
-                    
-                    React源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.3" data-path="Redux源码分析.html">
-            
-                <a href="Redux源码分析.html">
-            
-                    
-                    Redux源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="2.4" data-path="axios源码分析.html">
-            
-                <a href="axios源码分析.html">
-            
-                    
-                    axios源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter active" data-level="2.5" data-path="koa源码分析.html">
-            
-                <a href="koa源码分析.html">
-            
-                    
-                    koa源码分析.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-    
-        
-        <li class="header">知识点</li>
-        
-        
-    
-        <li class="chapter " data-level="3.1" data-path="../知识点/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2" >
-            
-                <span>
-            
-                    
-                    CSS
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.2.1" data-path="../知识点/CSS/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.2" data-path="../知识点/CSS/CSS3.md">
-            
-                <span>
-            
-                    
-                    CSS3.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.3" data-path="../知识点/CSS/分辨率.md">
-            
-                <span>
-            
-                    
-                    分辨率.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.4" data-path="../知识点/CSS/基础知识.md">
-            
-                <span>
-            
-                    
-                    基础知识.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.5" data-path="../知识点/CSS/性能优化.md">
-            
-                <span>
-            
-                    
-                    性能优化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.6" data-path="../知识点/CSS/核心知识.md">
-            
-                <span>
-            
-                    
-                    核心知识.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.7" data-path="../知识点/CSS/编写样式表.md">
-            
-                <span>
-            
-                    
-                    编写样式表.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.2.8" data-path="../知识点/CSS/选择器.md">
-            
-                <span>
-            
-                    
-                    选择器.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3" >
-            
-                <span>
-            
-                    
-                    HTML
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.3.1" data-path="../知识点/HTML/HTML.md">
-            
-                <span>
-            
-                    
-                    HTML.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3.2" data-path="../知识点/HTML/SEO优化.md">
-            
-                <span>
-            
-                    
-                    SEO优化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.3.3" data-path="../知识点/HTML/Web Components.md">
-            
-                <span>
-            
-                    
-                    Web Components.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4" >
-            
-                <span>
-            
-                    
-                    JavaScript
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.4.1" data-path="../知识点/JavaScript/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.2" data-path="../知识点/JavaScript/Canvas.md">
-            
-                <span>
-            
-                    
-                    Canvas.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.3" data-path="../知识点/JavaScript/DOM和BOM.md">
-            
-                <span>
-            
-                    
-                    DOM和BOM.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.4" data-path="../知识点/JavaScript/ECMAScript.md">
-            
-                <span>
-            
-                    
-                    ECMAScript.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.5" data-path="../知识点/JavaScript/EventLoop.md">
-            
-                <span>
-            
-                    
-                    EventLoop.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.6" data-path="../知识点/JavaScript/NodeJS.md">
-            
-                <span>
-            
-                    
-                    NodeJS.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.7" data-path="../知识点/JavaScript/TypeScript.md">
-            
-                <span>
-            
-                    
-                    TypeScript.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.8" data-path="../知识点/JavaScript/Worker.md">
-            
-                <span>
-            
-                    
-                    Worker.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.9" data-path="../知识点/JavaScript/函数式编程.md">
-            
-                <span>
-            
-                    
-                    函数式编程.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.10" data-path="../知识点/JavaScript/原型.md">
-            
-                <span>
-            
-                    
-                    原型.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.11" data-path="../知识点/JavaScript/数据类型.md">
-            
-                <span>
-            
-                    
-                    数据类型.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.12" data-path="../知识点/JavaScript/正则.md">
-            
-                <span>
-            
-                    
-                    正则.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.13" data-path="../知识点/JavaScript/装饰器.md">
-            
-                <span>
-            
-                    
-                    装饰器.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.4.14" data-path="../知识点/JavaScript/运算符.md">
-            
-                <span>
-            
-                    
-                    运算符.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5" >
-            
-                <span>
-            
-                    
-                    业务相关
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.5.1" data-path="../知识点/业务相关/Babel.md">
-            
-                <span>
-            
-                    
-                    Babel.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.2" data-path="../知识点/业务相关/CI.md">
-            
-                <span>
-            
-                    
-                    CI.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.3" data-path="../知识点/业务相关/Docker.md">
-            
-                <span>
-            
-                    
-                    Docker.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.4" data-path="../知识点/业务相关/git.md">
-            
-                <span>
-            
-                    
-                    git.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.5" data-path="../知识点/业务相关/mock.md">
-            
-                <span>
-            
-                    
-                    mock.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.6" data-path="../知识点/业务相关/npm.md">
-            
-                <span>
-            
-                    
-                    npm.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.7" data-path="../知识点/业务相关/webpack.md">
-            
-                <span>
-            
-                    
-                    webpack.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.8" data-path="../知识点/业务相关/web安全.md">
-            
-                <span>
-            
-                    
-                    web安全.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.9" data-path="../知识点/业务相关/前端工程化.md">
-            
-                <span>
-            
-                    
-                    前端工程化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.10" data-path="../知识点/业务相关/单元测试.md">
-            
-                <span>
-            
-                    
-                    单元测试.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.11" data-path="../知识点/业务相关/性能优化.md">
-            
-                <span>
-            
-                    
-                    性能优化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.12" data-path="../知识点/业务相关/数据埋点.md">
-            
-                <span>
-            
-                    
-                    数据埋点.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.13" data-path="../知识点/业务相关/模块化.md">
-            
-                <span>
-            
-                    
-                    模块化.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.14" data-path="../知识点/业务相关/类前端业务.md">
-            
-                <span>
-            
-                    
-                    类前端业务.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.15" data-path="../知识点/业务相关/调试.md">
-            
-                <span>
-            
-                    
-                    调试.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.5.16" data-path="../知识点/业务相关/错误上报.md">
-            
-                <span>
-            
-                    
-                    错误上报.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6" >
-            
-                <span>
-            
-                    
-                    库与框架
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="3.6.1" data-path="../知识点/库与框架/README.md">
-            
-                <span>
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.2" data-path="../知识点/库与框架/Chrome扩展程序.md">
-            
-                <span>
-            
-                    
-                    Chrome扩展程序.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.3" data-path="../知识点/库与框架/Electron.md">
-            
-                <span>
-            
-                    
-                    Electron.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.4" data-path="../知识点/库与框架/Immutable.md">
-            
-                <span>
-            
-                    
-                    Immutable.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.5" data-path="../知识点/库与框架/React.md">
-            
-                <span>
-            
-                    
-                    React.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.6" data-path="../知识点/库与框架/Vue.md">
-            
-                <span>
-            
-                    
-                    Vue.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.7" data-path="../知识点/库与框架/Vuex.md">
-            
-                <span>
-            
-                    
-                    Vuex.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.8" data-path="../知识点/库与框架/diff算法.md">
-            
-                <span>
-            
-                    
-                    diff算法.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.9" data-path="../知识点/库与框架/单页面应用Router.md">
-            
-                <span>
-            
-                    
-                    单页面应用Router.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.10" data-path="../知识点/库与框架/微信小程序.md">
-            
-                <span>
-            
-                    
-                    微信小程序.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="3.6.11" data-path="../知识点/库与框架/技术选型.md">
-            
-                <span>
-            
-                    
-                    技术选型.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-
-    
-        
-        <li class="header">面试</li>
-        
-        
-    
-        <li class="chapter " data-level="4.1" data-path="../面试/">
-            
-                <a href="../面试/">
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2" >
-            
-                <span>
-            
-                    
-                    面试记录
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="4.2.1" data-path="../面试/面试记录/2017_DaE.html">
-            
-                <a href="../面试/面试记录/2017_DaE.html">
-            
-                    
-                    2017_DaE.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.2" data-path="../面试/面试记录/2017_TE.html">
-            
-                <a href="../面试/面试记录/2017_TE.html">
-            
-                    
-                    2017_TE.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.3" data-path="../面试/面试记录/2018_AYLDM.html">
-            
-                <a href="../面试/面试记录/2018_AYLDM.html">
-            
-                    
-                    2018_AYLDM.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.4" data-path="../面试/面试记录/2018_HDJR.html">
-            
-                <a href="../面试/面试记录/2018_HDJR.html">
-            
-                    
-                    2018_HDJR.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.5" data-path="../面试/面试记录/2018_MD.html">
-            
-                <a href="../面试/面试记录/2018_MD.html">
-            
-                    
-                    2018_MD.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.6" data-path="../面试/面试记录/2018_PAKJ.html">
-            
-                <a href="../面试/面试记录/2018_PAKJ.html">
-            
-                    
-                    2018_PAKJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.7" data-path="../面试/面试记录/2018_QKCJ.html">
-            
-                <a href="../面试/面试记录/2018_QKCJ.html">
-            
-                    
-                    2018_QKCJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.8" data-path="../面试/面试记录/2018_SFWY.html">
-            
-                <a href="../面试/面试记录/2018_SFWY.html">
-            
-                    
-                    2018_SFWY.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.9" data-path="../面试/面试记录/2018_TW.html">
-            
-                <a href="../面试/面试记录/2018_TW.html">
-            
-                    
-                    2018_TW.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.10" data-path="../面试/面试记录/2018_YHKJ.html">
-            
-                <a href="../面试/面试记录/2018_YHKJ.html">
-            
-                    
-                    2018_YHKJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.11" data-path="../面试/面试记录/2018_YSKJ.html">
-            
-                <a href="../面试/面试记录/2018_YSKJ.html">
-            
-                    
-                    2018_YSKJ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.12" data-path="../面试/面试记录/2018_Z8.html">
-            
-                <a href="../面试/面试记录/2018_Z8.html">
-            
-                    
-                    2018_Z8.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.13" data-path="../面试/面试记录/2019_BCZ.html">
-            
-                <a href="../面试/面试记录/2019_BCZ.html">
-            
-                    
-                    2019_BCZ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.14" data-path="../面试/面试记录/2019_HKJT.html">
-            
-                <a href="../面试/面试记录/2019_HKJT.html">
-            
-                    
-                    2019_HKJT.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.15" data-path="../面试/面试记录/2019_JRTT.html">
-            
-                <a href="../面试/面试记录/2019_JRTT.html">
-            
-                    
-                    2019_JRTT.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.16" data-path="../面试/面试记录/2019_LDS.html">
-            
-                <a href="../面试/面试记录/2019_LDS.html">
-            
-                    
-                    2019_LDS.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.17" data-path="../面试/面试记录/2019_QEXR.html">
-            
-                <a href="../面试/面试记录/2019_QEXR.html">
-            
-                    
-                    2019_QEXR.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.18" data-path="../面试/面试记录/2019_WBLZ.html">
-            
-                <a href="../面试/面试记录/2019_WBLZ.html">
-            
-                    
-                    2019_WBLZ.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.2.19" data-path="../面试/面试记录/2019_XFLX.html">
-            
-                <a href="../面试/面试记录/2019_XFLX.html">
-            
-                    
-                    2019_XFLX.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3" >
-            
-                <span>
-            
-                    
-                    面试题
-            
-                </span>
-            
-
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="4.3.1" data-path="../面试/面试题/">
-            
-                <a href="../面试/面试题/">
-            
-                    
-                    README.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.2" data-path="../面试/面试题/CSS.html">
-            
-                <a href="../面试/面试题/CSS.html">
-            
-                    
-                    CSS.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.3" data-path="../面试/面试题/DOM.html">
-            
-                <a href="../面试/面试题/DOM.html">
-            
-                    
-                    DOM.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.4" data-path="../面试/面试题/ECMAScript.html">
-            
-                <a href="../面试/面试题/ECMAScript.html">
-            
-                    
-                    ECMAScript.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.5" data-path="../面试/面试题/HTML.html">
-            
-                <a href="../面试/面试题/HTML.html">
-            
-                    
-                    HTML.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.6" data-path="../面试/面试题/React.html">
-            
-                <a href="../面试/面试题/React.html">
-            
-                    
-                    React.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.7" data-path="../面试/面试题/Vue.html">
-            
-                <a href="../面试/面试题/Vue.html">
-            
-                    
-                    Vue.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.8" data-path="../面试/面试题/代码实现.html">
-            
-                <a href="../面试/面试题/代码实现.html">
-            
-                    
-                    代码实现.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.9" data-path="../面试/面试题/代码阅读.html">
-            
-                <a href="../面试/面试题/代码阅读.html">
-            
-                    
-                    代码阅读.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.10" data-path="../面试/面试题/其他问题.html">
-            
-                <a href="../面试/面试题/其他问题.html">
-            
-                    
-                    其他问题.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.11" data-path="../面试/面试题/兼容及BUG.html">
-            
-                <a href="../面试/面试题/兼容及BUG.html">
-            
-                    
-                    兼容及BUG.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.12" data-path="../面试/面试题/常见需求.html">
-            
-                <a href="../面试/面试题/常见需求.html">
-            
-                    
-                    常见需求.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.13" data-path="../面试/面试题/算法实现.html">
-            
-                <a href="../面试/面试题/算法实现.html">
-            
-                    
-                    算法实现.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="4.3.14" data-path="../面试/面试题/网络.html">
-            
-                <a href="../面试/面试题/网络.html">
-            
-                    
-                    网络.md
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
-            
-        </li>
-    
-
-    
-
-    <li class="divider"></li>
-
-    <li>
-        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
-        </a>
-    </li>
-</ul>
-
-
-                </nav>
-            
-        
-    </div>
-
-    <div class="book-body">
-        
-            <div class="body-inner">
-                
-                    
-
-<div class="book-header" role="navigation">
-    
-
-    <!-- Title -->
-    <h1>
-        <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >koa源码分析.md</a>
-    </h1>
-</div>
-
-
-
-
-                    <div class="page-wrapper" tabindex="-1" role="main">
-                        <div class="page-inner">
-                            
-<div id="book-search-results">
-    <div class="search-noresults">
-    
-                                <section class="normal markdown-section">
-                                
-                                <h1 id="koa&#x6E90;&#x7801;&#x5206;&#x6790;">koa&#x6E90;&#x7801;&#x5206;&#x6790;</h1>
-<p>koa&#x5BF9;&#x5916;&#x66B4;&#x9732;&#x7684;API&#x5F88;&#x5C11;&#xFF0C;&#x4E5F;&#x5F88;&#x4FBF;&#x4E8E;&#x6211;&#x4EEC;&#x7406;&#x89E3;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;koa&apos;</span>);
-<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa();
-
-app.use(<span class="hljs-keyword">async</span> ctx =&gt; {
-  ctx.body = <span class="hljs-string">&apos;Hello World&apos;</span>;
-});
-
-app.listen(<span class="hljs-number">3000</span>);
-</code></pre>
-<h2 id="application&#x7C7B;">Application&#x7C7B;</h2>
-<p>&#x4ECE;<code>package.json</code>&#x7684;<code>main</code>&#x5B57;&#x6BB5;&#x5F00;&#x59CB;&#xFF0C;&#x627E;&#x5230;&#x6574;&#x4E2A;&#x5E93;&#x7684;&#x5165;&#x53E3;&#x6587;&#x4EF6;<code>lib/application.js</code></p>
-<pre><code class="lang-js"><span class="hljs-comment">// lib/application.js</span>
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Emitter</span> </span>{
-    <span class="hljs-keyword">constructor</span>(options) {
-        <span class="hljs-keyword">super</span>();
-        options = options || {};
-        <span class="hljs-comment">// ...&#x521D;&#x59CB;&#x5316;&#x76F8;&#x5173;&#x53C2;&#x6570;</span>
-        <span class="hljs-keyword">this</span>.middleware = [];
-        <span class="hljs-keyword">this</span>.context = <span class="hljs-built_in">Object</span>.create(context);
-        <span class="hljs-keyword">this</span>.request = <span class="hljs-built_in">Object</span>.create(request); <span class="hljs-comment">// request&#x5305;&#x542B;header&#x3001;url&#x3001;method&#x7B49;&#x591A;&#x4E2A;&#x63A5;&#x53E3;</span>
-        <span class="hljs-keyword">this</span>.response = <span class="hljs-built_in">Object</span>.create(response);<span class="hljs-comment">// response&#x5305;&#x542B;status&#x3001;headers&#x7B49;&#x63A5;&#x53E3;</span>
-    }
-    use(fn) {
-        <span class="hljs-comment">// &#x68C0;&#x6D4B;fn&#x662F;&#x4E0D;&#x662F;&#x5408;&#x683C;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;</span>
-        <span class="hljs-keyword">this</span>.middleware.push(fn);
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-    }
-    <span class="hljs-comment">// &#x901A;&#x8FC7;createServer&#x542F;&#x52A8;&#x4E00;&#x4E2A;node&#x670D;&#x52A1;</span>
-    listen(...args) {
-        <span class="hljs-keyword">const</span> server = http.createServer(<span class="hljs-keyword">this</span>.callback());
-        <span class="hljs-keyword">return</span> server.listen(...args);
-    }
-
-}
-</code></pre>
-<p>&#x5FFD;&#x7565;&#x5927;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4E4B;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x89C1;&#x6574;&#x4E2A;koa&#x6E90;&#x7801;&#x662F;&#x975E;&#x5E38;&#x7CBE;&#x7B80;&#x7684;&#xFF0C;&#x4E3B;&#x8981;&#x5C31;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;<code>Application</code>&#x7C7B;&#xFF0C;&#x6BCF;&#x4E2A;app&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x66B4;&#x9732;&#x4E86;<code>use</code>&#x548C;<code>listen</code>&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;&#x6B64;&#x5916;&#x7531;&#x4E8E;&#x7EE7;&#x627F;&#x4E86;<code>Emitter</code>&#x7C7B;&#xFF0C;app&#x5B9E;&#x4F8B;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8BF8;&#x5982;<code>on</code>&#x3001;<code>emit</code>&#x7B49;&#x4E8B;&#x4EF6;&#x901A;&#x4FE1;&#x65B9;&#x6CD5;&#x3002;</p>
-<p>&#x63A5;&#x4E0B;&#x6765;&#x770B;&#x770B;&#x4F20;&#x5165;<code>http.createServer</code>&#x4E2D;<code>this.callback</code>&#x7684;&#x903B;&#x8F91;</p>
-<h2 id="&#x4E2D;&#x95F4;&#x4EF6;">&#x4E2D;&#x95F4;&#x4EF6;</h2>
-<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Emitter</span> </span>{
-    <span class="hljs-comment">// ...</span>
-    callback() {
-        <span class="hljs-comment">// &#x7EC4;&#x5408;&#x4E2D;&#x95F4;&#x4EF6;</span>
-        <span class="hljs-keyword">const</span> fn = compose(<span class="hljs-keyword">this</span>.middleware);
-        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.listenerCount(<span class="hljs-string">&apos;error&apos;</span>)) <span class="hljs-keyword">this</span>.on(<span class="hljs-string">&apos;error&apos;</span>, <span class="hljs-keyword">this</span>.onerror);
-        <span class="hljs-keyword">const</span> handleRequest = (req, res) =&gt; {
-            <span class="hljs-comment">// `createContext`&#x5C01;&#x88C5;&#x4E86;`http.createServer`&#x4E2D;&#x7684;`request`&#x548C;`response`&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5C06;&#x5176;&#x6302;&#x8F7D;&#x5230;&#x4E86;context&#x4E0A;&#xFF0C;</span>
-            <span class="hljs-comment">// &#x8FD9;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x4E3A;&#x4EC0;&#x4E48;&#x80FD;&#x62FF;&#x5230;`ctx.request`&#x548C;`ctx.response`&#x7684;&#x539F;&#x56E0;</span>
-            <span class="hljs-keyword">const</span> ctx = <span class="hljs-keyword">this</span>.createContext(req, res);
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.handleRequest(ctx, fn);
-        };
-        <span class="hljs-keyword">return</span> handleRequest;
-    }
-    <span class="hljs-comment">// &#x8F85;&#x52A9;&#x51FD;&#x6570;</span>
-    handleRequest(ctx, fnMiddleware) {
-        <span class="hljs-keyword">const</span> res = ctx.res;
-        res.statusCode = <span class="hljs-number">404</span>;
-        <span class="hljs-keyword">const</span> onerror = err =&gt; ctx.onerror(err);
-        <span class="hljs-comment">// respond&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5C01;&#x88C5;&#x4E86;&#x7684;&#x54CD;&#x5E94;&#x5904;&#x7406;&#x51FD;&#x6570;&#xFF0C;&#x5728;&#x5185;&#x90E8;&#x8C03;&#x7528;ctx.resoponse.end(ctx.body)&#x7684;&#x65B9;&#x5F0F;&#x5C06;&#x6570;&#x636E;&#x8FD4;&#x56DE;&#x7ED9;&#x6D4F;&#x89C8;&#x5668;</span>
-        <span class="hljs-keyword">const</span> handleResponse = () =&gt; respond(ctx);
-        onFinished(res, onerror);
-        <span class="hljs-comment">// &#x5F00;&#x59CB;&#x6267;&#x884C;&#x7EC4;&#x5408;&#x540E;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x51FD;&#x6570;</span>
-        <span class="hljs-keyword">return</span> fnMiddleware(ctx).then(handleResponse).catch(onerror);
-    }
-}
-</code></pre>
-<p>&#x53EF;&#x89C1;&#xFF0C;&#x6574;&#x4E2A;&#x6D41;&#x7A0B;&#x5927;&#x81F4;&#x4E3A;</p>
-<ul>
-<li>&#x901A;&#x8FC7;<code>compose(this.middleware)</code>&#x7EC4;&#x5408;&#x4E86;&#x6574;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x94FE;&#xFF0C;&#x8FD4;&#x56DE;<code>fnMiddleware</code></li>
-<li>&#x63A5;&#x6536;&#x5230;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;<code>handleRequest</code>&#xFF0C;<ul>
-<li>&#x9996;&#x5148;&#x8C03;&#x7528;<code>createContext</code>&#x5C01;&#x88C5;&#x672C;&#x6B21;&#x8BF7;&#x6C42;context&#xFF0C;</li>
-<li>&#x7136;&#x540E;&#x8C03;&#x7528;<code>this.handleRequest(ctx, fnMiddleware)</code>&#x5904;&#x7406;&#x672C;&#x6B21;&#x8BF7;&#x6C42;</li>
-</ul>
-</li>
-<li>&#x5904;&#x7406;&#x672C;&#x6B21;&#x8BF7;&#x6C42;&#x7684;&#x5177;&#x4F53;&#x903B;&#x8F91;&#x5728; <code>fnMiddleware(ctx).then(handleResponse).catch(onerror)</code>&#x4E2D;</li>
-</ul>
-<p>&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x76EE;&#x524D;&#x53EA;&#x9700;&#x8981;&#x5F04;&#x660E;&#x767D;<code>compose</code>&#x4E2D;&#x7EC4;&#x5408;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5C31;&#x80FD;&#x5927;&#x81F4;&#x4E86;&#x89E3;&#x6574;&#x4E2A;koa&#x7684;&#x5DE5;&#x4F5C;&#x65B9;&#x5F0F;&#x4E86;&#x3002;</p>
-<p>compse&#x662F;&#x5F15;&#x5165;&#x7684;<a href="https://github.com/koajs/compose/blob/master/index.js" target="_blank"><code>koa-compose</code></a>&#xFF0C;&#x5176;&#x5B9E;&#x73B0;&#x5927;&#x81F4;&#x5982;&#x4E0B;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">compose</span>(<span class="hljs-params">middleware</span>) </span>{
-    <span class="hljs-comment">// ...&#x68C0;&#x67E5;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x7C7B;&#x578B;&#xFF1A;middleware&#x5217;&#x8868;&#x5FC5;&#x987B;&#x4E3A;&#x6570;&#x7EC4;&#xFF0C;&#x6BCF;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x5FC5;&#x987B;&#x4E3A;&#x51FD;&#x6570;</span>
-
-    <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x7684;&#x5C31;&#x662F;&#x4E0A;&#x9762;&#x7684;fnMiddleware&#xFF0C;&#x6267;&#x884C;fnMiddleware&#x540E;&#x8FD4;&#x56DE;&#x7684;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;promise&#x5BF9;&#x8C61;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context, next</span>) </span>{
-        <span class="hljs-keyword">let</span> index = <span class="hljs-number">-1</span>
-        <span class="hljs-keyword">return</span> dispatch(<span class="hljs-number">0</span>)
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatch</span>(<span class="hljs-params">i</span>) </span>{
-            <span class="hljs-keyword">if</span> (i &lt;= index) <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;next() called multiple times&apos;</span>))
-            index = i
-            <span class="hljs-keyword">let</span> fn = middleware[i]
-            <span class="hljs-comment">// &#x5982;&#x679C;middleware&#x5217;&#x8868;&#x5DF2;&#x7ECF;&#x8C03;&#x7528;&#x5B8C;&#x6BD5;&#xFF0C;&#x5982;&#x679C;&#x4F20;&#x5165;&#x4E86;&#x989D;&#x5916;&#x7684;next&#xFF0C;&#x5219;&#x4E0B;&#x4E00;&#x6B21;&#x4F1A;&#x8C03;&#x7528;next&#x65B9;&#x6CD5;&#xFF0C;</span>
-            <span class="hljs-comment">// &#x53EF;&#x4EE5;&#x770B;&#x89C1;&#x5728;&#x4E0A;&#x9762;&#x7684;fnMiddleware&#x4E2D;&#x6B64;&#x5904;&#x5E76;&#x6CA1;&#x6709;&#x4F20;&#x503C;</span>
-            <span class="hljs-keyword">if</span> (i === middleware.length) fn = next
-            <span class="hljs-comment">// &#x5982;&#x679C;&#x65E0;fn&#x4E86;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x4E2D;&#x95F4;&#x4EF6;&#x5DF2;&#x7ECF;&#x4ECE;&#x7B2C;&#x4E00;&#x4E2A;&#x4F9D;&#x6B21;&#x6267;&#x884C;&#x5230;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x4E86;</span>
-            <span class="hljs-keyword">if</span> (!fn) <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            <span class="hljs-keyword">try</span> {
-                <span class="hljs-comment">// &#x628A;ctx&#x548C;next&#x4F20;&#x5165;&#x5230;&#x4E2D;&#x95F4;&#x4EF6;&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x89C1;&#x6211;&#x4EEC;&#x5728;&#x4E2D;&#x95F4;&#x4EF6;&#x4E2D;&#x8C03;&#x7528;&#x7684;next&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;dispatch.bind(null, i + 1))</span>
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(fn(context, dispatch.bind(<span class="hljs-literal">null</span>, i + <span class="hljs-number">1</span>)));
-            } <span class="hljs-keyword">catch</span> (err) {
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(err)
-            }
-        }
-    }
-}
-</code></pre>
-<p>&#x4ECE;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x89C1;&#xFF0C;&#x6BCF;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x7684;&#x683C;&#x5F0F;&#x4E3A;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mid</span>(<span class="hljs-params">ctx, next</span>)</span>{}
-<span class="hljs-comment">// next&#x88AB;&#x5305;&#x88C5;&#x6210;dispatch.bind(null, i + 1))&#x7684;&#x6027;&#x80FD;</span>
-</code></pre>
-<p>&#x5728;&#x4E2D;&#x95F4;&#x4EF6;&#x903B;&#x8F91;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x624B;&#x52A8;&#x8C03;&#x7528;<code>next</code>&#x624D;&#x4F1A;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#xFF1B;&#x6B64;&#x5916;&#x6BCF;&#x4E2A;dispatch&#x8FD4;&#x56DE;&#x7684;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;promise&#xFF0C;&#x56E0;&#x6B64;&#x5982;&#x679C;&#x5E0C;&#x671B;&#x5B9E;&#x73B0;<strong>&#x6D0B;&#x8471;&#x6A21;&#x578B;</strong>&#x7684;&#x4E2D;&#x95F4;&#x4EF6;&#x8C03;&#x7528;&#x987A;&#x5E8F;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x7B49;&#x5F85;dispatch&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x624D;&#x884C;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mid</span>(<span class="hljs-params">ctx, next</span>)</span>{
-    <span class="hljs-keyword">await</span> next() <span class="hljs-comment">// &#x5FC5;&#x987B;&#x5728;&#x6B64;&#x5904;&#x6682;&#x505C;&#x7B49;&#x5F85;&#x4E0B;&#x4E00;&#x4E2A;&#x4E2D;&#x95F4;&#x4EF6;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#xFF0C;&#x5426;&#x5219;&#x4E2D;&#x95F4;&#x4EF6;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x5C31;&#x4F1A;&#x53D1;&#x751F;&#x9519;&#x4E71;</span>
-}
-</code></pre>
-<h2 id="koa-router">koa-router</h2>
-<p>&#x7B80;&#x5355;&#x5B9E;&#x7528;</p>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> Router()
-router.get(<span class="hljs-string">&quot;/&quot;</span>, (ctx,next)=&gt;{})
-router.get(<span class="hljs-string">&quot;/index&quot;</span>, (ctx,next)=&gt;{})
-
-app.use(router.routes()).use(router.allowedMethods())
-</code></pre>
-<p>&#x6211;&#x4EEC;&#x4ECE;<code>package.json</code>&#x4E2D;<code>main</code>&#x5B57;&#x6BB5;&#x627E;&#x5230;&#x5165;&#x53E3;&#x6587;&#x4EF6;</p>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Router</span>(<span class="hljs-params">opts</span>) </span>{
-  <span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> Router)) {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Router(opts);
-  }
-  <span class="hljs-keyword">this</span>.opts = opts || {};
-  <span class="hljs-keyword">this</span>.methods = <span class="hljs-keyword">this</span>.opts.methods || [
-    <span class="hljs-string">&apos;HEAD&apos;</span>,
-    <span class="hljs-string">&apos;OPTIONS&apos;</span>,
-    <span class="hljs-string">&apos;GET&apos;</span>,
-    <span class="hljs-string">&apos;PUT&apos;</span>,
-    <span class="hljs-string">&apos;PATCH&apos;</span>,
-    <span class="hljs-string">&apos;POST&apos;</span>,
-    <span class="hljs-string">&apos;DELETE&apos;</span>
-  ];
-
-  <span class="hljs-keyword">this</span>.params = {};
-  <span class="hljs-keyword">this</span>.stack = [];
-}
-<span class="hljs-comment">// methods&#x5305;&#x542B;[&apos;get&apos;&#x3001;&apos;post&apos;]&#x7B49;&#x591A;&#x79CD;http&#x8BF7;&#x6C42;&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x6B64;&#x5904;&#x5B9E;&#x73B0;&#x5FEB;&#x901F;&#x6CE8;&#x518C;</span>
-methods.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">method</span>) </span>{
-  Router.prototype[method] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name, path, middleware</span>) </span>{
-    <span class="hljs-keyword">var</span> middleware;
-    <span class="hljs-comment">// &#x6536;&#x96C6;&#x8BE5;&#x8DEF;&#x7531;&#x7684;&#x4E2D;&#x95F4;&#x4EF6;</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> path === <span class="hljs-string">&apos;string&apos;</span> || path <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">RegExp</span>) {
-      middleware = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">2</span>);
-    } <span class="hljs-keyword">else</span> {
-      middleware = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>);
-      path = name;
-      name = <span class="hljs-literal">null</span>;
-    }   
-    <span class="hljs-comment">// &#x7EDF;&#x4E00;&#x8C03;&#x7528;`register`&#x65B9;&#x6CD5;</span>
-    <span class="hljs-keyword">this</span>.register(path, [method], middleware, {
-      name: name
-    });
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-  };
-});
-</code></pre>
-<p>&#x7136;&#x540E;&#x770B;&#x770B;<code>this.register</code>&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;</p>
-<pre><code class="lang-js">Router.prototype.register = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">path, methods, middleware, opts</span>) </span>{
-  opts = opts || {};
-
-  <span class="hljs-keyword">var</span> router = <span class="hljs-keyword">this</span>;
-  <span class="hljs-keyword">var</span> stack = <span class="hljs-keyword">this</span>.stack;
-  <span class="hljs-comment">// ...&#x652F;&#x6301;&#x6570;&#x7EC4;&#x7C7B;&#x578B;&#x7684;path</span>
-
-  <span class="hljs-comment">// &#x751F;&#x6210;&#x4E00;&#x4E2A;Route&#x5BF9;&#x8C61;&#xFF0C;route&#x5305;&#x542B;&#x4E00;&#x4E9B;&#x7279;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x65B9;&#x4FBF;&#x901A;&#x8FC7;req.url&#x5339;&#x914D;&#x5230;&#x5B9E;&#x9645;&#x7684;Route&#x5BF9;&#x8C61;</span>
-  <span class="hljs-keyword">var</span> route = <span class="hljs-keyword">new</span> Layer(path, methods, middleware, {
-    end: opts.end === <span class="hljs-literal">false</span> ? opts.end : <span class="hljs-literal">true</span>,
-    name: opts.name,
-    sensitive: opts.sensitive || <span class="hljs-keyword">this</span>.opts.sensitive || <span class="hljs-literal">false</span>,
-    strict: opts.strict || <span class="hljs-keyword">this</span>.opts.strict || <span class="hljs-literal">false</span>,
-    prefix: opts.prefix || <span class="hljs-keyword">this</span>.opts.prefix || <span class="hljs-string">&quot;&quot;</span>,
-    ignoreCaptures: opts.ignoreCaptures
-  });
-
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.opts.prefix) {
-    route.setPrefix(<span class="hljs-keyword">this</span>.opts.prefix);
-  }
-
-  <span class="hljs-comment">// add parameter middleware</span>
-  <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.params).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">param</span>) </span>{
-    route.param(param, <span class="hljs-keyword">this</span>.params[param]);
-  }, <span class="hljs-keyword">this</span>);
-
-  <span class="hljs-comment">// &#x5C06;route&#x5BF9;&#x8C61;&#x4FDD;&#x5B58;&#x8D77;&#x6765;</span>
-  stack.push(route);
-
-  <span class="hljs-keyword">return</span> route;
-};
-</code></pre>
-<p><code>Router.prototype.routes</code></p>
-<pre><code class="lang-js">Router.prototype.routes = Router.prototype.middleware = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">var</span> router = <span class="hljs-keyword">this</span>;
-
-  <span class="hljs-keyword">var</span> dispatch = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatch</span>(<span class="hljs-params">ctx, next</span>) </span>{
-    <span class="hljs-comment">// &#x901A;&#x8FC7;&#x95ED;&#x5305;&#x7EF4;&#x6301;&#x5BF9;&#x4E8E;router&#x7684;&#x5F15;&#x7528;</span>
-    <span class="hljs-keyword">var</span> path = router.opts.routerPath || ctx.routerPath || ctx.path;
-    <span class="hljs-keyword">var</span> matched = router.match(path, ctx.method); <span class="hljs-comment">// &#x627E;&#x5230;&#x5339;&#x914D;&#x7684;route&#x5BF9;&#x8C61;</span>
-    <span class="hljs-keyword">var</span> layerChain, layer, i;
-
-    <span class="hljs-keyword">if</span> (ctx.matched) {
-      ctx.matched.push.apply(ctx.matched, matched.path);
-    } <span class="hljs-keyword">else</span> {
-      ctx.matched = matched.path;
-    }
-
-    ctx.router = router;
-
-    <span class="hljs-keyword">if</span> (!matched.route) <span class="hljs-keyword">return</span> next();
-
-    <span class="hljs-keyword">var</span> matchedLayers = matched.pathAndMethod
-    <span class="hljs-keyword">var</span> mostSpecificLayer = matchedLayers[matchedLayers.length - <span class="hljs-number">1</span>]
-    ctx._matchedRoute = mostSpecificLayer.path;
-    <span class="hljs-keyword">if</span> (mostSpecificLayer.name) {
-      ctx._matchedRouteName = mostSpecificLayer.name;
-    }
-    <span class="hljs-comment">// &#x63D2;&#x5165;&#x4E00;&#x4E9B;&#x7CFB;&#x5217;&#x4E2D;&#x95F4;&#x4EF6;</span>
-    layerChain = matchedLayers.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">memo, layer</span>) </span>{
-      memo.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ctx, next</span>) </span>{
-        ctx.captures = layer.captures(path, ctx.captures);
-        ctx.params = layer.params(path, ctx.captures, ctx.params);
-        ctx.routerName = layer.name;
-        <span class="hljs-keyword">return</span> next();
-      });
-      <span class="hljs-keyword">return</span> memo.concat(layer.stack);
-    }, []);
-    <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x540C;&#x6837;&#x8C03;&#x7528;&#x4E86;koa-compose</span>
-    <span class="hljs-keyword">return</span> compose(layerChain)(ctx, next);
-  };
-
-  dispatch.router = <span class="hljs-keyword">this</span>;
-  <span class="hljs-comment">// &#x7136;&#x540E;&#x4E2D;&#x95F4;&#x4EF6;</span>
-  <span class="hljs-keyword">return</span> dispatch;
-};
-</code></pre>
-<p><code>Router.prototype.allowedMethods</code></p>
-<pre><code class="lang-js">Router.prototype.allowedMethods = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
-  options = options || {};
-  <span class="hljs-keyword">var</span> implemented = <span class="hljs-keyword">this</span>.methods;
-
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">allowedMethods</span>(<span class="hljs-params">ctx, next</span>) </span>{
-    <span class="hljs-keyword">return</span> next().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-      <span class="hljs-keyword">var</span> allowed = {};
-
-      <span class="hljs-keyword">if</span> (!ctx.status || ctx.status === <span class="hljs-number">404</span>) {
-        ctx.matched.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">route</span>) </span>{
-          route.methods.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">method</span>) </span>{
-            allowed[method] = method;
-          });
-        });
-
-        <span class="hljs-keyword">var</span> allowedArr = <span class="hljs-built_in">Object</span>.keys(allowed);
-
-        <span class="hljs-keyword">if</span> (!~implemented.indexOf(ctx.method)) {
-          <span class="hljs-keyword">if</span> (options.throw) {
-            <span class="hljs-keyword">var</span> notImplementedThrowable;
-            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.notImplemented === <span class="hljs-string">&apos;function&apos;</span>) {
-              notImplementedThrowable = options.notImplemented(); <span class="hljs-comment">// set whatever the user returns from their function</span>
-            } <span class="hljs-keyword">else</span> {
-              notImplementedThrowable = <span class="hljs-keyword">new</span> HttpError.NotImplemented();
-            }
-            <span class="hljs-keyword">throw</span> notImplementedThrowable;
-          } <span class="hljs-keyword">else</span> {
-            ctx.status = <span class="hljs-number">501</span>;
-            ctx.set(<span class="hljs-string">&apos;Allow&apos;</span>, allowedArr.join(<span class="hljs-string">&apos;, &apos;</span>));
-          }
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (allowedArr.length) {
-          <span class="hljs-keyword">if</span> (ctx.method === <span class="hljs-string">&apos;OPTIONS&apos;</span>) {
-            ctx.status = <span class="hljs-number">200</span>;
-            ctx.body = <span class="hljs-string">&apos;&apos;</span>;
-            ctx.set(<span class="hljs-string">&apos;Allow&apos;</span>, allowedArr.join(<span class="hljs-string">&apos;, &apos;</span>));
-          } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!allowed[ctx.method]) {
-            <span class="hljs-keyword">if</span> (options.throw) {
-              <span class="hljs-keyword">var</span> notAllowedThrowable;
-              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> options.methodNotAllowed === <span class="hljs-string">&apos;function&apos;</span>) {
-                notAllowedThrowable = options.methodNotAllowed(); <span class="hljs-comment">// set whatever the user returns from their function</span>
-              } <span class="hljs-keyword">else</span> {
-                notAllowedThrowable = <span class="hljs-keyword">new</span> HttpError.MethodNotAllowed();
-              }
-              <span class="hljs-keyword">throw</span> notAllowedThrowable;
-            } <span class="hljs-keyword">else</span> {
-              ctx.status = <span class="hljs-number">405</span>;
-              ctx.set(<span class="hljs-string">&apos;Allow&apos;</span>, allowedArr.join(<span class="hljs-string">&apos;, &apos;</span>));
-            }
-          }
-        }
-      }
-    });
-  };
-};
-</code></pre>
-
-                                
-                                </section>
-                            
-    </div>
-    <div class="search-results">
-        <div class="has-results">
-            
-            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
-            <ul class="search-results-list"></ul>
-            
-        </div>
-        <div class="no-results">
-            
-            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
-            
-        </div>
-    </div>
-</div>
-
-                        </div>
-                    </div>
-                
-            </div>
-
-            
-                
-                <a href="axios源码分析.html" class="navigation navigation-prev " aria-label="Previous page: axios源码分析.md">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                
-                
-                <a href="../知识点/README.md" class="navigation navigation-next " aria-label="Next page: README.md">
-                    <i class="fa fa-angle-right"></i>
-                </a>
-                
-            
-        
-    </div>
-
-    <script>
-        var gitbook = gitbook || [];
-        gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"koa源码分析.md","level":"2.5","depth":1,"next":{"title":"README.md","level":"3.1","depth":1,"path":"知识点/README.md","ref":"./知识点/README.md","articles":[]},"previous":{"title":"axios源码分析.md","level":"2.4","depth":1,"path":"源码分析/axios源码分析.md","ref":"./源码分析/axios源码分析.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"源码分析/koa源码分析.md","mtime":"2021-04-18T09:43:06.207Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-06T06:56:04.240Z"},"basePath":"..","book":{"language":""}});
-        });
-    </script>
-</div>
-
-        
-    <script src="../gitbook/gitbook.js"></script>
-    <script src="../gitbook/theme.js"></script>
-    
-        
-        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
-        
-    
-        
-        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
-        
-    
-
-    </body>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Application类 | Shymean</title>
+    <meta name="description" content="fe">
+    <link rel="stylesheet" href="/assets/style.4eab0d57.css">
+    <link rel="modulepreload" href="/assets/app.946f11db.js">
+    <link rel="modulepreload" href="/assets/源码分析_koa源码分析.md.7e867057.lean.js">
+    
+    <meta name="twitter:title" content="Application类 | Shymean">
+  <meta property="og:title" content="Application类 | Shymean">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme"><header class="nav-bar" data-v-40587210><div class="sidebar-button" data-v-40587210><svg class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z" class></path></svg></div><a class="nav-bar-title" href="/" aria-label="Shymean, back to home" data-v-40587210 data-v-016a8bd8><!----> Shymean</a><div class="flex-grow" data-v-40587210></div><div class="nav" data-v-40587210><nav class="nav-links" data-v-40587210 data-v-35b91e7e><!--[--><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/导读" data-v-49fe041d>导读 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>前端</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/HTML/HTML" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>HTML</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/CSS/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>CSS</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/JavaScript/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>JavaScript</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/库与框架/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>库与框架</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/业务相关/前端工程化" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>业务相关</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item active" href="/源码分析/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>源码分析</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/App/Android" data-v-49fe041d>App <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/后台/README" data-v-49fe041d>后台 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>计算机基础</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/计算机基础/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>计算机基础</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/数据结构和算法/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>数据结构和算法</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/网络/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>网络</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/面试/README" data-v-49fe041d>面试 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/游戏开发/README" data-v-49fe041d>游戏开发 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/读书笔记/README" data-v-49fe041d>读书笔记 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://github.com/tangxiangmin/interview" target="_blank" rel="noopener noreferrer" data-v-49fe041d>github <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://shymean.com" target="_blank" rel="noopener noreferrer" data-v-49fe041d>shymean <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><!--]--><!----><!----></nav></div><!--[--><!--]--></header><aside class="sidebar" data-v-17c48e2f><nav class="nav-links nav" data-v-17c48e2f data-v-35b91e7e><!--[--><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/导读" data-v-49fe041d>导读 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>前端</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/HTML/HTML" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>HTML</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/CSS/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>CSS</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/JavaScript/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>JavaScript</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/库与框架/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>库与框架</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/前端/业务相关/前端工程化" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>业务相关</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item active" href="/源码分析/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>源码分析</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/App/Android" data-v-49fe041d>App <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/后台/README" data-v-49fe041d>后台 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-dropdown-link" data-v-35b91e7e data-v-18d75f62><button class="button" data-v-18d75f62><span class="button-text" data-v-18d75f62>计算机基础</span><span class="right button-arrow" data-v-18d75f62></span></button><ul class="dialog" data-v-18d75f62><!--[--><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/计算机基础/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>计算机基础</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/数据结构和算法/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>数据结构和算法</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><li class="dialog-item" data-v-18d75f62><div class="nav-dropdown-link-item" data-v-18d75f62 data-v-07381bdb><a class="item" href="/网络/README" data-v-07381bdb><span class="arrow" data-v-07381bdb></span><span class="text" data-v-07381bdb>网络</span><span class="icon" data-v-07381bdb><!----></span></a></div></li><!--]--></ul></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/面试/README" data-v-49fe041d>面试 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/游戏开发/README" data-v-49fe041d>游戏开发 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item" href="/读书笔记/README" data-v-49fe041d>读书笔记 <!----></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://github.com/tangxiangmin/interview" target="_blank" rel="noopener noreferrer" data-v-49fe041d>github <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><div class="item" data-v-35b91e7e><div class="nav-link" data-v-35b91e7e data-v-49fe041d><a class="item isExternal" href="https://shymean.com" target="_blank" rel="noopener noreferrer" data-v-49fe041d>shymean <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-49fe041d><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div><!--]--><!----><!----></nav><!--[--><!--]--><ul class="sidebar-links" data-v-17c48e2f><!--[--><li class="sidebar-link"><a class="sidebar-link-item" href="/源码分析/ReactFibler源码分析">ReactFibler源码分析</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/源码分析/React源码分析">React源码分析</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/源码分析/Redux源码分析">Redux源码分析</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="/源码分析/axios源码分析">axios源码分析</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item active" href="/源码分析/koa源码分析">koa源码分析</a><ul class="sidebar-links"><li class="sidebar-link"><a class="sidebar-link-item" href="#application类">Application类</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#中间件">中间件</a><!----></li><li class="sidebar-link"><a class="sidebar-link-item" href="#koa-router">koa-router</a><!----></li></ul></li><!--]--></ul><!--[--><!--]--></aside><div class="sidebar-mask"></div><main class="page" data-v-8fcebc32><div class="container" data-v-8fcebc32><!--[--><!--]--><div style="position:relative;" class="content" data-v-8fcebc32><div><h1 id="koa源码分析" tabindex="-1">koa源码分析 <a class="header-anchor" href="#koa源码分析" aria-hidden="true">#</a></h1><p>koa对外暴露的API很少，也很便于我们理解</p><div class="language-js"><pre><code><span class="token keyword">const</span> Koa <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&#39;koa&#39;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Koa</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token parameter">ctx</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  ctx<span class="token punctuation">.</span>body <span class="token operator">=</span> <span class="token string">&#39;Hello World&#39;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="application类" tabindex="-1">Application类 <a class="header-anchor" href="#application类" aria-hidden="true">#</a></h2><p>从<code>package.json</code>的<code>main</code>字段开始，找到整个库的入口文件<code>lib/application.js</code></p><div class="language-js"><pre><code><span class="token comment">// lib/application.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token keyword">extends</span> <span class="token class-name">Emitter</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        options <span class="token operator">=</span> options <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token comment">// ...初始化相关参数</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>middleware <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>context <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>request <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// request包含header、url、method等多个接口</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>response <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// response包含status、headers等接口</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">use</span><span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 检测fn是不是合格的中间件</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>middleware<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 通过createServer启动一个node服务</span>
+    <span class="token function">listen</span><span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> server <span class="token operator">=</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">callback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+   
+<span class="token punctuation">}</span>
+</code></pre></div><p>忽略大部分代码之后，可以看见整个koa源码是非常精简的，主要就提供了一个<code>Application</code>类，每个app实例对象暴露了<code>use</code>和<code>listen</code>两个方法。此外由于继承了<code>Emitter</code>类，app实例也可以使用诸如<code>on</code>、<code>emit</code>等事件通信方法。</p><p>接下来看看传入<code>http.createServer</code>中<code>this.callback</code>的逻辑</p><h2 id="中间件" tabindex="-1">中间件 <a class="header-anchor" href="#中间件" aria-hidden="true">#</a></h2><div class="language-js"><pre><code><span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token keyword">extends</span> <span class="token class-name">Emitter</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+    <span class="token function">callback</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 组合中间件</span>
+        <span class="token keyword">const</span> fn <span class="token operator">=</span> <span class="token function">compose</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>middleware<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">listenerCount</span><span class="token punctuation">(</span><span class="token string">&#39;error&#39;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">&#39;error&#39;</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>onerror<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">handleRequest</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token comment">// `createContext`封装了`http.createServer`中的`request`和`response`对象，并将其挂载到了context上，</span>
+            <span class="token comment">// 这也是我们为什么能拿到`ctx.request`和`ctx.response`的原因</span>
+            <span class="token keyword">const</span> ctx <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createContext</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleRequest</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> handleRequest<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 辅助函数</span>
+    <span class="token function">handleRequest</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> fnMiddleware</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> res <span class="token operator">=</span> ctx<span class="token punctuation">.</span>res<span class="token punctuation">;</span>
+        res<span class="token punctuation">.</span>statusCode <span class="token operator">=</span> <span class="token number">404</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">onerror</span> <span class="token operator">=</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> ctx<span class="token punctuation">.</span><span class="token function">onerror</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// respond实际上是封装了的响应处理函数，在内部调用ctx.resoponse.end(ctx.body)的方式将数据返回给浏览器</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">handleResponse</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">respond</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">onFinished</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> onerror<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 开始执行组合后的中间件函数</span>
+        <span class="token keyword">return</span> <span class="token function">fnMiddleware</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>handleResponse<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span>onerror<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>可见，整个流程大致为</p><ul><li>通过<code>compose(this.middleware)</code>组合了整个中间件链，返回<code>fnMiddleware</code></li><li>接收到请求时，会调用<code>handleRequest</code>， <ul><li>首先调用<code>createContext</code>封装本次请求context，</li><li>然后调用<code>this.handleRequest(ctx, fnMiddleware)</code>处理本次请求</li></ul></li><li>处理本次请求的具体逻辑在 <code>fnMiddleware(ctx).then(handleResponse).catch(onerror)</code>中</li></ul><p>因此我们目前只需要弄明白<code>compose</code>中组合中间件的方式，就能大致了解整个koa的工作方式了。</p><p>compse是引入的<a href="https://github.com/koajs/compose/blob/master/index.js" target="_blank" rel="noopener noreferrer"><code>koa-compose</code></a>，其实现大致如下</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">compose</span><span class="token punctuation">(</span><span class="token parameter">middleware</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...检查中间件的类型：middleware列表必须为数组，每个中间件必须为函数</span>
+    
+    <span class="token comment">// 返回的就是上面的fnMiddleware，执行fnMiddleware后返回的实际上是一个promise对象</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">context<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        <span class="token keyword">return</span> <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword">function</span> <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;=</span> index<span class="token punctuation">)</span> <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">&#39;next() called multiple times&#39;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            index <span class="token operator">=</span> i
+            <span class="token keyword">let</span> fn <span class="token operator">=</span> middleware<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            <span class="token comment">// 如果middleware列表已经调用完毕，如果传入了额外的next，则下一次会调用next方法，</span>
+            <span class="token comment">// 可以看见在上面的fnMiddleware中此处并没有传值</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">===</span> middleware<span class="token punctuation">.</span>length<span class="token punctuation">)</span> fn <span class="token operator">=</span> next
+            <span class="token comment">// 如果无fn了，则表示中间件已经从第一个依次执行到最后一个中间件了</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>fn<span class="token punctuation">)</span> <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token comment">// 把ctx和next传入到中间件中，可以看见我们在中间件中调用的next实际上就是dispatch.bind(null, i + 1))</span>
+                <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> <span class="token function">dispatch</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> Promise<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>从上面的代码中我们可以看见，每个中间件的格式为</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">mid</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token comment">// next被包装成dispatch.bind(null, i + 1))的性能</span>
+</code></pre></div><p>在中间件逻辑中，需要手动调用<code>next</code>才会执行下一个中间件；此外每个dispatch返回的实际上是一个promise，因此如果希望实现<strong>洋葱模型</strong>的中间件调用顺序，就必须等待dispatch执行完毕才行</p><div class="language-js"><pre><code><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">mid</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">await</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 必须在此处暂停等待下一个中间件执行完毕，否则中间件执行顺序就会发生错乱</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="koa-router" tabindex="-1">koa-router <a class="header-anchor" href="#koa-router" aria-hidden="true">#</a></h2><p>简单实用</p><div class="language-js"><pre><code><span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span>next</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+router<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/index&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span>next</span><span class="token punctuation">)</span><span class="token operator">=&gt;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>router<span class="token punctuation">.</span><span class="token function">routes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>router<span class="token punctuation">.</span><span class="token function">allowedMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><p>我们从<code>package.json</code>中<code>main</code>字段找到入口文件</p><div class="language-js"><pre><code><span class="token keyword">function</span> <span class="token function">Router</span><span class="token punctuation">(</span><span class="token parameter">opts</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token keyword">instanceof</span> <span class="token class-name">Router</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Router</span><span class="token punctuation">(</span>opts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>opts <span class="token operator">=</span> opts <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>methods <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>opts<span class="token punctuation">.</span>methods <span class="token operator">||</span> <span class="token punctuation">[</span>
+    <span class="token string">&#39;HEAD&#39;</span><span class="token punctuation">,</span>
+    <span class="token string">&#39;OPTIONS&#39;</span><span class="token punctuation">,</span>
+    <span class="token string">&#39;GET&#39;</span><span class="token punctuation">,</span>
+    <span class="token string">&#39;PUT&#39;</span><span class="token punctuation">,</span>
+    <span class="token string">&#39;PATCH&#39;</span><span class="token punctuation">,</span>
+    <span class="token string">&#39;POST&#39;</span><span class="token punctuation">,</span>
+    <span class="token string">&#39;DELETE&#39;</span>
+  <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">this</span><span class="token punctuation">.</span>params <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>stack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// methods包含[&#39;get&#39;、&#39;post&#39;]等多种http请求方法，在此处实现快速注册</span>
+methods<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">method</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">Router</span><span class="token punctuation">.</span>prototype<span class="token punctuation">[</span>method<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> path<span class="token punctuation">,</span> middleware</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> middleware<span class="token punctuation">;</span>
+    <span class="token comment">// 收集该路由的中间件</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> path <span class="token operator">===</span> <span class="token string">&#39;string&#39;</span> <span class="token operator">||</span> path <span class="token keyword">instanceof</span> <span class="token class-name">RegExp</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      middleware <span class="token operator">=</span> <span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      middleware <span class="token operator">=</span> <span class="token class-name">Array</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      path <span class="token operator">=</span> name<span class="token punctuation">;</span>
+      name <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>   
+    <span class="token comment">// 统一调用`register`方法</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> <span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">,</span> middleware<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">name</span><span class="token operator">:</span> name
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>然后看看<code>this.register</code>方法的实现</p><div class="language-js"><pre><code><span class="token class-name">Router</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">register</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">path<span class="token punctuation">,</span> methods<span class="token punctuation">,</span> middleware<span class="token punctuation">,</span> opts</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  opts <span class="token operator">=</span> opts <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">var</span> router <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> stack <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>stack<span class="token punctuation">;</span>
+  <span class="token comment">// ...支持数组类型的path</span>
+
+  <span class="token comment">// 生成一个Route对象，route包含一些特定的方法，方便通过req.url匹配到实际的Route对象</span>
+  <span class="token keyword">var</span> route <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Layer</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> methods<span class="token punctuation">,</span> middleware<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">end</span><span class="token operator">:</span> opts<span class="token punctuation">.</span>end <span class="token operator">===</span> <span class="token boolean">false</span> <span class="token operator">?</span> opts<span class="token punctuation">.</span>end <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">name</span><span class="token operator">:</span> opts<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+    <span class="token literal-property property">sensitive</span><span class="token operator">:</span> opts<span class="token punctuation">.</span>sensitive <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>opts<span class="token punctuation">.</span>sensitive <span class="token operator">||</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">strict</span><span class="token operator">:</span> opts<span class="token punctuation">.</span>strict <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>opts<span class="token punctuation">.</span>strict <span class="token operator">||</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">prefix</span><span class="token operator">:</span> opts<span class="token punctuation">.</span>prefix <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>opts<span class="token punctuation">.</span>prefix <span class="token operator">||</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">ignoreCaptures</span><span class="token operator">:</span> opts<span class="token punctuation">.</span>ignoreCaptures
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>opts<span class="token punctuation">.</span>prefix<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    route<span class="token punctuation">.</span><span class="token function">setPrefix</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>opts<span class="token punctuation">.</span>prefix<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// add parameter middleware</span>
+  Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>params<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">param</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    route<span class="token punctuation">.</span><span class="token function">param</span><span class="token punctuation">(</span>param<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>params<span class="token punctuation">[</span>param<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 将route对象保存起来</span>
+  stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>route<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> route<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+</code></pre></div><p><code>Router.prototype.routes</code></p><div class="language-js"><pre><code><span class="token class-name">Router</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>routes <span class="token operator">=</span> <span class="token class-name">Router</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">middleware</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> router <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">var</span> <span class="token function-variable function">dispatch</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 通过闭包维持对于router的引用</span>
+    <span class="token keyword">var</span> path <span class="token operator">=</span> router<span class="token punctuation">.</span>opts<span class="token punctuation">.</span>routerPath <span class="token operator">||</span> ctx<span class="token punctuation">.</span>routerPath <span class="token operator">||</span> ctx<span class="token punctuation">.</span>path<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> matched <span class="token operator">=</span> router<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> ctx<span class="token punctuation">.</span>method<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 找到匹配的route对象</span>
+    <span class="token keyword">var</span> layerChain<span class="token punctuation">,</span> layer<span class="token punctuation">,</span> i<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>matched<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ctx<span class="token punctuation">.</span>matched<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>matched<span class="token punctuation">,</span> matched<span class="token punctuation">.</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      ctx<span class="token punctuation">.</span>matched <span class="token operator">=</span> matched<span class="token punctuation">.</span>path<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    ctx<span class="token punctuation">.</span>router <span class="token operator">=</span> router<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>matched<span class="token punctuation">.</span>route<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> matchedLayers <span class="token operator">=</span> matched<span class="token punctuation">.</span>pathAndMethod
+    <span class="token keyword">var</span> mostSpecificLayer <span class="token operator">=</span> matchedLayers<span class="token punctuation">[</span>matchedLayers<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
+    ctx<span class="token punctuation">.</span>_matchedRoute <span class="token operator">=</span> mostSpecificLayer<span class="token punctuation">.</span>path<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>mostSpecificLayer<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ctx<span class="token punctuation">.</span>_matchedRouteName <span class="token operator">=</span> mostSpecificLayer<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 插入一些系列中间件</span>
+    layerChain <span class="token operator">=</span> matchedLayers<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">memo<span class="token punctuation">,</span> layer</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      memo<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ctx<span class="token punctuation">.</span>captures <span class="token operator">=</span> layer<span class="token punctuation">.</span><span class="token function">captures</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> ctx<span class="token punctuation">.</span>captures<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ctx<span class="token punctuation">.</span>params <span class="token operator">=</span> layer<span class="token punctuation">.</span><span class="token function">params</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> ctx<span class="token punctuation">.</span>captures<span class="token punctuation">,</span> ctx<span class="token punctuation">.</span>params<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ctx<span class="token punctuation">.</span>routerName <span class="token operator">=</span> layer<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> memo<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>layer<span class="token punctuation">.</span>stack<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 这里同样调用了koa-compose</span>
+    <span class="token keyword">return</span> <span class="token function">compose</span><span class="token punctuation">(</span>layerChain<span class="token punctuation">)</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> next<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  dispatch<span class="token punctuation">.</span>router <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+  <span class="token comment">// 然后中间件</span>
+  <span class="token keyword">return</span> dispatch<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+</code></pre></div><p><code>Router.prototype.allowedMethods</code></p><div class="language-js"><pre><code><span class="token class-name">Router</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">allowedMethods</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  options <span class="token operator">=</span> options <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> implemented <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>methods<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">allowedMethods</span><span class="token punctuation">(</span><span class="token parameter">ctx<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> allowed <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ctx<span class="token punctuation">.</span>status <span class="token operator">||</span> ctx<span class="token punctuation">.</span>status <span class="token operator">===</span> <span class="token number">404</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ctx<span class="token punctuation">.</span>matched<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">route</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          route<span class="token punctuation">.</span>methods<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">method</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            allowed<span class="token punctuation">[</span>method<span class="token punctuation">]</span> <span class="token operator">=</span> method<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">var</span> allowedArr <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>allowed<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token operator">~</span>implemented<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>method<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>throw<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> notImplementedThrowable<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> options<span class="token punctuation">.</span>notImplemented <span class="token operator">===</span> <span class="token string">&#39;function&#39;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              notImplementedThrowable <span class="token operator">=</span> options<span class="token punctuation">.</span><span class="token function">notImplemented</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// set whatever the user returns from their function</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              notImplementedThrowable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpError<span class="token punctuation">.</span>NotImplemented</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">throw</span> notImplementedThrowable<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            ctx<span class="token punctuation">.</span>status <span class="token operator">=</span> <span class="token number">501</span><span class="token punctuation">;</span>
+            ctx<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">&#39;Allow&#39;</span><span class="token punctuation">,</span> allowedArr<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&#39;, &#39;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>allowedArr<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>method <span class="token operator">===</span> <span class="token string">&#39;OPTIONS&#39;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ctx<span class="token punctuation">.</span>status <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">;</span>
+            ctx<span class="token punctuation">.</span>body <span class="token operator">=</span> <span class="token string">&#39;&#39;</span><span class="token punctuation">;</span>
+            ctx<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">&#39;Allow&#39;</span><span class="token punctuation">,</span> allowedArr<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&#39;, &#39;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>allowed<span class="token punctuation">[</span>ctx<span class="token punctuation">.</span>method<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>throw<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">var</span> notAllowedThrowable<span class="token punctuation">;</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> options<span class="token punctuation">.</span>methodNotAllowed <span class="token operator">===</span> <span class="token string">&#39;function&#39;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                notAllowedThrowable <span class="token operator">=</span> options<span class="token punctuation">.</span><span class="token function">methodNotAllowed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// set whatever the user returns from their function</span>
+              <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                notAllowedThrowable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpError<span class="token punctuation">.</span>MethodNotAllowed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+              <span class="token keyword">throw</span> notAllowedThrowable<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              ctx<span class="token punctuation">.</span>status <span class="token operator">=</span> <span class="token number">405</span><span class="token punctuation">;</span>
+              ctx<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">&#39;Allow&#39;</span><span class="token punctuation">,</span> allowedArr<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">&#39;, &#39;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div></div></div><footer class="page-footer" data-v-8fcebc32 data-v-b65b4b36><div class="edit" data-v-b65b4b36><div class="edit-link" data-v-b65b4b36 data-v-55695e90><!----></div></div><div class="updated" data-v-b65b4b36><!----></div></footer><div class="next-and-prev-link" data-v-8fcebc32 data-v-e65a9748><div class="container" data-v-e65a9748><div class="prev" data-v-e65a9748><a class="link" href="/源码分析/axios源码分析" data-v-e65a9748><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-prev" data-v-e65a9748><path d="M19,11H7.4l5.3-5.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-7,7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.1,0.2-0.1,0.5,0,0.8c0.1,0.1,0.1,0.2,0.2,0.3l7,7c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L7.4,13H19c0.6,0,1-0.4,1-1S19.6,11,19,11z"></path></svg><span class="text" data-v-e65a9748>axios源码分析</span></a></div><div class="next" data-v-e65a9748><!----></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"app_android.md\":\"88eacd24\",\"app_flutter.md\":\"7f564ecd\",\"app_ios.md\":\"4c18063d\",\"app_webview.md\":\"86f7ba86\",\"readme.md\":\"49adce16\",\"index.md\":\"aadab414\",\"前端_css_css3.md\":\"9d989739\",\"前端_css_readme.md\":\"e9d0f855\",\"前端_css_分辨率.md\":\"d1a81e33\",\"前端_css_基础知识.md\":\"bcc288d6\",\"前端_css_性能优化.md\":\"6037e0d5\",\"前端_css_核心知识.md\":\"82830b61\",\"前端_css_编写样式表.md\":\"80820bb7\",\"前端_css_选择器.md\":\"4fe18340\",\"前端_html_html.md\":\"eea121b8\",\"前端_html_seo优化.md\":\"ee33fb47\",\"前端_html_web components.md\":\"c4bcf8d8\",\"前端_html_webassembly.md\":\"777cea40\",\"前端_html_浏览器解析与渲染流程.md\":\"a8a93eda\",\"前端_javascript_canvas.md\":\"46aae565\",\"前端_javascript_dom和bom.md\":\"3638de69\",\"前端_javascript_ecmascript.md\":\"d60fd8be\",\"前端_javascript_eventloop.md\":\"924decd2\",\"前端_javascript_nodejs.md\":\"b7821438\",\"前端_javascript_readme.md\":\"029607f3\",\"前端_javascript_typescript.md\":\"b34ec077\",\"前端_javascript_事件流.md\":\"ebad3727\",\"前端_javascript_函数式编程.md\":\"e97f06af\",\"前端_javascript_原型.md\":\"23b08ebb\",\"前端_javascript_数据类型.md\":\"142d4642\",\"前端_javascript_正则.md\":\"aa4251f4\",\"前端_javascript_运算符.md\":\"e1a8dc1c\",\"前端_readme.md\":\"f1b76e6f\",\"前端_业务相关_ab测试.md\":\"06f39520\",\"前端_业务相关_babel.md\":\"1be9a29d\",\"前端_业务相关_ci.md\":\"a23b9446\",\"前端_业务相关_docker.md\":\"dc0bc011\",\"前端_业务相关_web直播.md\":\"bc4475ce\",\"前端_业务相关_git.md\":\"23566562\",\"前端_业务相关_mock.md\":\"5a8ad29a\",\"前端_业务相关_npm.md\":\"82b6d7be\",\"前端_业务相关_webpack.md\":\"8c8f7832\",\"前端_业务相关_web安全.md\":\"2f72bede\",\"前端_业务相关_前端工程化.md\":\"a5fb99c3\",\"前端_业务相关_单元测试.md\":\"891b3501\",\"前端_业务相关_可视化页面工具.md\":\"67dc2a49\",\"前端_业务相关_微前端.md\":\"5bad2d6c\",\"前端_业务相关_性能优化.md\":\"54e2e6f2\",\"前端_业务相关_数据埋点.md\":\"e341e9d8\",\"前端_业务相关_模块化.md\":\"ab800ad9\",\"前端_业务相关_类前端业务.md\":\"23a0f9a3\",\"前端_业务相关_调试.md\":\"87d0349d\",\"前端_业务相关_跨端.md\":\"664bbb37\",\"前端_库与框架_chrome扩展程序.md\":\"4e4e43f7\",\"前端_库与框架_electron.md\":\"ecac288b\",\"前端_库与框架_immutable.md\":\"d6a033f2\",\"前端_库与框架_readme.md\":\"9a25cc50\",\"前端_库与框架_react.md\":\"7a4befbb\",\"前端_库与框架_rxjs.md\":\"318f2e4a\",\"前端_库与框架_svelet.md\":\"ce72c922\",\"前端_库与框架_vue.md\":\"fbbda928\",\"前端_库与框架_vuex.md\":\"f142f41b\",\"前端_库与框架_diff算法.md\":\"c17466da\",\"前端_库与框架_几种框架的对比.md\":\"4b7ff044\",\"前端_库与框架_单页面应用router.md\":\"699f9a23\",\"前端_库与框架_微信小程序.md\":\"d382cf0b\",\"前端_库与框架_技术选型.md\":\"aea8d481\",\"后台_clickhouse.md\":\"8bf72810\",\"后台_java.md\":\"5d578169\",\"后台_mongodb.md\":\"f20bee13\",\"后台_mysql.md\":\"5579460e\",\"后台_php.md\":\"bb2f3dfc\",\"后台_readme.md\":\"a7fe6628\",\"后台_restful.md\":\"a6d17b21\",\"导读.md\":\"b62bd81e\",\"数据结构和算法_readme.md\":\"9b72aee6\",\"数据结构和算法_动态规划.md\":\"08ad7e65\",\"数据结构和算法_基本数据结构.md\":\"7d240f09\",\"数据结构和算法_基本算法.md\":\"0f1efe93\",\"数据结构和算法_栈.md\":\"5a141448\",\"游戏开发_readme.md\":\"1bd1e015\",\"游戏开发_tiledmap教程汇总.md\":\"a78eb64e\",\"游戏开发_技能系统.md\":\"ee5a565f\",\"游戏开发_游戏开发之前的准备.md\":\"beef52cc\",\"游戏开发_游戏类型.md\":\"5122a88e\",\"源码分析_readme.md\":\"1261ca68\",\"源码分析_reactfibler源码分析.md\":\"cb3a8df5\",\"源码分析_react源码分析.md\":\"973fb801\",\"源码分析_redux源码分析.md\":\"e569c73b\",\"源码分析_axios源码分析.md\":\"b45075a0\",\"源码分析_koa源码分析.md\":\"7e867057\",\"网络_dns.md\":\"21607a28\",\"网络_http.md\":\"29763526\",\"网络_nginx.md\":\"0f55e3eb\",\"网络_readme.md\":\"4f1359e7\",\"网络_rpc.md\":\"769592fb\",\"网络_前端网络请求.md\":\"e7650483\",\"网络_抓包.md\":\"f4ff7da3\",\"计算机基础_readme.md\":\"2ce2bef9\",\"计算机基础_操作系统.md\":\"d47ce3bd\",\"计算机基础_编译原理.md\":\"83723f03\",\"计算机基础_计算机网络.md\":\"51deb230\",\"计算机基础_软件工程.md\":\"8552319d\",\"读书笔记_readme.md\":\"c56c8a78\",\"读书笔记_如何阅读一本书.md\":\"95acaa0e\",\"面试_readme.md\":\"3fdb19fd\",\"面试_面试记录_2017_dae.md\":\"3ee342dc\",\"面试_面试记录_2017_te.md\":\"bc8cba12\",\"面试_面试记录_2018_ayldm.md\":\"09fd23e2\",\"面试_面试记录_2018_hdjr.md\":\"e4b7b8cd\",\"面试_面试记录_2018_md.md\":\"4e3693ef\",\"面试_面试记录_2018_pakj.md\":\"c3deb803\",\"面试_面试记录_2018_qkcj.md\":\"5236db39\",\"面试_面试记录_2018_sfwy.md\":\"dfec2361\",\"面试_面试记录_2018_tw.md\":\"2e712294\",\"面试_面试记录_2018_yhkj.md\":\"0a93cc3b\",\"面试_面试记录_2018_yskj.md\":\"bdfd1d0c\",\"面试_面试记录_2018_z8.md\":\"520cdfeb\",\"面试_面试记录_2019_bcz.md\":\"9b4ca3e6\",\"面试_面试记录_2019_hkjt.md\":\"08ed2c29\",\"面试_面试记录_2019_jrtt.md\":\"64387aac\",\"面试_面试记录_2019_lds.md\":\"0814bbac\",\"面试_面试记录_2019_qexr.md\":\"c7330531\",\"面试_面试记录_2019_wblz.md\":\"c4a597d8\",\"面试_面试记录_2019_xflx.md\":\"ccc21ace\",\"面试_面试题_css.md\":\"2f456c7e\",\"面试_面试题_dom.md\":\"6441fea4\",\"面试_面试题_ecmascript.md\":\"3c852470\",\"面试_面试题_html.md\":\"3d8879c0\",\"面试_面试题_readme.md\":\"68edd278\",\"面试_面试题_react.md\":\"290ae939\",\"面试_面试题_vue.md\":\"9076be2f\",\"面试_面试题_代码实现.md\":\"c845b9a2\",\"面试_面试题_代码阅读.md\":\"6cea6994\",\"面试_面试题_其他问题.md\":\"79ba15a0\",\"面试_面试题_兼容及bug.md\":\"3d439627\",\"面试_面试题_常见需求.md\":\"fd736d8a\",\"面试_面试题_算法实现.md\":\"1321d2da\",\"面试_面试题_网络.md\":\"baf75f4a\"}")</script>
+    <script type="module" async src="/assets/app.946f11db.js"></script>
+    
+  </body>
 </html>
-
