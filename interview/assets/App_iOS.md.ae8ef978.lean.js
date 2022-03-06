@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a,a as o}from"./app.4b5e9613.js";const u='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"App/iOS.md"}',s={},r=o("p",null,"\u6B22\u8FCE\u6765\u5230iOS\u5F00\u53D1",-1),c=[r];function n(_,i,p,d,l,f){return a(),t("div",null,c)}var h=e(s,[["render",n]]);export{u as __pageData,h as default};
