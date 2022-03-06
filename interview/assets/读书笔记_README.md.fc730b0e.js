@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,a as o}from"./app.4b5e9613.js";const u='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"\u8BFB\u4E66\u7B14\u8BB0/README.md"}',s={},r=o("p",null,"\u5404\u79CD\u4E66\u7C4D\u7684\u9605\u8BFB\u7B14\u8BB0",-1),c=[r];function n(_,d,i,p,l,f){return a(),t("div",null,c)}var h=e(s,[["render",n]]);export{u as __pageData,h as default};

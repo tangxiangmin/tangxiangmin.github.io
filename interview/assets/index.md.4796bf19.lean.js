@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as n,b as r}from"./app.4b5e9613.js";const g='{"title":"vitepress","description":"","frontmatter":{},"headers":[{"level":2,"title":"vitepress","slug":"vitepress"}],"relativePath":"index.md"}',a={},i=r("",6),s=[i];function o(d,c,p,_,l,h){return n(),t("div",null,s)}var u=e(a,[["render",o]]);export{g as __pageData,u as default};
