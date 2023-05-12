@@ -1,1 +1,0 @@
-import{_ as t,c as e,o as a,a as r}from"./app.062798f6.js";const m='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"App/Flutter.md"}',o={},s=r("p",null,"flutter",-1),c=[s];function n(_,l,p,d,i,u){return a(),e("div",null,c)}var h=t(o,[["render",n]]);export{m as __pageData,h as default};

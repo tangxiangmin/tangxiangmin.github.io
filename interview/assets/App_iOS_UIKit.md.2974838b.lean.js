@@ -1,0 +1,1 @@
+import{_ as t,c as e,o,a}from"./app.2f94c7c4.js";const u='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"App/iOS/UIKit.md"}',s={},r=a("p",null,"todo",-1),c=[r];function n(_,i,p,d,l,f){return o(),e("div",null,c)}var h=t(s,[["render",n]]);export{u as __pageData,h as default};
