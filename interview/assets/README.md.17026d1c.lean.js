@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as n,b as i}from"./app.2f94c7c4.js";const u='{"title":"gitbook","description":"","frontmatter":{},"headers":[{"level":2,"title":"gitbook","slug":"gitbook"}],"relativePath":"README.md"}',a={},r=i("",7),o=[r];function d(s,c,p,_,h,l){return n(),t("div",null,o)}var m=e(a,[["render",d]]);export{u as __pageData,m as default};

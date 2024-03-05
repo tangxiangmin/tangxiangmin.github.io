@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as r,b as n}from"./app.2f94c7c4.js";const u='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"\u524D\u7AEF/\u524D\u7AEF\u5DE5\u7A0B\u5316/\u5FAE\u524D\u7AEF.md"}',i={},a=n("",6),o=[a];function c(p,s,l,_,m,h){return r(),t("div",null,o)}var d=e(i,[["render",c]]);export{u as __pageData,d as default};

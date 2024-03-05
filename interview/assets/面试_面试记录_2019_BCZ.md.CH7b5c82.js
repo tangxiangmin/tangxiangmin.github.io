@@ -1,0 +1,26 @@
+import{_ as a,c as s,o as n,a2 as p}from"./chunks/framework.DLPB9-dE.js";const b=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"面试/面试记录/2019_BCZ.md","filePath":"面试/面试记录/2019_BCZ.md","lastUpdated":1582719420000}'),l={name:"面试/面试记录/2019_BCZ.md"},e=p(`<h2 id="在线笔试" tabindex="-1">在线笔试 <a class="header-anchor" href="#在线笔试" aria-label="Permalink to &quot;在线笔试&quot;">​</a></h2><p>发了一个牛客网的链接，里面包含一道题，大致要求将<code>aaabbcdd</code>转换为<code>a3b2cd2</code>的形式，使用两个游标和一个计数器，一次遍历实现，空间O(1)，时间复杂O(n)。</p><p>大概过了几天时间收到了面试邀请，约了个具体时间</p><h2 id="面试" tabindex="-1">面试 <a class="header-anchor" href="#面试" aria-label="Permalink to &quot;面试&quot;">​</a></h2><p>等了一会，感觉环境挺好的。</p><ul><li>简单介绍一下自己？然后问了下年前裸辞慌不慌，哈哈</li><li>解释一下JS中的作用域链？然后手写代码，如何实现一个对象的私有变量</li><li>解释一下原型链？构造函数的原型是什么（回答一个包含constructor的对象）？如何通过原型链实现继承？这些方式有什么缺点？constructor丢失了如何处理?</li><li>函数的this?箭头函数的this？</li><li>了解HTTP吗？get和post有什么区别？主要回答了语义和参数的区别？然后追问了他们的作用，回答一个是获取数据，一个是提交数据</li><li>HTTP属于哪一层的协议？为什么要使用TCP而不是UDP作为传输层?应用层也可以实现数据精度要求这些功能，除此之外还有其他原因吗？这个确实没有思考过...</li><li>操作系统了解吗？呃这个...然后问了下什么是线程</li><li>React中state和prop的区别?state更新之后内部更新流程？如何避免不必要的更新？shouldComponentUpdate是如何如何控制避免重新更新的？</li><li>浏览器页面跳转从1-&gt;2-&gt;3，如何在点击返回键时从3直接返回到1，这里刚开始直接回答的<code>history.go</code>，面试官说怎么监听浏览器返回如ios侧滑呢？然后想到了<code>popstate</code>事件，回答了在前面前进页面时使用pushState和replaceState，然后在popstate事件中调用history.go</li><li>sessionStorage和localStorage的区别？介绍一下浏览器中的事件执行顺序，多个事件目标注册事件的优化方案？回答事件委托及其优点。</li><li>你做过的最有成就感的项目是什么？然后回答了大促模板，介绍了实现细节、性能瓶颈、如何优化等问题。然后问了如果是无限列表的展示如何进行性能优化，回答使用窗口化复用DOM节点。</li><li>手写一道算法题，把一颗已存在的二叉树更新为另外一颗二叉树，主要是考察递归和边界判断</li><li>有什么要问的？然后问了下工作内容，面试官说他也不清楚[/捂脸]说后面可以问HR。然后还问了团队规模，是按项目组来划分的，一个项目组大概有三四个前端。</li></ul><p>最后说今天面试差不多就到这里了（跟面试邮件上说的差不多，大概一个小时），然后回去等通知。</p><p>工作描述上写的精通Vue，但是整个面试过程中貌似都没有提问，感觉主要是考察基础知识。</p><h2 id="二面" tabindex="-1">二面 <a class="header-anchor" href="#二面" aria-label="Permalink to &quot;二面&quot;">​</a></h2><p>上周五面试，今天周一收到了二面通知，然后约了个面试时间。</p><p>这一轮居然有三个面试官，有一个临时有事，改成两个人面了</p><ul><li>介绍一下自己的工作经历</li><li>你们公司前端为什么写NodeJS？最大QPS多少？一般用几台机器？</li><li>能介绍一下用到的thrift协议吗？他是如何把JSON转换为二进制的呢？嵌套的JSON对象是如何转换的呢？大概说了一下thrift的node版本的使用和编译</li><li>看你写了抓包工具，介绍一下HTTP协议？回答了报文的一些基本信息，然后问了两个问题：浏览器后面带get参数为什么要进行encode处理？回车符、空格编码是什么？这里感觉答的不好，后面查了一下貌似是为了符合url规范，很多字符其实是不能出现在url中的</li><li>做几道题</li></ul><p>第一题</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span>给定foo(url, callback)方法可以查询某个服务是否正常，callback接收返回结果。</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>现给定一堆需要验证的服务urls列表，要求实现按顺序查询服务</span></span>
+<span class="line"><span>* 如果服务返回正常，则查询下一个服务，最后通知成功</span></span>
+<span class="line"><span>* 服务服务返回异常，则直接通知失败</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>function check(urls, callback2){</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>然后实现另外一个版本，并行查询所有服务</span></span>
+<span class="line"><span>* 所有服务都正常，则通知成功</span></span>
+<span class="line"><span>* 只要有一个服务失败，则同时失败</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>function check2(urls, callback2){</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>}</span></span></code></pre></div><p>按顺序查询时，通过递归实现，并行查询时，通过计数器实现</p><p>第二题</p><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span>给定一堆输入[1,2,3,5,7]表示周几，对于输入值而言</span></span>
+<span class="line"><span>* 当包含所有值时，输出每天</span></span>
+<span class="line"><span>* 当连续天数超过三天，则输出周几~周几</span></span>
+<span class="line"><span>* 否则输出周几</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>例如[1,2,3,5,7]输出[&#39;周1~周3&#39;,&#39;周5&#39;,&#39;周7&#39;]。实现该方法</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>function covert(arr){</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>}</span></span></code></pre></div><p>使用了两个游标，根据连续天数判断输出值，问了下复杂度多少？回答O(n)</p><p>第三题</p><p>给定一个单div节点，纯CSS实现八卦图，这个答的不是很好，面试官提醒我按水平直径画了一条线，还是没答上来。后面让我下来研究下，说有不止一种方式实现。</p><ul><li>看你简历上写了app开发？然后回答了之前写的weex和flutter的一些东西</li><li>你们现在用什么框架？然后问了下React的问题，两个非兄弟节点之间通信？回答redux或者context，然后问了如何创建context，挂载在哪个节点上之类的。</li></ul><p>然后换另外一个面试官问了一些问题</p><ul><li>你是哪里人...</li><li>为什么要去大连读书？毕了业在哪里工作的？面试官还问我是不是东南造船的，我说在马尾船厂[/捂脸]</li><li>你是怎么转行学习前端的？中间你觉得最大的困难是什么？然后自己巴拉巴拉说了一堆</li><li>然后还问了下高中是哪个学校的...(难不成是老乡...)</li><li>还有其他问题不？大概问了下项目组和工作内容</li></ul><p>最后说今天面试到这里了，会尽快给反馈。</p><p>整个面试大概有四十多分钟（面试邀请上写的30分钟）感觉整体还是有点面试难度，考的问题都不是目前大部分面经里面提到的，几道手写代码题都是几分钟在纸上写出来，幸好今天在状态。</p><h2 id="hr面" tabindex="-1">HR面 <a class="header-anchor" href="#hr面" aria-label="Permalink to &quot;HR面&quot;">​</a></h2><p>约在周六HR面试，大概聊了下工作经历，职业规划啥的，气氛还不错。聊了十几分钟后去跟项目leader讨论了一下，回来直接给我开到了期望的薪资，公司其他福利和氛围都挺好，貌似是个新项目。</p><p>最后打算接受这份offer，</p>`,28),i=[e];function t(c,o,r,d,h,u){return n(),s("div",null,i)}const f=a(l,[["render",t]]);export{b as __pageData,f as default};

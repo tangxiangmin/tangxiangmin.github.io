@@ -1,1 +1,0 @@
-import{_ as e,c as l,o as t,b as r}from"./app.2f94c7c4.js";const s='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"\u7F51\u7EDC/DNS.md"}',a={},i=r("",9),o=[i];function D(n,S,N,_,E,c){return t(),l("div",null,o)}var A=e(a,[["render",D]]);export{s as __pageData,A as default};

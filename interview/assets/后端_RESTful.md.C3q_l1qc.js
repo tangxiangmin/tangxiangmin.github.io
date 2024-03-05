@@ -1,0 +1,14 @@
+import{_ as a,c as s,o as n,a2 as e}from"./chunks/framework.DLPB9-dE.js";const T=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"后端/RESTful.md","filePath":"后端/RESTful.md","lastUpdated":1683863238000}'),p={name:"后端/RESTful.md"},l=e(`<p>参考：</p><ul><li><a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="noreferrer">RESTful API 设计指南</a></li></ul><h2 id="原则" tabindex="-1">原则 <a class="header-anchor" href="#原则" aria-label="Permalink to &quot;原则&quot;">​</a></h2><p>在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的&quot;集合&quot;（collection），所以API中的名词也应该使用复数。</p><h2 id="思考" tabindex="-1">思考 <a class="header-anchor" href="#思考" aria-label="Permalink to &quot;思考&quot;">​</a></h2><p>也就是说，针对某个资源（具体来说是某张表），访问的资源路径（URL）是一样的，通过HTTP请求方式的不同，来达到对应的操作，比如一个<code>admin</code>管理员表</p><ul><li>GET admin 表示获取管理员列表</li><li>POST admin 表示添加管理员</li><li>DELETE admin 表示删除管理员</li></ul><p>比如在前端，可以使用<code>axios</code>发送不同的的HTTP请求方法；在后端，使用<code>Laravel</code>针对具体的URL和不同的请求方法来绑定对应的控制器方法。这需要前后端按照对应的约定来编写请求方式</p><h2 id="例子" tabindex="-1">例子 <a class="header-anchor" href="#例子" aria-label="Permalink to &quot;例子&quot;">​</a></h2><div class="language- vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki shiki-themes github-light github-dark vp-code"><code><span class="line"><span>GET /zoos：列出所有动物园</span></span>
+<span class="line"><span>POST /zoos：新建一个动物园</span></span>
+<span class="line"><span>GET /zoos/ID：获取某个指定动物园的信息</span></span>
+<span class="line"><span>PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）</span></span>
+<span class="line"><span>PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）</span></span>
+<span class="line"><span>DELETE /zoos/ID：删除某个动物园</span></span>
+<span class="line"><span>GET /zoos/ID/animals：列出某个指定动物园的所有动物</span></span>
+<span class="line"><span>DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>?limit=10：指定返回记录的数量</span></span>
+<span class="line"><span>?offset=10：指定返回记录的开始位置。</span></span>
+<span class="line"><span>?page=2&amp;per_page=100：指定第几页，以及每页的记录数。</span></span>
+<span class="line"><span>?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。</span></span>
+<span class="line"><span>?animal_type_id=1：指定筛选条件</span></span></code></pre></div><h2 id="常见误区" tabindex="-1">常见误区 <a class="header-anchor" href="#常见误区" aria-label="Permalink to &quot;常见误区&quot;">​</a></h2><p>RESTful架构有一些典型的设计误区。</p><p>最常见的一种设计错误，就是URI包含动词。因为&quot;资源&quot;表示一种实体，所以应该是名词，URI不应该有动词，动词应该放在HTTP协议中。</p><p>举例来说，某个URI是/posts/show/1，其中show是动词，这个URI就设计错了，正确的写法应该是/posts/1，然后用GET方法表示show。</p>`,14),o=[l];function t(i,c,r,d,h,u){return n(),s("div",null,o)}const m=a(p,[["render",t]]);export{T as __pageData,m as default};

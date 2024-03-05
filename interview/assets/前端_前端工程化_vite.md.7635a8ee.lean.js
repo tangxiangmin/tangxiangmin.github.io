@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a,a as o}from"./app.2f94c7c4.js";const u='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"\u524D\u7AEF/\u524D\u7AEF\u5DE5\u7A0B\u5316/vite.md"}',s={},r=o("p",null,"\u975E\u5E38\u5FEB",-1),c=[r];function n(_,i,d,p,l,f){return a(),t("div",null,c)}var h=e(s,[["render",n]]);export{u as __pageData,h as default};
